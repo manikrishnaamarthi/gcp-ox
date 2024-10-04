@@ -1,0 +1,96 @@
+/* Container for the whole account section */
+.account-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f0f8ff;
+    min-height: 100vh;
+  }
+  
+  /* Header section with back and notification icons */
+  .account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .back-button, .notification-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #007AFF;
+  }
+  
+  /* Profile image and name styling */
+  .account-profile {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  
+  .profile-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Styling for the options */
+  .account-options {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  
+  .option-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+  }
+  
+  .option-item:last-child {
+    border-bottom: none;
+  }
+  
+  .option-icon {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .option-arrow {
+    font-size: 18px;
+    color: #007AFF;
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 768px) {
+    .account-container {
+      padding: 15px;
+    }
+  
+    .profile-image {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .profile-name {
+      font-size: 18px;
+    }
+  
+    .option-item {
+      font-size: 14px;
+    }
+  }
+  

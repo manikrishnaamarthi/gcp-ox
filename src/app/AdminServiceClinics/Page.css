@@ -1,0 +1,104 @@
+/* Container for the whole dashboard */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ensures full viewport height */
+  padding: 20px;
+  background-color:white;
+  overflow: hidden; /* Prevents any content outside the viewport from affecting layout */
+}
+
+/* Header styling */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.notification-icon {
+  font-size: 24px;
+  color: red;
+}
+
+/* Grid layout with adjusted gap and scroll for content */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px; /* Reduce gap between grid items */
+  flex-grow: 1; /* Allows grid to take up remaining space */
+  overflow-y: auto; /* Allows scrolling when content exceeds viewport */
+  padding-right: 10px; /* Reduce padding to decrease overall spacing */
+}
+
+/* Styling for each card */
+.dashboard-card {
+  background: red;
+  border-radius: 12px; /* Slightly reduce border radius */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px; /* Adjust padding to reduce card size */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  min-height: 100px; /* Reduce height for more compact cards */
+  max-height: 100px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  font-size: 28px;
+  color: #27ae60;
+}
+
+.notification {
+  background-color: red;
+  color: white;
+  padding: 4px 8px; /* Adjust padding to make it more compact */
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.card-body h3 {
+  font-size: 13px; /* Reduce font size for smaller headings */
+  margin: 5px 0;
+  color: #333;
+}
+
+.card-body p {
+  font-size: 10px;
+  color: #888;
+}
+
+/* Footer navigation */
+/* Footer navigation */
+.dashboard-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0; /* Reduce padding in footer */
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-icon {
+  font-size: 22px; /* Slightly smaller icons */
+  color: #b2bec3;
+  cursor: pointer;
+}
+
+.footer-icon.active {
+  color: #27ae60;
+}
+
