@@ -1,0 +1,338 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #ffffff;
+    padding: 0px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    box-sizing: border-box;
+    max-width: 360px;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+
+
+
+/* appointment.css */
+
+.appointment-container,
+.schedule-container {
+  padding: 16px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  height: 100vh;
+}
+
+.appointment-header,
+.schedule-header {
+  color: red;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.location-input {
+  margin-top: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+
+
+.done-button {
+  position: absolute;
+  background-color: #e11111; /* Set background color to red */
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 20px;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom:20px;
+  z-index: 10;
+  width:17%;
+}
+
+/* service */
+
+
+.map-container {
+  padding: 0;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .map-container {
+    max-width: 600px; /* Increase max-width for larger screens */
+  }
+}
+
+.google-map-container {
+  flex-grow: 1;
+  width: 100%;
+  height: calc(100vh - 40px); /* Adjust to take up remaining space minus header height */
+
+  margin-bottom: -300px; 
+}
+
+.service-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #ffffff;
+
+
+}
+.service-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+
+}
+
+.service-image {
+
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  
+}
+
+
+.service-info {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.service-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.service-location {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.back-icon {
+  cursor: pointer;
+ margin-bottom: 10px;
+ margin-left: -15px;
+}
+
+.map-header-with-back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 5px;
+  height: 60px;
+}
+
+.select-button {
+ background-color: #e11111;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+
+
+
+
+/* Schedule Section CSS */
+.schedule-container {
+  padding: 16px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.schedule-header {
+  color: rgb(0, 0, 0);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+
+
+
+
+.date-display {
+  text-align: left; /* Align date to the left */
+  margin-bottom: 16px;
+}
+
+.current-day {
+  font-size: 28px; /* Increase size */
+  font-weight: bold; /* Make bold */
+  color: #ff0000; /* Optional: Darker text color */
+  margin-bottom: 8px;
+}
+
+.current-date {
+  font-size: 18px;
+  color: #ff0000; /* Optional: Lighter text color for the date */
+}
+
+
+
+
+.day-selection{
+  display: flex;
+  gap:8px;
+  justify-content: space-between;
+  
+ 
+}
+
+.day-option {
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.day-option.selected {
+  display: inline-block;
+  background-color: rgb(255, 0, 0);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 8px;
+  margin: 4px;
+
+}
+
+
+
+.time-selection {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #f9f9f9; /* Add a background color */
+  border-radius: 8px; /* Round the corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow for emphasis */
+  width: 116%; /* Increase the width */
+  margin-left: -20px;  /* Center the container */
+  margin-right: auto; /* Center the container */
+}
+
+.available-slots-header {
+  text-align: center; /* Align header to the left */
+  font-size: 20px; /* Slightly larger size */
+  font-weight: bold; /* Make bold */
+  margin-bottom: 12px;
+ 
+}
+
+
+
+
+
+
+.time-option {
+  display: inline-block;
+  border: 1px solid gray;
+  margin: 4px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.time-option.selected {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+
+.time-option.disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.book-now-button {
+    margin-top: 180px;
+    background-color: #e11111;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+.location-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.location-input {
+  margin-top: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  width: 100%;
+  padding: 10px 40px; /* Add padding for icons */
+  margin-bottom: 12px;
+}
+
+.map-icon {
+  position: absolute;
+  left: 10px;
+  color: #ff0000; /* Optional: color for the map icon */
+  font-size: 20px;
+}
+
+.cancel-icon {
+  position: absolute;
+  right: 10px;
+  color: #ff0000; /* Optional: color for the cancel icon */
+  cursor: pointer;
+  font-size: 20px;
+}
