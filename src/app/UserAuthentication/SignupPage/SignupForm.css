@@ -1,0 +1,203 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(to top, white, rgb(235, 233, 233));
+  background-color: #c2bbbb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 360px;
+  max-width: 360px;
+  height: 640px;
+  border-radius: 13px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden; /* Preventing scroll here */
+}
+
+.form-wrapper {
+  max-height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px; /* This ensures some space on the right for hidden scrollbar */
+  box-sizing: border-box;
+  align-items: center;
+}
+
+/* Hide the scrollbar but keep scrolling */
+.form-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.form-wrapper {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.logo-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: transparent;
+  margin: 0 auto 20px auto;
+  justify-content:center;
+}
+
+h1 {
+  color: #050505;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.input-field {
+  margin-bottom: 22px;
+  position: relative;
+  width: 100%;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d32f2f;
+  background-color: #ffffff;
+  color: #090909;
+  font-size: 16px;
+}
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 40px;
+  border-radius: 5px;
+  border: 1px solid #d32f2f;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #0e0d0d;
+}
+
+.upload-field label {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d32f2f;
+  background-color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+}
+
+.upload-field input {
+  display: none;
+}
+
+button {
+  background-color: #c32020;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+button:hover {
+  background-color: #b71c1c;
+}
+
+.google-signup {
+  color: red;
+  text-align: center;
+}
+
+.sign-in-link {
+  font-size: 14px;
+  color: red;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.sign-in-button {
+  background: none;
+  border: none;
+  color: #0e0d0d;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+}
+
+.error {
+  font-size: 9px;
+  color: #ff0000;
+  margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .input-field input,
+  .upload-field label {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .google-signup {
+    font-size: 14px;
+  }
+}
+
+.service-provider-link {
+  display: block;
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.text {
+  text-align: center;
+}
