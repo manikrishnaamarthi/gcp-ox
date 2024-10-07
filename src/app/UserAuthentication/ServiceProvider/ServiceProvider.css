@@ -1,0 +1,249 @@
+/* General body styles for responsiveness */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background-image: linear-gradient(to top, white, rgb(235, 233, 233));
+  background-color: white;
+  padding: 20px;
+  border-radius: 13px;
+  text-align: center;
+  display: flex;
+  margin-top: 40px;
+  flex-direction: column;
+  align-items: center;
+  max-width: 360px;
+  margin: auto;
+  min-height: 100vh;
+  justify-content: center;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Ensure scroll functionality */
+}
+
+html, body {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0; /* Hide scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Title styles */
+.service-provider-title {
+  color: #050505;
+  font-size: 24px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+/* Form container styles */
+.service-provider-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Input styles */
+.service-provider-input,
+.service-provider-input-password {
+  margin-bottom: 0;
+  padding: 10px 40px 10px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #d32f2f;
+  background-color: #ffffff;
+  color: #090909;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  position: relative;
+}
+
+/* Container for input and error message */
+.input-container {
+  position: relative;
+  margin-bottom: 22px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Password container styles */
+.service-provider-password-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+/* Eye icon styles */
+.service-provider-eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #090909;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* Button container styles */
+.service-provider-button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 25px;
+}
+
+/* Button styles */
+.service-provider-button-prev,
+.service-provider-button-next {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  background-color: #c32020;
+}
+
+/* Button hover styles */
+.service-provider-button-prev:hover,
+.service-provider-button-next:hover {
+  background-color: #b71c1c;
+}
+
+/* Style for the error message */
+.error-message {
+  font-size: 9px;
+  color: #ff0000;
+  margin-top: 5px;
+  display: block;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Upload field styles */
+.upload-field label {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d32f2f;
+  background-color: #ffffff;
+  color: #090909;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Hidden input for file upload */
+.upload-field input {
+  display: none;
+}
+
+/* Camera icon styles */
+.camera-plus-icon {
+  font-size: 20px;
+  color: #100f0f;
+  margin-right: 10px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .service-provider-title {
+    font-size: 20px;
+  }
+
+  .service-provider-input,
+  .service-provider-input-password {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .service-provider-button-prev,
+  .service-provider-button-next {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .upload-field label {
+    padding: 8px;
+  }
+  
+}
+
+/* Confirmation Screen Container */
+.submission-confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+/* Tick Icon (Smaller size and center aligned) */
+.tick-icon {
+  width: 120px; /* Reduced width */
+  height: 120px; /* Reduced height */
+  margin-bottom: 30px;
+}
+
+/* Document Submission Success Text */
+.submission-success {
+  color: #d32f2f; /* Red color as per the image */
+  font-size: 25px;
+  font-weight: bold; /* Make the text bold */
+  margin: 10px 0;
+}
+
+/* Wait for Approval Text */
+.wait-approval {
+  color: #d32f2f; /* Red color */
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+/* Back Button Styling to match 'Next' button */
+.back-button {
+  padding: 10px 40px;
+  background-color: #d32f2f; /* Red background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold; /* Similar to the 'Next' button */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+  width: 100%; /* Full width button */
+  text-align: center;
+  margin-top: 100px;
+}
+
+/* Hover Effect for the Back Button */
+.back-button:hover {
+  background-color: #d32f2f;
+}
+

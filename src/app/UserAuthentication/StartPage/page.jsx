@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import './StartPage/HomePage.css';
+import './HomePage.css';
 
 function HomePage() {
   const router = useRouter();
