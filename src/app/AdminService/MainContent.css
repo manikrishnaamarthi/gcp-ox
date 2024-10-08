@@ -1,0 +1,197 @@
+/* General Main Content Styling */
+.main-content {
+  padding: 15px;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+/* Row Layouts */
+.cards-row, .second-row, .third-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  width: 25%;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Align Dropdown with Heading in Oxiclinic Overall Revenue and User Activity */
+.header-section, .user-activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Oxiclinic Overall Revenue */
+.oxiclinic-overall-revenue {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 61%;
+  height: 320px;
+  box-sizing: border-box;
+}
+
+.user-activity {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 35%;
+  height: 320px;
+  box-sizing: border-box;
+}
+
+.graph-area {
+  margin-top: 20px;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.graph-img {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: fill;
+  margin-top: 20px;
+}
+
+/* Best Selling Section */
+.best-selling {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 61%;
+  height: auto;
+  max-height: 280px; /* Reduced height */
+  overflow: hidden;
+}
+
+.best-selling-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.best-selling-columns {
+  display: grid;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr 1fr 1fr;
+  background-color: #f3f3f3; /* Add background color */
+  padding: 10px;
+  font-weight: 600;
+}
+
+.product-list {
+  padding-top: 10px;
+}
+
+.product-row {
+  display: grid;
+  grid-template-columns: 40px 2fr 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #E5E5EA;
+}
+
+.product-name {
+  display: flex;
+  align-items: center;
+}
+
+.product-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+/* Transaction History Section */
+.transaction-history {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 35%;
+  height: auto;
+  max-height: 280px; /* Reduced height */
+  overflow: hidden;
+}
+
+.transaction-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.transaction-list {
+  margin-top: 10px;
+}
+
+.transaction-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #E5E5EA;
+}
+
+.transaction-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.transaction-icon.success {
+  background-color: #4CD964; /* Green background for success */
+}
+
+.transaction-icon.pending {
+  background-color: #FF9500; /* Orange background for pending */
+}
+
+.transaction-icon.failure {
+  background-color: rgb(206, 8, 5); /* Red background for cancelled */
+}
+
+.transaction-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.transaction-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.transaction-amount {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.red-text {
+  color: rgb(206, 8, 5);
+}
+
+.green-text {
+  color: #4CD964;
+}
+
+.dollar {
+  font-size: 15px;
+  margin-right: 0px;
+}
