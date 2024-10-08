@@ -1,0 +1,177 @@
+/* Applications.css */
+
+.main-content {
+    padding: 20px;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .vendor-card {
+    background-color: rgb(206, 8, 5);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    cursor: pointer; /* Add pointer cursor for clickable effect */
+  }
+  
+  .vendor-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    margin-left: 70px;
+  }
+  
+  h3 {
+    color: white;
+    font-size: 18px;
+  }
+  
+  /* Vendor Details View */
+  .vendor-details {
+    padding: 20px;
+  }
+  
+  /* Map Image and User Image */
+  .map-header {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .map-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .user-detail-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    top: 150px;
+    left: 40px;
+    border: 5px solid white;
+  }
+  
+  /* Flex container for user info and vendor details */
+  .info-container {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 45px;
+    gap: 50px; /* Space between the image and details */
+  }
+  
+  /* User Name and Location */
+  .user-info {
+    color: black;
+    margin-top: 60px;
+  }
+  
+  .user-info h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: black;
+  }
+  
+  .user-info p {
+    font-size: 18px;
+    color: black;
+    margin-left: 16px;
+  }
+  
+  /* Vendor Contact Details */
+  .vendor-details-info {
+    /* background-color: #f9f9f9; */
+    padding: 10px;
+    /* border-radius: 10px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    color: rgb(206, 8, 5); /* Red text for the vendor details */
+    margin-left: 70px ;
+  }
+  
+  .vendor-details-info p {
+    margin: 10px 0;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .label {
+    color: black;
+    margin-left: 20px;
+  }
+
+  
+  /* Document List */
+
+  .h2 {
+    margin-top: 30px;
+    color: rgb(206, 8, 5);
+    margin-bottom: 30px;
+  }
+
+  .document-list {
+    display: flex;
+    gap: 50px;
+    margin: 20px 0;
+    margin-left: 40px;
+  }
+  
+  .vendor-document {
+    width: 300px;
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 40px;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+  }
+  
+  .approve-button, .reject-button {
+    padding: 10px 20px;
+    background-color: rgb(206, 8, 5);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .approve-button:hover, .reject-button:hover {
+    background-color: rgb(206, 8, 5);
+  }
+  
+  /* Back Button */
+  .back-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: #bbb;
+  }
+  
+  

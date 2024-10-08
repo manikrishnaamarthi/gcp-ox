@@ -1,0 +1,67 @@
+.sidebar {
+    width: 240px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    color: rgb(206, 8, 5);
+}
+
+.logo span {
+    font-size: 26px;
+    color: rgb(206, 8, 5);
+    font-weight: 700;
+}
+
+.nav-links,
+.settings {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li,
+.settings li {
+    padding: 12px 0;
+    cursor: pointer;
+    color: rgb(206, 8, 5);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: rgb(206, 8, 5);
+}
+
+.settings {
+    margin-top: auto;
+}
+
+/* Active Link Styles */
+.nav-links li.active {
+    background-color: rgb(206, 8, 5); /* Red background for active link */
+    border-radius: 8px;
+    color: white; /* White text for active link */
+}
+
+.nav-links li.active .icon {
+    color: white; /* White icon for active link */
+}
