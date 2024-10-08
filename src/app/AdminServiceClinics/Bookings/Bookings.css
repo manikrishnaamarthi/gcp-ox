@@ -114,9 +114,9 @@
 }
 
 .appointment-details p {
+  margin: 5px 0;
   font-size: 14px;
-  color: #888;
-  margin: 3px 0;
+  color: #666;
 }
 
 .appointment-actions .more-options {
@@ -125,4 +125,30 @@
   font-size: 20px;
   color: #888;
   cursor: pointer;
+}
+.appointment-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  
+}
+.appointment-details h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.appointment-details button {
+  background-color: red; /* Button color set to red */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.appointment-details button:hover {
+  background-color: #cc0000; /* Darker red on hover */
 }
