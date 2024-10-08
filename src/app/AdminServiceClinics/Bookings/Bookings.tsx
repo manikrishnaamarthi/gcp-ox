@@ -1,107 +1,86 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import './Bookings.css';
+import axios from 'axios';
 
 interface Appointment {
-    time: string;
-    duration: string;
-    doctor: string;
-    specialty: string;
-    clinic: string;
-    address: string;
-    status: 'Upcoming' | 'Completed' | 'Canceled';
+    oxi_book_id: number;
+    oxi_book_date: string; // This will hold the date in "YYYY-MM-DD" format
+    oxi_book_time: string;  // This will hold the appointment time
+    oxi_username: string;
+    oxi_status: 'upcoming' | 'completed' | 'cancelled';
 }
 
 const Bookings = () => {
-    const [selectedDate, setSelectedDate] = useState('');
-    const [tab, setTab] = useState('Upcoming');
-    const [dates, setDates] = useState<{ day: string; date: string }[]>([]);
+    const [selectedDate, setSelectedDate] = useState<string>('');
+    const [tab, setTab] = useState<'upcoming' | 'completed' | 'cancelled'>('upcoming');
+    const [dates, setDates] = useState<{ month: string; date: string }[]>([]);
     const [appointments, setAppointments] = useState<Appointment[]>([]);
+    const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
 
-    // Function to generate dates for the next 5 days
     const getUpcomingDates = () => {
         const today = new Date();
         const dateArray = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = -1; i < 4; i++) {
             const nextDate = new Date(today);
             nextDate.setDate(today.getDate() + i);
-
-            const day = nextDate.toLocaleDateString('en-US', { weekday: 'short' }); // e.g., 'Wed'
-            const date = nextDate.toLocaleDateString('en-US', { day: 'numeric', month: 'short' }); // e.g., 'Feb 8'
-
-            dateArray.push({ day, date });
+            const month = nextDate.toLocaleDateString('en-US', { month: 'short' });
+            const date = nextDate.toLocaleDateString('en-US', { day: 'numeric' });
+            dateArray.push({ month, date });
         }
         setDates(dateArray);
-        setSelectedDate(dateArray[1].date); // Default to the second date (e.g., today)
+        setSelectedDate(`${dateArray[0].month} ${dateArray[0].date}`);
     };
 
-    // Mocking appointment data
-    const getAppointments = () => {
-        const data: Appointment[] = [
-            {
-                time: '11:00',
-                duration: '30 min',
-                doctor: 'Dr. Simon Stanley',
-                specialty: 'Dentist',
-                clinic: 'Advanced Dental Care',
-                address: '142 Joralemon St, Brooklyn, NY',
-                status: 'Upcoming'
-            },
-            {
-                time: '13:30',
-                duration: '30 min',
-                doctor: 'Dr. Cecilia Evans',
-                specialty: 'General doctor',
-                clinic: 'Brooklyn Family Health Center',
-                address: '44 Brooklyn Janice Rd, Brooklyn, NY',
-                status: 'Upcoming'
-            },
-            {
-                time: '15:00',
-                duration: '30 min',
-                doctor: 'Dr. Joseph Miller',
-                specialty: 'Oculist',
-                clinic: 'Brooklyn Plaza Medical Center',
-                address: '650 Fulton St, Brooklyn, NY',
-                status: 'Upcoming'
-            },
-            {
-                time: '10:00',
-                duration: '20 min',
-                doctor: 'Dr. Alan Richards',
-                specialty: 'Cardiologist',
-                clinic: 'Heart Care Clinic',
-                address: '12 Health St, Brooklyn, NY',
-                status: 'Completed'
-            },
-            {
-                time: '09:00',
-                duration: '40 min',
-                doctor: 'Dr. Marie Clark',
-                specialty: 'Dermatologist',
-                clinic: 'Skin Health Clinic',
-                address: '23 Skin Ave, Brooklyn, NY',
-                status: 'Canceled'
-            }
-        ];
-        setAppointments(data);
+    const getAppointments = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/Clinic_Backend/bookings/');
+            const data: Appointment[] = response.data;
+            setAppointments(data);
+        } catch (error) {
+            console.error("Error fetching appointment data:", error);
+        }
     };
 
     useEffect(() => {
         getUpcomingDates();
-        getAppointments(); // Load appointment data
+        getAppointments();
     }, []);
 
-    const handleDateClick = (date: string) => {
-        setSelectedDate(date);
+    const handleDateClick = (month: string, date: string) => {
+        setSelectedDate(`${month} ${date}`);
     };
 
-    const handleTabClick = (tab: string) => {
+    const handleTabClick = (tab: 'upcoming' | 'completed' | 'cancelled') => {
         setTab(tab);
     };
 
-    // Filter appointments based on selected tab (Upcoming, Completed, Canceled)
-    const filteredAppointments = appointments.filter(appointment => appointment.status === tab);
+    const getFilteredAppointments = () => {
+        return appointments.filter(appointment => {
+            const appointmentDate = new Date(appointment.oxi_book_date);
+            const formattedDate = appointmentDate.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric'
+            });
+            return formattedDate === selectedDate && appointment.oxi_status === tab;
+        });
+    };
+
+    const filteredAppointments = getFilteredAppointments();
+
+    const handleCardClick = (appointment: Appointment) => {
+        setSelectedAppointment(appointment);
+    };
+
+    const handleAccept = () => {
+        console.log(`Accepted appointment: ${selectedAppointment?.oxi_book_id}`);
+        setSelectedAppointment(null);
+    };
+
+    const handleReject = () => {
+        console.log(`Rejected appointment: ${selectedAppointment?.oxi_book_id}`);
+        setSelectedAppointment(null);
+    };
 
     return (
         <div className="bookings-container">
@@ -112,65 +91,72 @@ const Bookings = () => {
             </header>
 
             <div className="dates-scroll">
-                {dates.map(({ day, date }) => (
+                {dates.map(({ month, date }) => (
                     <button
-                        key={date}
-                        className={`date-button ${selectedDate === date ? 'selected' : ''}`}
-                        onClick={() => handleDateClick(date)}
+                        key={`${month} ${date}`}
+                        className={`date-button ${selectedDate === `${month} ${date}` ? 'selected' : ''}`}
+                        onClick={() => handleDateClick(month, date)}
                     >
-                        <span className="day">{day}</span>
+                        <span className="month">{month}</span>
                         <span className="date">{date}</span>
                     </button>
                 ))}
             </div>
 
             <div className="tabs">
-                {['Upcoming', 'Completed', 'Canceled'].map((tabItem) => (
+                {['upcoming', 'completed', 'cancelled'].map((tabItem) => (
                     <button
                         key={tabItem}
                         className={`tab-button ${tab === tabItem ? 'active' : ''}`}
-                        onClick={() => handleTabClick(tabItem)}
+                        onClick={() => handleTabClick(tabItem as 'upcoming' | 'completed' | 'cancelled')}
                     >
-                        {tabItem}
+                        {tabItem.charAt(0).toUpperCase() + tabItem.slice(1)}
                     </button>
                 ))}
             </div>
 
             <div className="appointments-list">
                 {filteredAppointments.length > 0 ? (
-                    filteredAppointments.map((appointment, index) => (
+                    filteredAppointments.map((appointment) => (
                         <AppointmentCard
-                            key={index}
-                            time={appointment.time}
-                            duration={appointment.duration}
-                            doctor={appointment.doctor}
-                            specialty={appointment.specialty}
-                            clinic={appointment.clinic}
-                            address={appointment.address}
+                            key={appointment.oxi_book_id}
+                            appointment={appointment}
+                            onCardClick={handleCardClick}
                         />
                     ))
                 ) : (
-                    <p>No {tab.toLowerCase()} appointments.</p>
+                    <p>No {tab} appointments for {selectedDate}.</p>
                 )}
             </div>
+
+            {selectedAppointment && (
+                <div className="appointment-details">
+                    <h2>Appointment Details</h2>
+                    <p><strong>Username:</strong> {selectedAppointment.oxi_username}</p>
+                    <p><strong>Date:</strong> {selectedAppointment.oxi_book_date}</p>
+                    <p><strong>Time:</strong> {selectedAppointment.oxi_book_time}</p> {/* Time added here */}
+                    <p><strong>Status:</strong> {selectedAppointment.oxi_status}</p>
+                    <button onClick={handleAccept} className="accept-button">Accept</button>
+                    <button onClick={handleReject} className="reject-button">Reject</button>
+                </div>
+            )}
         </div>
     );
 };
 
-const AppointmentCard = ({ time, duration, doctor, specialty, clinic, address }: any) => (
-    <div className="appointment-card">
+interface AppointmentCardProps {
+    appointment: Appointment;
+    onCardClick: (appointment: Appointment) => void;
+}
+
+const AppointmentCard = ({ appointment, onCardClick }: AppointmentCardProps) => (
+    <div className="appointment-card" onClick={() => onCardClick(appointment)}>
         <div className="appointment-time">
-            <span>{time}</span>
-            <span>{duration}</span>
+            <span>{appointment.oxi_book_date}</span>
         </div>
         <div className="appointment-details">
-            <h3>{doctor}</h3>
-            <p>{specialty}</p>
-            <p>{clinic}</p>
-            <p>{address}</p>
-        </div>
-        <div className="appointment-actions">
-            <button className="more-options">⋮</button>
+            <h3>{appointment.oxi_username}</h3>
+            <p>Status: {appointment.oxi_status}</p>
         </div>
     </div>
 );
