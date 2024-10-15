@@ -1,0 +1,138 @@
+.user-profile {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  max-width: 90%;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.profile-name {
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.profile-email {
+  font-size: 1em;
+  color: gray;
+  margin-bottom: 15px;
+}
+
+.edit-profile-btn {
+  border: 1px solid red;
+  background-color: white;
+  color: red;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-profile-btn:hover {
+  background-color: red;
+  color: white;
+}
+
+.profile-menu {
+  margin-top: 20px;
+}
+
+.profile-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.profile-menu li {
+  display: block;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-menu li:hover {
+  background-color: #f9f9f9;
+}
+
+.profile-menu .icon {
+  margin-right: 15px;
+  font-size: 1em;
+  color: #007bff;
+}
+
+/* Icon replacements (use appropriate icons or font icons) */
+.register-icon:before { content: "👤"; }
+.booking-icon:before { content: "📅"; }
+.help-icon:before { content: "❓"; }
+.share-icon:before { content: "🔗"; }
+.rate-icon:before { content: "⭐"; }
+.faq-icon:before { content: "❔"; }
+.privacy-icon:before { content: "🔒"; }
+.logout-icon:before { content: "🚪"; }
+
+/* Popup styling */
+.logout-popup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  animation: slideUp 0.3s ease-in-out;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logout-btn,
+.cancel-btn {
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background-color: red;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: red;
+  color: white;
+}
+
+/* Slide up animation for the popup */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
