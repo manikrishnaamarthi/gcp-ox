@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: white;
+    /* width: 375px; */
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h1 {
+    font-size: 20px;
+    margin: 0;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .back-arrow {
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    background-color: #e7e7e7;
+    padding: 3px 15px;
+    border-radius: 100px;
+  }
+
+  .phone-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    background-color: #d2b1a5;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  
+  .item {
+    background: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .item h2 {
+    color: #000;
+    font-weight: bold;
+  }
+
+  .item p {
+    color: #6c757d;
+    margin-bottom: 10px;
+  }
+  
+  .item .price {
+    color: green;
+    position: absolute;
+    right: 15px;
+    top: 25px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .booking-details {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+  }
+
+  .booking-details h2{
+    color: #c82e2e;
+  }
+
+  .booking-details p {
+    color: #000;
+  }
+  
+  .booking-details .status {
+    background-color: #d3eaf8;
+    color: #007bff;
+    border-radius: 5px;
+    padding: 5px;
+    display: inline-block;
+    text-align: right;
+  }
+  
+  .cancellation-policy {
+    background: #f3d2cc;
+    border: 1px dashed #ba3834;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    color: #ba3834;
+  }
+
+  .cancellation-policy h3 {
+    color: #000;
+    font-weight: 600;
+  }
+
+  .cancellation-policy p {
+    color: #000;
+  }
+  
+  footer {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  footer h3 {
+    color: #000;
+    font-weight: bold;
+  }
+  
+  footer .summary {
+    margin-bottom: 15px;
+  }
+  
+  footer .summary p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    color: grey;
+  }
+  
+  .cancel-button {
+    width: 100%;
+    background: none;
+    border: 2px solid #ef0f0f;
+    color: #ef0f0f;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
