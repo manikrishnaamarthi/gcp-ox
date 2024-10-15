@@ -1,0 +1,203 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  header {
+    padding: 16px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+  }
+
+  header h1 {
+    font-size: 20px;
+    margin: 0;
+    color: #000;
+    font-weight: bold;
+  }
+
+  .back-arrow {
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    background-color: #e7e7e7;
+    padding: 3px 15px;
+    border-radius: 100px;
+  }
+  
+  /* .booking-id {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 5px;
+  } */
+  
+  main {
+    padding: 16px;
+  }
+  
+  .service-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .service-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .service-description {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .service-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .job-info {
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .job-id {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .status {
+    font-size: 12px;
+    color: #fff;
+    background-color: #d1a3ff;
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+  
+  .provider-name, .provider-company {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .provider-address {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .user-info {
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .user-rating-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .user-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .user-rating {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .completion-time {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 8px;
+  }
+  
+  .rating-section {
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .rating-stars {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .rating-value {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .vendor-comment {
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .comment-text {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .order-summary {
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .summary-title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .summary-item, .summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  
+  .summary-total {
+    font-weight: bold;
+  }
+  
+  .bill-info {
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+  }
+  
+  .feedback-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  
+  .feedback-button:hover {
+    background-color: #0056b3;
+  }
+  
