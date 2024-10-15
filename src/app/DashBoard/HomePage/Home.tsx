@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
 import { useRouter } from 'next/navigation';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaHome, FaUser, FaSearch } from 'react-icons/fa';
-import { BiSolidGrid, BiListUl } from 'react-icons/bi';
+import { FaUser, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { GoHome } from "react-icons/go";
+import { CiSearch } from "react-icons/ci";
+import { TfiAngleDoubleRight } from "react-icons/tfi";
+import { PiAmbulanceLight } from "react-icons/pi";
+import { BiClinic } from "react-icons/bi";
+import { RxCalendar } from "react-icons/rx";
 
 const Home: React.FC = () => {
   const router = useRouter();
+  const [location, setLocation] = useState<string>('Fetching location...');
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -19,9 +26,55 @@ const Home: React.FC = () => {
     autoplaySpeed: 3000,
   };
 
-  const handleSearchClick = () => {
-    router.push('/DashBoard/HomePage/AppointmentPage');
+  // Function to fetch the address from Google Geocoding API
+  const fetchAddress = async (latitude: number, longitude: number) => {
+    const apiKey = 'AIzaSyA8GzhJLPK0Hfryi5zHbg3RMDSMCukmQCw'; // Replace with your API key
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === 'OK') {
+        const address = data.results[0]?.formatted_address || 'Address not found';
+        setLocation(address);
+      } else {
+        console.error('Geocoding API error:', data);
+        setLocation('Unable to fetch address');
+      }
+    } catch (error) {
+      console.error('Error fetching address:', error);
+      setLocation('Unable to fetch address');
+    }
   };
+
+  useEffect(() => {
+    // Get the user's location
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        fetchAddress(latitude, longitude); // Fetch address based on lat/lon
+      },
+      (error) => {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setLocation('Location permission denied.');
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setLocation('Location information is unavailable.');
+            break;
+          case error.TIMEOUT:
+            setLocation('Location request timed out.');
+            break;
+          default:
+            setLocation('Unable to fetch location.');
+            break;
+        }
+        console.error('Error getting location:', error);
+      }
+    );
+  }, []);
+  
 
   const handleViewAllServices = () => {
     router.push('/DashBoard/ServicesPage');
@@ -41,42 +94,24 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <h1 className='header'>Oxivive</h1>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Where to go"
-          className='search-input'
-          onClick={handleSearchClick}
-        />
-        <FaSearch className="search-icon"  onClick={handleSearchClick}/>
-      </div>
-    
-      <div className="explore-section">
-        <div className="section-header">
-          <h1 className='explore'>Explore</h1>
-          <button onClick={handleViewAllServices} className="view-all-button">View All</button>
-        </div>
-        <div className="explore-images">
-          <div className="image-container" onClick={handleSearchClick}>
-            <img
-              src="/images/oxi_clinic.jpg"
-              alt="Oxi Clinic"
-            />
-            <p className="image-label">Oxi Clinic</p>
-          </div>
-          <div className="image-container" onClick={handleSearchClick}>
-            <img
-              src="/images/oxi_wheel.jpg"
-              alt="Oxi Wheel"
-            />
-            <p className="image-label">Oxi Wheel</p>
-          </div>
-        </div>
+      {/* Current Location Section */}
+      <div className="location-container">
+        <FaMapMarkerAlt className="location-icon" />
+        <span className="location-text">{location}</span>
       </div>
 
+      {/* Search Bar */}
+      <div className="search-container"  onClick={() => router.push('/DashBoard/HomePage/SearchPage')}>
+        <input
+          type="text"
+          placeholder="Search"
+          className='search-input'
+        />
+        <CiSearch size={24} className="search-icon" />
+      </div>
+
+      {/* Promotion Slider */}
       <div className="promotion-section">
-        <h1 className='promotion-header'>Promotion</h1>
         <Slider {...sliderSettings} className="promotion-slider">
           <img src="/images/oxi_clinic1.jpg" alt="Oxi Clinic" />
           <img src="/images/oxi_wheel.jpg" alt="Oxi Wheel" />
@@ -84,21 +119,52 @@ const Home: React.FC = () => {
         </Slider>
       </div>
 
-      <div className="footer-section">
-        <div className="footer-icon" onClick={handleServiceIconClick}>
-          <FaHome size={32} />
-        </div>
-        <div className="footer-icon" onClick={handleServiceIconClick}>
-          <BiSolidGrid size={32} />
-        </div>
-        <div className="footer-icon" onClick={handleActivityIconClick}>
-          <BiListUl size={32} />
-        </div>
-        <div className="footer-icon" onClick={handleAccountIconClick}>
-          <FaUser size={32} />
+      {/* Explore Section */}
+      <div className="explore-section">
+        <div className="section-header">
+          <h1 className='explore'>Services</h1>
+          <button onClick={handleViewAllServices} className="view-all-button">View all </button>
+          <TfiAngleDoubleRight className='arrow-icon' />
         </div>
       </div>
-      
+
+      {/* Clinic and Ambulance Section */}
+      <div className="services-icon-section">
+        <div className="service-icon-clinic">
+          <BiClinic size={40} className="service-icon" />
+          <span className="service-icon-label">Clinic</span>
+        </div>
+        <div className="service-icon-ambulance">
+          <PiAmbulanceLight size={40} className="service-icon" />
+          <span className="service-icon-label">Ambulance</span>
+        </div>
+      </div>
+
+      {/* Oxi images */}
+      <div className="oxi-images-section">
+        <img src="/images/oxiclinic.png" alt="Oxi Clinic" className="oxi-image" />
+        <img src="/images/oxiwheel.png" alt="Oxi Wheel" className="oxi-image" />
+      </div>
+
+      {/* Footer Section */}
+      <div className="footer-section">
+        <div className="footer-icon" onClick={handleServiceIconClick}>
+          <GoHome size={28} />
+          <span className="footer-header">Home</span>
+        </div>
+        <div className="footer-icon"  onClick={() => router.push('/DashBoard/HomePage/SearchPage')}>
+          <CiSearch size={24} />
+          <span className="footer-header">Search</span>
+        </div>
+        <div className="footer-icon" onClick={handleActivityIconClick}>
+          <RxCalendar size={24} />
+          <span className="footer-header">Booking</span>
+        </div>
+        <div className="footer-icon" onClick={handleAccountIconClick}>
+          <FaUser size={24} />
+          <span className="footer-header">Profile</span>
+        </div>
+      </div>
     </div>
   );
 };

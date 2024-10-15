@@ -1,18 +1,25 @@
 /* Home.css */
 
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    background-color: #ffffff;
-    padding: 0px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    box-sizing: border-box;
-    overflow-y: hidden;
-    overflow-x: hidden;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background-color: white;
+  padding: 20px;
+  border-radius: 13px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 360px;
+  height: 640px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  min-height: 100vh;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow-y: auto;
+
   }
   
   .home-container {
@@ -20,8 +27,9 @@ body {
     font-family: Arial, sans-serif;
     width: 100%; 
     max-width: 360px;
-    height: calc(100vh - 50px);
+    min-height: 100vh;
     overflow: hidden;
+    overflow-y: auto;
    
   }
   
@@ -40,20 +48,23 @@ body {
   
   .search-input {
     margin-top: 10px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #ededed;
     font-size: 16px;
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 13px;
     width: 100%;
+    text-align: center;
     padding: 10px 40px 10px 10px;
+    background-color: #d1cecea1;
   }
   
 
 
   .search-icon {
     position: absolute;
-    right: 10px;
+    right: 20px;
     top: 60%;
+    left:5%;
     transform: translateY(-50%);
     color: #6f7071;
     cursor: pointer;
@@ -79,22 +90,69 @@ body {
   }
   
   .view-all-button {
-    background-color: #e11111;
-    color: white;
+   
+    color: rgb(255, 0, 0);
     border: none;
     padding: 8px 16px;
     cursor: pointer;
     border-radius: 4px;
   }
+ 
+.arrow-icon{
+  color:red;
   
-  .explore-images {
+}
+
+
+
+  .services-icon-section {
     display: flex;
-    gap: 16px;
-    margin-top: 16px;
+    justify-content: space-around;
+    margin-top: 20px;
   }
   
-  .explore-images img {
-    width: 100%;
+  .service-icon-clinic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ededed;
+    padding: 25px;
+    border-radius: 8px;
+  }
+  
+
+.service-icon-ambulance{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ededed;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+  .service-icon {
+    color: #999999; /* Adjust color if needed */
+    
+  }
+  
+  .service-icon-label {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+
+
+  .oxi-images-section {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    gap: 20px;
+  }
+  
+  .oxi-image {
+    width: 50%;
     cursor: pointer;
     border-radius: 8px;
   }
@@ -147,12 +205,17 @@ body {
     align-items: center;
     font-size: 24px;
     cursor: pointer;
-    color: rgb(217, 20, 20);
+    color: rgb(151, 147, 147);
     margin: 0 16px;
 
   }
 
-
+  .footer-header{
+    font-size:12px;
+    margin-top:2px;
+    color:rgb(146, 127, 127);
+  
+  }
   .image-container {
     text-align: center; /* Center the text below the image */
   }
@@ -167,9 +230,9 @@ body {
   @media (max-width: 768px) {
     .footer-section {
         width: 550px; /* Full width for mobile */
-        margin-left: 30px; /* Center alignment */
+        margin-left: 35px; /* Center alignment */
         padding: 8px;
-        margin-bottom:8px;
+        margin-bottom:2px;
         position: fixed;
     }
   }
