@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaUser, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaUser,  FaMapMarkerAlt } from 'react-icons/fa';
 import { GoHome } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
+import { RxCalendar } from "react-icons/rx";
 import { TfiAngleDoubleRight } from "react-icons/tfi";
 import { PiAmbulanceLight } from "react-icons/pi";
 import { BiClinic } from "react-icons/bi";
-import { RxCalendar } from "react-icons/rx";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -76,20 +77,11 @@ const Home: React.FC = () => {
   }, []);
   
 
-  const handleViewAllServices = () => {
-    router.push('/DashBoard/ServicesPage');
-  };
-
-  const handleServiceIconClick = () => {
-    router.push('/DashBoard/ServicesPage');
-  };
-
-  const handleActivityIconClick = () => {
-    router.push('./ActivityPage');
-  };
+  
+ 
 
   const handleAccountIconClick = () => {
-    router.push('./AccountPage');
+    router.push('http://localhost:3000/UserProfile');
   };
 
   return (
@@ -97,17 +89,20 @@ const Home: React.FC = () => {
       {/* Current Location Section */}
       <div className="location-container">
         <FaMapMarkerAlt className="location-icon" />
+        <p className='current-location'> Current Location</p>
         <span className="location-text">{location}</span>
+        <IoIosNotificationsOutline size={28} className="notification-icon" />
       </div>
 
       {/* Search Bar */}
-      <div className="search-container"  onClick={() => router.push('/DashBoard/HomePage/SearchPage')}>
+      <div className="search-container"  onClick={() => router.push('/DashBoard/SearchPage')}>
         <input
           type="text"
           placeholder="Search"
           className='search-input'
         />
         <CiSearch size={24} className="search-icon" />
+
       </div>
 
       {/* Promotion Slider */}
@@ -123,7 +118,7 @@ const Home: React.FC = () => {
       <div className="explore-section">
         <div className="section-header">
           <h1 className='explore'>Services</h1>
-          <button onClick={handleViewAllServices} className="view-all-button">View all </button>
+          <button  className="view-all-button">View all </button>
           <TfiAngleDoubleRight className='arrow-icon' />
         </div>
       </div>
@@ -148,23 +143,25 @@ const Home: React.FC = () => {
 
       {/* Footer Section */}
       <div className="footer-section">
-        <div className="footer-icon" onClick={handleServiceIconClick}>
+        <div className="footer-icon">
           <GoHome size={28} />
           <span className="footer-header">Home</span>
         </div>
-        <div className="footer-icon"  onClick={() => router.push('/DashBoard/HomePage/SearchPage')}>
+        <div className="footer-icon"  onClick={() => router.push('/DashBoard/SearchPage')}>
           <CiSearch size={24} />
           <span className="footer-header">Search</span>
         </div>
-        <div className="footer-icon" onClick={handleActivityIconClick}>
+        <div className="footer-icon" onClick={() => router.push('http://localhost:3000/Booking')}>
           <RxCalendar size={24} />
           <span className="footer-header">Booking</span>
         </div>
-        <div className="footer-icon" onClick={handleAccountIconClick}>
+        <div className="footer-icon" onClick={() => router.push('http://localhost:3000/UserProfile')}>
           <FaUser size={24} />
           <span className="footer-header">Profile</span>
         </div>
       </div>
+
+
     </div>
   );
 };
