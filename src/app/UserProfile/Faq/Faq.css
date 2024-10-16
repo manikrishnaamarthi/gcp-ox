@@ -13,6 +13,7 @@
     border: none;
     font-size: 2em;
     cursor: pointer;
+    color: #FC000E;
   }
   
   h2 {
@@ -20,12 +21,15 @@
     text-align: center;
     margin-top: 40px;
     margin-bottom: 20px;
+    color: #FC000E;
   }
   
   .search-bar {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    border-radius: #FC000E;
+    ;
   }
   
   .search-input {
@@ -38,6 +42,7 @@
   .faq-list {
     display: flex;
     flex-direction: column;
+    color: black;
   }
   
   .faq-item {

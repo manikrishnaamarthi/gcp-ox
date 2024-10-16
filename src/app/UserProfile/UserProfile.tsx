@@ -3,6 +3,10 @@
 import React, { useState } from 'react';
 import './UserProfile.css';
 import { useRouter } from 'next/navigation';
+import { FaUser,  FaMapMarkerAlt } from 'react-icons/fa';
+import { GoHome } from "react-icons/go";
+import { CiSearch } from "react-icons/ci";
+import { RxCalendar } from "react-icons/rx";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -15,11 +19,11 @@ const UserProfile = () => {
   const handleReferFriend = () => {
     router.push('/UserProfile/ReferFriend'); // Ensure this path exists
   };
-  
+
   const handleFaq = () => {
     router.push('/UserProfile/Faq'); // Ensure this path exists
   };
-  
+
   const handlePrivacy = () => {
     router.push('/UserProfile/Privacy'); // Ensure this path exists
   };
@@ -39,20 +43,23 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
+      {/* Profile Header */}
       <div className="profile-header">
         <img
           className="profile-image"
           src="./images/profile.jpg" // Replace with dynamic image or URL
           alt="Profile"
         />
-        <h2 className="profile-name">Prem Kumar</h2>
-        <p className="profile-email">bejavadaprem@gmail.com</p>
+        <h2 className="profile-name">Gnanendra</h2>
+        <p className="profile-email">Gnanendra@gmail.com</p>
         <button className="edit-profile-btn" onClick={handleEditProfile}>
           Edit Profile
         </button>
       </div>
 
+      {/* Profile Menu */}
       <div className="profile-menu">
+        <p className='profile'>Profile</p>
         <ul>
           <li onClick={handleReferFriend} style={{ cursor: 'pointer' }}>
             <i className="icon register-icon"></i> Register as a Partner
@@ -77,6 +84,26 @@ const UserProfile = () => {
           </div>
         </div>
       )}
+
+      {/* Footer Navigation */}
+      <div className="footer-section">
+        <div className="footer-icon" >
+          <GoHome size={28} />
+          <span className="footer-header">Home</span>
+        </div>
+        <div className="footer-icon"  >
+          <CiSearch size={24} />
+          <span className="footer-header">Search</span>
+        </div>
+        <div className="footer-icon" >
+          <RxCalendar size={24} />
+          <span className="footer-header">Booking</span>
+        </div>
+        <div className="footer-icon" >
+          <FaUser size={24} />
+          <span className="footer-header">Profile</span>
+        </div>
+      </div>
     </div>
   );
 };

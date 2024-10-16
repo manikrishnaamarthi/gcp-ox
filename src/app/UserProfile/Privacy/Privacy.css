@@ -14,6 +14,7 @@
     border: none;
     font-size: 2em;
     cursor: pointer;
+    color: #FC000E;
   }
   
   h2 {
@@ -21,10 +22,12 @@
     font-size: 1em;
     margin-top: 40px;
     margin-bottom: 20px;
+    color: #FC000E;
   }
   
   .privacy-content {
     padding: 20px;
+    color: black;
   }
   
   h3 {
