@@ -38,9 +38,9 @@ const CancelBooking = () => {
           <div className="summary">
             <p>Subtotal<span>$156.00</span></p>
             <p>Est. Tax<span>$12.00</span></p>
-            <p>Total<span>$168.00</span></p>
+            
           </div>
-          
+          <p className='total'>Total<span>$168.00</span></p>
         </footer>
         
       </main>

@@ -3,7 +3,9 @@ body {
     margin: 0;
     padding: 20px;
     background-color: white;
-    /* width: 375px; */
+    width: 100%;
+    max-width: 375px;
+    margin: auto;
   }
   
   header {
@@ -43,6 +45,7 @@ body {
     margin: 10px 0;
     border-radius: 10px;
     position: relative;
+    border-bottom: 1px solid #e0e0e0
   }
 
   .item h2 {
@@ -56,7 +59,7 @@ body {
   }
   
   .item .price {
-    color: green;
+    color: #000;
     position: absolute;
     right: 15px;
     top: 25px;
@@ -72,7 +75,7 @@ body {
   }
 
   .booking-details h2{
-    color: #c82e2e;
+    color: #FC000E;
   }
 
   .booking-details p {
@@ -80,8 +83,8 @@ body {
   }
   
   .booking-details .status {
-    background-color: #d3eaf8;
-    color: #007bff;
+    /* background-color: #d3eaf8; */
+    color: #FC000E;
     border-radius: 5px;
     padding: 5px;
     display: inline-block;
@@ -90,11 +93,11 @@ body {
   
   .cancellation-policy {
     background: #f3d2cc;
-    border: 1px dashed #ba3834;
+    border: 1px dashed #FC000E;
     padding: 15px;
     border-radius: 10px;
     margin: 10px 0;
-    color: #ba3834;
+    color: #FC000E;
   }
 
   .cancellation-policy h3 {
@@ -127,12 +130,20 @@ body {
     margin: 0;
     color: grey;
   }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    color: grey;
+    border-top: 1px solid #e0e0e0
+  }
   
   .cancel-button {
     width: 100%;
     background: none;
-    border: 2px solid #ef0f0f;
-    color: #ef0f0f;
+    border: 2px solid #FC000E;
+    color: #FC000E;
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
