@@ -118,121 +118,95 @@ const handleSubmit = async (event) => {
   }
 };
 
-
-  const handleGoogleSignUp = () => {
-    const userEmail = prompt('Enter your Google email:', 'example@gmail.com');
-    if (userEmail) {
-      setEmail(userEmail);
-      alert(`Google sign-up successful! Your email: ${userEmail}`);
-    }
-  };
-
-  const handleSignInClick = () => {
-    router.push('/UserAuthentication/LoginPage');
-  };
-
   return (
-    <div className="container">
-      <div className="form-wrapper">
-        <img src="/images/shot.png" alt="Logo" className="logo-img" />
-        <h1 className="text">Create New Account</h1>
-        {successMessage && (
-          <p className="alert-success">{successMessage}</p>
-        )}
-        <form onSubmit={handleSubmit}>
-          <div className="input-field">
+    <div className="form-wrapper">
+      <h1 className="text">Create New Account</h1>
+      {successMessage && (
+        <p className="alert-success">{successMessage}</p>
+      )}
+      <form onSubmit={handleSubmit}>
+        <div className="input-field">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          {errors.name && <span className="error">{errors.name}</span>}
+        </div>
+        <div className="input-field">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <span className="error">{errors.email}</span>}
+        </div>
+        <div className="input-field password-field">
+          <div className="password-wrapper">
             <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              type={passwordVisible ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            {errors.name && <span className="error">{errors.name}</span>}
           </div>
-          <div className="input-field">
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {errors.email && <span className="error">{errors.email}</span>}
-          </div>
-          <div className="input-field password-field">
-            <div className="password-wrapper">
-              <input
-                type={passwordVisible ? 'text' : 'password'}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <span
-                className="eye-icon"
-                onClick={togglePasswordVisibility}
-                role="button"
-                aria-label={passwordVisible ? 'Hide password' : 'Show password'}
-              >
-                <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
-              </span>
-            </div>
-            {errors.password && <span className="error">{errors.password}</span>}
-          </div>
-          <div className="input-field">
-            <input
-              type="tel"
-              name="phoneNumber"
-              placeholder="Phone Number"
-              maxLength="10"
-              value={phoneNumber}
-              onChange={handleNumberInput}
-            />
-            {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
-          </div>
-          <div className="input-field">
-            <input
-              type="tel"
-              name="pincode"
-              placeholder="Pincode"
-              maxLength="6"
-              value={pincode}
-              onChange={handleNumberInput}
-            />
-            {errors.pincode && <span className="error">{errors.pincode}</span>}
-          </div>
-          <div className="input-field">
-            <input
-              type="text"
-              placeholder="PAN Number"
-              maxLength="10"
-              value={panNumber}
-              onChange={handlePanInput}
-              pattern="[A-Z]{5}\d{4}[A-Z]{1}"
-            />
-            {errors.panNumber && <span className="error">{errors.panNumber}</span>}
-          </div>
-          <div className="input-field upload-field">
-            <label htmlFor="profile-photo">
-              <span className="camera-plus-icon"><i className="fas fa-camera"></i></span> Upload Profile Photo
-            </label>
-            <input
-              type="file"
-              id="profile-photo"
-              onChange={(e) => setProfilePhoto(e.target.files[0])}
-            />
-            {errors.profilePhoto && <span className="error">{errors.profilePhoto}</span>}
-          </div>
-          {errors.apiError && <span className="error">{errors.apiError}</span>}
-          <button type="submit">Sign Up</button>
-          <p className="sign-in-link">
-            Already have an account? 
-            <span className="sign-in-button" onClick={handleSignInClick}>Sign in</span>
-          </p>
-          <a href="#" className="google-signup" onClick={handleGoogleSignUp}>
-            Sign Up with Google
-          </a>
-          <a href="/UserAuthentication/ServiceProvider" className="service-provider-link">Service Provider</a>
-        </form>
-      </div>
+          {errors.password && <span className="error">{errors.password}</span>}
+        </div>
+        <div className="input-field">
+          <input
+            type="tel"
+            name="phoneNumber"
+            placeholder="Phone Number"
+            maxLength="10"
+            value={phoneNumber}
+            onChange={handleNumberInput}
+          />
+          {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
+        </div>
+        <div className="input-field">
+          <input
+            type="tel"
+            name="pincode"
+            placeholder="Pincode"
+            maxLength="6"
+            value={pincode}
+            onChange={handleNumberInput}
+          />
+          {errors.pincode && <span className="error">{errors.pincode}</span>}
+        </div>
+        <div className="input-field">
+          <input
+            type="text"
+            placeholder="PAN Number"
+            maxLength="10"
+            value={panNumber}
+            onChange={handlePanInput}
+            pattern="[A-Z]{5}\d{4}[A-Z]{1}"
+          />
+          {errors.panNumber && <span className="error">{errors.panNumber}</span>}
+        </div>
+        <div className="input-field upload-field">
+          <label htmlFor="profile-photo">
+            <span className="camera-plus-icon"><i className="fas fa-camera"></i></span> Upload Profile Photo
+          </label>
+          <input
+            type="file"
+            id="profile-photo"
+            onChange={(e) => setProfilePhoto(e.target.files[0])}
+          />
+          {errors.profilePhoto && <span className="error">{errors.profilePhoto}</span>}
+        </div>
+        {errors.apiError && <span className="error">{errors.apiError}</span>}
+        <button type="submit">Sign Up</button>
+        <div className="sign-in-link">
+          <a href="/UserAuthentication/LoginPage" className="sign-in-button" >Sign in</a>
+        </div>
+        <div className="service-provider-link">
+        <a href="/UserAuthentication/ServiceProvider" className="service-provider-link">Service Provider</a>
+        </div>
+      </form>
     </div>
   );
 };

@@ -1,37 +1,42 @@
 "use client";
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import './StartPage/HomePage.css';
+
+import React, { useState } from "react";
+import LoginForm from "./LoginPage/LoginForm";
+import SignupForm from "./SignupPage/SignupForm";
+import ForgotPasswordForm from "./ForgotPasswordPage/ForgotPasswordForm";
+import "./StartPage/HomePage.css";
 
 function HomePage() {
-  const router = useRouter();
+  const [formType, setFormType] = useState(null);
 
-  const handleLoginClick = () => {
-    router.push('/UserAuthentication/LoginPage'); // Navigate to LoginForm
-  };
-
-  const handleSignupClick = () => {
-    router.push('/UserAuthentication/SignupPage'); // Navigate to SignupForm
-  };
+  const handleLoginClick = () => setFormType("login");
+  const handleSignupClick = () => setFormType("signup");
+  const handleForgotPasswordClick = () => setFormType("forgotPassword");
+  const handleBackToLogin = () => setFormType("login");
 
   return (
-    <>
-      <div className="logo-section">
-        <img src="/images/shot.png" alt="Oxivive Shot Logo" className="logo" />
-        <h1 className="brand-name">Oxivive</h1>
-      </div>
-      <div className="content-section">
-        <h2>OXIVIVE - Where Science Meets Technology</h2>
-      </div>
-      <div className="button-section">
-        <button className="login-button" onClick={handleLoginClick}>
-          LOGIN
-        </button>
-        <button className="signup-button" onClick={handleSignupClick}>
-          SIGNUP
-        </button>
-      </div>
-    </>
+    <div className="container">
+      {formType ? (
+        <div className="form-container">
+          {formType === "login" && (
+            <LoginForm onForgotPasswordClick={handleForgotPasswordClick} />
+          )}
+          {formType === "signup" && <SignupForm />}
+          {formType === "forgotPassword" && (
+            <ForgotPasswordForm onBackToLogin={handleBackToLogin} />
+          )}
+        </div>
+      ) : (
+        <div className="button-section">
+          <button className="login-button" onClick={handleLoginClick}>
+            LOGIN
+          </button>
+          <button className="signup-button" onClick={handleSignupClick}>
+            SIGNUP
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 
