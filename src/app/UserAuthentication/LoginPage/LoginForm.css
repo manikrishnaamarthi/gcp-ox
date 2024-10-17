@@ -1,250 +1,125 @@
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  background-image: linear-gradient(to top, white, rgb(235, 233, 233));
-  background-color: white;
-  padding: 20px;
-  border-radius: 13px;
-  text-align: center;
+/* Wrapper to center the form */
+.loginFormWrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 400px;
-  width: 360px;
-  height: 640px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: auto;
-  min-height: 100vh;
   justify-content: center;
-  box-sizing: border-box;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+  width: 100%; 
+  padding: 10px; 
+  box-sizing: border-box; 
 }
 
-.logoContainer {
+/* Container for the form */
+.loginFormContainer {
+  width: 100%; 
+  max-width: 360px; 
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+}
+
+/* Header */
+.loginHeader {
+  text-align: left;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: black;
+  margin-top: 20px;
+}
+
+/* Input Group */
+.inputGroup {
+  width: 100%; 
   margin-bottom: 20px;
   position: relative;
 }
 
-.logo {
-  width: 150px; 
-  height: 150px; 
-  min-width: 150px; 
-  max-width: 150px; 
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: transparent;
-}
-
-
-.welcomeText {
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 1.8rem;
-  color: #f03737;
-  text-align: center;
-}
-
-.inputGroup {
-  width: 100%;
-  margin-bottom: 24px;  
+/* Labels */
+.inputLabel {
+  color: gray;
+  margin-bottom: 5px;
   text-align: left;
-  color: rgb(231, 12, 12);
-  position: relative;  
 }
 
+/* Inputs */
 .input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #f03737;
-  border-radius: 5px;
-  font-size: 16px;
-  background-color: #ffffff;
-  color: #000000;
+  width: 100%; 
+  padding: 12px; 
+  font-size: 16px; 
+  border-radius: 8px;
+  border: 1px solid #ccc;
   outline: none;
-  box-sizing: border-box;  
-  min-height: 40px;
 }
 
-.input::placeholder {
-  color: #0c0c0c;
-}
-
-.input:focus,
-.input:hover,
-.input:active {
-  color: #000000;
-  background-color: #ffffff;
-}
-
-.inputGroup .errorMessage {
-  color: rgb(245, 11, 11);
-  font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 0;
-  position: absolute;  
-  bottom: -16px;  
-  left: 0;  
-  width: 100%;
-  text-align: left;
-}
-
-.inputGroup .successMessage {
-  color: #0a910a;
-  font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 0;
-  position: absolute;
-  bottom: -16px;  
-  left: 0;
-  width: 100%;
-  text-align: left;
-}
-
+/* Password Toggle */
 .passwordToggle {
   position: absolute;
-  right: 12px;  
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 1rem;
-  color: #555;
 }
 
-.passwordToggle:hover {
-  color: #080808;
-}
-
-.options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #080808;
-  margin-bottom: 15px;
-}
-
-.options label {
-  display: flex;
-  align-items: center;
-  color: #000000;
-  font-size: 16px;
-  margin-right: 20px;
-}
-
-.options input[type="checkbox"] {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 1px solid #f03737;
-  border-radius: 4px;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-  margin-right: 2px;
-}
-
-.options input[type="checkbox"]:checked {
-  background-color: #fcfafa;
-  border-color: #f03737;
-}
-
-.options input[type="checkbox"]:checked::after {
-  content: '';
-  display: block;
-  width: 6px;
-  height: 12px;
-  border: solid #1b1b1b;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  margin-left: 4px;
-  margin-top: 1px;
-}
-
-.forgotPassword {
-  color: #053185;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.extra-options {
-  width: 100%;
-  text-align: center;
-  margin-top: 10px;
-  font-size: 16px;
-  color: #242323;
-  margin-right: 20px;
-}
-
-.signup-link {
-  color: #053185;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.signup-link:hover {
-  text-decoration: underline;
-}
-
-/* Success Message */
-.successMessage {
-  color: #4caf50; /* Green for success */
-  font-size: 14px;
-  text-align: center;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-/* Error Message */
-.errorMessage {
-  color: #f44336; /* Red for error */
-  font-size: 14px;
-  text-align: center;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-
-/* Login Button Styling */
+/* Buttons */
 .loginButton {
-  width: 100%;
-  padding: 12px;
-  font-weight: bold;
-  background: linear-gradient(to right, #f03737, #f03737);
-  color: rgb(247, 240, 240);
+  width: 100%; 
+  padding: 14px; 
+  background-color: #ce0805; 
+  color: white;
+  font-size: 18px; 
   border: none;
-  border-radius: 20px;
-  font-size: 16px;
+  border-radius: 8px;
   cursor: pointer;
+  margin-top: 10px;
   transition: background-color 0.3s ease;
-  margin-bottom: 5px;  
 }
 
-@media (max-width: 768px) {
-  .loginButton {
-    font-size: 14px;
-  }
-  .extra-options {
-    margin-top: 15px;
-  }
+/* Forgot Password Link */
+.forgotPassword {
+  color: gray;
+  text-decoration: none;
+  margin-top: 10px;
+  text-align: center;
 }
 
+/* Extra options */
+.extra-options {
+  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Sign-up Link */
+.signup-link {
+  color: red;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Error and success messages */
+.errorMessage {
+  color: red;
+  font-size: 14px;
+}
+
+.successMessage {
+  color: green;
+  font-size: 14px;
+}
+
+/* Media Queries */
 @media (max-width: 480px) {
-  .logo {
-    max-width: 120px;
-  }
-  .titleContainer {
-    padding: 10px;
+  .loginFormContainer {
+    padding: 5px;
   }
   .input {
-    padding: 10px;
-    min-height: 38px;
+    font-size: 14px;
   }
   .loginButton {
-    padding: 10px;
+    font-size: 16px;
+    padding: 8px;
   }
 }

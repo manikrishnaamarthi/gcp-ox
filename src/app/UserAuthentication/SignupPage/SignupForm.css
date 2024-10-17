@@ -1,71 +1,55 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-image: linear-gradient(to top, white, rgb(235, 233, 233));
-  background-color: #c2bbbb;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 360px;
-  max-width: 360px;
-  height: 640px;
-  border-radius: 13px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-  overflow: hidden; /* Preventing scroll here */
-}
-
 .form-wrapper {
   max-height: 100%;
-  overflow-y: scroll;
-  padding-right: 10px; /* This ensures some space on the right for hidden scrollbar */
+  overflow-y: auto;
+  padding-right: 10px;
   box-sizing: border-box;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-repeat: no-repeat;
+  background-image: none;
+  width: 360px;
+  height: 640px;
+  max-width: 360px;
+  border-radius: 13px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: #ffffff; /* White background applied */
+  padding: 30px;
 }
 
-/* Hide the scrollbar but keep scrolling */
+/* Hide scrollbar styles */
 .form-wrapper::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
 .form-wrapper {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
+/* Logo styling */
 .logo-img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100px;
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  background-color: transparent;
   margin: 0 auto 20px auto;
-  justify-content:center;
+  background-color: transparent;
 }
 
+/* Headings */
 h1 {
   color: #050505;
   font-size: 24px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
+/* Input field styling */
 .input-field {
   margin-bottom: 22px;
-  position: relative;
   width: 100%;
 }
 
@@ -74,20 +58,14 @@ h1 {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #d32f2f;
-  background-color: #ffffff;
-  color: #090909;
   font-size: 16px;
 }
 
+/* Password field with eye icon */
 .password-field {
   position: relative;
   display: flex;
   align-items: center;
-}
-
-.password-wrapper {
-  width: 100%;
-  position: relative;
 }
 
 .password-wrapper input {
@@ -96,18 +74,9 @@ h1 {
   border: 1px solid #d32f2f;
 }
 
-.eye-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #0e0d0d;
-}
-
+/* Upload field */
 .upload-field label {
   display: block;
-  width: 100%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #d32f2f;
@@ -120,6 +89,7 @@ h1 {
   display: none;
 }
 
+/* Button styling */
 button {
   background-color: #c32020;
   color: white;
@@ -136,26 +106,12 @@ button:hover {
   background-color: #b71c1c;
 }
 
-.google-signup {
+/* Other text links */
+.google-signup, .sign-in-link, .service-provider-link {
   color: red;
   text-align: center;
-}
-
-.sign-in-link {
   font-size: 14px;
-  color: red;
-  margin: 5px 0;
-  text-align: center;
-}
-
-.sign-in-button {
-  background: none;
-  border: none;
-  color: #0e0d0d;
   text-decoration: underline;
-  cursor: pointer;
-  padding: 0;
-  font-size: 14px;
 }
 
 .error {
@@ -164,11 +120,8 @@ button:hover {
   margin-top: 5px;
 }
 
+/* Responsive styling */
 @media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
-
   h1 {
     font-size: 20px;
   }
@@ -183,21 +136,4 @@ button:hover {
     padding: 8px;
     font-size: 14px;
   }
-
-  .google-signup {
-    font-size: 14px;
-  }
-}
-
-.service-provider-link {
-  display: block;
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-  text-decoration: underline;
-  text-align: center;
-}
-
-.text {
-  text-align: center;
 }
