@@ -34,9 +34,9 @@ const CompleteBooking = () => {
         </section>
         <section className="user-info">
           <div className="user-rating-header">
-            <img src="/path/to/avatar.jpg" alt="User Avatar" className="user-avatar"/>
+            <img src="/images/doctor.png" alt="User Avatar" className="user-avatar"/>
             <div>
-              <p className="user-name">Levi Ray</p>
+              <p className="user-name">Akshay Kumar</p>
               <p className="user-rating">⭐ 4.7 <span>(192 Ratings)</span></p>
             </div>
           </div>
@@ -58,7 +58,8 @@ const CompleteBooking = () => {
           <p className="summary-item">Subtotal <span>$156.00</span></p>
           <p className="summary-item">Est. Tax <span>$12.00</span></p>
           <p className="summary-total">Total <span>$168</span></p>
-          <p className="bill-info">We've sent a copy of this bill to your email id <a href="mailto:support@rightjoy.com">support@rightjoy.com</a></p>
+          <p className="bill-info">We've sent a copy of this bill to your email id </p>
+          <a href="mailto:support@rightjoy.com" className='support'>support@rightjoy.com</a>
         </section>
         <footer>
           <button className="feedback-button">Give Feedback</button>

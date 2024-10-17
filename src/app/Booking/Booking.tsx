@@ -1,14 +1,14 @@
 import React from 'react';
 import './Booking.css';
-import { FaHome, FaSearch, FaCalendarAlt, FaUser } from 'react-icons/fa';
+import { FaHome, FaSearch, FaCalendarAlt, FaUser, FaRedoAlt } from 'react-icons/fa'; // Import FaRedoAlt for reschedule icon
 
 const Booking = () => {
   return (
     <>
       <header>
-        <button className="tab active">Active</button>
-        <button className="tab">Success</button>
+        <button className="tab active">MyBooking</button>
         <button className="tab">Cancelled</button>
+        <button className="tab">Completed</button>
       </header>
 
       <section className="booking-list">
@@ -17,11 +17,18 @@ const Booking = () => {
             <a href="#" className="booking-id">#524587</a>
             <span className="status accepted">Accepted</span>
           </header>
-          <p className="service-name">Home Cleaner</p>
+          <p className="service-name">Oxi Clinic</p>
           <p className="service-time">22 Sep 21, 03:00 - 04:30 PM</p>
+          <div className="action-buttons">
+            <button className="cancel-button">Cancel Booking</button>
+            <button className="reschedule-button">
+              <FaRedoAlt />
+              Reschedule
+            </button>
+          </div>
           <footer className="booking-footer">
             <div className="service-provider">
-              <p>Levi Ray</p>
+              
               <p>⭐ 4.7 | 192 Ratings</p>
             </div>
             <p className="price">$149</p>
@@ -33,12 +40,18 @@ const Booking = () => {
             <a href="#" className="booking-id">#524587</a>
             <span className="status submitted">Submitted</span>
           </header>
-          <p className="service-name">Home Cleaner</p>
+          <p className="service-name">Oxi Wheel</p>
           <p className="service-time">22 Sep 21, 03:00 - 04:30 PM</p>
-          <button className="cancel-button">Cancel Booking</button>
+          <div className="action-buttons">
+            <button className="cancel-button">Cancel Booking</button>
+            <button className="reschedule-button">
+              <FaRedoAlt />
+              Reschedule
+            </button>
+          </div>
           <footer className="booking-footer">
             <div className="service-provider">
-              <p>Levi Ray</p>
+              
               <p>⭐ 4.7 | 192 Ratings</p>
             </div>
             <p className="price">$149</p>
@@ -50,11 +63,18 @@ const Booking = () => {
             <a href="#" className="booking-id">#524587</a>
             <span className="status ongoing">Ongoing</span>
           </header>
-          <p className="service-name">Home Cleaner</p>
+          <p className="service-name">Oxi Gym</p>
           <p className="service-time">22 Sep 21, 03:00 - 04:30 PM</p>
+          <div className="action-buttons">
+            <button className="cancel-button">Cancel Booking</button>
+            <button className="reschedule-button">
+              <FaRedoAlt />
+              Reschedule
+            </button>
+          </div>
           <footer className="booking-footer">
             <div className="service-provider">
-              <p>Levi Ray</p>
+              
               <p>⭐ 4.7 | 192 Ratings</p>
             </div>
             <p className="price">$149</p>
@@ -62,24 +82,7 @@ const Booking = () => {
         </article>
       </section>
 
-      <nav className="bottom-nav">
-        <button>
-          <FaHome />
-          <span>Home</span>
-        </button>
-        <button>
-          <FaSearch />
-          <span>Search</span>
-        </button>
-        <button className="active">
-          <FaCalendarAlt />
-          <span>Booking</span>
-        </button>
-        <button>
-          <FaUser />
-          <span>Profile</span>
-        </button>
-      </nav>
+      
     </>
   );
 };
