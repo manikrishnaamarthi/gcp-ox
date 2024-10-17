@@ -4,20 +4,14 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   background-color: white;
-  padding: 20px;
-  border-radius: 13px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 400px;
-  width: 360px;
-  height: 640px;
-  
-  margin: auto;
-  min-height: 100vh;
-  justify-content: center;
   box-sizing: border-box;
+  padding: 0;  /* Remove padding */
+  height: 100vh; /* Take up full viewport height */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   
   }
   
@@ -26,15 +20,50 @@ body {
     font-family: Arial, sans-serif;
     width: 100%; 
     max-width: 360px;
-    overflow-x: auto;
+    height: auto;
+    
   }
   
 
   .location-container{
-    margin-bottom: 20px;
+    
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* space between location and notification */
+  padding: 10px;
+ 
+  }
+
+  .location-icon {
+    margin-right: 10px;
+    color: #333; /* icon color */
+  }
+
+  .location-text-wrapper {
+    display: flex;
+    flex-direction: column; /* Stacks the current location and fetched location */
   }
 
   
+  .current-location {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333; /* text color */
+  }
+  
+  .location-text {
+    font-size: 14px;
+    color: #666;
+  }
+  
+
+  .notification-icon {
+    color: #333;
+  cursor: pointer;
+  margin-left: auto; /* Push to the right */
+  }
+
+
   .header {
     color:#FC000E;
     font-weight: 700;
@@ -74,13 +103,8 @@ body {
     cursor: pointer;
   }
 
-  .notification-icon {
-    position: absolute; 
-    right:50px;
-    
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
+
+  
 
   .explore-section {
     margin-top: 20px;
@@ -119,12 +143,22 @@ body {
 
   .services-icon-section {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+   
   }
   
-  .service-icon-clinic {
+  .icon-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between clinic and ambulance icons */
+  }
+  
+  
+  .service-icon-clinic, 
+  .service-icon-ambulance, 
+  .service-icon-gym {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,16 +166,6 @@ body {
     padding: 25px;
     border-radius: 8px;
   }
-  
-
-.service-icon-ambulance{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ededed;
-    padding: 25px;
-    border-radius: 8px;
-}
 
   .service-icon {
     color: #999999; /* Adjust color if needed */
@@ -155,6 +179,22 @@ body {
   }
   
 
+
+
+  
+  
+  .service-icon-label {
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+.images-above-section{
+  text-align: left;
+  font-size:20px;
+  color:#FC000E;
+}
 
   .oxi-images-section {
     
@@ -189,13 +229,13 @@ body {
   }
   
   .promotion-slider img {
-    width: 80%;
+    width: 100%;
     border-radius: 8px;
   }
   
   .footer-section {
     position: fixed;
-    margin-left: 590px;
+    margin-left:590px;
     bottom: 0;
     left: 0%;
     transform: translateX(-2%);
@@ -210,7 +250,7 @@ body {
     align-items: center;
     margin-top: 190px;
     gap: 24px; 
-
+    overflow: hidden;
   }
   
   .footer-icon {
@@ -259,4 +299,44 @@ body {
 .oxi-images-section {
   flex-shrink: 0; /* Prevent shrinking of the content */
   margin-bottom: 20px; /* Adjust spacing for visual consistency */
+}
+
+
+
+
+
+
+
+
+
+/* Home.css */
+.oxi-educate-section {
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for readability */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.educate-list {
+  list-style-type: decimal; /* Display numbers (1, 2, 3...) */
+  padding-left: 20px; /* Indent the list */
+  line-height: 1.6; /* Increase line height for better readability */
+}
+
+.educate-list li {
+  margin: 10px 0; /* Spacing between list items */
+  position: relative; /* Needed for the custom marker */
+}
+
+/* Optional: Custom markers for the list items */
+.educate-list li::marker {
+  font-weight: bold; /* Bold numbers */
+  color:#FC000E; /* Change the color of the numbers */
+}
+
+/* Optional: Hover effect */
+.educate-list li:hover {
+  background-color: #e0f7fa; /* Light blue background on hover */
+  transition: background-color 0.3s ease;
 }
