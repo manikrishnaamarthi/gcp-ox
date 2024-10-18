@@ -1,14 +1,31 @@
 // Account.tsx
 
-
 "use client";
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import './Account.css';
-import { FaUser, FaBell, FaLifeRing, FaCog, FaSignOutAlt,  FaHome } from 'react-icons/fa';
+import { FaUser, FaBell, FaLifeRing, FaCog, FaSignOutAlt, FaHome } from 'react-icons/fa';
 import { BiSolidGrid, BiListUl } from 'react-icons/bi';
 
 const Account: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const router = useRouter();
+  // Footer navigation handlers
+  const goToHome = () => {
+    router.push('/DashBoard/HomePage'); // Replace with the correct path for Home page
+  };
+
+  const goToServices = () => {
+    router.push('/DashBoard/ServicesPage'); // Replace with the correct path for Services page
+  };
+
+  const goToActivity = () => {
+    router.push('/DashBoard/ActivityPage'); // Replace with the correct path for Activity page
+  };
+
+  const goToAccount = () => {
+    router.push('/DashBoard/AccountPage'); // Replace with the correct path for Profile page
+  };
 
   const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -46,7 +63,6 @@ const Account: React.FC = () => {
         </div>
 
         <div className="settings-container">
-          
           <div className="setting-item">
             <FaUser className="setting-icon" />
             <span>Profile</span>
@@ -71,29 +87,45 @@ const Account: React.FC = () => {
             <FaSignOutAlt className="setting-icon" />
             <span>Logout</span>
           </div>
-
         </div>
-
-
 
         <div className="footer-section">
-        <div className="footer-icon" >
-          <FaHome size={32} />
-        </div>
-        <div className="footer-icon" >
-          <BiSolidGrid size={32} />
-        </div>
-        <div className="footer-icon" >
-          <BiListUl size={32} />
-        </div>
-        <div className="footer-icon" >
-          <FaUser size={32} />
-        </div>
-      </div>
+
+        <div className="footer-icon" onClick={goToHome}>
+            <FaHome size={32} />
+            <p className="footer-header">Home</p>
+          </div>
+
+          
+
+          
+          <div className="footer-icon" onClick={goToServices}>
+            <BiSolidGrid size={32} />
+            <p className="footer-header">Services</p>
+          </div>
+         
+
+          <div className="footer-icon" onClick={goToActivity}>
+            <BiListUl size={32} />
+            <p className="footer-header">Activity</p>
+          </div>
+
+         
+          <div className="footer-icon" onClick={goToAccount}>
+            <FaUser size={32} />
+            <p className="footer-header">Profile</p>
+          </div>
+
+          
+
+         
+
+          
 
 
 
 
+        </div>
 
 
       </div>
