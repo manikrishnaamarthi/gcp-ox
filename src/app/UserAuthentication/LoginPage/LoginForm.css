@@ -1,125 +1,147 @@
-/* Wrapper to center the form */
-.loginFormWrapper {
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  width: 100%; /* Ensures that the body and html take the full width */
+  height: 100%; /* Ensures that the body takes full height */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full height of the viewport */
-  width: 100%; 
-  padding: 10px; 
-  box-sizing: border-box; 
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  background-color: rgb(226, 222, 222); /* Background color */
 }
 
-/* Container for the form */
-.loginFormContainer {
-  width: 100%; 
-  max-width: 360px; 
+.login-container {
+  width: 350px;
+  height: 100vh;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-section {
+  width: 100%;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Header */
-.loginHeader {
-  text-align: left;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: black;
-  margin-top: 20px;
-}
-
-/* Input Group */
-.inputGroup {
-  width: 100%; 
-  margin-bottom: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   position: relative;
+  border-radius: 13px 13px 13px 13px;
 }
 
-/* Labels */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+}
+
+.welcomeText {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #FC000E;
+}
+
+.login-card {
+  background-color: #fff;
+  border-radius: 20px 20px 13px 13px;
+  padding: 30px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  position: relative;
+  margin-top: -30px;
+}
+
+.login-heading {
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: black;
+  font-weight: bold;
+}
+
 .inputLabel {
-  color: gray;
-  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
   text-align: left;
 }
 
-/* Inputs */
-.input {
-  width: 100%; 
-  padding: 12px; 
-  font-size: 16px; 
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  outline: none;
+.inputGroup {
+  position: relative;
+  margin-bottom: 20px;
+  color: black;
 }
 
-/* Password Toggle */
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
 .passwordToggle {
   position: absolute;
-  right: 16px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
-/* Buttons */
 .loginButton {
-  width: 100%; 
-  padding: 14px; 
-  background-color: #ce0805; 
+  width: 100%;
+  padding: 12px;
+  background-color: #FC000E;
   color: white;
-  font-size: 18px; 
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
 }
 
-/* Forgot Password Link */
-.forgotPassword {
-  color: gray;
-  text-decoration: none;
-  margin-top: 10px;
-  text-align: center;
-}
-
-/* Extra options */
 .extra-options {
-  margin-top: 10px;
-  text-align: center;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
 }
 
-/* Sign-up Link */
+.forgotPassword,
 .signup-link {
-  color: red;
-  font-weight: bold;
+  color: #FC000E;
+  cursor: pointer;
   text-decoration: none;
 }
 
-/* Error and success messages */
+.forgotPassword:hover,
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+.successMessage,
 .errorMessage {
-  color: red;
-  font-size: 14px;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
 }
 
 .successMessage {
   color: green;
-  font-size: 14px;
 }
 
-/* Media Queries */
-@media (max-width: 480px) {
-  .loginFormContainer {
-    padding: 5px;
-  }
-  .input {
-    font-size: 14px;
-  }
-  .loginButton {
-    font-size: 16px;
-    padding: 8px;
-  }
+.errorMessage {
+  color: #FC000E;
 }

@@ -1,20 +1,23 @@
-/* General body styling */
+/* Apply styles directly to the body */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background-color: #f6f0f0;
-  background-repeat: no-repeat;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  min-height: 100vh;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 /* Container to fit all screen sizes */
 .container {
-  width: 100%;
-  max-width: 360px; /* Limit to prevent overflow on large screens */
+  width: 350px; /* Limit to prevent overflow on large screens */
   height: 100vh;
   border-radius: 16px;
   background-image: url('/images/Signup-page.png');
@@ -39,26 +42,6 @@ body {
   align-items: center;
 }
 
-/* Add shadow effect for the signup button */
-.signup-button {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Hover effect for buttons */
-.login-button:hover, .signup-button:hover {
-  background-color: #dcdcdc;
-}
-
-/* Form container adjusted for responsiveness */
-.form-container {
-  height: 70%;
-  width: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 20px;
-}
-
 /* Buttons with smooth scaling */
 .login-button, .signup-button {
   width: 100%;
@@ -71,55 +54,4 @@ body {
   border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Media query for small screens */
-@media (max-width: 600px) {
-  .container {
-    max-width: 100%; /* Full width on small screens */
-    height: 95vh;
-  }
-
-  .form-container {
-    height: 75vh;
-  }
-
-  .login-button, .signup-button {
-    width: 85%; 
-    font-size: 16px;
-  }
-}
-
-/* Media query for tablets and larger screens */
-@media (min-width: 768px) {
-  .container {
-    max-width: 420px; /* Adjusted max width for tablets */
-    height: 90vh;
-  }
-
-  .form-container {
-    height: 80vh;
-  }
-
-  .login-button, .signup-button {
-    width: 70%; 
-    font-size: 18px;
-  }
-}
-
-/* Media query for desktops */
-@media (min-width: 1024px) {
-  .container {
-    height: 100vh;
-  }
-
-  .form-container {
-    height: 85vh;
-  }
-
-  .login-button, .signup-button {
-    width: 60%; 
-    font-size: 20px;
-  }
 }
