@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import the useRouter hook
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import './ForgotPasswordForm.css';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const ForgotPassword = () => {
     const [step, setStep] = useState(1);
@@ -106,28 +107,54 @@ const ForgotPassword = () => {
         }
     };
 
+    const handleGoBack = () => {
+        router.back(); // Navigates to the previous page
+    };
+
     return (
         <div className="form-wrapper">
             {step === 1 && (
-                <div>
-                    <h1 className="header">Forgot Password </h1>
-                    <form onSubmit={handleSubmitEmail}>
-                        <label className="red-label" htmlFor="emailOrMobile">Email or Mobile</label>
-                        <input
-                            id="emailOrMobile"
-                            type="text"
-                            placeholder="Email or Mobile"
-                            value={emailOrMobile}
-                            onChange={(e) => setEmailOrMobile(e.target.value)}
-                            className="input"
-                        />
-                        <button type="submit" className="button">Send</button>
-                    </form>
-                    {passwordErrorMessage && <p className="alert-error-email">{passwordErrorMessage}</p>}
-                </div>
+                <>
+                    <div className="top-section">
+                        <div className="logoContainer">
+                            <span className="back-arrow" onClick={handleGoBack}>
+                                <FontAwesomeIcon icon={faArrowLeft} />
+                            </span>
+                            <div className="welcomeText">Forgot Password</div>
+                        </div>
+                    </div>
+
+                    <div className="ForgotPasswordCard">
+                        <h1 className="header">Forgot Password</h1>
+                        <form onSubmit={handleSubmitEmail}>
+                            <label className="red-label" htmlFor="emailOrMobile">Email or Mobile</label>
+                            <input
+                                id="emailOrMobile"
+                                type="text"
+                                placeholder="Email or Mobile"
+                                value={emailOrMobile}
+                                onChange={(e) => setEmailOrMobile(e.target.value)}
+                                className="input"
+                            />
+                            <button type="submit" className="button">Send</button>
+                        </form>
+                        {passwordErrorMessage && <p className="alert-error-email">{passwordErrorMessage}</p>}
+                    </div>
+                </>
             )}
+
             {step === 2 && (
-                <div className="">
+
+                <>
+                <div className="top-section">
+                    <div className="logoContainer">
+                        <span className="back-arrow" onClick={handleGoBack}>
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </span>
+                        <div className="welcomeText">Verify</div>
+                    </div>
+                </div>
+                <div className="ForgotPasswordCard">
                     <h2 className="header-verify">Verify Your Email</h2>
                     <p className="instruction-text">Enter the OTP Code sent to your E-mailid entered </p>
                     <form onSubmit={handleVerification}>
@@ -152,6 +179,7 @@ const ForgotPassword = () => {
                     <p className="resend-text">Didn't receive the code? <a href="#" className='resend-link'>Resend</a></p>
                     {verificationErrorMessage && <p className="alert-error-verify">{verificationErrorMessage}</p>}
                 </div>
+                </>
             )}
             {step === 3 && (
                 <div>

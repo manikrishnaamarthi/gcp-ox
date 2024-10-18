@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './LoginForm.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-function LoginForm({ onForgotPasswordClick }) {
+function LoginForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -10,6 +12,7 @@ function LoginForm({ onForgotPasswordClick }) {
   const [passwordError, setPasswordError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  // Email/Phone validation function
   const isValidIdentifier = (input) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
@@ -18,11 +21,14 @@ function LoginForm({ onForgotPasswordClick }) {
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
+
     const formData = new FormData(event.target);
     const identifier = formData.get('identifier');
     const password = formData.get('password');
 
     let isValid = true;
+
+    // Validate identifier and password
     if (!isValidIdentifier(identifier)) {
       setIdentifierError('Please enter a valid email or phone number.');
       isValid = false;
@@ -42,7 +48,9 @@ function LoginForm({ onForgotPasswordClick }) {
     try {
       const response = await fetch('http://localhost:8000/usmapp/login/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ identifier, password }),
       });
 
@@ -60,30 +68,44 @@ function LoginForm({ onForgotPasswordClick }) {
   };
 
   const toggleShowPassword = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword((prevState) => !prevState);
+  };
+
+  const handleSignupClick = () => {
+    router.push('/UserAuthentication/SignupPage');
+  };
+
+  const handleForgotPasswordClick = () => {
+    router.push('/UserAuthentication/ForgotPasswordPage');
   };
 
   return (
-    <div className="loginFormWrapper">
-      <div className="loginFormContainer">
-        <form onSubmit={handleLoginSubmit} className="loginForm">
-          <h1 className="loginHeader">Log In</h1>
+    <div className="login-container">
+      <div className="top-section">
+        <div className="logoContainer">
+          <img src="/images/shot.png" alt="Oxivive Logo" className="logo" />
+          <div className="welcomeText">Oxivive</div>
+        </div>
+      </div>
 
+      <div className="login-card">
+        <h2 className="login-heading">Log in</h2>
+        <form onSubmit={handleLoginSubmit}>
+          <label htmlFor="identifier" className="inputLabel">Email</label>
           <div className="inputGroup">
-            <h5 className="inputLabel">E-mail</h5>
             <input
               type="text"
               id="identifier"
               name="identifier"
               className="input"
-              placeholder="E-mail"
+              placeholder="Email or Phone Number"
               required
             />
             {identifierError && <p className="errorMessage">{identifierError}</p>}
           </div>
 
+          <label htmlFor="password" className="inputLabel">Password</label>
           <div className="inputGroup">
-            <h5 className="inputLabel">Password</h5>
             <input
               type={showPassword ? 'text' : 'password'}
               id="password"
@@ -95,21 +117,18 @@ function LoginForm({ onForgotPasswordClick }) {
             {passwordError && <p className="errorMessage">{passwordError}</p>}
           </div>
 
-          <button type="submit" className="loginButton">Log In</button>
-
-          <div className="forgotPassword">
-            <span type="button" onClick={onForgotPasswordClick}>
-              Forgot password?
-            </span>
-          </div>
-          
-          <div className="extra-options">
-            <span><a href="/UserAuthentication/SignupPage" className="signup-link">Sign Up</a></span>
-          </div>
-
-          {successMessage && <p className="successMessage">{successMessage}</p>}
-          {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+          <button type="submit" className="loginButton">Login</button>
         </form>
+
+        <div className="extra-options">
+          <span className="forgotPassword" onClick={handleForgotPasswordClick}>Forgot password?</span>
+        </div>
+        <div className="extra-options">
+        <span className="signup-link" onClick={handleSignupClick}>Sign Up</span>
+        </div>
+
+        {successMessage && <p className="successMessage">{successMessage}</p>}
+        {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       </div>
     </div>
   );

@@ -1,55 +1,83 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-.form-wrapper {
-  max-height: 100%;
-  overflow-y: auto;
-  padding-right: 10px;
-  box-sizing: border-box;
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(226, 222, 222);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-container {
+  width: 350px;
+  height: 100vh;
+  border-radius: 13px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  background-repeat: no-repeat;
-  background-image: none;
-  width: 360px;
-  height: 640px;
-  max-width: 360px;
-  border-radius: 13px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background-color: #ffffff; /* White background applied */
-  padding: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Hide scrollbar styles */
-.form-wrapper::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+.top-section {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px; /* Ensure no padding at the bottom */
+  position: relative;
+  border-radius: 13px 13px 0 0; /* Radius for the top card */
+  box-sizing: border-box;
 }
 
-.form-wrapper {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 20px;
 }
 
-/* Logo styling */
-.logo-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0 auto 20px auto;
-  background-color: transparent;
+.logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
 }
 
-/* Headings */
-h1 {
-  color: #050505;
-  font-size: 24px;
-  margin-bottom: 10px;
-  text-align: center;
+.welcomeText {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #FC000E;
 }
 
-/* Input field styling */
+.signup-card {
+  background-color: #fff; /* White background for the login form */
+  border-radius: 20px 20px 13px 13px; /* Rounded top corners */
+  padding: 30px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  position: relative;
+  margin-top: -30px; /* Creates the overlapping effect */
+  overflow-y: auto; /* Scrolling enabled, but hidden */
+}
+
+/* Hide the scrollbar but keep scrolling */
+.signup-card::-webkit-scrollbar {
+  display: none;
+}
+.signup-card {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .input-field {
   margin-bottom: 22px;
+  position: relative;
   width: 100%;
 }
 
@@ -57,29 +85,44 @@ h1 {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #d32f2f;
+  border: 1px solid #FC000E;
+  background-color: #ffffff;
+  color: #090909;
   font-size: 16px;
 }
 
-/* Password field with eye icon */
 .password-field {
   position: relative;
   display: flex;
   align-items: center;
 }
 
+.password-wrapper {
+  width: 100%;
+  position: relative;
+}
+
 .password-wrapper input {
   padding-right: 40px;
   border-radius: 5px;
-  border: 1px solid #d32f2f;
+  border: 1px solid #FC000E;
 }
 
-/* Upload field */
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #0e0d0d;
+}
+
 .upload-field label {
   display: block;
+  width: 100%;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #d32f2f;
+  border: 1px solid #FC000E;
   background-color: #ffffff;
   text-align: center;
   cursor: pointer;
@@ -89,9 +132,8 @@ h1 {
   display: none;
 }
 
-/* Button styling */
 button {
-  background-color: #c32020;
+  background-color: #FC000E;
   color: white;
   padding: 10px;
   border: none;
@@ -103,26 +145,43 @@ button {
 }
 
 button:hover {
-  background-color: #b71c1c;
+  background-color: #FC000E;
 }
 
-/* Other text links */
-.google-signup, .sign-in-link, .service-provider-link {
-  color: red;
+.google-signup {
+  color: #FC000E;
   text-align: center;
+}
+
+.sign-in-link {
   font-size: 14px;
+  color: #FC000E;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.sign-in-button {
+  background: none;
+  border: none;
+  color: #0e0d0d;
   text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
 }
 
 .error {
   font-size: 9px;
-  color: #ff0000;
+  color: #FC000E;
   margin-top: 5px;
 }
 
-/* Responsive styling */
 @media (max-width: 600px) {
-  h1 {
+  body {
+    padding: 10px;
+  }
+
+  .welcomeText {
     font-size: 20px;
   }
 
@@ -136,4 +195,21 @@ button:hover {
     padding: 8px;
     font-size: 14px;
   }
+
+  .google-signup {
+    font-size: 14px;
+  }
+}
+
+.service-provider-link {
+  display: block;
+  color: #FC000E;
+  font-size: 14px;
+  margin-top: 5px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.text {
+  text-align: center;
 }
