@@ -1,130 +1,137 @@
-/* Profile container styles */
+/* General body styles */
 body {
-  font-family: 'Arial', sans-serif;
   margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgb(226, 222, 222);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Profile container */
+.profile-container {
   background-color: white;
-  padding: 20px;
-  border-radius: 13px;
-  text-align: center;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 375px; /* Mobile responsive width */
+  padding: 40px 20px; /* More compact padding */
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 400px;
-  width: 360px;
-  height: 640px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: auto;
-  min-height: 100vh;
-  justify-content: center;
   box-sizing: border-box;
+}
 
-  }
+/* Profile header section */
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
 
-.profile-container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .profile-header {
-    margin-bottom: 20px;
-  }
-  
-  .profile-picture {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  
-  h2 {
-    font-size: 20px;
-    margin: 5px 0;
-  }
-  
-  p {
-    font-size: 14px;
-    color: gray;
-  }
-  
-  .edit-profile-button {
-    background-color: #f0f0f0;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: #007bff;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .edit-profile-button:hover {
-    background-color: #e0e0e0;
-  }
-  
-  /* Profile options styles */
-  .profile-options {
-    margin-top: 20px;
-  }
-  
-  .profile-option {
-    padding: 15px;
-    text-align: left;
-    font-size: 16px;
-    color: #333;
-    border-bottom: 1px solid #f0f0f0;
-    cursor: pointer;
-  }
-  
-  .logout-button {
-    color: red;
-  }
-  
-  /* Modal styles */
-  .logout-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .logout-modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .logout-buttons {
-    margin-top: 20px;
-  }
-  
-  .confirm-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .cancel-button {
-    background-color: #f0f0f0;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .cancel-button:hover {
-    background-color: #e0e0e0;
-  }
-  
+h2 {
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+p {
+  font-size: 14px;
+  color: gray;
+}
+
+.edit-profile-button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: #e6e3dd;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.edit-profile-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Profile options */
+.profile-options {
+  width: 100%;
+}
+
+.profile-option {
+  padding: 15px;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.logout-button {
+  color: red;
+}
+
+/* Modal styles */
+/* .logout-modal {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  transition: transform 0.3s ease-in-out;
+} */
+
+.logout-modal.show {
+  transform: translateY(0);
+}
+
+.logout-modal-content {
+  width: 375px;
+  background-color: rgb(196, 77, 77);
+  padding: 20px;
+  border-radius: 12px 12px 0 0; /* Rounded top corners */
+  text-align: center;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.logout-buttons {
+  margin-top: 20px;
+
+}
+
+.confirm-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.confirm-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #8f6767;
+}

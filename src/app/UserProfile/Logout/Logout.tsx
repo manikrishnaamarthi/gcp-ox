@@ -42,21 +42,22 @@ const Logout = () => {
       </div>
 
       {showModal && (
-        <div className="logout-modal">
-          <div className="logout-modal-content">
-            <h3>Log out</h3>
-            <p>Are you sure you want to log out?</p>
-            <div className="logout-buttons">
-              <button className="confirm-button" onClick={handleConfirmLogout}>
-                Yes, Logout
-              </button>
-              <button className="cancel-button" onClick={handleCancelLogout}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className={`logout-modal ${showModal ? 'show' : ''}`}>
+    <div className="logout-modal-content">
+      <h3>Log out</h3>
+      <p>Are you sure you want to log out?</p>
+      <div className="logout-buttons">
+        <button className="confirm-button" onClick={handleConfirmLogout}>
+          Yes, Logout
+        </button>
+        <button className="cancel-button" onClick={handleCancelLogout}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
