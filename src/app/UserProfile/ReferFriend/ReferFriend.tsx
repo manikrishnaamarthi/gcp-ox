@@ -1,10 +1,15 @@
 import React from 'react';
+import { IoChevronBackSharp } from 'react-icons/io5'; // Import the icon
 import './ReferFriend.css';
 
 const ReferFriend: React.FC = () => {
   return (
     <div className="refer-friend-container">
-      <button className="back-button">←</button>
+      <button className="back-button">
+        <div className="icon-circle"> {/* Circle wrapper for the icon */}
+          <IoChevronBackSharp />
+        </div>
+      </button>
       <div className="refer-friend-content">
         <div className="icon-wrapper">
           <img src="/images/refer.png" alt="Refer Icon" className="refer-icon" />
