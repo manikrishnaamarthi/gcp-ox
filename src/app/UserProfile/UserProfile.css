@@ -2,7 +2,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
   background-color: rgb(226, 222, 222);
   height: 100vh;
   overflow: hidden;
@@ -13,7 +14,8 @@ body {
 
 /* User Profile Container */
 .user-profile {
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
   padding: 20px;
   width: 100%;
   max-width: 900px; /* Ensures max-width for mobile responsiveness */
@@ -43,19 +45,21 @@ body {
   object-fit: cover;
   display: block;
   margin: 0 auto;
+  margin-top: 15px;
 }
 
 .profile-name {
   font-size: 22px;
   font-weight: bold;
-  margin: 10px 0;
+  margin: 5px 0;
   color: black;
 }
 
 .profile-email {
   font-size: 0.9em;
   color: rgb(16, 16, 16);
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  margin-top: -5px;
 }
 
 /* Edit Profile Button */
@@ -79,6 +83,7 @@ body {
 }
 .profile{
   padding-left: 20px;
+  margin-bottom: 10px;
 
 }
 
@@ -97,7 +102,7 @@ body {
 .profile-menu ul {
   list-style-type: none;
   padding: 0;
-  color: black;
+  color: rgb(52, 47, 47);
 }
 
 .profile-menu li {
@@ -110,10 +115,6 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
   position: relative;
-}
-
-.profile-menu li:hover {
-  background-color: #f9f9f9;
 }
 
 .profile-menu .icon {
@@ -129,14 +130,20 @@ body {
   align-items: center;
   width: 30px;
   height: 30px;
-  background-color: #cec9c9; /* Light grey background for the circle */
+  background-color: #e1dfdf; /* Light grey background for the circle */
   border-radius: 50%; /* Creates the circular shape */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Lift shadow effect */
+  box-shadow: 0 4px 6px rgba(147, 90, 90, 0.1); /* Lift shadow effect */
   margin-right: 10px; /* Space between the icon and text */
 }
+.icon-container i, /* this will target the icons inside the icon-container */
+.profile-menu li svg {
+  color: #8a8585; /* Light color for the icons */
+  transition: color 0.3s ease;
+}
+
 
 .icon-container i {
-  color: #f7f1f1; /* Icon color */
+  color: #dddcdc; /* Icon color */
 }
 
 .icon-container:hover {
@@ -148,17 +155,16 @@ body {
 .logout-popup {
   position: fixed;
   bottom: 0;
-  left: 580px;
-  right: 0;
-  background-color: rgb(189, 185, 185);
+  background-color: white;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+  padding: 50px;
   text-align: center;
   border-radius: 10px 10px 0 0;
   animation: slideUp 0.3s ease-in-out;
   z-index: 1000;
-  width: 375px;
-  height: 25%;
+  width: 366px;
+  height: 35%;
+  margin-bottom: 2px;
 }
 
 .popup-content {
@@ -167,25 +173,46 @@ body {
   align-items: center;
   color: black;
   font-weight: bold;
+  font-size: ;
 }
+.popup-content h1{
+  font-size: 23px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom:20px ;
+}
+.popup-content p{
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: -10px;
+
+}
+
 
 .logout-btn,
 .cancel-btn {
   padding: 10px 20px;
-  margin: 10px 5px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  width: 130%;
+  margin-bottom:50px;
+
 }
 
 .logout-btn {
   background-color: #FC000E;
   color: white;
+  margin-bottom: -10px;
+  margin-top: 40px;
 }
 
 .cancel-btn {
   background-color: #888;
   color: white;
+  margin-top: 35px;
+  margin-bottom: px;
 }
 
 /* Slide up animation for the popup */
@@ -207,7 +234,7 @@ body {
   width: 110%;
   display: flex;
   justify-content: center;
-  padding: 9px 0;
+  padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   z-index: 999;
   gap: 60px;
@@ -222,12 +249,21 @@ body {
   cursor: pointer;
   color: rgb(151, 147, 147);
 }
+.footer-icon.active {
+  color: red;
+}
+
+.footer-icon.active .footer-header {
+  color: red;
+}
+
+
 
 .footer-header {
   font-size: 12px;
-  margin-top: px;
+  margin-top: 5px;
   margin-bottom: px;
-  color: rgb(15, 14, 14);
+  color: rgb(173, 171, 171);
 }
 
 /* Responsive Styling */
