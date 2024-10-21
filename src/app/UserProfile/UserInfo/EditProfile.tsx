@@ -67,20 +67,26 @@ const EditProfile = () => {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            disabled
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Email ID</label>
+        <label htmlFor="email">Email ID</label>
+        <div className="email-input-wrapper">
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled
-          />
+    />
+    {email && (
+      <span className="clear-email" onClick={() => setEmail('')}>
+        &times; {/* This represents the "X" icon */}
+      </span>
+    )}
+  </div>
         </div>
+        
 
         <div className="form-group">
           <label htmlFor="mobile">Mobile number</label>
@@ -89,7 +95,6 @@ const EditProfile = () => {
             id="mobile"
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
-            disabled
           />
         </div>
 

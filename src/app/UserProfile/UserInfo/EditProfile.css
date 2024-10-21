@@ -1,7 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
   background-color: rgb(226, 222, 222);
   height: 100vh;
   overflow: hidden;
@@ -11,7 +12,8 @@ body {
 }
 
 .edit-profile {
-    font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
     padding: 0px;
     margin: 0 auto;
     background-color: white;
@@ -42,16 +44,16 @@ body {
   .edit-profile-header h2 {
     flex-grow: 1; /* Allows the title to take available space */
     text-align: center; /* Center the title */
-    font-size: 1.5em;
+    font-size: 20px;
     font-weight: bold;
     color: black;
     margin-bottom: 100px;
-    margin-top:px;
-    margin-left:45px ;
+    margin-top:-10px;
+    margin-left:50px ;
     position: absolute;
   }
   .close-btn {
-    font-size: 1em;
+    font-size: 18px;
     color: #FC000E;
     cursor: pointer;
     margin-left: -60px;
@@ -62,7 +64,7 @@ body {
   }
   
   .save-btn {
-    font-size: 1em;
+    font-size: 18px;
     color: #FC000E;
     cursor: pointer;
     width: 0px; /* Adjust as needed */
@@ -111,7 +113,7 @@ body {
   .form-group label {
     display: block;
     font-size: 1em;
-    color: #333;
+    color: #b4b1b1;
     margin-bottom: px;
     margin-left: 0px;
     text-align:left; 
@@ -123,15 +125,53 @@ body {
     width: 100%;
     padding: 8px;
     font-size: 1em;
-    border: 1px solid #ddd;
+    border: 1px solid #f0eeee;
     border-radius: 5px;
     text-align: left;
   }
   
-  .form-group input:disabled {
-    background-color: #f9f9f9;
-    color: #999;
+  .form-group input {
+    background-color: #ffffff;
+    color: #070707;
   }
+  .form-group input:focus {
+    border: 2px solid #FC000E; /* Red border on focus */
+    outline: none; 
+  }
+
+  /* Wrapper for the email input field */
+.email-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.email-input-wrapper input {
+  padding-right: 25px; /* Space for the X button */
+}
+
+/* Clear (X) button styles */
+.clear-email {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 20px;
+  width: 15px;
+  height: 15px;
+  background-color: #dfdfdf; /* Light background for the circle */
+  border: 1px solid #ccc; /* Border for the circle */
+  border-radius: 50%; /* Makes it a circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clear-email:hover {
+  color: #FC000E;
+}
+
+  
   
   .save-profile-btn {
     width: 150%; /* Set width to 100% of its parent container */
@@ -154,7 +194,7 @@ body {
   }
   
   .camera-icon-container {
-    position: absolute;
+  position: absolute;
   display: flex;
   justify-content: center;
   cursor: pointer;

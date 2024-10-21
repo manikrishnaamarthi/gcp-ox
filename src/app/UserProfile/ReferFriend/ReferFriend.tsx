@@ -1,13 +1,16 @@
-import React from 'react';
+"use client";
+import React, { use } from 'react';
 import { IoChevronBackSharp } from 'react-icons/io5'; // Import the icon
 import './ReferFriend.css';
+import { useRouter } from 'next/navigation';
 
 const ReferFriend: React.FC = () => {
+  const Router =useRouter()
   return (
     <div className="refer-friend-container">
       <button className="back-button">
         <div className="icon-circle"> {/* Circle wrapper for the icon */}
-          <IoChevronBackSharp />
+          <IoChevronBackSharp onClick={() => Router.back()} />
         </div>
       </button>
       <div className="refer-friend-content">

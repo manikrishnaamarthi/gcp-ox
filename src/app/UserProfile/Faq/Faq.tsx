@@ -5,6 +5,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import './Faq.css';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoIosSearch } from 'react-icons/io';
+import { useRouter } from 'next/navigation';
 
 
 const faqs = [
@@ -18,6 +19,7 @@ const faqs = [
 ];
 
 const Faq: React.FC = () => {
+  const Router =useRouter()
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const toggleAnswer = (index: number) => {
@@ -27,7 +29,7 @@ const Faq: React.FC = () => {
   return (
     <div className="faq-container">
       <div className="icon-circle">
-        <IoChevronBackSharp className="back-icon" />
+        <IoChevronBackSharp className="back-icon"  onClick={() => Router.back()}/>
       </div>
       <h2>Faq's</h2>
       <div className="search-bar">

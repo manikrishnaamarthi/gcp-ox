@@ -2,13 +2,15 @@
 import React from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
 import './Privacy.css';
+import { useRouter } from 'next/navigation';
 
 const Privacy: React.FC = () => {
+  const Router =useRouter()
   return (
     <div className="privacy-container">
       <button className="back-button">
         <span className="icon-circle">
-          <IoIosArrowBack />
+          <IoIosArrowBack  onClick={() => Router.back()}/>
         </span>
       </button>
       <h2>Privacy Policy</h2>
