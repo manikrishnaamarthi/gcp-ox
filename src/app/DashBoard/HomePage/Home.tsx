@@ -4,15 +4,16 @@ import { useRouter } from 'next/navigation';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaUser, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import { GoHome } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { RxCalendar } from "react-icons/rx";
 import { TfiAngleDoubleRight } from "react-icons/tfi";
 import { PiAmbulanceLight } from "react-icons/pi";
 import { BiClinic } from "react-icons/bi";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { MdSportsGymnastics } from "react-icons/md";
+import { BsPerson } from "react-icons/bs";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const Home: React.FC = () => {
   const [showGymIcon, setShowGymIcon] = useState<boolean>(false);
   const [showClinicEducate, setShowClinicEducate] = useState<boolean>(false);
   const [showWheelEducate, setShowWheelEducate] = useState<boolean>(false);
+  const [activeFooterIcon, setActiveFooterIcon] = useState<string>('home'); // Track the active footer icon
 
   const sliderSettings = {
     dots: true,
@@ -32,12 +34,14 @@ const Home: React.FC = () => {
   };
 
   const fetchAddress = async (latitude: number, longitude: number) => {
-    const apiKey = 'AIzaSyA8GzhJLPK0Hfryi5zHbg3RMDSMCukmQCw'; // Replace with your API key
+    const apiKey = 'AlzaSyhuUoFwnMYJcltM8bqNkk1hq4BfiHmyA7D'; // Replace with your API key
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
+      console.log("response", response);
+      console.log("response", data);
 
       if (data.status === 'OK') {
         const address = data.results[0]?.formatted_address || 'Address not found';
@@ -76,15 +80,26 @@ const Home: React.FC = () => {
         console.error('Error getting location:', error);
       }
     );
-  }, []);
+  }, []); // Only run once on component mount
 
-  const handleViewAllClick = () => {
-    setShowGymIcon(true); // Show the new icon
+  const handleFooterIconClick = (icon: string) => {
+    setActiveFooterIcon(icon); // Set active icon based on click
+    if (icon === 'home') {
+      router.push('/');
+    } else if (icon === 'search') {
+      router.push('/DashBoard/SearchPage');
+    } else if (icon === 'booking') {
+      router.push('http://localhost:3000/Booking');
+    } else if (icon === 'profile') {
+      router.push('http://localhost:3000/UserProfile');
+    }
   };
 
-  const handleAccountIconClick = () => {
-    router.push('http://localhost:3000/UserProfile');
-  };
+  // Adjusted footerIconStyle function
+  const footerIconStyle = (icon: string) => ({
+    color: activeFooterIcon === icon ? '#FC000E' : 'rgb(151, 147, 147)',
+  });
+
 
   const handleClinicClick = () => {
     setShowClinicEducate(true);
@@ -105,7 +120,6 @@ const Home: React.FC = () => {
       behavior: 'smooth'
     });
   };
-  
 
   return (
     <div className="home-container">
@@ -117,17 +131,17 @@ const Home: React.FC = () => {
             <span className="location-text">{location}</span>
           </div>
         </div>
-        <IoIosNotificationsOutline size={24} className="notification-icon" />
+        <IoNotificationsOutline size={28} className="notification-icon" />
       </div>
 
       {/* Search Bar */}
       <div className="search-container" onClick={() => router.push('/DashBoard/SearchPage')}>
+        <CiSearch size={24} className="search-icon" />
         <input
           type="text"
           placeholder="Search"
           className="search-input"
         />
-        <CiSearch size={24} className="search-icon" />
       </div>
 
       {/* Promotion Slider */}
@@ -140,105 +154,101 @@ const Home: React.FC = () => {
       </div>
 
       {/* Explore Section */}
-      <div className="explore-section">
+      <div className="service-section">
         <div className="section-header">
           <h1 className="explore">Services</h1>
-          <button className="view-all-button" onClick={handleViewAllClick}>View all </button>
-          <TfiAngleDoubleRight className="arrow-icon" onClick={handleViewAllClick} />
+          <button className="view-all-button" onClick={() => setShowGymIcon(true)}>View all </button>
+          <TfiAngleDoubleRight size={14} className="arrow-icon" onClick={() => setShowGymIcon(true)} />
         </div>
       </div>
 
       <div className="services-icon-section">
         <div className="icon-row">
-          <div className="service-icon-clinic">
-            <BiClinic size={40} className="service-icon" onClick={handleClinicClick} />
-            <span className="service-icon-label">Oxi Clinic</span>
-          </div>
-          <div className="service-icon-ambulance">
-            <PiAmbulanceLight size={40} className="service-icon" onClick={handleWheelClick} />
-            <span className="service-icon-label">Oxi Wheel</span>
-          </div>
-        </div>
-
-        {showGymIcon && (
-          <div className="icon-row">
-            <div className="service-icon-gym">
-              <MdSportsGymnastics size={40} className="service-icon gym-icon" onClick={() => router.push('/DashBoard/SearchPage')} />
-              <span className="service-icon-label">Oxi Gym</span>
+          <div className="service-icon-container">
+            <div className="service-icon-clinic" onClick={() => handleFooterIconClick('search')}>
+              <BiClinic size={40} className="service-icon" />
             </div>
+            <span className="service-text-clinic">Oxi Clinic</span>
           </div>
-        )}
+
+          <div className="service-icon-container">
+            <div className="service-icon-ambulance" onClick={() => handleFooterIconClick('search')}>
+              <PiAmbulanceLight size={40} className="service-icon" />
+            </div>
+            <span className="service-text-wheel">Oxi Wheel</span>
+          </div>
+
+          {showGymIcon && (
+            <div className="service-icon-container">
+              <div className="service-icon-gym" onClick={() => handleFooterIconClick('search')}>
+                <MdSportsGymnastics size={40} className="service-icon gym-icon" />
+              </div>
+              <span className="service-text-gym">Oxi Gym</span>
+            </div>
+          )}
+        </div>
       </div>
 
-      
       <div>
         <p className='images-above-section'> Explore</p>
       </div>
 
       {/* Oxi images */}
       <div className="oxi-images-section">
-        
-        <img src="/images/oxiclinic.png" alt="Oxi Clinic" className="oxi-image" onClick={handleClinicClick} />
-        <img src="/images/oxiwheel.png" alt="Oxi Wheel" className="oxi-image" onClick={handleWheelClick} />
+        <img src="/images/oxiclinic.png" alt="Oxi Clinic" className="oxi-image"  onClick={handleClinicClick} />
+        <img src="/images/oxiwheel.png" alt="Oxi Wheel" className="oxi-image"  onClick={handleWheelClick}  />
       </div>
 
       {/* Oxi Educate Sections */}
-      {/* Oxi Educate Sections */}
-{showClinicEducate && (
-  <div id="oxi-educate-clinic" className="oxi-educate-section">
-    <h2>How to book an Oxi Clinic Service</h2>
-    <ol className="educate-list">
-      <li>Click on the Oxi Clinic image to start.</li>
-      <li>Search for a location or confirm your current location.</li>
-      <li>Select the clinic from the map based on your chosen location.</li>
-      <li>Choose a convenient date and time for your appointment.</li>
-      <li>Complete the payment to confirm your booking.</li>
-      <li>View your booked service in the My Bookings section.</li>
-    </ol>
-  </div>
-)}
+      {showClinicEducate && (
+        <div id="oxi-educate-clinic" className="oxi-educate-section">
+          <h2>How to book an Oxi Clinic Service</h2>
+          <ol className="educate-list">
+            <li>Click on the Oxi Clinic image to start.</li>
+            <li>Search for a location or confirm your current location.</li>
+            <li>Select the clinic from the map based on your chosen location.</li>
+            <li>Choose a convenient date and time for your appointment.</li>
+            <li>Complete the payment to confirm your booking.</li>
+            <li>View your booked service in the My Bookings section.</li>
+          </ol>
+        </div>
+      )}
 
-{showWheelEducate && (
-  <div id="oxi-educate-wheel" className="oxi-educate-section">
-    <h2>How to book an Oxi Wheel Service</h2>
-    <ol className="educate-list">
-      <li>Click on the Oxi Wheel image to start.</li>
-      <li>Search for a location or confirm your current location.</li>
-      <li>Select the Oxi Wheel service from the map based on your chosen location.</li>
-      <li>Choose a convenient date and time for your appointment.</li>
-      <li>Complete the payment to confirm your booking.</li>
-      <li>View your booked service in the My Bookings section.</li>
-    </ol>
-  </div>
-)}
-
-
-
-
-
-
-
-
+      {showWheelEducate && (
+        <div id="oxi-educate-wheel" className="oxi-educate-section">
+          <h2>How to book an Oxi Wheel Service</h2>
+          <ol className="educate-list">
+            <li>Click on the Oxi Wheel image to start.</li>
+            <li>Search for a location or confirm your current location.</li>
+            <li>Select the Oxi Wheel service from the map based on your chosen location.</li>
+            <li>Choose a convenient date and time for your appointment.</li>
+            <li>Complete the payment to confirm your booking.</li>
+            <li>View your booked service in the My Bookings section.</li>
+          </ol>
+        </div>
+      )}
 
       {/* Footer Section */}
       <div className="footer-section">
-        <div className="footer-icon">
+        <div className="footer-icon" style={footerIconStyle('home')} onClick={() => handleFooterIconClick('home')}>
           <GoHome size={24} />
-          <span className="footer-header">Home</span>
+          <span className="footer-header" style={{ color: footerIconStyle('home').color }}>Home</span>
         </div>
-        <div className="footer-icon" onClick={() => router.push('/DashBoard/SearchPage')}>
+        <div className="footer-icon" style={footerIconStyle('search')} onClick={() => handleFooterIconClick('search')}>
           <CiSearch size={24} />
-          <span className="footer-header">Search</span>
+          <span className="footer-header" style={{ color: footerIconStyle('search').color }}>Search</span>
         </div>
-        <div className="footer-icon" onClick={() => router.push('http://localhost:3000/Booking')}>
+        <div className="footer-icon" style={footerIconStyle('booking')} onClick={() => handleFooterIconClick('booking')}>
           <RxCalendar size={24} />
-          <span className="footer-header">Booking</span>
+          <span className="footer-header" style={{ color: footerIconStyle('booking').color }}>Booking</span>
         </div>
-        <div className="footer-icon" onClick={() => router.push('http://localhost:3000/UserProfile')}>
-          <FaUser size={24} />
-          <span className="footer-header">Profile</span>
+        <div className="footer-icon" style={footerIconStyle('profile')} onClick={() => handleFooterIconClick('profile')}>
+          <BsPerson size={28} />
+          <span className="footer-header" style={{ color: footerIconStyle('profile').color }}>Profile</span>
         </div>
       </div>
+
+
     </div>
   );
 };
