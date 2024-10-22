@@ -1,0 +1,121 @@
+/* Apply global body styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f6f3f3;
+  }
+  
+  /* Container styling */
+  .container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 350px;
+    background-color: white;
+    /* margin-left: 600px; */
+    margin: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles for the back button */
+  .back-button {
+    background: rgb(230, 229, 229);
+    font-size: 24px;
+    padding: 10px 10px;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    cursor: pointer;
+    color: #8b8989;
+    border-radius: 50%; 
+  }
+  
+  /* Cancel container styling */
+  .cancel-container {
+    max-width: 90%;
+  }
+  
+  /* Cancel icon styling */
+  .cancel-icon img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    /* margin-left: 50px; */
+    margin: auto;
+  }
+  
+  /* Title styling */
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    /* margin: 10px 0; */
+    color: black;
+    width: 250px;
+    margin: auto;
+    margin-top: 25px;
+  }
+  
+  /* Paragraph styling */
+  p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+    width: 250px;
+  }
+  
+  /* Retry button styling */
+  .retry-button {
+    background-color: #FC000E;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 45px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+      width: 90%;
+      height: 95vh;
+      margin-top: 20px;
+      padding: 20px 0;
+    }
+    
+    .back-button {
+      font-size: 18px;
+      padding: 10px 10px;
+
+    }
+    
+    .cancel-icon img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 15px;
+      margin: auto;
+    }
+    
+    h2 {
+      font-size: 16px;
+      width: 80%;
+      margin: auto;
+    }
+    
+    p {
+      font-size: 12px;
+      width: 80%;
+      margin: auto;
+    }
+    
+    .retry-button {
+      padding: 10px 45px;
+      font-size: 14px;
+      margin-top: 25px;
+    }
+  }
+  

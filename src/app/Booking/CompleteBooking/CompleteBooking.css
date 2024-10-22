@@ -1,215 +1,403 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
-    width: 100%;
-    max-width: 375px;
-    margin: auto;
-  }
-  
-  header {
-    padding: 16px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
-  }
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f6f3f3;
+  color: #333;
+}
 
-  header h1 {
-    font-size: 20px;
-    margin: 0;
-    color: #000;
-    font-weight: bold;
-    margin-left: 20px;
-  }
+.container{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100%;
+  max-width: 375px;
+  background-color: white;
+  position: fixed;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .back-arrow {
-    font-size: 24px;
-    cursor: pointer;
-    color: #000;
-    background-color: #e7e7e7;
-    padding: 3px 15px;
-    border-radius: 100px;
-  }
-  
-  /* .booking-id {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 5px;
-  } */
-  
-  main {
-    padding: 16px;
-  }
-  
-  .service-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .service-title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .service-description {
-    font-size: 14px;
-    color: #777;
-  }
-  
-  .service-price {
-    font-size: 16px;
-    font-weight: bold;
-    color: #28a745;
-  }
-  
-  .job-info {
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .job-header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .job-id {
-    font-size: 14px;
-    color: #FC000E;
-  }
-  
-  .status {
-    font-size: 12px;
-    color: #FC000E;
-    /* background-color: #d1a3ff; */
-    padding: 4px 10px;
-    border-radius: 12px;
-  }
-  
-  .provider-name, .provider-company {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .provider-address {
-    font-size: 14px;
-    color: #777;
-  }
-  
-  .user-info {
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .user-rating-header {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 12px;
-  }
-  
-  .user-name {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .user-rating {
-    font-size: 14px;
-    color: #777;
-  }
-  
-  .completion-time {
-    font-size: 12px;
-    color: #aaa;
-    margin-top: 8px;
-  }
-  
-  .rating-section {
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .rating-stars {
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .rating-value {
-    margin-left: 8px;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .vendor-comment {
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .comment-text {
-    font-size: 14px;
-    color: #777;
-  }
-  
-  .order-summary {
-    padding: 16px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .summary-title {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .summary-item, .summary-total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-  }
-  
-  .summary-total {
-    margin-top: 5px;
-    border-top: 1px solid #ccc;
-    font-weight: bold;
-  }
-  
-  .bill-info {
-    font-size: 12px;
-    color: #888;
-    margin-top: 8px;
-    margin-left: 50px;
-  }
+.header-container {
+  padding: 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
 
-  .support {
-    font-size: 12px;
-    color: #FC000E;
-    margin-top: 8px;
-    margin-left: 100px;
-  }
-  
-  .feedback-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #FC000E;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 16px;
-  }
-  
-  
-  
+.header-container h1 {
+  font-size: 20px;
+  margin: 0;
+  color: #000;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.back-arrow {
+  font-size: 24px;
+  cursor: pointer;
+  color: #8b8989;
+  background-color: #e7e7e7;
+  padding: 10px 10px;
+  border-radius: 100px;
+}
+
+
+.main-container{
+  height: calc(100vh - 60px); /* Adjust based on header height */
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+main {
+  padding: 16px;
+}
+
+.service-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0px;
+  border-bottom: 1px solid #eee;
+  padding-top: 5px;
+  margin: 5px 0;
+}
+
+.service-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.service-description {
+  font-size: 14px;
+  color: #777;
+}
+
+.service-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin-top: 15px;
+  margin-right: 15px;
+}
+
+.job-info {
+  margin-top: 15px;
+  border: 1px solid #e8e9ea;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.job-id {
+  font-size: 14px;
+  color: #FC000E;
+}
+
+.status {
+  color: #FC000E;
+  border-radius: 5px;
+  padding: 5px;
+  display: inline-block;
+  text-align: right;
+  background-color: #fef3f1;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.provider-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.provider-company {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.provider-address {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: #777;
+}
+
+.user-info {
+  margin-top: 15px;
+  border: 1px solid #e8e9ea;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.user-rating-header {
+  display: flex;
+  /* align-items: center; */
+  padding: 10px;
+  border-bottom: 1px solid #e8e9ea;
+  gap: 130px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* margin-right: 5px; */
+  text-align: right;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.user-rating {
+  margin: 0;
+  color: #777777;
+  display: inline-flex;
+  align-items: center;
+}
+
+.user-rating span {
+  color: #f1c40f;
+  display: inline-flex;
+  align-items: center;
+}
+
+.completion-time {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.rating-section {
+  margin-top: 15px;
+  border: 1px solid #e8e9ea;
+  padding: 5px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.rating-section p {
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.rating-stars {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.filled-star {
+  color: #f1c40f; /* Gold color for filled stars */
+  margin-right: 2px;
+  font-size: 22px;
+}
+
+.empty-star {
+  color: #e8e9ea; /* Grey color for empty stars */
+  margin-right: 2px;
+  font-size: 22px;
+}
+
+.rating-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 140px;
+  margin-right: 10px;
+  padding: 10px 25px;
+  border: 1px solid #e8e9ea;
+  border-radius: 30%;
+  font-size: 14px;
+  color: #333;
+  background-color: #fafafa; /* Light background color */
+  margin-bottom: 10px;
+}
+
+.vendor-comment {
+  margin-top: 15px;
+  border: 1px solid #e8e9ea;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.vendor-comment p {
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.comment-text {
+  margin-top: 12px;
+  margin-left: 10px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.password-eye-container {
+  position: relative;
+}
+
+.password-eye-container h1 {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.password-eye-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #777;
+  cursor: pointer;
+}
+
+
+.order-summary {
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.summary-item, .summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.summary-total {
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #ccc;
+  font-weight: bold;
+  font-size: 16px;
+}
+.price {
+  display: inline-flex;
+  align-items: center; /* Ensures the dollar icon and number are aligned in one line */
+}
+
+.dollar-icon {
+  font-size: 12px; /* Smaller font size for the dollar sign */
+  margin-right: 2px; /* Optional: adds a small space between the dollar sign and the number */
+}
+
+.bill-info {
+  font-size: 12px;
+  color: #888;
+  margin-top: 8px;
+  margin-left: 50px;
+}
+
+.support {
+  font-size: 12px;
+  color: #FC000E;
+  margin-top: 8px;
+  margin-left: 100px;
+  text-decoration: underline;
+}
+
+.feedback-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #FC000E;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+ /* Responsive adjustments */
+@media (max-width: 600px) {
+.container {
+  width: 90%;
+  height: 100%;
+  margin-top: 5px;
+  padding: 20px 0;
+}
+
+.header-container{
+  padding: 16px;
+  background-color: #fff;
+  margin-top: 0px;
+  height: 6%;
+}
+
+.header-container h1{
+  font-size: 20px;
+  margin: 0;
+  color: #000;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-bottom: 8px;
+}
+
+.back-arrow {
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+  background-color: #e7e7e7;
+  padding: 10px 10px;
+  border-radius: 100px;
+  margin-bottom: 15px;
+} 
+.user-rating {
+  margin: 0;
+  color: #777777;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  width: 50px;
+}
+
+.user-rating span {
+  color: #f1c40f;
+  display: inline-flex;
+  align-items: center;
+}
+}
+
+/* Responsive adjustments for tablets and larger devices like Surface Pro */
+@media (min-width: 601px) and (max-width: 1300px) {
+.container {
+  width: 90%;
+  height: 95%;
+  margin-top: 20px;
+  max-width: 900px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 350px;
+  /* margin-right: 100px; */
+  /* text-align: right; */
+}
+}

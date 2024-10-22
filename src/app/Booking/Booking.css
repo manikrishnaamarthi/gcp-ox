@@ -1,137 +1,309 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    width: 100%;
-    max-width: 375px;
-    margin: auto;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .tab {
-    background: none;
-    border: none;
-    font-size: 16px;
-    padding: 8px;
-    cursor: pointer;
-    color: #000;
-    font-weight: bold;
-  }
-  
-  .tab.active {
-    color: #000;
-    font-weight: bold;
-    background-color: #FC000E;
-    padding: 2px 25px;
-    border-radius: 12px;
-  }
-  
-  .booking-list {
-    padding: 10px;
-  }
-  
-  .booking-card {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .booking-header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .booking-id {
-    text-decoration: none;
-    color: #FC000E;
-    font-weight: bold;
-  }
-  
-  .status {
-    font-size: 14px;
-    padding: 2px 8px;
-    border-radius: 12px;
-  }
-  
-  .accepted {
-    /* background-color: #e3f2fd; */
-    color: #FC000E;
-  }
-  
-  .submitted {
-    /* background-color: #e8f5e9; */
-    color: #FC000E;
-  }
-  
-  .ongoing {
-    /* background-color: #fff3e0; */
-    color: #FC000E;
-  }
-  
-  .service-name {
-    margin: 8px 0;
-    font-size: 16px;
-    color: #000;
-    font-weight: bold;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f6f3f3;
+}
+
+.container {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  background-color: white;
+  position: fixed;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  padding: 8px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+}
+
+.tab.active {
+  color: #000;
+  font-weight: bold;
+  background-color: #edeaea;
+  padding: 2px 25px;
+  border-radius: 12px;
+}
+
+.booking-list {
+  padding: 10px;
+  height: calc(100vh - 60px); /* Adjust based on header height */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  /* margin-top: 10px; */
+}
+
+.booking-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.booking-id {
+  text-decoration: none;
+  color: #FC000E;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.status {
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.accepted {
+  /* background-color: #e3f2fd; */
+  color: #FC000E;
+  border-radius: 5px;
+  padding: 5px;
+  display: inline-block;
+  text-align: right;
+  background-color: #fef3f1;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.submitted {
+  /* background-color: #e8f5e9; */
+  color: #FC000E;
+  border-radius: 5px;
+  padding: 5px;
+  display: inline-block;
+  text-align: right;
+  background-color: #fef3f1;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.ongoing {
+  /* background-color: #fff3e0; */
+  color: #FC000E;
+  border-radius: 5px;
+  padding: 5px;
+  display: inline-block;
+  text-align: right;
+  background-color: #fef3f1;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.service-name {
+  margin: 0px 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+}
+
+.service-time {
+  margin: 2px 0;
+  font-size: 14px;
+  color: #444;
+  display: flex; /* Change to flex for full-width alignment */
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0d9d9;
+}
+
+.booking-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-provider p {
+  margin: 0;
+  color: #444;
+  display: inline-flex;
+  align-items: center;
+}
+
+.service-provider span {
+  color: #f1c40f;
+  display: inline-flex;
+  align-items: center;
+}
+
+.service-provider h2 {
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.service-provider {
+  display: flex;
+  gap: 130px;
+}
+
+.text-content {
+  margin-right: 10px; /* Add space between the text and image if needed */
+}
+
+.provider-image {
+  width: 45px; /* Set the width of the image */
+  height: 45px; /* Set the height of the image */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the area */
+  margin-top: 5px;
+}
+
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 30px;
+  margin: 10px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0d9d9;
+}
+
+.reschedule-button {
+  background-color: transparent;
+  color: #FC000E;
+  border: 1px solid #FC000E;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cancel-button {
+  background-color: transparent;
+  color: #FC000E;
+  border: 1px solid #FC000E;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  /* display: inline; */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+    height: 95%;
+    margin-top: 5px;
+    padding: 20px 0;
   }
 
-  .service-time {
-    margin: 8px 0;
-    font-size: 16px;
-    color: #444;
+  .container-header {
+    padding: 2px;
   }
-  
-  .booking-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+  /* Buttons styling for mobile */
+.reschedule-button, .cancel-button {
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+.service-provider p {
+  margin: 0;
+  color: #444;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  width: 50px;
+}
+.service-provider h2 {
+  color: #0a0a0a;
+  font-weight: bold;
+  white-space: nowrap;
+}
+}
+
+/* Responsive adjustments for tablets and larger devices like Surface Pro */
+@media (min-width: 601px) and (max-width: 1300px) {
+  .container {
+    width: 90%;
+    height: 95%;
+    margin-top: 20px;
+    max-width: 900px;
   }
-  
-  .service-provider p {
-    margin: 0;
-    color: #444;
-  }
-  
-  .price {
+
+  .tab {
     font-size: 18px;
-    font-weight: bold;
-    color: #000;
+    padding: 10px;
   }
-  
-  .action-buttons {
-    display: flex;
-    gap: 30px;
-    margin: 10px 0;
+
+  .booking-card {
+    padding: 20px;
   }
-  
-  .reschedule-button {
-    background-color: transparent;
-    color: #FC000E;
-    border: 1px solid #FC000E;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+
+  .service-name, .service-time {
+    font-size: 18px;
   }
-  
-  .cancel-button {
-    background-color: transparent;
-    color: #FC000E;
-    border: 1px solid #FC000E;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
+
+  .price {
+    font-size: 20px;
   }
-  
-  
+
+  /* Buttons styling for tablets */
+.reschedule-button {
+  font-size: 16px;
+  padding: 10px 16px;
+  margin-left: 300px;
+}
+
+.cancel-button {
+  font-size: 16px;
+  padding: 10px 16px;
+}
+.provider-image {
+  width: 45px; /* Set the width of the image */
+  height: 45px; /* Set the height of the image */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the area */
+  margin-top: 5px;
+  margin-left: 300px;
+}
+}
+
