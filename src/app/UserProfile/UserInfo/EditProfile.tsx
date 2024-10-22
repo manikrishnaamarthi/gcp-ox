@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './EditProfile.css'; 
+import './EditProfile.css';
 
 const EditProfile = () => {
   const [name, setName] = useState('Gnanendra');
@@ -12,6 +12,7 @@ const EditProfile = () => {
 
   const handleSave = () => {
     console.log('Profile Saved');
+    
   };
 
   const handleImageChange = (event) => {
@@ -32,7 +33,7 @@ const EditProfile = () => {
   return (
     <div className="edit-profile">
       <header className="edit-profile-header">
-        <span className="close-btn">Close</span>
+        <span className="close-btn" >Close</span>
         <h2>Edit Profile</h2>
         <span className="save-btn" onClick={handleSave}>Save</span>
       </header>
