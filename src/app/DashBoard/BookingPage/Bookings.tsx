@@ -10,7 +10,7 @@ const Bookings = () => {
   };
 
   return (
-    <>
+    <div className='container'>
       <main>
         <div className="calendar-icon">
           <img src="/images/calender.png" alt="Calendar" />
@@ -20,7 +20,7 @@ const Bookings = () => {
         <button onClick={handleBookNowClick}>Book Now</button>
       </main>
       
-    </>
+    </div>
   );
 };
 
