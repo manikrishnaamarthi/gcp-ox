@@ -55,7 +55,7 @@ const Profile: React.FC = () => {
       <div className="profile-info">
         <div className="input-group">
           <label htmlFor="name">Name</label>
-          <input type="text" id="name" placeholder="Enter your name" />
+          <input type="text" id="name" placeholder="Enter your Name" />
         </div>
         <div className="input-group email-group">
           <label htmlFor="email">Email</label>
@@ -63,7 +63,7 @@ const Profile: React.FC = () => {
             <input
               type="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Enter your gmail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -82,7 +82,7 @@ const Profile: React.FC = () => {
         </div>
         <div className="input-group">
           <label htmlFor="bio">Bio</label>
-          <input type="text" id="bio" placeholder="Tell something about yourself" />
+          <input type="text" id="bio" placeholder="------------" />
         </div>
         <div className="input-group">
           <label htmlFor="time">Time</label>
