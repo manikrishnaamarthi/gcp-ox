@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation'; // Import the useRouter hook
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import './ForgotPasswordForm.css';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const ForgotPassword = () => {
     const [step, setStep] = useState(1);
@@ -13,14 +15,16 @@ const ForgotPassword = () => {
     const [verificationCode, setVerificationCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [passwordErrorMessage, setPasswordErrorMessage] = useState(''); 
-    const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState(''); 
-    const [verificationErrorMessage, setVerificationErrorMessage] = useState(''); 
-    const [showPassword, setShowPassword] = useState(false); 
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Set default to false
+    const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+    const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
+    const [verificationErrorMessage, setVerificationErrorMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [otpSent, setOtpSent] = useState('');
+    const [enteredOtp, setEnteredOtp] = useState(''); // State to hold entered OTP
 
-    const router = useRouter(); // Initialize the useRouter hook
+    const router = useRouter();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -36,76 +40,120 @@ const ForgotPassword = () => {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const mobileRegex = /^\d{10}$/;
 
-            if (emailRegex.test(emailOrMobile)) {
-                setStep(2); 
-                setPasswordErrorMessage('');
-            } else if (mobileRegex.test(emailOrMobile)) {
-                setStep(3); // Move to the "Verify Mobile" step
-                setPasswordErrorMessage('');
-            } else {
+            if (!emailRegex.test(emailOrMobile) && !mobileRegex.test(emailOrMobile)) {
                 throw new Error('Please enter a valid email address or 10-digit mobile number.');
+            }
+
+            const response = await fetch('http://localhost:8000/usmapp/checkemail/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ emailOrMobile }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert('OTP sent to your email!');
+                setStep(2);
+                setOtpSent(data.otp);
+            } else {
+                throw new Error(data.message);
             }
         } catch (error) {
             setPasswordErrorMessage(error.message);
         }
     };
 
-    const handleVerification = async (e) => {
+    const sendOtp = async (emailOrMobile) => {
+        try {
+          const response = await axios.post(
+            'http://localhost:8000/usmapp/checkemail/',
+            { emailOrMobile },
+            { withCredentials: true } // Ensure cookies are sent
+          );
+          console.log(response.data);
+        } catch (error) {
+          console.error(error.response?.data || error.message);
+        }
+      };
+      
+      const verifyOtp = async (otp) => {
+        try {
+            const csrfToken = Cookies.get('csrftoken');  // Get the CSRF token from cookies
+    
+            const response = await axios.post(
+                'http://localhost:8000/usmapp/verifyotp/',
+                { otp: otp },  // Use the passed otp parameter
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,  // Include CSRF token in headers
+                    },
+                    withCredentials: true  // Make sure cookies are sent with the request
+                }
+            );
+    
+            console.log(response.data);  // Handle successful response
+        } catch (error) {
+            // Handle error response
+            if (error.response) {
+                console.error(error.response.data);  // Log the error response
+            } else {
+                console.error('Error occurred while verifying OTP:', error.message);
+            }
+        }
+    };    
+
+      const handleVerification = async (e) => {
         e.preventDefault();
         try {
-            const verificationCodeRegex = /^\d{4}$/; // Ensure the code is exactly 4 digits
-
-            if (verificationCodeRegex.test(verificationCode)) {
-                setStep(4); // Move to the "Create New Password" step
-                setVerificationErrorMessage('');
+            const response = await fetch('http://localhost:8000/usmapp/verifyotp/', {
+                method: 'POST',
+                credentials: 'include',  // Ensure cookies are included for session management
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ otp: verificationCode })  // Send the entered OTP
+            });
+    
+            const data = await response.json();
+            console.log(data);  // Debugging
+    
+            if (response.ok) {
+                alert('OTP verified successfully!');
+                setStep(4);  // Proceed to password reset step
             } else {
-                throw new Error('Invalid Verification code');
+                setVerificationErrorMessage(data.message || 'Invalid OTP.');
             }
         } catch (error) {
-            setVerificationErrorMessage(error.message);
+            console.error('Error:', error);
+            setVerificationErrorMessage('Network error. Please try again.');
         }
-    };
-
-    const handleNewPasswordChange = (e) => {
-        const password = e.target.value;
-        const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-        setNewPassword(password);
-
-        if (password.length >= 8 && !strongPasswordRegex.test(password)) {
-            setPasswordErrorMessage('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
-        } else {
-            setPasswordErrorMessage('');
-        }
-    };
+    };    
 
     const handlePasswordChange = async (e) => {
         e.preventDefault();
-        try {
-            if (newPassword.length < 8 || passwordErrorMessage) {
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                setConfirmPasswordErrorMessage('Passwords do not match.');
-                return;
-            } else {
-                setConfirmPasswordErrorMessage('');
-            }
-
-            
-            setEmailOrMobile('');
-            setShowSuccessMessage(true);
-
-            // Redirect to the StartupPage after 2 seconds (optional delay)
-            setTimeout(() => {
-                router.push('http://localhost:3000/'); // Replace with your StartupPage path
-            },2000);
-            
-        } catch (error) {
-            setPasswordErrorMessage(error.message);
+        if (newPassword !== confirmPassword) {
+            setConfirmPasswordErrorMessage('Passwords do not match.');
+            return;
         }
-    };
+
+        try {
+            const response = await fetch('http://localhost:8000/usmapp/resetpassword/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ emailOrMobile, newPassword }),
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Password reset successful!');
+                router.push('/login');
+            } else {
+                setPasswordErrorMessage(data.message);
+            }
+        } catch (error) {
+            setPasswordErrorMessage('Network error. Please try again.');
+        }
+    };    
 
     const handleGoBack = () => {
         router.back(); // Navigates to the previous page
@@ -118,7 +166,7 @@ const ForgotPassword = () => {
                     <div className="top-section">
                         <div className="logoContainer">
                             <span className="back-arrow" onClick={handleGoBack}>
-                                <FontAwesomeIcon icon={faArrowLeft} />
+                            <FontAwesomeIcon icon={faChevronLeft} />
                             </span>
                             <div className="welcomeText">Forgot Password</div>
                         </div>
@@ -136,7 +184,7 @@ const ForgotPassword = () => {
                                 onChange={(e) => setEmailOrMobile(e.target.value)}
                                 className="input"
                             />
-                            <button type="submit" className="button">Send</button>
+                            <button type="submit" className="button">Submit</button>
                         </form>
                         {passwordErrorMessage && <p className="alert-error-email">{passwordErrorMessage}</p>}
                     </div>
@@ -149,14 +197,14 @@ const ForgotPassword = () => {
                 <div className="top-section">
                     <div className="logoContainer">
                         <span className="back-arrow" onClick={handleGoBack}>
-                            <FontAwesomeIcon icon={faArrowLeft} />
+                        <FontAwesomeIcon icon={faChevronLeft} />
                         </span>
                         <div className="welcomeText">Verify</div>
                     </div>
                 </div>
                 <div className="ForgotPasswordCard">
                     <h2 className="header-verify">Verify Your Email</h2>
-                    <p className="instruction-text">Enter the OTP Code sent to your E-mailid entered </p>
+                    <p className="instruction-text">Enter the OTP Code sent to your E-mailid</p>
                     <form onSubmit={handleVerification}>
                         <div className="verification-inputs">
                             {[...Array(4)].map((_, i) => (
@@ -174,7 +222,7 @@ const ForgotPassword = () => {
                                 />
                             ))}
                         </div>
-                        <button type="submit" className="button-verify">Verify</button>
+                        <button type="submit" className="button-verify">Submit</button>
                     </form>
                     <p className="resend-text">Didn't receive the code? <a href="#" className='resend-link'>Resend</a></p>
                     {verificationErrorMessage && <p className="alert-error-verify">{verificationErrorMessage}</p>}

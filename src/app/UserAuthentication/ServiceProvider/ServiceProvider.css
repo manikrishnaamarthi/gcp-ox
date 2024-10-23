@@ -1,28 +1,69 @@
 /* General body styles for responsiveness */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
   margin: 0;
-  background-image: linear-gradient(to top, white, rgb(235, 233, 233));
-  background-color: white;
-  padding: 20px;
-  border-radius: 13px;
-  text-align: center;
-  display: flex;
-  margin-top: 40px;
-  flex-direction: column;
-  align-items: center;
-  max-width: 360px;
-  margin: auto;
+  padding: 0;
+  background-color: rgb(226, 222, 222);
   min-height: 100vh;
+  display: flex;
   justify-content: center;
-  box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Ensure scroll functionality */
+  align-items: center;
 }
 
-html, body {
-  height: 100%;
-  overflow-y: scroll;
+.signup-container {
+  width: 350px;
+  height: 100vh;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-section {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 40px; /* Ensure no padding at the bottom */
+  position: relative;
+  border-radius: 13px 13px 0 0; /* Radius for the top card */
+  box-sizing: border-box;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.welcomeText {
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: #FC000E;
+}
+
+.signup-card {
+  background-color: #fff; /* White background for the login form */
+  border-radius: 20px 20px 13px 13px; /* Rounded top corners */
+  padding: 30px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  position: relative;
+  margin-top: -30px; /* Creates the overlapping effect */
+  overflow-y: auto; /* Scrolling enabled, but hidden */
 }
 
 ::-webkit-scrollbar {
@@ -39,7 +80,8 @@ html, body {
   color: #050505;
   font-size: 24px;
   margin-bottom: 20px;
-  margin-top: 40px;
+  margin-top: 5px;
+  font-weight: bold;
 }
 
 /* Form container styles */
@@ -166,34 +208,6 @@ html, body {
   margin-right: 10px;
 }
 
-/* Responsive styles for smaller screens */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
-
-  .service-provider-title {
-    font-size: 20px;
-  }
-
-  .service-provider-input,
-  .service-provider-input-password {
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .service-provider-button-prev,
-  .service-provider-button-next {
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .upload-field label {
-    padding: 8px;
-  }
-  
-}
-
 /* Confirmation Screen Container */
 .submission-confirmation {
   display: flex;
@@ -247,3 +261,38 @@ html, body {
   background-color: #d32f2f;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .welcomeText {
+    font-size: 1.8rem;
+  }
+  .service-provider-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    max-width: 100%;
+    padding: 20px;
+  }
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+  .welcomeText {
+    font-size: 1.4rem;
+  }
+  .service-provider-title {
+    font-size: 1.1rem;
+  }
+  .service-provider-button-container {
+    flex-direction: column;
+    margin-top: 15px;
+  }
+  .service-provider-button-prev,
+  .service-provider-button-next {
+    width: 100%;
+    margin: 10px 0;
+  }
+}

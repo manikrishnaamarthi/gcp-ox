@@ -166,137 +166,139 @@ const ServiceProvider = () => {
   }   
 
   return (
-    <div>
-      <h2 className="service-provider-title">CREATE NEW ACCOUNT</h2>
-      <form className="service-provider-form" onSubmit={handleSubmit}>
-        {/* Full Name Input */}
-        <div className="input-container">
-          <input
-            type="text"
-            name="full_name"
-            placeholder="Full name"
-            className="service-provider-input"
-            value={formData.full_name}
-            onChange={handleInputChange}
-          />
-          {errors.full_name && (
-            <span className="error-message">{errors.full_name}</span>
-          )}
+    <div className="signup-container">
+      <div className="top-section">
+        <div className="logoContainer">
+          <img src="/images/shot(1).png" alt="Logo" className="logo" />
+          <h1 className="welcomeText">Oxivive</h1>
         </div>
-
-        {/* Email Input */}
-        <div className="input-container">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="service-provider-input"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-          {errors.email && (
-            <span className="error-message">{errors.email}</span>
-          )}
-        </div>
-
-        {/* Password Input with Visibility Toggle */}
-        <div className="input-container">
-          <div className="service-provider-password-container">
+      </div>
+      <div className="signup-card">
+        <h2 className="service-provider-title">CREATE NEW ACCOUNT</h2>
+        <form className="service-provider-form" onSubmit={handleSubmit}>
+          {/* Full Name Input */}
+          <div className="input-container">
             <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder="Password"
-              className="service-provider-input-password"
-              value={formData.password}
+              type="text"
+              name="full_name"
+              placeholder="Full name"
+              className="service-provider-input"
+              value={formData.full_name}
               onChange={handleInputChange}
             />
-            <div
-              className="service-provider-eye-icon"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </div>
+            {errors.full_name && (
+              <span className="error-message">{errors.full_name}</span>
+            )}
           </div>
-          {errors.password && (
-            <span className="error-message">{errors.password}</span>
-          )}
-        </div>
 
-        {/* Mobile Number Input */}
-        <div className="input-container">
-          <input
-            type="tel"
-            name="mobile_number"
-            placeholder="Mobile number"
-            className="service-provider-input"
-            value={formData.mobile_number}
-            onChange={handleInputChange}
-            maxLength={10}
-          />
-          {errors.mobile_number && (
-            <span className="error-message">{errors.mobile_number}</span>
-          )}
-        </div>
+          {/* Email Input */}
+          <div className="input-container">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="service-provider-input"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+            {errors.email && (
+              <span className="error-message">{errors.email}</span>
+            )}
+          </div>
 
-        {/* Address Input */}
-        <div className="input-container">
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            className="service-provider-input"
-            value={formData.address}
-            onChange={handleInputChange}
-          />
-          {errors.address && (
-            <span className="error-message">{errors.address}</span>
-          )}
-        </div>
+          {/* Password Input with Visibility Toggle */}
+          <div className="input-container">
+            <div className="service-provider-password-container">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                className="service-provider-input-password"
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+            </div>
+            {errors.password && (
+              <span className="error-message">{errors.password}</span>
+            )}
+          </div>
 
-        {/* GST Number Input */}
-        <div className="input-container">
-          <input
-            type="text"
-            name="gst_number"
-            placeholder="GST number"
-            className="service-provider-input"
-            value={formData.gst_number}
-            onChange={handleInputChange}
-          />
-          {errors.gst_number && (
-            <span className="error-message">{errors.gst_number}</span>
-          )}
-        </div>
+          {/* Mobile Number Input */}
+          <div className="input-container">
+            <input
+              type="tel"
+              name="mobile_number"
+              placeholder="Mobile number"
+              className="service-provider-input"
+              value={formData.mobile_number}
+              onChange={handleInputChange}
+              maxLength={10}
+            />
+            {errors.mobile_number && (
+              <span className="error-message">{errors.mobile_number}</span>
+            )}
+          </div>
 
-        {/* PAN Number Input */}
-        <div className="input-container">
-          <input
-            type="text"
-            name="pan_number"
-            placeholder="PAN number"
-            className="service-provider-input"
-            value={formData.pan_number}
-            onChange={handleInputChange}
-          />
-          {errors.pan_number && (
-            <span className="error-message">{errors.pan_number}</span>
-          )}
-        </div>
+          {/* Address Input */}
+          <div className="input-container">
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              className="service-provider-input"
+              value={formData.address}
+              onChange={handleInputChange}
+            />
+            {errors.address && (
+              <span className="error-message">{errors.address}</span>
+            )}
+          </div>
 
-        {/* Button Container */}
-        <div className="service-provider-button-container">
-          <button
-            type="button"
-            className="service-provider-button-prev"
-            onClick={() => router.push('/UserAuthentication/SignupPage')}
-          >
-            &#x276E; PREVIEW
-          </button>
-          <button type="submit" className="service-provider-button-next">
-            NEXT &#x276F;
-          </button>
-        </div>
-      </form>
+          {/* GST Number Input */}
+          <div className="input-container">
+            <input
+              type="text"
+              name="gst_number"
+              placeholder="GST number"
+              className="service-provider-input"
+              value={formData.gst_number}
+              onChange={handleInputChange}
+            />
+            {errors.gst_number && (
+              <span className="error-message">{errors.gst_number}</span>
+            )}
+          </div>
+
+          {/* PAN Number Input */}
+          <div className="input-container">
+            <input
+              type="text"
+              name="pan_number"
+              placeholder="PAN number"
+              className="service-provider-input"
+              value={formData.pan_number}
+              onChange={handleInputChange}
+            />
+            {errors.pan_number && (
+              <span className="error-message">{errors.pan_number}</span>
+            )}
+          </div>
+
+          {/* Button Container */}
+          <div className="service-provider-button-container">
+            <button
+              type="button"
+              className="service-provider-button-prev"
+              onClick={() => router.push('/UserAuthentication/SignupPage')}
+            >
+              &#x276E; PREVIEW
+            </button>
+            <button type="submit" className="service-provider-button-next">
+              NEXT &#x276F;
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

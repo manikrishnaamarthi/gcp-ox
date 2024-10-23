@@ -83,7 +83,7 @@ function LoginForm() {
     <div className="login-container">
       <div className="top-section">
         <div className="logoContainer">
-          <img src="/images/shot.png" alt="Oxivive Logo" className="logo" />
+          <img src="/images/shot(1).png" alt="Oxivive Logo" className="logo" />
           <div className="welcomeText">Oxivive</div>
         </div>
       </div>
