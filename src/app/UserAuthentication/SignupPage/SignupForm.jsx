@@ -135,11 +135,12 @@ const handleSubmit = async (event) => {
     <div className="signup-container">
       <div className="top-section">
         <div className="logoContainer">
-          <img src="/images/shot.png" alt="Logo" className="logo" />
+          <img src="/images/shot(1).png" alt="Logo" className="logo" />
           <h1 className="welcomeText">Oxivive</h1>
         </div>
       </div>
       <div className="signup-card">
+      <h2 className="service-provider-title">Signup</h2>
         {successMessage && (
           <p className="alert-success">{successMessage}</p>
         )}
@@ -170,14 +171,6 @@ const handleSubmit = async (event) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span
-                className="eye-icon"
-                onClick={togglePasswordVisibility}
-                role="button"
-                aria-label={passwordVisible ? 'Hide password' : 'Show password'}
-              >
-                <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
-              </span>
             </div>
             {errors.password && <span className="error">{errors.password}</span>}
           </div>
