@@ -4,25 +4,24 @@
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(247, 247, 247);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  padding: 0;  /* Remove padding */
   box-shadow: 0 4px 8px rgba(21, 21, 21, 0.1);
-  overflow-y: scroll;
   scroll-behavior: smooth;
+  
 
   }
 
   .home-container {
     padding: 16px;
     font-family: Arial, sans-serif;
-    width: 150%; 
+    width: 80vw;  
     box-sizing: border-box;
-    height: 100vh;
+    height: auto;
     background-color: white;
     box-sizing: border-box; /* Ensures padding is included in the width */
     margin: 0 auto; /* Centers the container */
@@ -70,9 +69,6 @@ justify-content: flex-start; /* Aligns everything to the top */
 padding: 20px;
 box-sizing: border-box;
 background-color: rgb(255, 255, 255);
-/* width: 100%;  */
-/* max-width: 360px; */
-/* height: auto */
 }
 
 .search-bar {
@@ -84,6 +80,7 @@ background-color: rgb(255, 255, 255);
   border-radius: 15px;
   margin-bottom: 20px;
   background-color: #f1f2f3;
+  box-sizing: border-box;
 }
 
 

@@ -153,10 +153,10 @@ const Home: React.FC = () => {
         </Slider>
       </div>
 
-      {/* Explore Section */}
+      {/* Service Section */}
       <div className="service-section">
         <div className="section-header">
-          <h1 className="explore">Services</h1>
+          <h1 className="service">Services</h1>
           <button className="view-all-button" onClick={() => setShowGymIcon(true)}>View all </button>
           <TfiAngleDoubleRight size={14} className="arrow-icon" onClick={() => setShowGymIcon(true)} />
         </div>
@@ -198,6 +198,9 @@ const Home: React.FC = () => {
         <img src="/images/oxiclinic.png" alt="Oxi Clinic" className="oxi-image"  onClick={handleClinicClick} />
         <img src="/images/oxiwheel.png" alt="Oxi Wheel" className="oxi-image"  onClick={handleWheelClick}  />
       </div>
+
+      <div className="oxi-separator-line"></div>
+
 
       {/* Oxi Educate Sections */}
       {showClinicEducate && (
