@@ -18,28 +18,29 @@ const Wheel = () => {
 
       <div className="main">
         <div className="grid">
-          <div className="card">
+            <div className="card">
             <img src="/images/dashboard.png" alt="Dashboard" className="cardIcon" />
-            <p>Dashboard</p>
-          </div>
-          <div className="card">
+            <p className="label">Dashboard</p>
+            </div>
+            <div className="card">
             <img src="/images/bookings.png" alt="Bookings" className="cardIcon" />
-            <p>Bookings</p>
-          </div>
-          <div className="card">
+            <p className="label">Bookings</p>
+            </div>
+            <div className="card">
             <img src="/images/inventory.png" alt="Inventory" className="cardIcon" />
-            <p>Inventory</p>
-          </div>
-          <div className="card">
+            <p className="label">Inventory</p>
+            </div>
+            <div className="card">
             <img src="/images/invoice.png" alt="Invoice" className="cardIcon" />
-            <p>Invoice</p>
-          </div>
-          <div className="card">
+            <p className="label">Invoice</p>
+            </div>
+            <div className="card">
             <img src="/images/driver.png" alt="Driver's" className="cardIcon" />
-            <p>Driver's</p>
-          </div>
+            <p className="label">Driver's</p>
+            </div>
         </div>
-      </div>
+        </div>
+
 
       <footer className="footer">
         <div className="footerItem">

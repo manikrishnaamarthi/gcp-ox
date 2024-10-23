@@ -62,9 +62,9 @@ body {
 .notificationIcon {
   position: absolute;
   top: 10px;
-  right: 10px;
-  width: 25px; /* Size of the notification icon */
-  height: 25px; /* Size of the notification icon */
+  right: 30px;
+  width: 35px; /* Size of the notification icon */
+  height: 35px; /* Size of the notification icon */
 }
 
 
@@ -83,7 +83,7 @@ body {
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
+  grid-gap: 50px;
 }
 
 .card {
@@ -91,24 +91,33 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ff0000;
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  width: 90px; /* Adjusted size */
-  height: 90px; /* Adjusted size */
+  border: 3px solid #ff0000;
+  /* border-radius: 10px; */
+  padding: 0px;
+  width: 90px; 
+  height: 90px; 
   color: #ff0000;
+  position: relative; /* To position label correctly */
+  
 }
 
 .cardIcon {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
+  margin-top: 15px;
+  
 }
 
-.card p {
+.label {
   margin-top: 10px;
   font-size: 1em;
   font-weight: 500;
+  position: relative;
+  top: 20px; /* Moves text outside of the card */
+}
+
+.card p {
+  margin: 0;
 }
 
 .footer {
@@ -136,3 +145,72 @@ body {
   font-weight: 500;
 }
 
+/* Responsive for small screens */
+@media (max-width: 480px) {
+  .header {
+    height: 150px;
+  }
+
+  .logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .oxiwheel {
+    font-size: 40px;
+    margin-left: 100px;
+    
+  }
+
+  .welcome {
+    font-size: 14px; /* Font size for 'Welcome to' */
+    margin: 0; /* No margin */
+    margin-left: -15px;
+    margin-top: 20px;
+  }
+
+  
+
+  .footer {
+    padding: 5px 0;
+  }
+
+  .footerIcon {
+    font-size: 22px;
+  }
+}
+
+/* Responsive for medium screens (tablets, small desktops) */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .container {
+    max-width: 768px; /* Set to tablet width */
+  }
+
+  .logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .oxiwheel {
+    font-size: 40px;
+    margin-left: 130px;
+  }
+
+  .grid {
+    grid-gap: 100px;
+  }
+
+  .card {
+    width: 80px;
+    height: 80px;
+  }
+
+  .cardIcon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .footerIcon {
+    font-size: 28px;
+  }
+}
