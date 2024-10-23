@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './EditProfile.css'; 
+import './EditProfile.css';
 
 const EditProfile = () => {
   const [name, setName] = useState('Gnanendra');
@@ -12,6 +12,7 @@ const EditProfile = () => {
 
   const handleSave = () => {
     console.log('Profile Saved');
+    
   };
 
   const handleImageChange = (event) => {
@@ -32,7 +33,7 @@ const EditProfile = () => {
   return (
     <div className="edit-profile">
       <header className="edit-profile-header">
-        <span className="close-btn">Close</span>
+        <span className="close-btn" >Close</span>
         <h2>Edit Profile</h2>
         <span className="save-btn" onClick={handleSave}>Save</span>
       </header>
@@ -67,20 +68,26 @@ const EditProfile = () => {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            disabled
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Email ID</label>
+        <label htmlFor="email">Email ID</label>
+        <div className="email-input-wrapper">
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled
-          />
+    />
+    {email && (
+      <span className="clear-email" onClick={() => setEmail('')}>
+        &times; {/* This represents the "X" icon */}
+      </span>
+    )}
+  </div>
         </div>
+        
 
         <div className="form-group">
           <label htmlFor="mobile">Mobile number</label>
@@ -89,7 +96,6 @@ const EditProfile = () => {
             id="mobile"
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
-            disabled
           />
         </div>
 

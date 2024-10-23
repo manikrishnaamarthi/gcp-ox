@@ -1,29 +1,74 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  background-color: rgb(226, 222, 222);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .refer-friend-container {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+    padding: 0px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;font-family: Arial, sans-serif;
+    padding: 80px;
+    padding-right:90px;
+    width: 100%;
+    max-width: 375px; /* Ensures max-width for mobile responsiveness */
+    margin: auto; /* Centers the container */
     display: flex;
     flex-direction: column;
+    min-height: 100vh; /* Ensures the container takes full viewport height */
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    box-sizing: border-box;
     background-color: white;
-    padding: 20px;
-    font-family: Arial, sans-serif;
   }
   
   .back-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    position: relative;
+    top: px;
+    left: px;
+    right: 150px;
+    bottom: 50px;
     background: none;
     border: none;
     font-size: 2em;
     cursor: pointer;
+    color: rgb(232, 228, 228);
+    display: flex;
+    align-items: center; /* Ensures vertical alignment */
   }
+
+  .icon-circle {
+    background-color: #e5e2e2; /* Light grey background for the circle */
+    border-radius: 50%; /* Makes the div a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; /* Adjust the size */
+    height: 40px;
+  }
+  
+  .icon-circle svg {
+    color: rgb(184, 175, 175); /* Icon color */
+    font-size: 24px; /* Size of the icon */
+  }
+  
   
   .refer-friend-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
   }
   
   .icon-wrapper {
@@ -52,12 +97,13 @@
   .share-now-btn {
     background-color: red;
     color: white;
-    padding: 15px 30px;
+    padding: 12px 30px;
     border: none;
     border-radius: 10px;
-    font-size: 1em;
+    font-size: 12px;
     cursor: pointer;
     margin-top: 30px;
+    width: 100%;
   }
   
   .share-now-btn:hover {

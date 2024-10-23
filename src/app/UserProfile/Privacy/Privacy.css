@@ -1,43 +1,71 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  background-color: rgb(226, 222, 222);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .privacy-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: white;
-    height: 100vh;
-    overflow-y: auto;
-  }
-  
-  .back-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: none;
-    border: none;
-    font-size: 2em;
-    cursor: pointer;
-    color: #FC000E;
-  }
-  
-  h2 {
-    text-align: center;
-    font-size: 1em;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    color: #FC000E;
-  }
-  
-  .privacy-content {
-    padding: 20px;
-    color: black;
-  }
-  
-  h3 {
-    font-size: 1em;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    font-size: 1em;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
-  
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px 20px;
+  width: 100%;
+  max-width: 375px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.icon-circle {
+  background-color: #e4e3e3;
+  color: rgb(188, 182, 182);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.2em;
+  color: #FC000E;
+  margin-bottom: 20px;
+  margin-right: 100px;
+  margin-top: -12px;
+}
+
+.privacy-content {
+  color: rgb(171, 159, 159);
+  text-align: left;
+}
+
+h3 {
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: black;
+}
+
+p {
+  font-size: 0.9em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}

@@ -1,18 +1,25 @@
 'use client';
 import React, { useState } from 'react';
+import { IoChevronBackSharp  } from 'react-icons/io5';
+import { FaChevronDown } from 'react-icons/fa';
 import './Faq.css';
+import { IoIosArrowForward } from 'react-icons/io';
+import { IoIosSearch } from 'react-icons/io';
+import { useRouter } from 'next/navigation';
+
 
 const faqs = [
-  { question: "Is installation offered for all services?", answer: "Its completely depends on your requirement " },
-  { question: "Can I trust on vendors ?", answer: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text since the 1500s." },
-  { question: "Are there any hidden charges ?", answer: "No" },
-  { question: "Can I cancel a booking?", answer: "Yes, Its possible" },
-  { question: "Do you also sell products ?", answer: "No, but for rent will provide" },
-  { question: "How can I reach to your help centre ?", answer: "" },
+  { question: "Is installation offered for all services?", answer: "It completely depends on your requirement" },
+  { question: "Can I trust on vendors?", answer: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text since the 1500s." },
+  { question: "Are there any hidden charges?", answer: "No" },
+  { question: "Can I cancel a booking?", answer: "Yes, it's possible" },
+  { question: "Do you also sell products?", answer: "No, but for rent we will provide" },
+  { question: "How can I reach your help centre?", answer: "" },
   { question: "How can I change my booking?", answer: "No" },
 ];
 
 const Faq: React.FC = () => {
+  const Router =useRouter()
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const toggleAnswer = (index: number) => {
@@ -21,9 +28,12 @@ const Faq: React.FC = () => {
 
   return (
     <div className="faq-container">
-      <button className="back-button">←</button>
-      <h2>FAQ's</h2>
+      <div className="icon-circle">
+        <IoChevronBackSharp className="back-icon"  onClick={() => Router.back()}/>
+      </div>
+      <h2>Faq's</h2>
       <div className="search-bar">
+        <IoIosSearch className="search-icon" />
         <input type="text" placeholder="Search" className="search-input" />
       </div>
       <div className="faq-list">
@@ -31,7 +41,9 @@ const Faq: React.FC = () => {
           <div key={index} className="faq-item">
             <div className="faq-question" onClick={() => toggleAnswer(index)}>
               <p>{faq.question}</p>
-              <span>{activeIndex === index ? '▲' : '▶'}</span>
+              <span>
+                {activeIndex === index ? <FaChevronDown /> : <IoIosArrowForward />}
+              </span>
             </div>
             {activeIndex === index && faq.answer && (
               <div className="faq-answer">

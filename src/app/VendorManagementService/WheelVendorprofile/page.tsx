@@ -1,12 +1,11 @@
 // page.tsx
 import React from 'react';
-import Search from './Search';
+import Profile from './profile';
 
 const Page: React.FC = () => {
   return (
     <div>
-      
-      <Search />
+      <Profile />
     </div>
   );
 };
