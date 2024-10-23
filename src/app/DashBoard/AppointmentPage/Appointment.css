@@ -1,0 +1,254 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+
+    background-color: rgb(212, 207, 207);
+    /* height: auto; */
+}
+
+.appointment-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 375px;
+    margin: auto;
+    border-radius: 8px;
+    color: black;
+    height: 100vh;
+    align-items: center;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    position: absolute;
+    left: -80px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: black;
+    position: relative;
+}
+
+
+h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.services {
+    margin: 10px 0;
+}
+
+.service {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.service p {
+    font-weight: bold; 
+}
+
+.appointment-dates {
+    margin: 25px 0;
+}
+
+.date-picker {
+    display: flex;
+    justify-content: space-around;
+}
+
+.date-button {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 50px;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.date-button.selected {
+    background-color: #f9a2a2;
+    color: white;
+}
+
+.bold-text {
+    font-weight: bold; 
+    color: rgb(251, 82, 82);
+    
+}
+
+.time-slots {
+    margin-top: 25px;
+    
+}
+
+.slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    color: black;
+}
+
+.slot-button {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 15px;
+    cursor: pointer;
+    color: black;
+
+    
+}
+
+.slot-button.selected {
+    background-color: rgb(251, 210, 210);
+    color: rgb(7, 7, 7);
+    border-color: red;
+}
+
+.slot-button:disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.total-payment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 80px;
+    color: rgb(6, 251, 59);
+    font-weight: bold;
+}
+
+.payment-details {
+    flex-grow: 1;
+}
+
+.proceed-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 13px 60px;
+    border-radius: 15px;
+    cursor: pointer;
+    /* max-width: 375px; */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 380px;
+    width:375px;
+    position: relative;
+
+}
+
+.modal-buttons {
+    display: flex;
+    /* justify-content: space-around; */
+    /* margin-top: 80px; */
+    flex-direction: column;
+    /* align-items: center; */
+    margin-top: 20px;
+    
+}
+
+.modal-button {
+    padding: 10px 30px; 
+    border-radius: 5px; 
+    padding: 15px 50px;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    /* cursor: pointer; */
+    margin: 20px 0; 
+    width: 100%; 
+    
+}
+
+.modal-button.cancel {
+    background-color: gray;
+}
+
+.date-picker {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; 
+  }
+  
+  .date-button {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    width: 60px; 
+    cursor: pointer;
+    min-width: 50px;
+    
+  }
+  
+  .date-button.selected {
+    background-color: rgb(248, 85, 85);
+    color: white;
+  }
+  
+  .date-number {
+    font-size: 24px; 
+    font-weight:800;
+    color: black;
+    text-align: center;
+  }
+  
+  .date-weekday {
+    font-size: 12px; 
+    color: black;
+    
+  }
+  .date-button.selected .date-number,
+.date-button.selected .date-weekday {
+  color: white; /* Text color changes to white when selected */
+}
+
+
+.amount {
+    color: green;
+    font-weight: bold; 
+  }
+  
+  .light-text {
+    color: rgb(150, 150, 150); 
+  }
+  
+  
