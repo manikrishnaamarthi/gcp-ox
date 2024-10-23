@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './EditProfile.css';
 
+
 const EditProfile = () => {
   const [name, setName] = useState('Gnanendra');
   const [email, setEmail] = useState('Gnanendra@gmail.com');

@@ -1,0 +1,229 @@
+body {
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    margin: 0;
+    background-color: rgb(228, 226, 226);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0;  /* Remove padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+.invoice-container {
+    height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  width: 375px;
+  margin: auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 4%;
+
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: red;
+    margin-left: 15px;
+    margin-top: 15px;
+    font-size: 26px;
+  }
+  
+  .title {
+    text-align: center;
+    flex-grow: 1;
+    font-size: 26px;
+    font-weight: bold;
+    color: red;
+    margin-top: 20px;
+    margin-right: 30px;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    color: red;
+  }
+  
+  .tab {
+    font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: -30px;
+  font-weight: bold;
+  }
+  .tab.active {
+    text-decoration: underline;
+  }
+  
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: red;
+  }
+  
+  .cards {
+    display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between cards */
+  }
+  .new-invoice-card {
+    background-color: #dddddd; /* Gray card */
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  }
+  .new-invoice-button {
+    background-color: #ff0004;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .invoice-card {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 15px;
+    margin: 3px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .invoice-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .invoice-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+
+  }
+  
+  .invoice-date {
+    font-size: 14px;
+    color: gray;
+    text-align: left;
+  }
+  
+  .invoice-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: black;
+  }
+  
+  .price {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .status {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+  }
+  
+  .paid {
+    background-color: green;
+  }
+  
+  .unpaid {
+    background-color: red;
+  }
+  
+  .new-invoice-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 50px;
+    margin-top: 180px;
+  }
+  
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 50%;
+    max-width: 375px;
+    background-color: #fff;
+    padding: 8px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+    margin-bottom: 5px;
+    margin-left: 1.px;
+    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 20px;
+  }
+  
+  .footer-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    color: rgb(151, 147, 147);
+    margin: 0 16px;
+  }
+  
+  .footer-icon.selected {
+    color: red;
+  }
+  
+  .footer-icon span {
+    display: block;
+    font-size: 10px;
+  }
+  
+  /* Media Queries for smaller screens */
+@media only screen and (max-width: 425px) {
+    .title {
+        font-size: 22px;
+    }
+
+    .tab {
+        font-size: 16px;
+    }
+
+    .new-invoice-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .footer-icon {
+        font-size: 20px;
+    }
+}
