@@ -1,0 +1,121 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #e3bbbb;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 375px;
+    margin: auto;
+    height: 100vh;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .appointment-container {
+    padding: 16px;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    width: 375px;
+    margin: auto;
+    height: 100vh;
+  
+  }
+  
+  .map-section {
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .map-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    
+  }
+  
+  .tab-toggle {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+  }
+  
+  .tab-toggle button {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #a9a9a9;
+    transition: background-color 0.3s;
+    border-radius: 12px;
+  }
+  
+  .tab-toggle .active {
+    background-color: #FC000E;
+    border-radius: 12px;
+  }
+  
+  .address-section {
+    background-color: #fff;
+    padding: 16px;
+    margin-top: 16px;
+    border-radius: 12px;
+  }
+  
+  .address-line {
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  
+  .label {
+    font-size: 14px;
+    color: black;
+    text-align: left;
+    margin-bottom: 3px;
+  
+  }
+  
+  .value {
+    font-size: 16px;
+    font-weight: bold;
+    color:Black;
+    text-align: left;
+  }
+  
+  .button-container {
+    margin-top: 16px;
+    text-align: center;
+  }
+  
+  .continue-button {
+    background-color: #FC000E;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .back-icon-container {
+    position: absolute;
+    top: 20px;
+    left: 600px;
+  }
+  
+  .back-icon {
+    cursor: pointer;
+    color: white;
+    z-index: 1000;
+    position: relative;
+  }
+  
+  .continue-button:hover {
+    background-color: #FC000E;
+  }
+  
+  
