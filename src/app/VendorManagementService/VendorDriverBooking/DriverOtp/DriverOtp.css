@@ -26,55 +26,24 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.logoContainer {
-  position: absolute;
-  
-}
-.logo-below-text{
-  margin-top:10px;
-  margin-right:5px;
-  font-size: 24px;
-  font-weight:300;
-}
-.logo {
-  top: 5px;
-  left: 30px;
-  
-  width: 100px; /* Adjust to desired size */
-  height: 100px; /* Adjust to desired size */
-}
 
-.title {
-  display: flex;
-  flex-direction: column; /* Stack the text vertically */
-  align-items: center; /* Center the text horizontally */
-  margin: 0;
-  position: relative; /* Positioning adjustments */
-  top: 20px; /* Adjust for vertical spacing */
-}
 
 .welcome {
-  font-size: 14px; 
+  font-size: 20px; 
   margin: 0; 
-  margin-left: -42px;
-  margin-top: 20px;
+  margin-top: 30px;
   
 }
 
 .oxiwheel {
-  font-size: 40px; /* Font size for 'OxiWheel' */
-  margin: 0; /* No margin */
-  margin-left: 80px;
+  font-size: 15px; 
+  margin: 0; 
+  margin-top: 10px;
+  margin-left: 40px;
   
 }
 
-.notificationIcon {
-  position: absolute;
-  top: 20px;
-  right: 10px;
-  width: 25px; /* Size of the notification icon */
-  height: 25px; /* Size of the notification icon */
-}
+
 
 
 .main {
@@ -89,39 +58,45 @@ body {
   border-top-right-radius: 20px;
 }
 
-.card {
+/* DriverOtp.css */
+
+.otp-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px solid #FC000E;
-  border-radius: 2px;
+  margin: 20px;
   padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.otp-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
   text-align: center;
-  width: 90px; /* Adjusted size */
-  height: 90px; /* Adjusted size */
-  color: #FC000E;
-  margin: 0 20px;
-
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
 }
 
-.cardIcon {
-  width: 100px;
-  height: 100px;
-  
-}
-
-.cardText {
-  margin-top: 10px;
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #FC000E;
+  color: white;
+  border: none;
+  border-radius: 8px;
   font-size: 16px;
-  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Move the text below the card */
-.card + .cardText {
-  margin-top: 10px;
+.submit-btn:hover {
+  background-color: #d9000c;
 }
-
 
 
 

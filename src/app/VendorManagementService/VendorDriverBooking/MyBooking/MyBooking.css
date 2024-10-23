@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    background-color: #d7d2d2;
+  }
+
+.myBookingContainer {
+  height: 100vh;
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  background-color:#ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  }
+  
+  .backArrow{
+    margin-left:10px;
+  }
+  
+  .myBookingsTitle {
+    text-align: center;
+    font-size: 24px;
+    color: red;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    margin: 0 10px;
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .greyBackground {
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 120px;
+  }
+  
+  .bookingContainer {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bookingDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bookingInfo {
+    flex: 1;
+  }
+  
+  .bookingInfo h2 {
+    color: red;
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  .bookingInfo p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .bookingActions {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .cancelButton {
+    background-color: transparent;
+    border: 2px solid red;
+    border-radius: 18px;
+    color: red;
+    padding: 1px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  
+  .cancelButton:hover {
+    background-color: red;
+    color: white;
+  }
+  
+  .date, .timeLeft {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footerItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footerIcon {
+    font-size: 24px;
+    color: red;
+  }
+  
+  .footerItem p {
+    margin: 5px 0 0;
+    font-size: 12px;
+  }
+  
