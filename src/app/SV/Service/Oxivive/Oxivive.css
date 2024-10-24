@@ -97,10 +97,17 @@ body {
     color: #333;
     text-align: left;
     margin-left: -220px;
+    transition: background-color 0.3s ease;
+}
+
+.service-clicked {
+    /* background-color: red;  */
+    color: #f31414;
+    border-color: #f31414;
 }
 
 .oxivive-proceed {
-    background: #ff5b5b;
+    background: #f31414;
     color: #fff;
     border: none;
     /* border-radius: 20px; */
@@ -110,4 +117,10 @@ body {
     width: calc(100% - 20px); /* Full-width minus container padding */
     max-width: 400px;
     align-self: center;
+    transition: background-color 0.3s ease;
+}
+
+.oxivive-proceed:disabled {
+    background-color: #e49c9c; /* Disabled color */
+    cursor: not-allowed; /* Change cursor to indicate it's disabled */
 }
