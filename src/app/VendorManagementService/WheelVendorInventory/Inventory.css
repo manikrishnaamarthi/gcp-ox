@@ -1,0 +1,148 @@
+body {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  margin: 0;
+  background-color: rgb(228, 226, 226);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: 100vh;
+}
+
+.inventory-page {
+  height: 100vh;
+  width: 375px;
+  margin: auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius:4%;
+}
+
+.inventory-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+  justify-content: center;
+  position: relative;
+  
+}
+
+.back-arrow {
+  position: absolute;
+  left: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: rgb(240, 8, 8);
+}
+
+.inventory-cards {
+  display: flex;
+  flex-direction: column;
+  margin-top: px;
+  padding: 20px;
+  background-color: #d0cece;
+  flex-grow: 1;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.inventory-card {
+  padding: 16px;
+  display: flex;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 10px;
+  align-items: center;
+
+
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.item-details {
+    text-align: center;
+  }
+
+.item-details h2 {
+  font-size: 18px;
+  color: rgb(252, 9, 9);
+  margin-left: 30px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.item-details p {
+  font-size: 16px;
+  color: rgb(7, 7, 7);
+  text-align: left;
+  margin-left: 30px;
+  font-weight: bold;
+}
+
+.in-stock {
+  color: red;
+  font-weight: bold;
+}
+
+.add-items-button {
+    background-color: rgb(233, 11, 15);
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: px;
+    margin-top: 250px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 50%;
+    max-width: 375px;
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    border-top: px solid #ccc;
+    margin-bottom: -1px;
+    margin-left: px;
+    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 20px;
+}
+
+.footer-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    color: rgb(151, 147, 147);
+    margin: 0 16px;
+}
+
+.footer-icon.selected {
+  color: red;
+}
+
+.footer-icon span {
+    display: block;
+    font-size: 10px;
+}
