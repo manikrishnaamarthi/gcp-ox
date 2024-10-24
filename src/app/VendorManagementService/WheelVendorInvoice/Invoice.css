@@ -67,7 +67,7 @@ body {
   padding: 10px;
   cursor: pointer;
   margin-top: 10px;
-  margin-bottom: px;
+  margin-bottom: 200px;
   font-weight: bold;
   }
   .tab.active {
@@ -93,9 +93,9 @@ body {
     background-color: #dddddd; /* Gray card */
   padding: 20px;
   margin: 15px 0;
-  border-radius: 8px;
-  margin-bottom: 100px;
-  margin-top: -15px;
+  border-radius: 10px;
+  margin-bottom: px;
+  margin-top: -220px;
   }
   .new-invoice-button {
     background-color: #ff0004;
@@ -104,6 +104,8 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    margin-bottom: 200px;
+    margin-top: 250px;
   }
   .invoice-card {
     display: flex;
