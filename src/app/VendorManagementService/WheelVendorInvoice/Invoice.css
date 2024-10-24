@@ -10,7 +10,7 @@ body {
     box-sizing: border-box;
     padding: 0;  /* Remove padding */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: scroll;
+    overflow-y: hidden;
     scroll-behavior: smooth;
 }
 .invoice-container {
@@ -18,12 +18,14 @@ body {
   width: 100%;
   max-width: 100%;
   width: 375px;
-  margin: auto;
+  margin: 0 auto;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 4%;
+  overflow-y: hidden;
+  box-sizing: border-box;
 
   }
   
@@ -67,7 +69,7 @@ body {
   padding: 10px;
   cursor: pointer;
   margin-top: 10px;
-  margin-bottom: px;
+  margin-bottom: 200px;
   font-weight: bold;
   }
   .tab.active {
@@ -93,9 +95,9 @@ body {
     background-color: #dddddd; /* Gray card */
   padding: 20px;
   margin: 15px 0;
-  border-radius: 8px;
-  margin-bottom: 100px;
-  margin-top: -15px;
+  border-radius: 10px;
+  margin-bottom: px;
+  margin-top: -220px;
   }
   .new-invoice-button {
     background-color: #ff0004;
@@ -104,6 +106,9 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    margin-bottom: 200px;
+    margin-top: 250px;
+    box-sizing: border-box;
   }
   .invoice-card {
     display: flex;
@@ -178,7 +183,7 @@ body {
   .footer {
     position: fixed;
     bottom: 0;
-    width: 50%;
+    width: 100vw;
     max-width: 375px;
     background-color: #fff;
     padding: 8px;
@@ -186,9 +191,9 @@ body {
     justify-content: space-around;
     border-top: 1px solid #ccc;
     margin-bottom: 5px;
-    margin-left: 1.px;
     border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
     border-bottom-right-radius: 20px;
+    box-sizing: border-box;
   }
   
   .footer-icon {
