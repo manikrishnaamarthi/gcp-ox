@@ -1,0 +1,165 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 375px;
+    margin: auto;
+    height: 100vh;
+    background-color: rgb(241, 108, 108);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    height: 100vh;
+    border-radius: 25px;
+    justify-content: center;
+}
+
+/* Back arrow styling */
+.back-arrow {
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+.arrow-icon {
+    font-size: 24px;
+    color: #ff0000;
+    cursor: pointer;
+}
+
+/* Header for the page */
+.header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: black;
+    text-align: left; 
+    width: 100%;
+}
+
+/* Instruction paragraph */
+.instruction {
+    font-size: 14px;
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Image Preview styling */
+.imagePreview {
+    margin-bottom: 20px;
+}
+
+.aadharImage {
+    width: 150px;
+    height: 100px;
+    object-fit: center;
+}
+
+/* Upload buttons */
+.uploadContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.uploadBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 47%;
+    height: 100px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid #5e1397;
+    background-color: #d9d4d4;
+}
+
+.uploadLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: black;
+    font-size: 14px;
+}
+
+.uploadIcon {
+    font-size: 24px;
+    color: #5e1397;
+    margin-bottom: 10px;
+}
+
+.inputFile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Container for Driving Licence Number and Date of Birth */
+.inputFieldsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+/* Done button */
+.submitButton {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+
+
+
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #a8a7a7;
+    font-size: 14px;
+    color: rgb(154, 152, 152);
+  }
+ 
+.formLabel {
+    font-size: 14px;
+    color: black;
+    font-size: 18px;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  
+  .inputField:not(:placeholder-shown) {
+    font-weight: 600;
+    Color:black; 
+  }
+  
+  input::placeholder {
+    font-weight: normal; 
+  }
+  
+

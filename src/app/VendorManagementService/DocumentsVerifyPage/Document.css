@@ -1,0 +1,142 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 375px; */
+    margin: auto;
+    min-height: 100vh;
+    justify-content: center;
+    box-sizing: border-box;
+    height:100vh;
+}
+
+.document-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #db0505;
+    min-height: 100vh;
+    border-radius: 25px;
+    width: 375px;
+    
+}
+
+.back-icon {
+    font-size: 24px; /* Adjust size as needed */
+    cursor: pointer;
+    margin-top: 15px;
+    margin-left: 15px;
+    
+}
+
+/* Separate container for the heading */
+.heading-container {
+    background-color: #ff0008;
+    color: white;
+    text-align: center;
+    
+}
+
+.header h1 {
+    margin: 10px;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom:-5px;
+}
+
+.header p {
+    /* margin: 5px 0; */
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Separate container for the document cards and submit button */
+.content-container {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 25px;
+}
+
+.document-cards {
+    padding: 15px;
+}
+
+.document-card {
+    display: flex;
+    align-items: center;
+    background-color: #e1dddd;
+    padding: 12px;
+    margin-left: 38px;
+    /* border-radius: 10px; */
+    /* margin-bottom: 5px; */
+    /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 320px; */
+}
+
+.document-icon {
+    font-size: 1.5rem;
+    color: #e01f25;
+    margin-right: 10px;
+}
+
+.document-info {
+    flex-grow: 1;
+    color: black;
+}
+
+.document-info h2 {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.document-info p {
+    font-size: 0.8rem;
+    color: gray;
+    margin: 2px 0 0;
+}
+
+.arrow-icon {
+    color: #e01f25;
+    font-size: 1.2rem;
+}
+
+.submit-btn {
+    background-color: #e01f25;
+    color: white;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: none;
+    width: 322px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #c51920;
+}
+
+.document-cards {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding: 5px;
+    width: 350px;
+    margin-left: -33px;
+}
+
+.document-card {
+    width: 100%;
+    max-width: 320px; 
+    margin-bottom: 15px; 
+}
+
+
+
+
+
+
+
