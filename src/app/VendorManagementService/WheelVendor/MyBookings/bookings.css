@@ -1,0 +1,238 @@
+body {
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    margin: 0;
+    background-color: rgb(228, 226, 226);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0;  /* Remove padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    border-radius: 4%;
+}
+
+.bookings-container{
+height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  width: 375px;
+  margin: 0 auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 4%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 50px;
+}
+
+.back-icon {
+    position: absolute;
+    left: 1rem;
+    cursor: pointer;
+    color: red;
+    font-size: 24px;
+}
+
+h1 {
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
+}
+
+/* Week Selection Styles */
+.week-selection {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    overflow-x: auto;
+}
+
+.week-day {
+    font-size: 16px;
+    color: red;
+    font-weight: bold;
+    border: 2px solid #ef0808;
+    padding: 10px;
+    border-radius: 5px;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-items: center;
+}
+
+.week-day.selected {
+    background-color: red;
+    color: white;
+}
+
+.month-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    margin-left: -20px;
+    margin-top: px;
+}
+
+.tab-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: red;
+    position: relative;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.tab-item.active {
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Gray section covering the entire width */
+.gray-section {
+    background-color: #f0f0f0;
+    padding: 1rem 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: -200px;
+    height: 100vh;
+}
+
+.booking-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+}
+.booking-card h3 {
+    color: red; /* Red text for Oxi Clinic and Oxi Wheel */
+    margin: 0;
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: px;
+}
+.booking-card p {
+    margin: 0;
+    color: rgb(166, 164, 164);
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+.status-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.status {
+    background-color: #f7f7f7;
+    color: #0a9e2d;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 10px;
+    margin-bottom: 0.5rem;
+    border: 2px solid #1dc143
+}
+.date-time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
+}
+
+.date {
+    color: gray;
+}
+
+.time {
+    color: gray;
+    display: flex;
+    align-items: center;
+}
+.day {
+    font-size: 14px; /* Adjust day size */
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.month {
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+}
+
+.day-number {
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+}
+
+.time-icon::before {
+    content: '\f017'; /* FontAwesome clock icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 5px;
+}
+
+/* Footer Styles */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    max-width: 375px;
+    background-color: #fff;
+    padding: 8px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+    margin-bottom: px;
+    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 20px;
+    box-sizing: border-box;
+}
+
+.footer-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    color: gray;
+}
+
+.footer-icon.selected {
+    color: red;
+}
+
+.footer-icon span {
+    font-size: 12px;
+}
