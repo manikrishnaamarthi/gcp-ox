@@ -3,8 +3,27 @@ import React from 'react';
 import './Document.css'; // Assuming you are using external CSS for styling
 import { FaIdBadge, FaBuilding, FaIdCard, FaUser } from 'react-icons/fa';
 import { IoIosArrowForward, IoMdArrowBack } from 'react-icons/io'; 
+import { useRouter } from 'next/navigation';
+
 
 const Document: React.FC = () => {
+    const router = useRouter();
+
+    const handleMedicalClick = () => {
+        router.push('/VendorManagementService/DocumentsVerifyPage/MedicalLicence');
+    };
+    const handleBuildingClick = () => {
+        router.push('/VendorManagementService/DocumentsVerifyPage/BuildingLicence');
+    };
+    const handleAadharClick = () => {
+        router.push('/VendorManagementService/DocumentsVerifyPage/AadharPage');
+    };
+    const handlePancardClick = () => {
+        router.push('/VendorManagementService/DocumentsVerifyPage/PancardPage');
+    };
+    const handleProfileClick = () => {
+        router.push('/VendorManagementService/DocumentsVerifyPage/ProfilePhotoPage');
+    };
     return (
         <div className="document-container">
             <header className="header">
@@ -15,7 +34,7 @@ const Document: React.FC = () => {
 
             <div className="content-container">
                 <div className="document-cards">
-                    <div className="document-card">
+                    <div className="document-card" onClick={handleMedicalClick }>
                         <FaIdBadge className="document-icon" />
                         <div className="document-info">
                             <h2>Medical Practitioner License</h2>
@@ -24,7 +43,7 @@ const Document: React.FC = () => {
                         <IoIosArrowForward className="arrow-icon" />
                     </div>
 
-                    <div className="document-card">
+                    <div className="document-card" onClick={handleBuildingClick}>
                         <FaBuilding className="document-icon" />
                         <div className="document-info">
                             <h2>Building Permit & Licence</h2>
@@ -33,7 +52,7 @@ const Document: React.FC = () => {
                         <IoIosArrowForward className="arrow-icon" />
                     </div>
 
-                    <div className="document-card">
+                    <div className="document-card" onClick={handleAadharClick}>
                         <FaIdCard className="document-icon" />
                         <div className="document-info">
                             <h2>Aadhar Card</h2>
@@ -42,7 +61,7 @@ const Document: React.FC = () => {
                         <IoIosArrowForward className="arrow-icon" />
                     </div>
 
-                    <div className="document-card">
+                    <div className="document-card" onClick={handlePancardClick}>
                         <FaIdCard className="document-icon" />
                         <div className="document-info">
                             <h2>Pan Card</h2>
@@ -51,7 +70,7 @@ const Document: React.FC = () => {
                         <IoIosArrowForward className="arrow-icon" />
                     </div>
 
-                    <div className="document-card">
+                    <div className="document-card" onClick={handleProfileClick}>
                         <FaUser className="document-icon" />
                         <div className="document-info">
                             <h2>Profile Photo</h2>
