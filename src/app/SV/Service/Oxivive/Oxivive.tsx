@@ -24,11 +24,27 @@ const Oxivive: React.FC = () => {
         setIsProceedEnabled(prevState => !prevState); // Toggle the proceed button enable/disable state
     };
 
-    const handleSubmitClick = () => {
-        // Logic to save selected service and proceed to the next page
-        // localStorage.setItem('selectedService', selectedService);
-        router.push('/SV/Service/Oxivive/Details');
+    const handleSubmitClick = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/vendorapp/save-service/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ selectedService }),
+            });
+    
+            if (response.ok) {
+                // Navigate to the next page on success
+                router.push('/SV/Service/Oxivive/Details');
+            } else {
+                console.error('Failed to save service');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
+    
 
     return (
         <div className="oxivive-container">
