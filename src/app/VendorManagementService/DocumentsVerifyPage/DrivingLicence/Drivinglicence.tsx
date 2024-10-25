@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { FiUpload, FiArrowLeft } from 'react-icons/fi';
 import './Drivinglicence.css';
@@ -22,7 +22,6 @@ const Drivinglicence: React.FC = () => {
 
   const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Allow only numbers, hyphens, and slashes
     const formattedValue = value.replace(/[^0-9\-\/]/g, '');
     setDateOfBirth(formattedValue);
   };
@@ -37,6 +36,10 @@ const Drivinglicence: React.FC = () => {
     } else {
       alert('Please upload both sides of the Driving Licence');
     }
+  };
+
+  const renderPreview = (file: File | null) => {
+    return file ? URL.createObjectURL(file) : undefined;
   };
 
   return (
@@ -56,10 +59,14 @@ const Drivinglicence: React.FC = () => {
 
       <div className="uploadContainer">
         <div className="uploadBox">
-          <label htmlFor="upload-front" className="uploadLabel">
-            <FiUpload className="uploadIcon" />
-            <span>Upload front side</span>
-          </label>
+          {frontSide ? (
+            <img src={renderPreview(frontSide)} alt="Front side" className="uploadPreview" />
+          ) : (
+            <label htmlFor="upload-front" className="uploadLabel">
+              <FiUpload className="uploadIcon" />
+              <span>Upload front side</span>
+            </label>
+          )}
           <input
             id="upload-front"
             type="file"
@@ -68,11 +75,16 @@ const Drivinglicence: React.FC = () => {
             className="inputFile"
           />
         </div>
+
         <div className="uploadBox">
-          <label htmlFor="upload-back" className="uploadLabel">
-            <FiUpload className="uploadIcon" />
-            <span>Upload back side</span>
-          </label>
+          {backSide ? (
+            <img src={renderPreview(backSide)} alt="Back side" className="uploadPreview" />
+          ) : (
+            <label htmlFor="upload-back" className="uploadLabel">
+              <FiUpload className="uploadIcon" />
+              <span>Upload back side</span>
+            </label>
+          )}
           <input
             id="upload-back"
             type="file"
@@ -83,7 +95,6 @@ const Drivinglicence: React.FC = () => {
         </div>
       </div>
 
-      {/* Driving Licence Number and Date of Birth fields */}
       <div className="inputFieldsContainer">
         <label className="formLabel">Driving Licence Number</label>
         <input

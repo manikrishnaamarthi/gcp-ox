@@ -1,7 +1,8 @@
+"use client"
 import React from 'react';
 import './Document.css'; // Assuming you are using external CSS for styling
 import { FaIdBadge, FaBuilding, FaIdCard, FaUser } from 'react-icons/fa';
-import { IoIosArrowForward, IoMdArrowBack } from 'react-icons/io'; // Importing new icons
+import { IoIosArrowForward, IoMdArrowBack } from 'react-icons/io'; 
 
 const Document: React.FC = () => {
     return (

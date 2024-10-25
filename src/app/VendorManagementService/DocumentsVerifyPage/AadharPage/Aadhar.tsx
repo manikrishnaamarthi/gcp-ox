@@ -1,20 +1,25 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
-import { FiUpload } from 'react-icons/fi'; // Import the upload icon
-import { FiArrowLeft } from 'react-icons/fi'; // Import the back arrow icon
-import './Aadhar.css'; // Import the CSS for styling
+import { FiUpload } from 'react-icons/fi';
+import { FiArrowLeft } from 'react-icons/fi';
+import './Aadhar.css';
 
 const Aadhar: React.FC = () => {
   const [frontSide, setFrontSide] = useState<File | null>(null);
   const [backSide, setBackSide] = useState<File | null>(null);
+  const [frontPreview, setFrontPreview] = useState<string | null>(null);
+  const [backPreview, setBackPreview] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      const fileURL = URL.createObjectURL(file);
       if (side === 'front') {
         setFrontSide(file);
+        setFrontPreview(fileURL); 
       } else {
         setBackSide(file);
+        setBackPreview(fileURL); 
       }
     }
   };
@@ -31,25 +36,20 @@ const Aadhar: React.FC = () => {
 
   return (
     <div className="container">
-      
       <div className="back-arrow">
         <FiArrowLeft className="arrow-icon" />
       </div>
 
-      
       <h1 className="header">Aadhar Card</h1>
 
-      {/* Paragraph */}
       <p className="instruction">
         Make sure that all the data on your document is fully visible, glare-free and not blurred
       </p>
 
-      {/* Image */}
       <div className="imagePreview">
-        <img 
-          src="/images/aadharcard1.png" 
-          // alt="Aadhar Card Preview" 
-          className="aadharImage" 
+        <img
+          src="/images/aadharcard1.png"
+          className="aadharImage"
         />
       </div>
 
@@ -57,8 +57,14 @@ const Aadhar: React.FC = () => {
       <div className="uploadContainer">
         <div className="uploadBox">
           <label htmlFor="upload-front" className="uploadLabel">
-            <FiUpload className="uploadIcon" /> {/* Using FiUpload Icon */}
-            <span>Upload front side</span>
+            {frontPreview ? (
+              <img src={frontPreview} alt="Front Preview" className="imageFit" />
+            ) : (
+              <>
+                <FiUpload className="uploadIcon" />
+                <span>Upload front side</span>
+              </>
+            )}
           </label>
           <input
             id="upload-front"
@@ -70,8 +76,14 @@ const Aadhar: React.FC = () => {
         </div>
         <div className="uploadBox">
           <label htmlFor="upload-back" className="uploadLabel">
-            <FiUpload className="uploadIcon" /> {/* Using FiUpload Icon */}
-            <span>Upload back side</span>
+            {backPreview ? (
+              <img src={backPreview} alt="Back Preview" className="imageFit" />
+            ) : (
+              <>
+                <FiUpload className="uploadIcon" />
+                <span>Upload back side</span>
+              </>
+            )}
           </label>
           <input
             id="upload-back"
@@ -83,7 +95,6 @@ const Aadhar: React.FC = () => {
         </div>
       </div>
 
-      {/* Done button */}
       <button className="submitButton" onClick={handleSubmit}>
         Done
       </button>
