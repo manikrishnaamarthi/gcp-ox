@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { FiUpload } from 'react-icons/fi'; // Import the upload icon
 import { FiArrowLeft } from 'react-icons/fi'; // Import the back arrow icon
@@ -36,15 +36,12 @@ const PanCard: React.FC = () => {
         <FiArrowLeft className="arrow-icon" />
       </div>
 
-      {/* Changed Header from Aadhar Card to Pan Card */}
       <h1 className="header">Pan Card</h1>
 
-      {/* Paragraph */}
       <p className="instruction">
         Make sure that all the data on your document is fully visible, glare-free and not blurred
       </p>
 
-      {/* Image */}
       <div className="imagePreview">
         <img 
           src="/images/pancardpic.jpg" 
@@ -53,12 +50,17 @@ const PanCard: React.FC = () => {
         />
       </div>
 
-      {/* Upload buttons */}
       <div className="uploadContainer">
         <div className="uploadBox">
           <label htmlFor="upload-front" className="uploadLabel">
-            <FiUpload className="uploadIcon" /> {/* Using FiUpload Icon */}
-            <span>Upload front side</span>
+            {frontSide ? (
+              <img src={URL.createObjectURL(frontSide)} alt="Front Side" className="previewImage" />
+            ) : (
+              <>
+                <FiUpload className="uploadIcon" />
+                <span>Upload front side</span>
+              </>
+            )}
           </label>
           <input
             id="upload-front"
@@ -70,8 +72,14 @@ const PanCard: React.FC = () => {
         </div>
         <div className="uploadBox">
           <label htmlFor="upload-back" className="uploadLabel">
-            <FiUpload className="uploadIcon" /> {/* Using FiUpload Icon */}
-            <span>Upload back side</span>
+            {backSide ? (
+              <img src={URL.createObjectURL(backSide)} alt="Back Side" className="previewImage" />
+            ) : (
+              <>
+                <FiUpload className="uploadIcon" />
+                <span>Upload back side</span>
+              </>
+            )}
           </label>
           <input
             id="upload-back"
@@ -83,7 +91,6 @@ const PanCard: React.FC = () => {
         </div>
       </div>
 
-      {/* Done button */}
       <button className="submitButton" onClick={handleSubmit}>
         Done
       </button>

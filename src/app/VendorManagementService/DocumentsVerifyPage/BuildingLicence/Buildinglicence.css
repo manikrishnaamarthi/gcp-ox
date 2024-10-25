@@ -1,93 +1,97 @@
+/* Container for the entire layout */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    /* align-items: center; */
     width: 375px;
     margin: auto;
-    height: 100vh;
+    /* min-height: 100vh; */
+    justify-content: center;
+    /* box-sizing: border-box; */
+    height:100vh;
     background-color: rgb(241, 108, 108);
 }
-
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     height: 100vh;
     border-radius: 25px;
-    justify-content: center;
 }
-
+  
 /* Back arrow styling */
 .back-arrow {
     align-self: flex-start;
-    margin-top: -25px;
+    margin-bottom: 10px;
 }
-
+  
 .arrow-icon {
     font-size: 24px;
-    color: #ff0000;
+    color: #be1e1e;
     cursor: pointer;
 }
-
+  
 /* Header for the page */
 .header {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: black;
+    color: black; 
     text-align: left; 
-    width: 100%;
+    width: 100%;  
 }
-
+  
 /* Instruction paragraph */
 .instruction {
     font-size: 14px;
-    text-align: center;
     color: #555;
     margin-bottom: 20px;
     text-align: left;
 }
-
-/* Image Preview styling */
+  
+/* Aadhar Card preview image */
 .imagePreview {
     margin-bottom: 20px;
 }
-
+  
 .aadharImage {
-    width: 150px;
+    width: 80px;
     height: 100px;
     object-fit: center;
 }
-
-/* Upload buttons */
+  
+/* Container for upload buttons */
 .uploadContainer {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
+    justify-content: center; /* Center the upload box */
+    width: 65%;
+    margin-bottom: 160px;
     position: relative;
     object-fit: cover;
     overflow: hidden;
 }
-
+  
+/* Styling for the upload box */
 .uploadBox {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 47%;
+    align-items: center; /* Vertically center the content */
+    width: 80%; /* Adjust width for better appearance */
     height: 100px;
     cursor: pointer;
-    position: relative;
     border-radius: 5px;
     border: 1px solid #5e1397;
     background-color: #d9d4d4;
+    margin-bottom: 5px;
 }
-
+  
+/* Upload label containing icon and text */
 .uploadLabel {
     display: flex;
     flex-direction: column;
@@ -97,13 +101,15 @@ body {
     color: black;
     font-size: 14px;
 }
-
+  
+/* Icon inside upload box */
 .uploadIcon {
     font-size: 24px;
     color: #5e1397;
     margin-bottom: 10px;
 }
-
+  
+/* Hide the file input but keep it clickable */
 .inputFile {
     position: absolute;
     top: 0;
@@ -113,17 +119,8 @@ body {
     opacity: 0;
     cursor: pointer;
 }
-
-/* Container for Driving Licence Number and Date of Birth */
-.inputFieldsContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-
-/* Done button */
+  
+/* Submit (Done) button */
 .submitButton {
     background-color: #ff0000;
     color: #fff;
@@ -131,47 +128,6 @@ body {
     font-size: 16px;
     cursor: pointer;
     width: 100%;
+    margin-top: 10px;
 }
-
-
-
-
-
-
-.inputField {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #a8a7a7;
-    font-size: 14px;
-    color: rgb(154, 152, 152);
-  }
- 
-.formLabel {
-    font-size: 14px;
-    color: black;
-    font-size: 18px;
-    margin-bottom: 5px;
-    text-align: left;
-  }
-  
-  
-  .inputField:not(:placeholder-shown) {
-    font-weight: 600;
-    Color:black; 
-  }
-  
-  input::placeholder {
-    font-weight: normal; 
-  }
-
-
-
-  
-
-
-
-
-  
-  
 

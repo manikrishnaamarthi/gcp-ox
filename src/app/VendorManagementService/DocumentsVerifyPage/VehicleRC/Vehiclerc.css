@@ -76,6 +76,8 @@ body {
     width: 100%;
     margin-bottom: 210px;
     position: relative;
+    object-fit: cover;
+    overflow: hidden;
   }
   
   /* Styling for the upload boxes */
