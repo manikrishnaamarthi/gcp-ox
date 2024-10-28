@@ -1,14 +1,47 @@
 'use client';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome,faClock, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faClock, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import "./bookings.css";
 
 const Bookings: React.FC = () => {
   const [activeTab, setActiveTab] = useState("bookings");
   const [selectedFooter, setSelectedFooter] = useState("home");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [weekDates, setWeekDates] = useState<string[]>([]);
+
+  useEffect(() => {
+    const getWeekDates = () => {
+      const dates = [];
+      const today = new Date();
+
+      for (let i = 0; i < 7; i++) {
+        const nextDay = new Date(today);
+        nextDay.setDate(today.getDate() + i);
+
+        const day = nextDay.toLocaleDateString("en-US", { weekday: "short" });
+        const month = nextDay.toLocaleDateString("en-US", { month: "short" });
+        const dayNumber = nextDay.getDate();
+
+        dates.push(`${day} ${month} ${dayNumber}`);
+      }
+      setWeekDates(dates);
+    };
+
+    getWeekDates();
+
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    const timeUntilMidnight = midnight.getTime() - new Date().getTime();
+
+    const timer = setTimeout(() => {
+      getWeekDates();
+      setInterval(getWeekDates, 24 * 60 * 60 * 1000); // Update every 24 hours
+    }, timeUntilMidnight);
+
+    return () => clearTimeout(timer); // Clear timeout on component unmount
+  }, []);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -30,7 +63,7 @@ const Bookings: React.FC = () => {
       </header>
 
       <div className="week-selection">
-        {["Fri Oct 4", "Sat Oct 5", "Sun Oct 6", "Mon Oct 7"].map((date, index) => {
+        {weekDates.map((date, index) => {
           const [day, month, dayNumber] = date.split(" ");
           return (
             <div
@@ -61,38 +94,37 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="gray-section">
-      <div className="booking-card">
-        <div>
-          <h3>Oxi Clinic</h3>
-          <p>HSR Layout 2nd Main</p>
-        </div>
-        <div className="status-section">
-          <span className="status">Completed</span>
-          <div className="date-time">
-            <span className="date">12-May-24</span>
-            <span className="time">
-              <FontAwesomeIcon icon={faClock} className="time-icon" /> 2 hrs ago
-            </span>
+        <div className="booking-card">
+          <div>
+            <h3>Oxi Clinic</h3>
+            <p>HSR Layout 2nd Main</p>
+          </div>
+          <div className="status-section">
+            <span className="status">Completed</span>
+            <div className="date-time">
+              <span className="date">12-May-24</span>
+              <span className="time">
+                <FontAwesomeIcon icon={faClock} className="time-icon" /> 2 hrs ago
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="booking-card">
-        <div>
-          <h3>Oxi Wheel</h3>
-          <p>BTM Layout 5th Main</p>
-        </div>
-        <div className="status-section">
-          <span className="status">Completed</span>
-          <div className="date-time">
-            <span className="date">12-May-24</span>
-            <span className="time">
-              <FontAwesomeIcon icon={faClock} className="time-icon" /> 2 hrs ago
-            </span>
+        <div className="booking-card">
+          <div>
+            <h3>Oxi Wheel</h3>
+            <p>BTM Layout 5th Main</p>
+          </div>
+          <div className="status-section">
+            <span className="status">Completed</span>
+            <div className="date-time">
+              <span className="date">12-May-24</span>
+              <span className="time">
+                <FontAwesomeIcon icon={faClock} className="time-icon" /> 2 hrs ago
+              </span>
+            </div>
           </div>
         </div>
-  </div>
-
       </div>
 
       <div className="footer">
