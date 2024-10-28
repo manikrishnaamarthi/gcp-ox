@@ -13,7 +13,7 @@ const loadGoogleMapsScript = (callback: () => void) => {
 
   if (!existingScript) {
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA8GzhJLPK0Hfryi5zHbg3RMDSMCukmQCw`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU`;
     script.id = "googleMaps";
     script.async = true;
     script.onload = callback;
