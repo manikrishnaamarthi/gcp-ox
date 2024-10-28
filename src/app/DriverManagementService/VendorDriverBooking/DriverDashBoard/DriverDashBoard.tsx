@@ -1,19 +1,14 @@
 "use client"
 import "./DriverDashBoard.css";
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useRouter } from 'next/navigation'; 
 import { SlHome } from "react-icons/sl";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { BsPerson } from "react-icons/bs";
 import { LuBookPlus } from "react-icons/lu";
 
 const DriverDashBoard = () => {
-  const navigate = useNavigate(); // Initialize the navigate hook
-
-  // Function to handle bookings click
-  const handleBookingsClick = () => {
-    navigate("/mybooking"); // Navigate to MyBooking page
-  };
+  const router = useRouter();
 
   return (
     <div className="container">
@@ -30,8 +25,8 @@ const DriverDashBoard = () => {
       </header>
 
       <div className="main">
-        <div className="card-book" onClick={handleBookingsClick}> {/* Add onClick event */}
-          <img src="/images/bookings.png" alt="Dashboard" className="cardIcon" />
+        <div className="card-book" >
+          <img src="/images/bookings.png" alt="Dashboard" className="cardIcon"  onClick={() => router.push('/DriverManagementService/VendorDriverBooking/MyBooking')}/>
         </div>
         <p className="cardText">Bookings</p>
         

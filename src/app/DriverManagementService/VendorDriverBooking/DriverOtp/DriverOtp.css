@@ -1,177 +1,188 @@
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    background-color: #d7d2d2;
-  }
-  
-  .container {
-    height: 100vh;
-    width: 100%;
-    max-width: 375px;
-    margin: auto;
-    background-color:#FC000E;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .header {
-    background-color: #FC000E;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    height: 210px;
-    font-family: Arial, sans-serif;
-  }
-  
-  
-  
-  .title {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    margin: 0;
-    position: relative; /* Positioning adjustments */
-    top: 10px; /* Adjust for vertical spacing */
-  }
-  
-  .welcome {
-    font-size: 28px; 
-    margin: 0; 
-    margin-right: 5px;
-    margin-top: 30px;
-    font-weight: 600;
-  }
-  
-  .oxiwheel {
-    font-size: 15px; /* Font size for 'OxiWheel' */
-    margin: 0; /* No margin */
-    margin-right: 5px;
-    margin-top: 20px;
-    
-  }
-  
-  
-  
-  .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    padding: 20px;
-    height: 100px;
-    background-color: #ffffff;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-  }
-  
-  
-  .otp-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 150px;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  background-color: #d7d2d2;
+}
 
-  }
+.container {
+  height: 100vh;
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  background-color:#FC000E;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  background-color: #FC000E;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  height: 210px;
+  font-family: Arial, sans-serif;
+}
+
+
+
+.title {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  margin: 0;
+  position: relative; /* Positioning adjustments */
+  top: 10px; /* Adjust for vertical spacing */
+}
+
+.welcome {
+  font-size: 28px; 
+  margin: 0; 
+  margin-right: 5px;
+  margin-top: 30px;
+  font-weight: 600;
+}
+
+.oxiwheel {
+  font-size: 15px; /* Font size for 'OxiWheel' */
+  margin: 0; /* No margin */
+  margin-right: 5px;
+  margin-top: 20px;
   
+}
+
+
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 20px;
+  height: 100px;
+  background-color: #ffffff;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+
+
+.otp-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 150px;
+
+}
+
+.otp-input {
+  width: 10px;           
+  height: 5px;          
+  text-align: center;    
+  font-size: 24px;      
+  border: none;         
+  border-bottom: 3px solid #ddd;  
+  outline: none;        
+  margin: 2 2px;       
+  background: transparent; 
+}
+
+.otp-inputs {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  gap: 10px;              
+}
+
+.otp-input:focus {
+  border-color: #FC000E; /* Match color to the theme */
+  outline: none;
+}
+
+
+.submit-btn {
+  margin-top: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #FC000E;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width:300px;
+  height:50px;
+}
+
+
+
+
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background-color: white;
+  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footerItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.footerIcon {
+  font-size: 25px;
+}
+
+.footerItem p {
+  margin: 5px 0 0;
+  font-size: 0.75em;
+  font-weight: 500;
+}
+
+@media (max-width: 320px) {
+  .welcome {
+    font-size: 5vw;
+  }
+  .oxiwheel {
+    font-size: 3vw;
+  }
   .otp-inputs {
-    display: flex;
+    gap: 4vw;
+  }
+  .submit-btn {
+    font-size: 3.5vw;
+    height: 10vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .welcome {
+    font-size: 28px;
+  }
+  .oxiwheel {
+    font-size: 16px;
+  }
+  .otp-inputs {
     gap: 10px;
   }
-  
   .otp-input {
     width: 50px;
     height: 50px;
-    text-align: center;
     font-size: 24px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
   }
-  
   .submit-btn {
-    margin-top: 30px;
-    padding: 10px 20px;
     font-size: 16px;
-    color: white;
-    background-color: #FC000E;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    width:300px;
-    height:50px;
+    width: 300px;
+    height: 50px;
   }
-  
-  
-  
-  
-  
-  .footer {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    background-color: white;
-    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .footerItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-  }
-  
   .footerIcon {
     font-size: 25px;
   }
-  
   .footerItem p {
-    margin: 5px 0 0;
-    font-size: 0.75em;
-    font-weight: 500;
+    font-size: 12px;
   }
-  
-  @media (max-width: 320px) {
-    .welcome {
-      font-size: 5vw;
-    }
-    .oxiwheel {
-      font-size: 3vw;
-    }
-    .otp-inputs {
-      gap: 4vw;
-    }
-    .submit-btn {
-      font-size: 3.5vw;
-      height: 10vw;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .welcome {
-      font-size: 28px;
-    }
-    .oxiwheel {
-      font-size: 16px;
-    }
-    .otp-inputs {
-      gap: 10px;
-    }
-    .otp-input {
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
-    }
-    .submit-btn {
-      font-size: 16px;
-      width: 300px;
-      height: 50px;
-    }
-    .footerIcon {
-      font-size: 25px;
-    }
-    .footerItem p {
-      font-size: 12px;
-    }
-  }
+}

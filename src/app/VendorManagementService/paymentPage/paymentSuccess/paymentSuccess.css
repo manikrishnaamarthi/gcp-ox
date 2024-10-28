@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    background-color: #d7d2d2;
+  }
+
+.payment-success-container {
+    height: 100vh;
+    width: 100%;
+    max-width: 375px;
+    margin: auto;
+    background-color:#ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ticket-image {
+    width: 130px; /* Adjust size as needed */
+    margin-bottom: 25px;
+    color: #FC000E;
+  }
+  
+  .payment-status-text {
+    color: #FC000E;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
