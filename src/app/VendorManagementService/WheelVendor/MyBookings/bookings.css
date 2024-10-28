@@ -56,9 +56,12 @@ h1 {
 /* Week Selection Styles */
 .week-selection {
     display: flex;
+    gap: 12px;
     justify-content: space-around;
     background-color: white;
-    overflow-x: auto;
+    overflow: hidden; /* Remove scrolling */
+    flex-wrap: nowrap;
+    padding: 0 10px; /* Add padding to adjust spacing */
 }
 
 .week-day {
@@ -86,8 +89,8 @@ h1 {
     flex-direction: row;
     justify-content: center;
     gap: 5px;
+    margin-bottom: 10px;
 }
-
 .tabs {
     display: flex;
     justify-content: space-around;
