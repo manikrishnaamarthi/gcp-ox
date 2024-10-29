@@ -21,7 +21,7 @@ body {
     font-family: Arial, sans-serif;
     width: 80vw;  
     box-sizing: border-box;
-    height: auto;
+    height: 100vh;
     background-color: white;
     box-sizing: border-box; /* Ensures padding is included in the width */
     margin: 0 auto; /* Centers the container */

@@ -4,21 +4,45 @@ body {
     font-style: normal;
     background-color: #d7d2d2;
   }
-.driver-map-container {
+    
+    .driverMapContainer {
     height: 100vh;
     width: 100%;
     max-width: 375px;
     margin: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     }
     
-    .map {
-      flex-grow: 1;
-      width: 100%;
-      height: calc(100vh - 80px); /* Adjust the height based on the footer's height */
+    .driverMapContainer {
+      position: relative;
     }
+    
+    .mapOverlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    
+    .reachedButton, .startButton {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    
+    
     
     .footer {
       display: flex;
