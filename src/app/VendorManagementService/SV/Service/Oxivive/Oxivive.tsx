@@ -25,10 +25,7 @@ const Oxivive: React.FC = () => {
     };
 
     const handleProceedClick = () => {
-        if (selectedService) {
-            localStorage.setItem('serviceData', selectedService); // Store selected service locally
             router.push('/VendorManagementService/SV/Service/Oxivive/Details'); // Navigate to the next page
-        }
     };
 
     return (
@@ -39,7 +36,7 @@ const Oxivive: React.FC = () => {
                 </button>
             </div>
             <div className="oxivive-content">
-                <img src="/images/check.png" alt="OxiWheel" className="oxivive-image" />
+                <img src="/images/check.jpg" alt="OxiWheel" className="oxivive-image" />
                 <h2 className="oxivive-title">
                     To continue {selectedService} Vendor with OXIVIVE, please select an option
                 </h2>
