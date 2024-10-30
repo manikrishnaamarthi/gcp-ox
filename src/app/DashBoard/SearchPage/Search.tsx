@@ -62,7 +62,7 @@ const Search: React.FC = () => {
   const fetchPopularLocations = async (lat: number, lng: number) => {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=tourist_attraction&key=AlzaSyVoPneZC4BKelFtS87pf7OMlJ6ZV4LzOMt`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=tourist_attraction&key=AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU`
       );
   
       if (!response.ok) {
