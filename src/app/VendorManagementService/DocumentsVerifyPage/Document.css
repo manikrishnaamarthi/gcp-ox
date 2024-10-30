@@ -17,7 +17,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #db0505;
+    background-color: #FC000E;
     min-height: 100vh;
     border-radius: 25px;
     width: 375px;
@@ -34,7 +34,7 @@ body {
 
 /* Separate container for the heading */
 .heading-container {
-    background-color: #ff0008;
+    background-color: #FC000E;
     color: white;
     text-align: center;
     
@@ -79,7 +79,7 @@ body {
 
 .document-icon {
     font-size: 1.5rem;
-    color: #e01f25;
+    color: #FC000E;
     margin-right: 10px;
 }
 
@@ -101,12 +101,12 @@ body {
 }
 
 .arrow-icon {
-    color: #e01f25;
+    color: #FC000E;
     font-size: 1.2rem;
 }
 
 .submit-btn {
-    background-color: #e01f25;
+    background-color: #FC000E;
     color: white;
     padding: 10px;
     font-size: 1.2rem;
@@ -117,7 +117,7 @@ body {
 }
 
 .submit-btn:hover {
-    background-color: #c51920;
+    background-color: #FC000E;
 }
 
 .document-cards {
@@ -135,6 +135,28 @@ body {
     margin-bottom: 15px; 
 }
 
+
+
+.uploaded {
+    border: 2px solid green;
+}
+
+.tick-icon {
+    color: green;
+    font-size: 1.0em;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+/* .document-card.uploaded {
+    border: 1px solid green;
+}
+
+.tick-icon {
+    color: green;
+    font-size: 1.em;
+    margin-left: -8px;
+} */
 
 
 

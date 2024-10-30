@@ -33,7 +33,7 @@ body {
   
   .arrow-icon {
     font-size: 24px;
-    color: #ff0000;
+    color: #FC000E;
     cursor: pointer;
   }
   
@@ -91,7 +91,7 @@ body {
     cursor: pointer;
     position: relative;
     border-radius: 5px;
-    border: 1px solid #5e1397;
+    border: 1px dashed #2641f7;
     background-color: #d9d4d4;
   }
   
@@ -109,7 +109,7 @@ body {
   /* Icon inside upload box */
   .uploadIcon {
     font-size: 24px;
-    color: #5e1397;
+    color: #2641f7;
     margin-bottom: 10px;
   }
   
@@ -126,7 +126,7 @@ body {
   
   /* Submit (Done) button */
   .submitButton {
-    background-color: #ff0000;
+    background-color: #FC000E;
     color: #fff;
     padding: 12px 20px;
     font-size: 16px;

@@ -1,47 +1,62 @@
 "use client";
-import React, { useState } from 'react';
-import { FiUpload } from 'react-icons/fi'; // Import the upload icon
-import { FiArrowLeft } from 'react-icons/fi'; // Import the back arrow icon
-import './PanCard.css'; // Import the CSS for styling
+import React, { useState, useEffect } from 'react';
+import { FiUpload, FiArrowLeft } from 'react-icons/fi';
+import './PanCard.css';
+import { useRouter } from "next/navigation";
 
 const PanCard: React.FC = () => {
+  const Router = useRouter();
   const [frontSide, setFrontSide] = useState<File | null>(null);
   const [backSide, setBackSide] = useState<File | null>(null);
+  const [frontPreview, setFrontPreview] = useState<string | null>(null);
+  const [backPreview, setBackPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Load previews from localStorage if available
+    const storedFront = localStorage.getItem("pancardFrontSidePreview");
+    const storedBack = localStorage.getItem("pancardBackSidePreview");
+
+    if (storedFront) setFrontPreview(storedFront);
+    if (storedBack) setBackPreview(storedBack);
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      const previewUrl = URL.createObjectURL(file);
+
       if (side === 'front') {
         setFrontSide(file);
+        setFrontPreview(previewUrl);
+        localStorage.setItem("pancardFrontSidePreview", previewUrl);
       } else {
         setBackSide(file);
+        setBackPreview(previewUrl);
+        localStorage.setItem("pancardBackSidePreview", previewUrl);
       }
     }
   };
 
   const handleSubmit = () => {
     if (frontSide && backSide) {
-      console.log('Front Side:', frontSide);
-      console.log('Back Side:', backSide);
-      alert('Files uploaded successfully!');
+      localStorage.setItem("isPancardUploaded", "true");
+      alert("Pan Card uploaded successfully!");
+      Router.push("/VendorManagementService/DocumentsVerifyPage");
     } else {
-      alert('Please upload both sides of the Pan card');
+      alert("Please upload both sides of the Pan card");
     }
   };
 
   return (
     <div className="container">
-      
       <div className="back-arrow">
-        <FiArrowLeft className="arrow-icon" />
+        <FiArrowLeft className="arrow-icon" onClick={() => Router.back()}/>
       </div>
 
       <h1 className="header">Pan Card</h1>
-
       <p className="instruction">
-        Make sure that all the data on your document is fully visible, glare-free and not blurred
+        Make sure that all the data on your document is fully visible, glare-free, and not blurred.
       </p>
-
       <div className="imagePreview">
         <img 
           src="/images/pancardpic.jpg" 
@@ -53,8 +68,8 @@ const PanCard: React.FC = () => {
       <div className="uploadContainer">
         <div className="uploadBox">
           <label htmlFor="upload-front" className="uploadLabel">
-            {frontSide ? (
-              <img src={URL.createObjectURL(frontSide)} alt="Front Side" className="previewImage" />
+            {frontPreview ? (
+              <img src={frontPreview} alt="Front side preview" className="previewImage" />
             ) : (
               <>
                 <FiUpload className="uploadIcon" />
@@ -72,8 +87,8 @@ const PanCard: React.FC = () => {
         </div>
         <div className="uploadBox">
           <label htmlFor="upload-back" className="uploadLabel">
-            {backSide ? (
-              <img src={URL.createObjectURL(backSide)} alt="Back Side" className="previewImage" />
+            {backPreview ? (
+              <img src={backPreview} alt="Back side preview" className="previewImage" />
             ) : (
               <>
                 <FiUpload className="uploadIcon" />
