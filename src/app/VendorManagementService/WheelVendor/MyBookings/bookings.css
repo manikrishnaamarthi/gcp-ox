@@ -125,7 +125,9 @@ h1 {
     margin-bottom: -200px;
     height: 100vh;
 }
-
+p{
+    color: red;
+}
 .booking-card {
     background-color: white;
     padding: 1rem;
