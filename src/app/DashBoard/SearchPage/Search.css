@@ -31,103 +31,74 @@ body {
   }
 
 
-  @media (max-width: 360px) {
-    .home-container {
-     
-      padding: 12px; /* Adjust padding for smaller devices */
-    }
+  .search-page {
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    width: 80vw;  
+    box-sizing: border-box;
+    height: 100vh;
+    background-color: white;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+    margin: 0 auto; /* Centers the container */
+    box-shadow: 0 4px 8px rgba(21, 21, 21, 0.1);
+    max-width: 360px;
   }
- 
   
-
-
-
   .search-bar-container {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Space between the search bar and popular locations */
   }
   
-  .icon-container {
-    background-color: #f1f1f1;
-    padding: 10px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  
+  .back-icon {
     cursor: pointer;
-    margin-bottom: 18px;
     margin-right: 10px;
+    
+    border-radius: 100%; /* Optional: round the back icon */
+    
+    background-color: #e9e9e9;
   }
   
-
-
-
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc; /* Add border to the search bar */
+    border-radius: 20px; /* Rounded corners */
+    padding: 8px; /* Padding around the input */
+    flex: 1; /* Allow search bar to take available space */
+  }
   
-.search-container {
-justify-content: flex-start; /* Aligns everything to the top */
-padding: 20px;
-box-sizing: border-box;
-background-color: rgb(255, 255, 255);
-}
+  .search-icon {
+    cursor: pointer;
+  
+  }
 
-.search-bar {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  background-color: #f1f2f3;
-  box-sizing: border-box;
-}
-
-
-.search-icon {
-  position: absolute;
-  margin-left:70px;
-  transform: translateY(-50%);
-  color: #6f7071;
-  cursor: pointer;
-}
-
-
-
-
-.search-bar::placeholder {
-  text-align: center;
-  /* Optional: adjust padding or text color */
-  padding-right: 29px;
-  color: #999;
-}
-
-.locations-list {
-  width: 100%;
-  /* max-width: 400px; */
-  border-top: 1px solid #ccc;
-}
-
-.location-item {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-.location-item:last-child {
-  border-bottom: none;
-}
-
-.location-item:hover {
-  background-color: #f0f0f0;
-}
-
-
-
-.footer-section {
-   position: fixed;
+  .search-bar input {
+    flex: 1; /* Allow input to take available space */
+    border: none; /* Remove default border */
+    outline: none; /* Remove outline on focus */
+    padding: 1px; /* Padding inside the input */
+  }
+  .popular-locations {
+    margin-top: 20px;
+  }
+  
+  .location-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .navigation-icon {
+    cursor: pointer;
+  }
+  
+  .footer-section {
+    position: fixed;
     margin-left:-9px;
     bottom: 0;
-    /* left: 0%; */
     transform: translateX(-2%);
     width: 100%;
     display: flex;
@@ -138,37 +109,33 @@ background-color: rgb(255, 255, 255);
     max-width: 360px;
     z-index: 1000;
     align-items: center;
-    /* margin-top: 190px; */
     gap: 24px; 
-    /* margin: auto; */
-
-}
-
-.footer-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 24px;
-  cursor: pointer;
-  color: rgb(151, 147, 147);
-  margin: 0 16px;
-
-}
-
-.footer-header{
-  font-size:12px;
-  margin-top:2px;
-  color:rgb(146, 127, 127);
-}
-
-
-
-@media (max-width: 768px) {
-  .footer-section {
-      width: 550px; /* Full width for mobile */
-      margin-left: -8px; /* Center alignment */
-      padding: 8px;
-      margin-bottom:2px;
-      position: fixed;
   }
-}
+  
+  .footer-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    color: rgb(151, 147, 147);
+    margin: 0 16px;
+
+  }
+
+  .footer-header{
+    font-size:12px;
+    margin-top:2px;
+    color:rgb(146, 127, 127);
+  
+  }
+
+  .footer-icon.active {
+    color: red;
+  }
+  
+  .footer-icon.active .footer-header {
+    color: red;
+  }
+
+
