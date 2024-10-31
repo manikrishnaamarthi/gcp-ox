@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { IoChevronBackSharp } from 'react-icons/io5'; // Import the icon
+import axios from 'axios';
+import { IoChevronBackSharp } from 'react-icons/io5';
 import './Appointment.css';
 
 const Appointment = () => {
@@ -10,8 +11,18 @@ const Appointment = () => {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<string>(today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [showError, setShowError] = useState<boolean>(false); 
+  const [showError, setShowError] = useState<boolean>(false);
+  const [selectedData, setSelectedData] = useState<{ serviceType: string; address: string; name: string } | null>(null);
 
+  // Load data from local storage
+  useEffect(() => {
+    const savedData = localStorage.getItem('selectedData');
+    if (savedData) {
+      setSelectedData(JSON.parse(savedData));
+    }
+  }, []);
+
+  // Update the current time every minute
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -20,6 +31,7 @@ const Appointment = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Generate the dates for the upcoming week
   const generateWeekDates = () => {
     const weekDates = [];
     for (let i = 0; i < 6; i++) {
@@ -36,37 +48,56 @@ const Appointment = () => {
 
   const weekDates = generateWeekDates();
 
+  // Time slots for selection
   const morningSlots = ['08:00', '09:30', '11:00'];
   const afternoonSlots = ['12:30', '02:00', '03:30', '05:00', '06:30', '08:00', '09:30'];
 
+  // Check if a time slot is in the past
   const isPastTime = (slotTime: string, isMorning: boolean) => {
-    if (selectedDay === 0) { // Check if it's the current day
+    if (selectedDay === 0) {
       const currentDateTime = new Date();
       const [slotHour, slotMinutes] = slotTime.split(':').map(Number);
-  
       const slotDateTime = new Date(currentDateTime);
-  
+
       if (isMorning) {
         slotDateTime.setHours(slotHour, slotMinutes, 0);
       } else {
         const adjustedHour = slotHour === 12 ? 12 : slotHour + 12;
         slotDateTime.setHours(adjustedHour, slotMinutes, 0);
       }
-  
+
       return slotDateTime < currentDateTime;
     }
     return false;
   };
 
-  const handleProceed = () => {
+  // Handle proceeding with the booking
+  const handleProceed = async () => {
     if (selectedDay === null || selectedSlot === null) {
-      setShowError(true); 
+      setShowError(true);
       setIsModalOpen(true);
     } else {
       setShowError(false);
-      setIsModalOpen(true);
+  
+      // Prepare the data for submission
+      const bookingData = {
+        service_type: selectedData?.serviceType === 'Oxivive Clinic' ? 'clinic' : 'wheel',
+        address: selectedData?.address,
+        name: selectedData?.name,
+        appointment_date: `${today.getFullYear()}-${today.getMonth() + 1}-${weekDates[selectedDay].day}`,
+        appointment_time: selectedSlot.split('-')[1],
+      };
+      
+  
+      try {
+        await axios.post('http://localhost:8000/api/booking/', bookingData); // Adjust the URL as needed
+        setIsModalOpen(true); // Open confirmation modal
+      } catch (error) {
+        console.error('Error saving appointment:', error);
+      }
     }
   };
+  
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -74,14 +105,14 @@ const Appointment = () => {
 
   const handleDaySelect = (index: number) => {
     setSelectedDay(index);
-    setSelectedSlot(null); // Reset the selected time slot when date changes
+    setSelectedSlot(null); // Reset selected time slot when date changes
   };
 
   return (
     <div className="appointment-container">
       <div className="header">
         <button className="back-button">
-          <IoChevronBackSharp size={35} /> {/* Use the imported icon */}
+          <IoChevronBackSharp size={35} /> {/* Back icon */}
         </button>
         <h1>Oxivive Services</h1>
       </div>
@@ -121,7 +152,7 @@ const Appointment = () => {
               key={index}
               className={`slot-button ${selectedSlot === `morning-${slot}` ? 'selected' : ''}`}
               onClick={() => setSelectedSlot(`morning-${slot}`)}
-              disabled={selectedDay === null || isPastTime(slot, true)} // For morning slots
+              disabled={selectedDay === null || isPastTime(slot, true)} // Disable past slots
             >
               {slot}
             </button>
@@ -135,7 +166,7 @@ const Appointment = () => {
               key={index}
               className={`slot-button ${selectedSlot === `afternoon-${slot}` ? 'selected' : ''}`}
               onClick={() => setSelectedSlot(`afternoon-${slot}`)}
-              disabled={selectedDay === null || isPastTime(slot, false)} // For afternoon slots
+              disabled={selectedDay === null || isPastTime(slot, false)} // Disable past slots
             >
               {slot}
             </button>
@@ -175,4 +206,3 @@ const Appointment = () => {
 };
 
 export default Appointment;
-

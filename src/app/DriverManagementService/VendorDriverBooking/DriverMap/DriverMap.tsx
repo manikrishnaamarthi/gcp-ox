@@ -2,6 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { LuBookPlus } from "react-icons/lu";
+import { SlHome } from "react-icons/sl";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { BsPerson } from "react-icons/bs";
+import './DriverMap.css';
 
 const DriverMap: React.FC = () => {
   const router = useRouter();
@@ -117,6 +122,26 @@ const DriverMap: React.FC = () => {
           Reached
         </button>
       )}
+
+
+<footer className="footer">
+        <div className="footerItem">
+          <SlHome className="footerIcon" />
+          <p>Home</p>
+        </div>
+        <div className="footerItem">
+          <LuBookPlus className="footerIcon" />
+          <p>Booking</p>
+        </div>
+        <div className="footerItem">
+          <IoNotificationsOutline className="footerIcon" />
+          <p>Notification</p>
+        </div>
+        <div className="footerItem">
+          <BsPerson className="footerIcon" />
+          <p>Profile</p>
+        </div>
+      </footer>
     </div>
   );
 };

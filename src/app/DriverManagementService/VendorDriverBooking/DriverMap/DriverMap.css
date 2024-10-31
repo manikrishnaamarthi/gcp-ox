@@ -1,71 +1,128 @@
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    background-color: #d7d2d2;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #d7d2d2;
+}
+
+.driverMapContainer {
+  height: 100vh;
+  max-width: 375px; /* Maximum width for mobile */
+  margin: auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+#map {
+  flex: 1;
+  width: 100%;
+  height: 80vh; /* Set height relative to viewport */
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.mapOverlay {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  z-index: 2;
+}
+
+.reachedButton,
+.startButton {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Footer styles */
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background-color: white;
+  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 375px; /* Maximum width for mobile */
+  z-index: 3;
+}
+
+.footerItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerIcon {
+  font-size: 25px;
+  color: rgb(155, 148, 148);
+}
+
+.footerItem p {
+  margin: 5px 0 0;
+  font-size: 0.75em;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (min-width: 576px) { /* Small devices (landscape phones, 576px and up) */
+  .driverMapContainer {
+    max-width: 540px; /* Slightly wider */
   }
-    
-    .driverMapContainer {
-    height: 100vh;
-    width: 100%;
-    max-width: 375px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    }
-    
-    .driverMapContainer {
-      position: relative;
-    }
-    
-    .mapOverlay {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    
-    .reachedButton, .startButton {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: green;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-    
-    
-    
-    .footer {
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      background-color: white;
-      box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .footerItem {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      
-    }
-    
-    .footerIcon {
-      font-size: 25px;
-    }
-    
-    .footerItem p {
-      margin: 5px 0 0;
-      font-size: 0.75em;
-      font-weight: 500;
-    }
-    
+
+  .mapOverlay {
+    font-size: 1.1rem; /* Slightly larger text */
+  }
+
+  .reachedButton, .startButton {
+    padding: 12px 24px; /* Adjust button size */
+    font-size: 1.4rem; /* Larger button text */
+  }
+
+  .footerItem p {
+    font-size: 0.85em; /* Larger footer text */
+  }
+}
+
+@media (min-width: 768px) { /* Medium devices (tablets, 768px and up) */
+  .driverMapContainer {
+    max-width: 720px; /* Wider for tablets */
+  }
+
+  #map {
+    height: 70vh; /* Adjust height for map */
+  }
+
+  .mapOverlay {
+    font-size: 1.2rem; /* Increase font size */
+  }
+
+  .reachedButton, .startButton {
+    padding: 14px 28px; /* Larger button */
+    font-size: 1.5rem; /* Larger button text */
+  }
+}
+
+
+
+
