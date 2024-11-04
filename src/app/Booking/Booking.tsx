@@ -1,109 +1,90 @@
 'use client'
-import React from 'react';
-import './Booking.css';
-import { FaHome, FaSearch, FaCalendarAlt, FaUser, FaRedoAlt } from 'react-icons/fa'; // Import FaRedoAlt for reschedule icon
 import { useRouter } from 'next/navigation';
-import { FaStar } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
+import './Booking.css';
+import { FaRedoAlt, FaStar } from 'react-icons/fa';
 
 const Booking = () => {
+    const [bookings, setBookings] = useState([]);
+    const [activeTab, setActiveTab] = useState('MyBooking'); 
     const router = useRouter();
+
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/my-bookings/');
+                if (response.ok) {
+                    const data = await response.json();
+                    setBookings(data);
+                } else {
+                    console.error('Failed to fetch bookings');
+                }
+            } catch (error) {
+                console.error('Error fetching booking data:', error);
+            }
+        };
+
+        fetchBookings();
+    }, []);
+
+    const handleCardClick = () => {
+      if (activeTab === 'Completed') {
+          router.push(`/Booking/CompleteBooking/`); // Navigate to the completed booking page with the booking ID
+      }
+  };
+
     const handleCancelClick = () => {
-        router.push('/Booking/CancelBooking'); // Update the path as per your appointment page route
-      };
-  return (
-    <div className='container'>
-        <header className='container-header'>
-            <button className="tab active">MyBooking</button>
-            <button className="tab" >Cancelled</button>
-            <button className="tab">Completed</button>
-        </header>
-        <section className="booking-list">
-        
+      router.push(`/Booking/CancelBooking/`);
+  };
 
-      
-        <article className="booking-card">
-          <header className="booking-header">
-            <a href="#" className="booking-id">#524587</a>
-            <span className="status accepted">Accepted</span>
-          </header>
-          <p className="service-name">Oxi Clinic</p>
-          <p className="service-time">22 Sep 21, 03:00 - 04:30 PM<span className="price">$149</span></p>
-          
-          <div className="action-buttons">
-            <button className="cancel-button" onClick={handleCancelClick}>Cancel Booking</button>
-            <button className="reschedule-button">
-              <FaRedoAlt />
-              Reschedule
-            </button>
-          </div>
-          <footer className="booking-footer">
-            <div className="service-provider">
-            <div className="text-content">
-                <h2>Akshay Kumar</h2>
-                <p><span><FaStar />&nbsp;4.7&nbsp;</span> 192 Ratings</p>
-              </div>
-              <img src="/images/doctor.png" alt="Service Provider" className="provider-image" />
-            </div>
-            
-          </footer>
-        </article>
+    const filteredBookings = bookings.filter((booking) => {
+        if (activeTab === 'MyBooking') return true;
+        if (activeTab === 'Cancelled') return booking.status.toLowerCase() === 'cancelled';
+        if (activeTab === 'Completed') return booking.status.toLowerCase() === 'completed';
+        return false;
+    });
 
-        <article className="booking-card">
-          <header className="booking-header">
-            <a href="#" className="booking-id">#524587</a>
-            <span className="status submitted">Submitted</span>
-          </header>
-          <p className="service-name">Oxi Wheel</p>
-          <p className="service-time">22 Sep 21, 03:00 - 04:30 PM<span className="price">$149</span></p>
-          <div className="action-buttons">
-            <button className="cancel-button">Cancel Booking</button>
-            <button className="reschedule-button">
-              <FaRedoAlt />
-              Reschedule
-            </button>
-          </div>
-          <footer className="booking-footer">
-            <div className="service-provider">
-            <div className="text-content">
-                <h2>Akshay Kumar</h2>
-                <p><span><FaStar />&nbsp;4.7&nbsp;</span> 192 Ratings</p>
-              </div>
-              <img src="/images/doctor.png" alt="Service Provider" className="provider-image" />
-            </div>
-            
-          </footer>
-        </article>
-
-        <article className="booking-card">
-          <header className="booking-header">
-            <a href="#" className="booking-id">#524587</a>
-            <span className="status ongoing">Ongoing</span>
-          </header>
-          <p className="service-name">Oxi Gym</p>
-          <p className="service-time">22 Sep 21, 03:00 - 04:30 PM<span className="price">$149</span></p>
-          <div className="action-buttons">
-            <button className="cancel-button">Cancel Booking</button>
-            <button className="reschedule-button">
-              <FaRedoAlt />
-              Reschedule
-            </button>
-          </div>
-          <footer className="booking-footer">
-            <div className="service-provider">
-            <div className="text-content">
-                <h2>Akshay Kumar</h2>
-                <p><span><FaStar />&nbsp;4.7&nbsp;</span> 192 Ratings</p>
-              </div>
-              <img src="images/doctor.png" alt="Service Provider" className="provider-image" />
-            </div>
-            
-          </footer>
-        </article>
-      </section>
-
-      
-    </div>
-  );
+    return (
+        <div className='container'>
+            <header className='container-header'>
+                <button className={`tab ${activeTab === 'MyBooking' ? 'active' : ''}`} onClick={() => setActiveTab('MyBooking')}>MyBooking</button>
+                <button className={`tab ${activeTab === 'Cancelled' ? 'active' : ''}`} onClick={() => setActiveTab('Cancelled')}>Cancelled</button>
+                <button className={`tab ${activeTab === 'Completed' ? 'active' : ''}`} onClick={() => setActiveTab('Completed')} >Completed</button>
+            </header>
+            <section className="booking-list">
+                {filteredBookings.map((booking) => (
+                    <article key={booking.id} className="booking-card" onClick={() => handleCardClick()}>
+                        <header className="booking-header">
+                            <span className={`status ${booking.status.toLowerCase()}`}>{booking.status}</span>
+                        </header>
+                        <p className="service-name">{booking.service_type}</p>
+                        <p className="service-time">
+                            {new Date(booking.date).toLocaleDateString()} {booking.time}
+                            <span className="price">$149</span>
+                        </p>
+                        <div className="action-buttons">
+                            {activeTab === 'MyBooking' && (
+                                <>
+                                    <button className="cancel-button" onClick={() => handleCancelClick(booking.id)}>Cancel Booking</button>
+                                    <button className="reschedule-button">
+                                        <FaRedoAlt /> Reschedule
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                        <footer className="booking-footer">
+                            <div className="service-provider">
+                                <div className="text-content">
+                                    <h2>Akshay Kumar</h2>
+                                </div>
+                                <img src="/images/doctor.png" alt="Service Provider" className="provider-image" />
+                            </div>
+                        </footer>
+                    </article>
+                ))}
+            </section>
+        </div>
+    );
 };
 
 export default Booking;
