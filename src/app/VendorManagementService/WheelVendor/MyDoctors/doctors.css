@@ -35,10 +35,16 @@ body {
     color: #ff0000;
     border-bottom: 1px solid #ccc;
   }
-  .doctor-headings p {
-    margin-left: 130px;
-    margin-right: -50px;
+  .doctor-headings p:first-child {
+    margin-left: 125px;
+    text-align: center; /* Center the Name heading */
   }
+  
+  .doctor-headings p:last-child {
+   margin-right: -10px;
+    text-align: right; /* Align the Phone no heading to the right */
+  }
+  
   
   .doctors-header {
     display: flex;
@@ -153,5 +159,89 @@ body {
   .footer-icon span {
     display: block;
     font-size: 10px;
+  }
+  
+
+  /* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .image-upload {
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 80px;
+
+  }
+  
+  .doctor-modal-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .plus-icon {
+    position: absolute;
+  bottom: 10px; /* Adjust based on where you want it vertically */
+  right: 80px;  /* Aligns the icon to the right inside the image */
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  padding: 2px;
+  }
+  
+  .modal-fields label {
+    display: block;
+    font-weight: bold;
+    color: red;
+    margin: 10px 0 5px;
+    text-align: left;
+  }
+  
+  .modal-fields input {
+    width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  color: black; /* Set text color to black */
+  font-size: 14px; /* Adjust font size if needed */
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .modal-close, .modal-save {
+    display: flex;
+    align-items: center;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
   }
   

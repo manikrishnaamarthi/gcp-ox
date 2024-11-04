@@ -4,12 +4,15 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClock, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import "./bookings.css";
+import axios from "axios";
 
 const Bookings: React.FC = () => {
   const [activeTab, setActiveTab] = useState("bookings");
   const [selectedFooter, setSelectedFooter] = useState("home");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [weekDates, setWeekDates] = useState<string[]>([]);
+  const [bookingData, setBookingData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getWeekDates = () => {
@@ -37,11 +40,42 @@ const Bookings: React.FC = () => {
 
     const timer = setTimeout(() => {
       getWeekDates();
-      setInterval(getWeekDates, 24 * 60 * 60 * 1000); // Update every 24 hours
+      setInterval(getWeekDates, 24 * 60 * 60 * 1000);
     }, timeUntilMidnight);
 
-    return () => clearTimeout(timer); // Clear timeout on component unmount
+    return () => clearTimeout(timer);
   }, []);
+
+  const fetchBookingData = async (tab: string) => {
+    setLoading(true);
+    try {
+      // Determine the status to filter based on the active tab
+      let statusQuery = "";
+      if (tab === "Bookings") statusQuery = "pending";
+      else if (tab === "Cancelled") statusQuery = "cancelled";
+      else if (tab === "Completed") statusQuery = "completed";
+      // For "history", we don’t set a status, so it fetches all
+  
+      console.log(`Fetching data for tab: ${tab}, status: ${statusQuery}`);
+  
+      // Fetch data from the API with the correct status parameter
+      const response = await axios.get("http://localhost:8000/api/bookings/", {
+        params: statusQuery ? { status: statusQuery } : {}, // Only include 'status' if not empty
+      });
+  
+      // Check if response is valid and set booking data
+      setBookingData(response.data); // Update booking data with API response
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+
+  useEffect(() => {
+    fetchBookingData(activeTab);
+  }, [activeTab]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -94,68 +128,45 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="gray-section">
-        <div className="booking-card">
-          <div>
-            <h3>Oxi Clinic</h3>
-            <p>HSR Layout 2nd Main</p>
-          </div>
-          <div className="status-section">
-            <span className="status">Completed</span>
-            <div className="date-time">
-              <span className="date">12-May-24</span>
-              <span className="time">
-                <FontAwesomeIcon icon={faClock} className="time-icon" /> 2 hrs ago
-              </span>
+        {loading ? (
+          <p>Loading bookings...</p>
+        ) : bookingData.length > 0 ? (
+          bookingData.map((booking, index) => (
+            <div className="booking-card" key={index}>
+              <h3>{booking.service_type}</h3>
+              <p>{booking.address}</p>
+              <div className="status-section">
+                <span className="status">{booking.status}</span>
+                <div className="date-time">
+                  <span className="date">{booking.date}</span>
+                  <span className="time">
+                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.time}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className="booking-card">
-          <div>
-            <h3>Oxi Wheel</h3>
-            <p>BTM Layout 5th Main</p>
-          </div>
-          <div className="status-section">
-            <span className="status">Completed</span>
-            <div className="date-time">
-              <span className="date">12-May-24</span>
-              <span className="time">
-                <FontAwesomeIcon icon={faClock} className="time-icon" /> 2 hrs ago
-              </span>
-            </div>
-          </div>
-        </div>
+          ))
+        ) : (
+          <p>No bookings found.</p>
+        )}
       </div>
 
       <div className="footer">
-        <div
-          className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('home')}
-        >
-          <FontAwesomeIcon icon={faHome} />
-          <span>Home</span>
-        </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('bookings')}
-        >
-          <FontAwesomeIcon icon={faClipboardList} />
-          <span>Bookings</span>
-        </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('notifications')}
-        >
-          <FontAwesomeIcon icon={faBell} />
-          <span>Notifications</span>
-        </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('profile')}
-        >
-          <FontAwesomeIcon icon={faUser} />
-          <span>Profile</span>
-        </div>
+        {[
+          { icon: faHome, label: 'Home', key: 'home' },
+          { icon: faClipboardList, label: 'Bookings', key: 'bookings' },
+          { icon: faBell, label: 'Notifications', key: 'notifications' },
+          { icon: faUser, label: 'Profile', key: 'profile' }
+        ].map(({ icon, label, key }) => (
+          <div
+            key={key}
+            className={`footer-icon ${selectedFooter === key ? 'selected' : ''}`}
+            onClick={() => handleFooterClick(key)}
+          >
+            <FontAwesomeIcon icon={icon} />
+            <span>{label}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

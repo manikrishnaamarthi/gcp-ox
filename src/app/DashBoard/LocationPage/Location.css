@@ -1,26 +1,26 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    background-color: #e3bbbb;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 375px;
-    margin: auto;
-    height: 100vh;
-    justify-content: center;
-    box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  margin: 0;
+  background-color: rgb(232, 217, 217);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0;  /* Remove padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
   }
   .appointment-container {
     padding: 16px;
-    background-color: #f8f8f8;
-    border-radius: 12px;
-    width: 375px;
-    margin: auto;
-    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    width: 100%; 
+    max-width: 360px;
+    min-height: 100vh;
+    background-color: white;
+    flex-direction: column;
   
   }
   
@@ -118,4 +118,25 @@ body {
     background-color: #FC000E;
   }
   
+  @media (min-width: 768px) {
+    .appointment-container {
+      max-width: 700px;
+      padding: 20px;
+    }
+  }
   
+  @media (min-width: 992px) {
+    .appointment-container {
+      max-width: 800px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .appointment-container {
+      max-width: 900px;
+    }
+  
+    .map-section {
+      height: 400px;
+    }
+  }

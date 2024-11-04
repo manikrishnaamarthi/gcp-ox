@@ -18,23 +18,11 @@ const MyBooking: React.FC = () => {
   const [activeTab, setActiveTab] = useState('bookings');
   const [selectedBooking, setSelectedBooking] = useState(null);
 
-  const bookings = [
-    { name: "Deepika", location: "HSR Layout 2nd Main", phone: "123-456-7890", timeLeft: "2 hrs 30 min" },
-    { name: "John Doe", location: "Koramangala", phone: "987-654-3210", timeLeft: "1 hr 45 min" },
-    { name: "Jane Smith", location: "Indiranagar", phone: "456-789-1230", timeLeft: "3 hrs 15 min" }
-  ];
-
-  const cancelledBookings = [
-    { name: "Alice", location: "HSR Layout", phone: "111-222-3333", timeLeft: "Cancelled" },
-    { name: "Jhon", location: "HSR Layout", phone: "111-222-3333", timeLeft: "Cancelled" },
-    { name: "Jane Smith", location: "Indiranagar", phone: "456-789-1230", timeLeft: "Cancelled" }
-  ];
-
-  const bookingHistory = [
-    { name: "Bob", location: "BTM Layout", phone: "444-555-6666", timeLeft: "Completed" },
-    { name: "Bob", location: "BTM Layout", phone: "444-555-6666", timeLeft: "Completed" },
-    { name: "Bob", location: "BTM Layout", phone: "444-555-6666", timeLeft: "Completed" }
-  ];
+  const [bookings, setBookings] = useState([
+    { name: "Deepak", location: "No 3, Maha Laxmi Nagar7-40-1/2, Maha Laxmi Nagar Rd Karri Satyavathi Nagar Tadepalligudem, Andhra Pradesh", phone: "6303872390", timeLeft: "2 hrs 30 min", status: "active" },
+    { name: "John Doe", location: "13/1113, Ungarala Vari St, Ramarao Peta, Ambedkar Nagar, Tadepalligudem, Andhra Pradesh", phone: "987-654-3210", timeLeft: "1 hr 45 min", status: "inactive" },
+    { name: "Jane Smith", location: "Indiranagar", phone: "456-789-1230", timeLeft: "3 hrs 15 min", status: "inactive" }
+  ]);
 
   const handleBackClick = () => {
     router.back();
@@ -46,6 +34,26 @@ const MyBooking: React.FC = () => {
 
   const closeBookingDetails = () => {
     setSelectedBooking(null);
+  };
+
+  const openDriverMap = (booking) => {
+    router.push(`/DriverManagementService/VendorDriverBooking/DriverMap?location=${booking.location}`);
+  };
+
+  const completeRide = () => {
+    if (selectedBooking) {
+      const updatedBookings = bookings.map((booking, index) => {
+        if (booking === selectedBooking) {
+          return { ...booking, status: 'completed' };
+        } else if (bookings[index - 1] && bookings[index - 1].status === 'completed' && booking.status === 'inactive') {
+          return { ...booking, status: 'active' };
+        }
+        return booking;
+      });
+
+      setBookings(updatedBookings);
+      closeBookingDetails();
+    }
   };
 
   return (
@@ -84,7 +92,7 @@ const MyBooking: React.FC = () => {
       {selectedBooking && (
         <div className="modalOverlay" onClick={closeBookingDetails}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <h2 style={{ color: '#FC000E', textAlign: 'center' }}>{selectedBooking.name}</h2>
+            <h2 style={{ color: '#FC000E', textAlign: 'center',fontSize :'24px' }}>{selectedBooking.name}</h2>
             <div className="modalDetails">
               <div className="modalInfo">
                 <FaMapMarkerAlt color="#FC000E" />
@@ -95,8 +103,20 @@ const MyBooking: React.FC = () => {
                 <p>{selectedBooking.phone}</p>
               </div>
               <div className="modalButtons">
-                <button style={{ backgroundColor: '#FC000E' }}>Start</button>
-                <button style={{ backgroundColor: '#FC000E' }}>OTP</button>
+                <button 
+                  onClick={() => openDriverMap(selectedBooking)} 
+                  style={{ backgroundColor: selectedBooking.status === 'active' ? '#FC000E' : '#CCCCCC' }}
+                  disabled={selectedBooking.status !== 'active'}
+                >
+                  Start
+                </button>
+                <button 
+                  onClick={completeRide} 
+                  style={{ backgroundColor: selectedBooking.status === 'active' ? '#FC000E' : '#CCCCCC' }}
+                  disabled={selectedBooking.status !== 'active'}
+                >
+                  OTP
+                </button>
               </div>
             </div>
           </div>

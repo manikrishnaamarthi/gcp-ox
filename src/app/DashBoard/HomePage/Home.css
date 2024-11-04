@@ -333,11 +333,11 @@ body {
   }
 
   .footer-icon.active {
-    color: red;
+    color:#FC000E;
   }
   
   .footer-icon.active .footer-header {
-    color: red;
+    color:#FC000E;
   }
 
 
@@ -414,3 +414,6 @@ body {
   background-color: #fae0e0; /* Light blue background on hover */
   transition: background-color 0.3s ease;
 }
+
+
+
