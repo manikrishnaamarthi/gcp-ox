@@ -11,7 +11,7 @@ const Bookings: React.FC = () => {
   const [selectedFooter, setSelectedFooter] = useState("home");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [weekDates, setWeekDates] = useState<string[]>([]);
-  const [bookingData, setBookingData] = useState<any[]>([]);
+  const [allBookings, setAllBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -46,36 +46,21 @@ const Bookings: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const fetchBookingData = async (tab: string) => {
+  const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      // Determine the status to filter based on the active tab
-      let statusQuery = "";
-      if (tab === "Bookings") statusQuery = "pending";
-      else if (tab === "Cancelled") statusQuery = "cancelled";
-      else if (tab === "Completed") statusQuery = "completed";
-      // For "history", we don’t set a status, so it fetches all
-  
-      console.log(`Fetching data for tab: ${tab}, status: ${statusQuery}`);
-  
-      // Fetch data from the API with the correct status parameter
-      const response = await axios.get("http://localhost:8000/api/bookings/", {
-        params: statusQuery ? { status: statusQuery } : {}, // Only include 'status' if not empty
-      });
-  
-      // Check if response is valid and set booking data
-      setBookingData(response.data); // Update booking data with API response
+      const response = await axios.get("http://localhost:8000/api/bookings/");
+      setAllBookings(response.data); // Store all bookings
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching bookings:", error);
     } finally {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
-    fetchBookingData(activeTab);
-  }, [activeTab]);
+    fetchAllBookings();
+  }, []);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -88,6 +73,14 @@ const Bookings: React.FC = () => {
   const handleFooterClick = (footer: string) => {
     setSelectedFooter(footer);
   };
+
+  // Filter bookings based on activeTab
+  const filteredBookings = allBookings.filter((booking) => {
+    if (activeTab === "bookings") return booking.status === "pending";
+    if (activeTab === "cancelled") return booking.status === "cancelled";
+    if (activeTab === "completed") return booking.status === "completed";
+    return true; // For "history", return all bookings
+  });
 
   return (
     <div className="bookings-container">
@@ -130,8 +123,8 @@ const Bookings: React.FC = () => {
       <div className="gray-section">
         {loading ? (
           <p>Loading bookings...</p>
-        ) : bookingData.length > 0 ? (
-          bookingData.map((booking, index) => (
+        ) : filteredBookings.length > 0 ? (
+          filteredBookings.map((booking, index) => (
             <div className="booking-card" key={index}>
               <h3>{booking.service_type}</h3>
               <p>{booking.address}</p>
@@ -173,3 +166,4 @@ const Bookings: React.FC = () => {
 };
 
 export default Bookings;
+
