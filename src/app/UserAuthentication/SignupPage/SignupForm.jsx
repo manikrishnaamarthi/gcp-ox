@@ -133,12 +133,12 @@ const handleSubmit = async (event) => {
 
   return (
     <div className="signup-container">
-      <div className="top-section">
+     
         <div className="logoContainer">
           <img src="/images/shot(1).png" alt="Logo" className="logo" />
           <h1 className="welcomeText">Oxivive</h1>
         </div>
-      </div>
+     
       <div className="signup-card">
       <h2 className="service-provider-title">Signup</h2>
         {successMessage && (
@@ -221,10 +221,10 @@ const handleSubmit = async (event) => {
           {errors.apiError && <span className="error">{errors.apiError}</span>}
           <button type="submit">Sign Up</button>
           <p className="sign-in-link">
-            Already have an account? 
+            Already have an account?  
             <span className="sign-in-button" onClick={handleSignInClick}>Sign in</span>
           </p>
-          <a href="/UserAuthentication/ServiceProvider" className="service-provider-link">Service Provider</a>
+          <a className="service-provider-link" onClick={()=>router.push('/VendorManagementService/SV/Service/')}>Service Provider</a>
         </form>
       </div>
     </div>

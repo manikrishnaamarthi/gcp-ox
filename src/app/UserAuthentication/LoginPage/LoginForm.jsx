@@ -58,7 +58,7 @@ function LoginForm() {
 
       if (response.ok) {
         setSuccessMessage('Login successful! Redirecting...');
-        setTimeout(() => router.push('/UserAuthentication/DashBoard'), 1500);
+        setTimeout(() => router.push('/DashBoard/HomePage'), 1500);
       } else {
         setErrorMessage(data.message || 'Login failed. Please check your credentials.');
       }
@@ -81,12 +81,12 @@ function LoginForm() {
 
   return (
     <div className="login-container">
-      <div className="top-section">
+     
         <div className="logoContainer">
           <img src="/images/shot(1).png" alt="Oxivive Logo" className="logo" />
           <div className="welcomeText">Oxivive</div>
         </div>
-      </div>
+    
 
       <div className="login-card">
         <h2 className="login-heading">Log in</h2>
