@@ -1,36 +1,41 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from "react";
 import { FiUpload, FiArrowLeft } from "react-icons/fi";
 import "./Buildinglicence.css"; 
 import { useRouter } from "next/navigation";
 
 const Buildinglicence: React.FC = () => {
-  const Router = useRouter();
+  const router = useRouter();
   const [frontSide, setFrontSide] = useState<File | null>(null);
   const [frontPreview, setFrontPreview] = useState<string | null>(null);
 
   // Load data from localStorage on mount
   useEffect(() => {
-    const storedFront = localStorage.getItem("buildingLicenceFront");
+    const storedFront = localStorage.getItem("buildingFrontFile");
     if (storedFront) setFrontPreview(storedFront);
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      const previewUrl = URL.createObjectURL(file);
-
+      const reader = new FileReader();
+      
+      // Convert file to base64 and store in localStorage
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        setFrontPreview(base64String);
+        localStorage.setItem("buildingFrontFile", base64String); // Store base64 data for document component
+        localStorage.setItem("isBuildingLicenceUploaded", "true");
+      };
+      reader.readAsDataURL(file);
       setFrontSide(file);
-      setFrontPreview(previewUrl);
-      localStorage.setItem("buildingLicenceFront", previewUrl);
-      localStorage.setItem("isBuildingLicenceUploaded", "true");
     }
   };
 
   const handleSubmit = () => {
     if (frontSide) {
       alert("File uploaded successfully!");
-      Router.push("/VendorManagementService/DocumentsVerifyPage");
+      router.push("/VendorManagementService/DocumentsVerifyPage");
     } else {
       alert("Please upload the front side of the Building Permit & Licence");
     }
@@ -39,10 +44,10 @@ const Buildinglicence: React.FC = () => {
   return (
     <div className="container">
       <div className="back-arrow">
-        <FiArrowLeft className="arrow-icon" onClick={() => Router.back()} />
+        <FiArrowLeft className="arrow-icon" onClick={() => router.back()} />
       </div>
 
-      <h1 className="header">Building Permit & Licence</h1>
+      <h1 className="header1">Building Permit & Licence</h1>
       <p className="instruction">
         Make sure that all the data on your document is fully visible, glare-free, and not blurred.
       </p>

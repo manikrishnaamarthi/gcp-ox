@@ -26,25 +26,28 @@ const Medicallicence: React.FC = () => {
         if (storedLicenceEndDate) setLicenceEndDate(storedLicenceEndDate);
     }, []);
 
-    const handleFileChange = (
-        e: React.ChangeEvent<HTMLInputElement>,
-        side: string
-    ) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
-            const previewUrl = URL.createObjectURL(file);
-
-            if (side === "front") {
-                setFrontSide(file);
-                setFrontPreview(previewUrl);
-                localStorage.setItem("frontSidePreview", previewUrl);
-            } else {
-                setBackSide(file);
-                setBackPreview(previewUrl);
-                localStorage.setItem("backSidePreview", previewUrl);
-            }
+    
+            // Create a FileReader to read the file as a Base64 string
+            const reader = new FileReader();
+            reader.onload = () => {
+                const fileBase64 = reader.result as string;
+                if (side === "front") {
+                    setFrontSide(file);
+                    setFrontPreview(fileBase64);
+                    localStorage.setItem("medicalFrontFile", fileBase64); // Save Base64 string
+                } else {
+                    setBackSide(file);
+                    setBackPreview(fileBase64);
+                    localStorage.setItem("medicalBackFile", fileBase64); // Save Base64 string
+                }
+            };
+            reader.readAsDataURL(file); // Converts file to Base64 format
         }
     };
+    
 
     const handleLicenceEndDateChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -73,7 +76,7 @@ const Medicallicence: React.FC = () => {
                 <FiArrowLeft className="arrow-icon" onClick={() => Router.back()} />
             </div>
 
-            <h1 className="header">Medical Practitioner Licence</h1>
+            <h1 className="header1">Medical Practitioner Licence</h1>
             <p className="instruction">
                 Make sure that all the data on your document is fully visible, glare-free,
                 and not blurred.

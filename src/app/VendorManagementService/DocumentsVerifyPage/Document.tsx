@@ -1,10 +1,11 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from 'react';
-import './Document.css'; // Assuming you are using external CSS for styling
+import './Document.css'; // External CSS for styling
 import { FaIdBadge, FaBuilding, FaIdCard, FaUser } from 'react-icons/fa';
-import { IoIosArrowForward, IoMdArrowBack } from 'react-icons/io'; 
+import { IoIosArrowForward, IoMdArrowBack } from 'react-icons/io';
 import { useRouter } from 'next/navigation';
 import { TiTick } from 'react-icons/ti';
+import axios from 'axios';
 
 const Document: React.FC = () => {
     const router = useRouter();
@@ -13,37 +14,48 @@ const Document: React.FC = () => {
     const [isAadharUploaded, setIsAadharUploaded] = useState(false);
     const [isPancardUploaded, setIsPancardUploaded] = useState(false);
     const [isProfilePhotoUploaded, setIsProfilePhotoUploaded] = useState(false);
+    const [isDrivingLicenceUploaded, setIsDrivingLicenceUploaded] = useState(false);
+    const [isVehicleRCUploaded, setIsVehicleRCUploaded] = useState(false);
+    const [selectedService, setSelectedService] = useState<string | null>(null);
 
-    // Check if documents are uploaded successfully on mount
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        state: '',
+        district: '',
+        pincode: '',
+        address: '',
+        wheelName: '',
+        clinicName: ''
+    });
+
     useEffect(() => {
-        const medicalUploadStatus = localStorage.getItem("isMedicalUploaded") === "true";
-        const buildingLicenceStatus = localStorage.getItem("isBuildingLicenceUploaded") === "true";
-        const aadharUploadStatus = localStorage.getItem("isAadharUploaded") === "true";
-        const pancardUploadStatus = localStorage.getItem("isPancardUploaded") === "true";
-        const profilePhotoStatus = localStorage.getItem("isProfilePhotoUploaded") === "true";
+        const savedData = localStorage.getItem('formData');
+        if (savedData) {
+            setFormData(JSON.parse(savedData));
+        }
+    }, []);
 
-        setIsMedicalUploaded(medicalUploadStatus);
-        setIsBuildingLicenceUploaded(buildingLicenceStatus);
-        setIsAadharUploaded(aadharUploadStatus);
-        setIsPancardUploaded(pancardUploadStatus);
-        setIsProfilePhotoUploaded(profilePhotoStatus);
+    useEffect(() => {
+        const serviceName = localStorage.getItem('selectedService');
+        if (serviceName) {
+            setSelectedService(serviceName);
+        }
+    }, []);
 
+    useEffect(() => {
+        // Check document statuses on mount
+        setIsMedicalUploaded(localStorage.getItem("isMedicalUploaded") === "true");
+        setIsBuildingLicenceUploaded(localStorage.getItem("isBuildingLicenceUploaded") === "true");
+        setIsAadharUploaded(localStorage.getItem("isAadharUploaded") === "true");
+        setIsPancardUploaded(localStorage.getItem("isPancardUploaded") === "true");
+        setIsProfilePhotoUploaded(localStorage.getItem("isProfilePhotoUploaded") === "true");
+        setIsDrivingLicenceUploaded(localStorage.getItem("isDrivingLicenceUploaded") === "true");
+        setIsVehicleRCUploaded(localStorage.getItem("isVehicleRCUploaded") === "true");
+
+        // Cleanup function for localStorage on page unload
         const cleanup = () => {
-            localStorage.removeItem("isMedicalUploaded");
-            localStorage.removeItem("isBuildingLicenceUploaded");
-            localStorage.removeItem("isAadharUploaded");
-            localStorage.removeItem("isPancardUploaded");
-            localStorage.removeItem("isProfilePhotoUploaded");
-            localStorage.removeItem("frontSidePreview");
-            localStorage.removeItem("backSidePreview");
-            localStorage.removeItem("licenceNumber");
-            localStorage.removeItem("licenceEndDate");
-            localStorage.removeItem("buildingLicenceFront");
-            localStorage.removeItem("aadharFrontPreview");
-            localStorage.removeItem("aadharBackPreview");
-            localStorage.removeItem("pancardFrontSidePreview");
-            localStorage.removeItem("pancardBackSidePreview");
-            localStorage.removeItem("profilePhotoPreview");
+            localStorage.clear();
         };
 
         window.addEventListener("beforeunload", cleanup);
@@ -52,26 +64,107 @@ const Document: React.FC = () => {
         };
     }, []);
 
-    const handleMedicalClick = () => {
-        router.push('/VendorManagementService/DocumentsVerifyPage/MedicalLicence');
-    };
-    const handleBuildingClick = () => {
-        router.push('/VendorManagementService/DocumentsVerifyPage/BuildingLicence');
-    };
-    const handleAadharClick = () => {
-        router.push('/VendorManagementService/DocumentsVerifyPage/AadharPage');
-    };
-    const handlePancardClick = () => {
-        router.push('/VendorManagementService/DocumentsVerifyPage/PancardPage');
-    };
-    const handleProfileClick = () => {
-        router.push('/VendorManagementService/DocumentsVerifyPage/ProfilePhotoPage');
+    const handleMedicalClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/MedicalLicence');
+    const handleBuildingClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/BuildingLicence');
+    const handleAadharClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/AadharPage');
+    const handlePancardClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/PancardPage');
+    const handleProfileClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/ProfilePhotoPage');
+    const handleDrivingLicenceClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/DrivingLicence');
+    const handleVehicleRCClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/VehicleRC');
+
+    // Handle submit to backend
+    const handleSubmit = async () => {
+        const formDataToSend = new FormData();
+        
+        // Add basic fields to FormData
+        formDataToSend.append("name", formData.name);
+        formDataToSend.append("phone", formData.phone);
+        formDataToSend.append("state", formData.state);
+        formDataToSend.append("district", formData.district);
+        formDataToSend.append("pincode", formData.pincode);
+        formDataToSend.append("address", formData.address);
+        formDataToSend.append("wheelName", formData.wheelName ? formData.wheelName : "");
+formDataToSend.append("clinicName", formData.clinicName ? formData.clinicName : "");
+
+        // Helper function to add a file to FormData if it exists
+        const addFileToFormData = (key: string, fileString: string | null) => {
+            if (fileString) {
+                const byteString = atob(fileString.split(",")[1]);
+                const arrayBuffer = new Uint8Array(byteString.length);
+                for (let i = 0; i < byteString.length; i++) {
+                    arrayBuffer[i] = byteString.charCodeAt(i);
+                }
+                const blob = new Blob([arrayBuffer], { type: "image/jpeg" });
+                formDataToSend.append(key, blob, `${key}.jpg`);
+            } else {
+                console.warn(`No file found for ${key}`);
+            }
+        };
+
+        // Add images to FormData
+        addFileToFormData("medical_front_side", localStorage.getItem("medicalFrontFile"));
+        addFileToFormData("medical_back_side", localStorage.getItem("medicalBackFile"));
+        addFileToFormData("building_front_side", localStorage.getItem("buildingFrontFile"));
+        addFileToFormData("driving_front_side", localStorage.getItem("drivingFrontFile"));
+        addFileToFormData("driving_back_side", localStorage.getItem("drivingBackFile"));
+        addFileToFormData("vehicle_rc_front_side", localStorage.getItem("vehicleFrontFile"));
+        addFileToFormData("vehicle_rc_back_side", localStorage.getItem("vehicleBackFile"));
+        addFileToFormData("aadhar_front_side", localStorage.getItem("aadharFrontFile"));
+        addFileToFormData("aadhar_back_side", localStorage.getItem("aadharBackFile"));
+        addFileToFormData("pan_front_side", localStorage.getItem("panFrontFile"));
+        addFileToFormData("pan_back_side", localStorage.getItem("panBackFile"));
+        addFileToFormData("profile_photo", localStorage.getItem("profilePhotoFile"));
+    
+
+        // Add licence number and end date if available
+        formDataToSend.append("medical_licence_number", localStorage.getItem("licenceNumber") || "");
+        
+        const licenceEndDate = localStorage.getItem("licenceEndDate");
+        if (licenceEndDate) {
+            const date = new Date(licenceEndDate);
+            const formattedDate = date.toISOString().split("T")[0];
+            formDataToSend.append("licence_end_date", formattedDate);
+        }
+
+        // Document.tsx
+
+// Add driving license number and DOB
+formDataToSend.append("driving_licence_number", localStorage.getItem("drivingLicenceNumber") || "");
+
+const dateOfBirth = localStorage.getItem("dateOfBirth");
+if (dateOfBirth) {
+    const formattedDob = new Date(dateOfBirth).toISOString().split("T")[0];
+    formDataToSend.append("date_of_birth", formattedDob);
+}
+
+
+        // Ensure selectedService is sent to the backend
+        if (selectedService) {
+            formDataToSend.append("selectedService", selectedService);
+        } else {
+            console.error("Selected service is missing");
+            return;  // Early exit if selectedService is missing
+        }
+
+        try {
+            const response = await axios.post("http://localhost:8000/api/vendor-details/", formDataToSend, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            if (response.status === 201) {
+                alert("Documents uploaded successfully!");
+                localStorage.clear(); // Clear localStorage after successful upload
+                router.push('/success-page'); // Redirect to success page after upload
+            }
+        } catch (error) {
+            console.error("Error uploading documents:", error);
+            alert("please uploading all documents.");
+        }
     };
 
     return (
         <div className="document-container">
             <header className="header">
-                <IoMdArrowBack className="back-icon" onClick={() => router.back()} />
+                <IoMdArrowBack className="back-icon1" onClick={() => router.back()} />
                 <h1>Upload documents</h1>
                 <p>Quick & Simple Process</p>
             </header>
@@ -79,74 +172,121 @@ const Document: React.FC = () => {
             <div className="content-container">
                 <div className="document-cards">
                     {/* Medical Practitioner License */}
-                    <div 
-                        className={`document-card ${isMedicalUploaded ? 'uploaded' : ''}`}
-                        onClick={handleMedicalClick }
-                    >
-                        <FaIdBadge className="document-icon" />
-                        <div className="document-info">
-                            <h2 className="document-title">Medical Practitioner License</h2>
-                            <p>Upload Medical Practitioner License</p>
+                    {selectedService === 'Oxi Clinic' && (
+                        <div
+                            className={`document-card ${isMedicalUploaded ? 'uploaded' : ''}`}
+                            onClick={handleMedicalClick}
+                        >
+                            <FaIdBadge className="document-icon" />
+                            <div className="document-info">
+                                <h2 className="document-title">Medical Practitioner License</h2>
+                                <p>Upload Medical Practitioner License</p>
+                            </div>
+                            {isMedicalUploaded && <TiTick className="tick-icon" />}
+                            <IoIosArrowForward className="arrow-icon" />
                         </div>
-                        {isMedicalUploaded && <TiTick className="tick-icon" />}
-                        <IoIosArrowForward className="arrow-icon" />
-                    </div>
+                    )}
 
                     {/* Building Permit & Licence */}
-                    <div 
-                        className={`document-card ${isBuildingLicenceUploaded ? 'uploaded' : ''}`} 
-                        onClick={handleBuildingClick}
-                    >
-                        <FaBuilding className="document-icon" />
-                        <div className="document-info">
-                            <h2 className="document-title">Building Permit & Licence</h2>
-                            <p>Upload Building Permit & Licence</p>
+                    {selectedService === 'Oxi Clinic' && (
+                        <div
+                            className={`document-card ${isBuildingLicenceUploaded ? 'uploaded' : ''}`}
+                            onClick={handleBuildingClick}
+                        >
+                            <FaBuilding className="document-icon" />
+                            <div className="document-info">
+                                <h2 className="document-title">Building Permit & Licence</h2>
+                                <p>Upload Building Permit & Licence</p>
+                            </div>
+                            {isBuildingLicenceUploaded && <TiTick className="tick-icon" />}
+                            <IoIosArrowForward className="arrow-icon" />
                         </div>
-                        {isBuildingLicenceUploaded && <TiTick className="tick-icon" />}
-                        <IoIosArrowForward className="arrow-icon" />
-                    </div>
+                    )}
 
                     {/* Aadhar Card */}
-                    <div 
-                        className={`document-card ${isAadharUploaded ? 'uploaded' : ''}`} 
-                        onClick={handleAadharClick}
-                    >
-                        <FaIdCard className="document-icon" />
-                        <div className="document-info">
-                            <h2 className="document-title">Aadhar Card</h2>
-                            <p>Upload Aadhar Card</p>
+                    {selectedService && (
+                        <div
+                            className={`document-card ${isAadharUploaded ? 'uploaded' : ''}`}
+                            onClick={handleAadharClick}
+                        >
+                            <FaIdCard className="document-icon" />
+                            <div className="document-info">
+                                <h2 className="document-title">Aadhar Card</h2>
+                                <p>Upload Aadhar Card</p>
+                            </div>
+                            {isAadharUploaded && <TiTick className="tick-icon" />}
+                            <IoIosArrowForward className="arrow-icon" />
                         </div>
-                        {isAadharUploaded && <TiTick className="tick-icon" />}
-                        <IoIosArrowForward className="arrow-icon" />
-                    </div>
+                    )}
 
-                    {/* Pan Card */}
-                    <div 
-                        className={`document-card ${isPancardUploaded ? 'uploaded' : ''}`}
-                        onClick={handlePancardClick}
-                    >
-                        <FaIdCard className="document-icon" />
-                        <div className="document-info">
-                            <h2 className="document-title">Pan Card</h2>
-                            <p>Upload Pan Card</p>
+                    {/* Pancard */}
+                    {selectedService && (
+                        <div
+                            className={`document-card ${isPancardUploaded ? 'uploaded' : ''}`}
+                            onClick={handlePancardClick}
+                        >
+                            <FaIdCard className="document-icon" />
+                            <div className="document-info">
+                                <h2 className="document-title">Pancard</h2>
+                                <p>Upload Pancard</p>
+                            </div>
+                            {isPancardUploaded && <TiTick className="tick-icon" />}
+                            <IoIosArrowForward className="arrow-icon" />
                         </div>
-                        {isPancardUploaded && <TiTick className="tick-icon" />}
-                        <IoIosArrowForward className="arrow-icon" />
-                    </div>
+                    )}
 
                     {/* Profile Photo */}
-                    <div className={`document-card ${isProfilePhotoUploaded ? 'uploaded' : ''}`} onClick={handleProfileClick}>
-                        <FaUser className="document-icon" />
-                        <div className="document-info">
-                            <h2 className="document-title">Profile Photo</h2>
-                            <p>Upload Profile Photo</p>
+                    {selectedService && (
+                        <div
+                            className={`document-card ${isProfilePhotoUploaded ? 'uploaded' : ''}`}
+                            onClick={handleProfileClick}
+                        >
+                            <FaUser className="document-icon" />
+                            <div className="document-info">
+                                <h2 className="document-title">Profile Photo</h2>
+                                <p>Upload Profile Photo</p>
+                            </div>
+                            {isProfilePhotoUploaded && <TiTick className="tick-icon" />}
+                            <IoIosArrowForward className="arrow-icon" />
                         </div>
-                        {isProfilePhotoUploaded && <TiTick className="tick-icon" />}
-                        <IoIosArrowForward className="arrow-icon" />
-                    </div>
+                    )}
+
+                    {/* Driving Licence */}
+                    {selectedService === 'Oxi Wheel' && (
+                        <div
+                            className={`document-card ${isDrivingLicenceUploaded ? 'uploaded' : ''}`}
+                            onClick={handleDrivingLicenceClick}
+                        >
+                            <FaIdCard className="document-icon" />
+                            <div className="document-info">
+                                <h2 className="document-title">Driving Licence</h2>
+                                <p>Upload Driving Licence</p>
+                            </div>
+                            {isDrivingLicenceUploaded && <TiTick className="tick-icon" />}
+                            <IoIosArrowForward className="arrow-icon" />
+                        </div>
+                    )}
+
+                    {/* Vehicle Registration Certificate */}
+                    {selectedService === 'Oxi Wheel' && (
+                        <div
+                            className={`document-card ${isVehicleRCUploaded ? 'uploaded' : ''}`}
+                            onClick={handleVehicleRCClick}
+                        >
+                            <FaIdCard className="document-icon" />
+                            <div className="document-info">
+                                <h2 className="document-title">Vehicle RC</h2>
+                                <p>Upload Vehicle RC</p>
+                            </div>
+                            {isVehicleRCUploaded && <TiTick className="tick-icon" />}
+                            <IoIosArrowForward className="arrow-icon" />
+                        </div>
+                    )}
                 </div>
 
-                <button className="submit-btn">Submit</button>
+                <button className="submit-btn" onClick={handleSubmit}>
+                    Submit
+                </button>
             </div>
         </div>
     );
