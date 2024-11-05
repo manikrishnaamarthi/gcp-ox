@@ -27,15 +27,28 @@ body {
     margin-bottom: 20px;
 }
 
+
+.header-line {
+    width: 100%; /* Adjust the width as needed */
+    height: 4px;
+    max-width: 375px;
+    background-color: rgba(215, 213, 213, 0.36);
+    
+  }
+
+
 .back-button {
     position: absolute;
-    left: -80px;
-    background: none;
+    left: -70px;
     border: none;
-    font-size: 24px;
+    font-size: 10px;
     color: black;
     position: relative;
+    background-color: #eae8e8ea; /* Light grey background */
+    border-radius: 50%;        /* Circular button */
+    padding: 8px;
 }
+
 
 
 h1 {

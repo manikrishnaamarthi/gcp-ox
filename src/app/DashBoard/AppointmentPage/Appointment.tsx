@@ -1,12 +1,14 @@
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { IoChevronBackSharp } from 'react-icons/io5';
 import './Appointment.css';
 
 const Appointment = () => {
+  const router = useRouter();
   const today = new Date();
-
+  
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<string>(today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -97,7 +99,6 @@ const Appointment = () => {
       }
     }
   };
-  
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -111,21 +112,27 @@ const Appointment = () => {
   return (
     <div className="appointment-container">
       <div className="header">
-        <button className="back-button">
+      <button className="back-button" onClick={() => router.back()}>
           <IoChevronBackSharp size={35} /> {/* Back icon */}
         </button>
         <h1>Oxivive Services</h1>
       </div>
+      <div className="header-line"></div> {/* New line below header */}
 
-      <div className="services">
-        <div className="service">
-          <p>Oxivive Clinic</p>
-          <p><span className="amount">$ 49</span></p>
-        </div>
-        <div className="service">
-          <p>Oxivive Wheel</p>
-          <p><span className="amount">$ 29</span></p>
-        </div>
+     {/* Conditionally render selected service */}
+     <div className="services">
+        {selectedData?.serviceType === 'Oxivive Clinic' && (
+          <div className="service">
+            <p>Oxivive Clinic</p>
+            <p><span className="amount">$ 49</span></p>
+          </div>
+        )}
+        {selectedData?.serviceType === 'Oxivive Wheel' && (
+          <div className="service">
+            <p>Oxivive Wheel</p>
+            <p><span className="amount">$ 29</span></p>
+          </div>
+        )}
       </div>
 
       <div className="appointment-dates">
@@ -175,32 +182,41 @@ const Appointment = () => {
       </div>
 
       <div className="total-payment">
-        <div className="payment-details">
-          <p><span className="amount">$ 168</span> <span className="light-text">1 item</span></p>
-          <p className="light-text">inc. of all taxes</p>
-        </div>
         <button className="proceed-button" onClick={handleProceed}>Proceed</button>
       </div>
 
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h1>Confirmation</h1>
-            {showError ? (
-              <p><strong>Please select the date and time.</strong></p>
-            ) : (
-              <>
-                <p>Date: {weekDates[selectedDay!].weekDay}, {weekDates[selectedDay!].day} {weekDates[selectedDay!].month}</p>
-                <p>Time: {selectedSlot?.split('-')[1]}</p>
-              </>
-            )}
-            <div className="modal-buttons">
-              <button className="modal-button" onClick={handleCloseModal}>Continue</button>
-              <button className="modal-button cancel" onClick={handleCloseModal}>Cancel</button>
-            </div>
-          </div>
-        </div>
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <h1>Confirmation</h1>
+      {showError ? (
+        <p><strong>Please select the date and time.</strong></p>
+      ) : (
+        <>
+          {/* Display user details */}
+          <p><strong></strong> {selectedData?.name || "N/A"}</p>
+          <p><strong></strong> {selectedData?.address || "Fetching address..."}</p>
+
+          {/* Display appointment date and time */}
+          <p><strong>Time:</strong> {selectedSlot?.split('-')[1]}</p>
+          <p>
+            <strong></strong> {weekDates[selectedDay!].weekDay}, 
+            <strong> </strong> {weekDates[selectedDay!].day} 
+            <strong></strong> {weekDates[selectedDay!].month} 
+            <strong></strong> {today.getFullYear()}
+          </p>
+        </>
       )}
+      <div className="modal-buttons">
+        <button className="modal-button" onClick={handleCloseModal}>Continue</button>
+        <button className="modal-button cancel" onClick={handleCloseModal}>Cancel</button>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
     </div>
   );
 };
