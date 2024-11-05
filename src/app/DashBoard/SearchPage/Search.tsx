@@ -27,7 +27,7 @@ const Search = () => {
 
   const handleFooterIconClick = (icon: string) => {
     const paths = {
-      home: '/',
+      home: '/DashBoard/HomePage',
       search: '/DashBoard/SearchPage',
       booking: '/Booking',
       profile: '/UserProfile',

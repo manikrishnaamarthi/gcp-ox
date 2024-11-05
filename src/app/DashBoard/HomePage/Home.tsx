@@ -165,14 +165,14 @@ const Home: React.FC = () => {
       <div className="services-icon-section">
         <div className="icon-row">
           <div className="service-icon-container">
-            <div className="service-icon-clinic" onClick={() => handleFooterIconClick('search')}>
+            <div className="service-icon-clinic" onClick={() => router.push('/DashBoard/LocationPage')}>
               <BiClinic size={40} className="service-icon" />
             </div>
             <span className="service-text-clinic">Oxi Clinic</span>
           </div>
 
           <div className="service-icon-container">
-            <div className="service-icon-ambulance" onClick={() => handleFooterIconClick('search')}>
+            <div className="service-icon-ambulance" onClick={() => router.push('/DashBoard/LocationPage')}>
               <PiAmbulanceLight size={40} className="service-icon" />
             </div>
             <span className="service-text-wheel">Oxi Wheel</span>
@@ -180,7 +180,7 @@ const Home: React.FC = () => {
 
           {showGymIcon && (
             <div className="service-icon-container">
-              <div className="service-icon-gym" onClick={() => handleFooterIconClick('search')}>
+              <div className="service-icon-gym" onClick={() => router.push('/DashBoard/LocationPage')}>
                 <MdSportsGymnastics size={40} className="service-icon gym-icon" />
               </div>
               <span className="service-text-gym">Oxi Gym</span>
