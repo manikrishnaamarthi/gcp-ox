@@ -30,9 +30,26 @@ const ForgotPassword = () => {
         setShowPassword(!showPassword);
     };
 
+
+
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
+
+    const getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+};
 
     const handleSubmitEmail = async (e) => {
         e.preventDefault();
@@ -46,14 +63,19 @@ const ForgotPassword = () => {
 
             const response = await fetch('http://localhost:8000/usmapp/checkemail/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken'),
+                 },
+
+
                 body: JSON.stringify({ emailOrMobile }),
             });
 
             const data = await response.json();
 
-            if (data.success) {
+            if (response.ok && data.success) {
                 alert('OTP sent to your email!');
+                sessionStorage.setItem('session_key', data.session_key);
                 setStep(2);
                 setOtpSent(data.otp);
             } else {
@@ -64,54 +86,26 @@ const ForgotPassword = () => {
         }
     };
 
-    const sendOtp = async (emailOrMobile) => {
-        try {
-          const response = await axios.post(
-            'http://localhost:8000/usmapp/checkemail/',
-            { emailOrMobile },
-            { withCredentials: true } // Ensure cookies are sent
-          );
-          console.log(response.data);
-        } catch (error) {
-          console.error(error.response?.data || error.message);
-        }
-      };
-      
-      const verifyOtp = async (otp) => {
-        try {
-            const csrfToken = Cookies.get('csrftoken');  // Get the CSRF token from cookies
     
-            const response = await axios.post(
-                'http://localhost:8000/usmapp/verifyotp/',
-                { otp: otp },  // Use the passed otp parameter
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,  // Include CSRF token in headers
-                    },
-                    withCredentials: true  // Make sure cookies are sent with the request
-                }
-            );
-    
-            console.log(response.data);  // Handle successful response
-        } catch (error) {
-            // Handle error response
-            if (error.response) {
-                console.error(error.response.data);  // Log the error response
-            } else {
-                console.error('Error occurred while verifying OTP:', error.message);
-            }
-        }
-    };    
+    const getCsrfToken = () => {
+    const cookies = document.cookie.split('; ');
+    const csrfTokenCookie = cookies.find(row => row.startsWith('csrftoken='));
+    return csrfTokenCookie ? csrfTokenCookie.split('=')[1] : null; // Return null if not found
+};
 
       const handleVerification = async (e) => {
         e.preventDefault();
         try {
+            const csrfToken = getCsrfToken();
+            const sessionKey = sessionStorage.getItem('session_key');
             const response = await fetch('http://localhost:8000/usmapp/verifyotp/', {
                 method: 'POST',
                 credentials: 'include',  // Ensure cookies are included for session management
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ otp: verificationCode })  // Send the entered OTP
+                headers: { 
+                  'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken || '', 
+                 },
+                body: JSON.stringify({ otp: verificationCode,session_key: sessionKey })  // Send the entered OTP
             });
     
             const data = await response.json();
@@ -128,32 +122,49 @@ const ForgotPassword = () => {
             setVerificationErrorMessage('Network error. Please try again.');
         }
     };    
+const handleResetPassword = async (e) => {
+    e.preventDefault();
 
-    const handlePasswordChange = async (e) => {
-        e.preventDefault();
-        if (newPassword !== confirmPassword) {
-            setConfirmPasswordErrorMessage('Passwords do not match.');
-            return;
+    // Create the data object to be sent in the request body
+    const requestData = {
+        email_or_mobile: emailOrMobile,  // Identifying information
+        new_password: newPassword       // New password
+    };
+
+    // Log the request body to the console
+    console.log("Request body:", JSON.stringify(requestData));
+
+    try {
+        const response = await fetch('http://localhost:8000/usmapp/resetpassword/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken(),  // Include CSRF token if necessary
+            },
+            body: JSON.stringify(requestData), // Sending the body
+        });
+
+        // Check if the response is OK (status code 200-299)
+        if (!response.ok) {
+            const errorText = await response.text(); // Get the response as text if not OK
+            console.error('Error response:', errorText);
+            throw new Error(`Failed to reset password. Server responded with: ${response.status} ${response.statusText}`);
         }
 
-        try {
-            const response = await fetch('http://localhost:8000/usmapp/resetpassword/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ emailOrMobile, newPassword }),
-            });
+        const data = await response.json();
 
-            const data = await response.json();
-            if (data.success) {
-                alert('Password reset successful!');
-                router.push('/login');
-            } else {
-                setPasswordErrorMessage(data.message);
-            }
-        } catch (error) {
-            setPasswordErrorMessage('Network error. Please try again.');
+        if (data && data.success) {
+            alert('Password reset successfully!');
+        } else {
+            throw new Error(data.error || 'Failed to reset password.');
         }
-    };    
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('There was an error resetting the password: ' + error.message);
+    }
+};
+
 
     const handleGoBack = () => {
         router.back(); // Navigates to the previous page
@@ -257,9 +268,19 @@ const ForgotPassword = () => {
                 </div>
             )}
             {step === 4 && (
+              
                 <div>
+                   <div className="top-section">
+                    <div className="logoContainerPassword">
+                        <span className="back-arrow" onClick={handleGoBack}>
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                        </span>
+                        <div className="createpassword">Create New Password</div>
+                    </div>
+                </div>
+                  <div className="CreatePasswordCard">
                     <h2 className="header-password">Create New Password</h2>
-                    <form onSubmit={handlePasswordChange}>
+                    <form onSubmit={handleResetPassword}>
                         <div className="password-container">
                             <label className="new-password-label" htmlFor="newPassword">New Password</label>
                             <input
@@ -267,7 +288,7 @@ const ForgotPassword = () => {
                                 type={showPassword ? "text" : "password"}
                                 placeholder="New Password"
                                 value={newPassword}
-                                onChange={handleNewPasswordChange}
+                                onChange={(e) => setNewPassword(e.target.value)}
                                 className="input"
                             />
                             <span onClick={togglePasswordVisibility} className="password-toggle">
@@ -294,11 +315,12 @@ const ForgotPassword = () => {
                         <button type="submit" className="button-password">Change Password</button>
                     </form>
                     {showSuccessMessage && (
-                        <div className="alert-success">
+                      <div className="alert-success">
                             Password has been successfully changed.
                         </div>
                     )}
                 </div>
+            </div>
             )}
         </div>
     );

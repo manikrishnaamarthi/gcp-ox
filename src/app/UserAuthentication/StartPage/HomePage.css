@@ -1,79 +1,157 @@
 /* Apply styles directly to the body */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  background-color: #f6f0f0;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
+body{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
   justify-content: center;
-  box-sizing: border-box;
+}
+
+.logo-section{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-self: flex-start;
+  
+  align-items: center;
+  color: white;
+  font-size: 30px;
+  font-weight: lighter;
+  margin-bottom: 20px;
+  gap: 15px;
+  
+
+}
+.logo-section img{
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+}
+.content-section{
+ display: flex;
+ align-self: flex-start;
+margin-bottom: 20px;
+  
+}
+.content-section h2{
+  
+  font-size: 18px;
+  color: white;
 }
 
 /* Container to fit all screen sizes */
+
 .container {
-  width: 350px; /* Use percentage for responsiveness */
+  position: relative;
+  width: 100%;
   height: 100vh;
-  border-radius: 16px;
-  background-image: url('/images/Signup-page.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
-  box-sizing: border-box;
-  background-size: 100% 100%;
-  padding: 20px;
+  overflow: hidden; 
+   background-image: url('/images/background-blur.png');
+  background-size: cover;
+  
+  
+
 }
+
+
+
+
 
 /* Adjusts the button layout */
 .button-section {
-  width: 100%; /* Make button section responsive */
-  max-width: 350px;
+  position: relative;
+  width: 100%; 
+ 
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 15px;
   margin-bottom: 20px;
   align-items: center;
+  z-index: 1;
+  
+  
+  
+}
+
+.button-container{
+  display: flex;
+  flex-direction: row;
+ width: 100%;
+ justify-content: space-evenly;
+
 }
 
 /* Buttons with smooth scaling */
-.login-button, .signup-button {
-  width: 100%;
+.login-button {
+  width: 130px;
   max-width: 300px;
-  padding: 12px;
-  font-size: 18px;
+  padding: 15px;
+  font-size: 16px;
   background-color: white;
   color: #ce0805;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
+
+}
+.login-button:hover{
+  opacity: 0.9;
+  background-color: white;
+}
+.signup-button {
+  width:130px;
+  max-width: 300px;
+  padding: 15px;
+  font-size: 16px;
+  background-color: white;
+  color: #ce0805;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+
+}
+.signup-button:hover{
+  opacity: 0.9;
+  background-color: white;
 }
 
-/* Media Queries for different screen sizes */
-
-/* For screens smaller than 600px */
-@media (max-width: 600px) {
-  .container {
-    max-width: 100%;
-    min-width: auto;
-  }
-  .login-button, .signup-button {
-    font-size: 16px;
-    padding: 10px;
-  }
+/* Mobile Devices - Small screens (portrait phones) */
+@media (max-width: 599px) {
+ 
+   
 }
 
-/* For very large screens */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 600px;
+/* Small Tablets - Portrait Tablets */
+@media (min-width: 600px) and (max-width:1024px){
+ 
+  .button-section{
+    
+    justify-content: center;
+    align-items: center;
+
+  }
+  .logo-section{
+   
+    align-self: center;
+  }
+  .content-section{
+    align-self: center;
+  }
+  
+}
+
+@media (min-width:1200px){
+  .container{
+   
+    width: 350px;
+  }
+  .logo-section{
+    align-self: flex-start;
   }
 }

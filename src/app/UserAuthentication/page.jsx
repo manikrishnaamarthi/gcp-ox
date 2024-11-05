@@ -16,16 +16,28 @@ function HomePage() {
 
   return (
     <div className="container">
+   
+      
       {(
         <div className="button-section">
+         <div className="logo-section">
+        <img src="/images/shot.png" alt="Oxivive Shot Logo" className="logo" />
+        <h1 className="brand-name">Oxivive</h1>
+      </div>
+      <div className="content-section">
+        <h2>OXIVIVE - Where Science Meets Technology</h2>
+      </div>
+      <div className='button-container'>
           <button className="login-button" onClick={handleLoginClick}>
-            LOGIN
+            Login
           </button>
           <button className="signup-button" onClick={handleSignupClick}>
-            SIGNUP
+            Sign Up
           </button>
+          </div>
         </div>
       )}
+     
     </div>
   );
 }
