@@ -20,22 +20,37 @@ const PanCard: React.FC = () => {
     if (storedBack) setBackPreview(storedBack);
   }, []);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      const previewUrl = URL.createObjectURL(file);
+        const file = e.target.files[0];
+        const previewUrl = URL.createObjectURL(file);
 
-      if (side === 'front') {
-        setFrontSide(file);
-        setFrontPreview(previewUrl);
-        localStorage.setItem("pancardFrontSidePreview", previewUrl);
-      } else {
-        setBackSide(file);
-        setBackPreview(previewUrl);
-        localStorage.setItem("pancardBackSidePreview", previewUrl);
-      }
+        const fileBase64 = await convertFileToBase64(file); // Convert file to base64
+
+        if (side === 'front') {
+            setFrontSide(file);
+            setFrontPreview(previewUrl);
+            localStorage.setItem("pancardFrontSidePreview", previewUrl);
+            localStorage.setItem("panFrontFile", fileBase64); // Store base64 in localStorage
+        } else {
+            setBackSide(file);
+            setBackPreview(previewUrl);
+            localStorage.setItem("pancardBackSidePreview", previewUrl);
+            localStorage.setItem("panBackFile", fileBase64); // Store base64 in localStorage
+        }
     }
-  };
+};
+
+// Helper function to convert file to base64
+const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+    });
+};
+
 
   const handleSubmit = () => {
     if (frontSide && backSide) {
@@ -53,7 +68,7 @@ const PanCard: React.FC = () => {
         <FiArrowLeft className="arrow-icon" onClick={() => Router.back()}/>
       </div>
 
-      <h1 className="header">Pan Card</h1>
+      <h1 className="header1">Pan Card</h1>
       <p className="instruction">
         Make sure that all the data on your document is fully visible, glare-free, and not blurred.
       </p>

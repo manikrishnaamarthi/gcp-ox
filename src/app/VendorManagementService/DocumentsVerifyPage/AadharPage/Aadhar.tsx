@@ -23,19 +23,29 @@ const Aadhar: React.FC = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      const fileURL = URL.createObjectURL(file);
-      if (side === 'front') {
-        setFrontSide(file);
-        setFrontPreview(fileURL); 
-        localStorage.setItem("aadharFrontPreview", fileURL);
-      } else {
-        setBackSide(file);
-        setBackPreview(fileURL); 
-        localStorage.setItem("aadharBackPreview", fileURL);
-      }
+        const file = e.target.files[0];
+        const fileURL = URL.createObjectURL(file);
+        
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64String = reader.result as string;
+            if (side === 'front') {
+                setFrontSide(file);
+                setFrontPreview(fileURL);
+                localStorage.setItem("aadharFrontPreview", fileURL);
+                localStorage.setItem("aadharFrontFile", base64String); // Store Base64 string
+            } else {
+                setBackSide(file);
+                setBackPreview(fileURL);
+                localStorage.setItem("aadharBackPreview", fileURL);
+                localStorage.setItem("aadharBackFile", base64String); // Store Base64 string
+            }
+        };
+        
+        reader.readAsDataURL(file); // Convert file to Base64
     }
-  };
+};
+
 
   const handleSubmit = () => {
     if (frontSide && backSide) {
@@ -53,7 +63,7 @@ const Aadhar: React.FC = () => {
         <FiArrowLeft className="arrow-icon" onClick={() => Router.back()}/>
       </div>
 
-      <h1 className="header">Aadhar Card</h1>
+      <h1 className="header1">Aadhar Card</h1>
 
       <p className="instruction">
         Make sure that all the data on your document is fully visible, glare-free and not blurred

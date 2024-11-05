@@ -11,6 +11,7 @@ body {
     justify-content: center;
     box-sizing: border-box;
     height:100vh;
+    background-color: rgb(215, 212, 212);
 }
 
 .document-container {
@@ -24,7 +25,7 @@ body {
     
 }
 
-.back-icon {
+.back-icon1 {
     font-size: 24px; /* Adjust size as needed */
     cursor: pointer;
     margin-top: 15px;
@@ -144,9 +145,13 @@ body {
 .tick-icon {
     color: green;
     font-size: 1.0em;
-    margin-right: 10px;
+    margin-right: 2px;
     margin-bottom: 20px;
 }
+
+
+
+
 
 /* .document-card.uploaded {
     border: 1px solid green;
@@ -158,8 +163,27 @@ body {
     margin-left: -8px;
 } */
 
+/* 
+.tick-iconmedical{
+    color: green;
+    font-size: 1.0em;
+    margin-right: px;
+    margin-bottom: 20px;  
+}
 
+.tick-iconbuiling{
+    color: green;
+    font-size: 1.0em;
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
 
+.tick-iconAadhar{
+    color: green;
+    font-size: 1.0em;
+    margin-right: 100px;
+    margin-bottom: 20px;
+} */
 
 
 
