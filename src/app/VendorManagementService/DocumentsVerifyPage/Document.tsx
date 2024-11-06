@@ -153,7 +153,7 @@ if (dateOfBirth) {
             if (response.status === 201) {
                 alert("Documents uploaded successfully!");
                 localStorage.clear(); // Clear localStorage after successful upload
-                router.push('/success-page'); // Redirect to success page after upload
+                router.push('/VendorManagementService/paymentPage/paymentSuccess'); // Redirect to success page after upload
             }
         } catch (error) {
             console.error("Error uploading documents:", error);
