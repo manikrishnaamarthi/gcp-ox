@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FiUpload, FiArrowLeft } from "react-icons/fi";
-import "./Drivinglicence.css";
+import "./DrivingLicence.css";
 import { useRouter } from "next/navigation";
 
-const Drivinglicence: React.FC = () => {
+const DrivingLicence: React.FC = () => {
     const Router = useRouter();
     const [frontSide, setFrontSide] = useState<File | null>(null);
     const [backSide, setBackSide] = useState<File | null>(null);
@@ -15,8 +15,8 @@ const Drivinglicence: React.FC = () => {
 
     // Load data from localStorage on mount
     useEffect(() => {
-        const storedFront = localStorage.getItem("drivingFrontSidePreview");
-        const storedBack = localStorage.getItem("drivingBackSidePreview");
+        const storedFront = localStorage.getItem("drivingFrontFile");
+        const storedBack = localStorage.getItem("drivingBackFile");
         const storedLicenceNumber = localStorage.getItem("drivingLicenceNumber");
         const storedDateOfBirth = localStorage.getItem("dateOfBirth");
 
@@ -30,42 +30,43 @@ const Drivinglicence: React.FC = () => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
     
-            // Create a FileReader to read the file as a Base64 string
             const reader = new FileReader();
             reader.onload = () => {
                 const fileBase64 = reader.result as string;
                 if (side === "front") {
                     setFrontSide(file);
                     setFrontPreview(fileBase64);
-                    localStorage.setItem("drivingFrontFile", fileBase64); // Save Base64 string
+                    localStorage.setItem("drivingFrontFile", fileBase64);
                 } else {
                     setBackSide(file);
                     setBackPreview(fileBase64);
-                    localStorage.setItem("drivingBackFile", fileBase64); // Save Base64 string
+                    localStorage.setItem("drivingBackFile", fileBase64);
                 }
             };
-            reader.readAsDataURL(file); // Converts file to Base64 format
+            reader.readAsDataURL(file);
         }
     };
 
-    const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleDateOfBirthChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = e.target.value;
         const formattedValue = value.replace(/[^0-9\-\/]/g, "");
         setDateOfBirth(formattedValue);
     };
 
     const handleSubmit = () => {
-        if (frontSide && backSide && licenceNumber && dateOfBirth) {
-            localStorage.setItem("drivingLicenceNumber", licenceNumber);
-            localStorage.setItem("dateOfBirth", dateOfBirth);
-            localStorage.setItem("isDrivingUploaded", "true");
-
-            alert("Files uploaded successfully!");
-            Router.push("/VendorManagementService/DocumentsVerifyPage");
-        } else {
-            alert("Please complete all fields and upload both sides of the licence.");
-        }
-    };
+      if (frontSide && backSide && licenceNumber && dateOfBirth) {
+          localStorage.setItem("drivingLicenceNumber", licenceNumber);
+          localStorage.setItem("dateOfBirth", dateOfBirth);
+          localStorage.setItem("isDrivingLicenceUploaded", "true"); // Update the status in localStorage
+  
+          alert("Files uploaded successfully!");
+          Router.push("/VendorManagementService/DocumentsVerifyPage");
+      } else {
+          alert("Please complete all fields and upload both sides of the licence.");
+      }
+  };
 
     return (
         <div className="container">
@@ -88,7 +89,7 @@ const Drivinglicence: React.FC = () => {
             </div>
 
             <div className="uploadContainer">
-                <div className="uploadBox1">
+                <div className="uploadBox">
                     <label htmlFor="upload-front" className="uploadLabel">
                         {frontPreview ? (
                             <img src={frontPreview} alt="Front side preview" className="previewImage" />
@@ -155,4 +156,4 @@ const Drivinglicence: React.FC = () => {
     );
 };
 
-export default Drivinglicence;
+export default DrivingLicence;
