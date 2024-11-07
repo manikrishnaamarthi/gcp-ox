@@ -4,7 +4,7 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    width: 375px;
+    width: 350px;
     margin: auto;
     height: 100vh;
     background-color: rgb(215, 212, 212);
@@ -32,6 +32,7 @@ body {
     font-size: 24px;
     color: #FC000E;
     cursor: pointer;
+    
 
 }
 
@@ -47,7 +48,7 @@ body {
 
 /* Instruction paragraph */
 .instruction {
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     color: #555;
     margin-bottom: 20px;
@@ -153,7 +154,7 @@ body {
 .formLabel {
     font-size: 14px;
     color: black;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 5px;
     text-align: left;
   }

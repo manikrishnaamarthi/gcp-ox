@@ -28,6 +28,7 @@ const Document: React.FC = () => {
         wheelName: '',
         clinicName: ''
     });
+    const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
     useEffect(() => {
         const savedData = localStorage.getItem('formData');
@@ -52,7 +53,7 @@ const Document: React.FC = () => {
         setIsProfilePhotoUploaded(localStorage.getItem("isProfilePhotoUploaded") === "true");
         setIsDrivingLicenceUploaded(localStorage.getItem("isDrivingLicenceUploaded") === "true");
         setIsVehicleRCUploaded(localStorage.getItem("isVehicleRCUploaded") === "true");
-
+    
         // Cleanup function for localStorage on page unload
         const cleanup = () => {
             localStorage.clear();
@@ -63,6 +64,25 @@ const Document: React.FC = () => {
             window.removeEventListener("beforeunload", cleanup);
         };
     }, []);
+
+    console.log("IsMedicalUploaded",isMedicalUploaded)
+
+    useEffect(() => {
+        // Enable the submit button only if all documents are uploaded
+        if (
+            isAadharUploaded &&
+            isPancardUploaded &&
+            isProfilePhotoUploaded &&
+            (
+                (selectedService === 'Oxi Clinic' && isMedicalUploaded && isBuildingLicenceUploaded) || 
+                (selectedService === 'Oxi Wheel' && isDrivingLicenceUploaded && isVehicleRCUploaded)
+            )
+        ) {
+            setIsSubmitEnabled(true);
+        } else {
+            setIsSubmitEnabled(false);
+        }
+    }, [isMedicalUploaded, isBuildingLicenceUploaded, isAadharUploaded, isPancardUploaded, isProfilePhotoUploaded, isDrivingLicenceUploaded, isVehicleRCUploaded, selectedService]);
 
     const handleMedicalClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/MedicalLicence');
     const handleBuildingClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/BuildingLicence');
@@ -283,10 +303,15 @@ if (dateOfBirth) {
                         </div>
                     )}
                 </div>
+                
 
-                <button className="submit-btn" onClick={handleSubmit}>
-                    Submit
-                </button>
+                <button
+                        onClick={handleSubmit}
+                        disabled={!isSubmitEnabled}
+                        className={`submit-btn ${isSubmitEnabled ? 'enabled' : 'disabled'}`}
+                    >
+                        Submit
+                    </button>
             </div>
         </div>
     );
