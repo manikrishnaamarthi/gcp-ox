@@ -8,6 +8,7 @@ import { GoHome } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { RxCalendar } from "react-icons/rx";
 import { BsPerson } from "react-icons/bs";
+import { IoIosArrowBack } from "react-icons/io";
 
 const Booking = () => {
     const [bookings, setBookings] = useState([]);
@@ -50,12 +51,12 @@ const Booking = () => {
         return false;
     });
 
-    const [activeFooterIcon, setActiveFooterIcon] = useState('home');
+    const [activeFooterIcon, setActiveFooterIcon] = useState('booking');
 
     const handleFooterIconClick = (icon) => {
         setActiveFooterIcon(icon);
         if (icon === 'home') {
-            router.push('/');
+            router.push('/DashBoard/HomePage');
         } else if (icon === 'search') {
             router.push('/DashBoard/SearchPage');
         } else if (icon === 'booking') {
@@ -72,7 +73,7 @@ const Booking = () => {
     return (
         <div className='container'>
             <header className='header'>
-                <MdOutlineKeyboardBackspace className="back-button" />
+                <IoIosArrowBack className="back-button" />
                 <h1 className="title">My Bookings</h1>
             </header>
             <div className='container-header'>
