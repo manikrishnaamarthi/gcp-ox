@@ -2,7 +2,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   margin: 0;
-  background-color: rgb(232, 217, 217);
+  background-color: rgb(247, 242, 242);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-style: normal;
     width: 100%; 
-    max-width: 360px;
+    max-width: 375px;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     background-color: white;
@@ -47,9 +47,9 @@ body {
 .back-button {
     position: absolute;
     margin-top:10px;
-    margin-left:-150px;
+    margin-left:-160px;
     font-size: 5px;
-    color: black;
+    color: rgb(180, 176, 176);
     background-color: #e9e9e9; /* Light grey background */
     border-radius: 50%;        /* Circular button */
     padding: 8px;
@@ -69,6 +69,7 @@ body {
     background-color: #e5dddd;
     transition: background-color 0.3s;
     border-radius: 12px;
+    color:white;
   }
   
   .tab-toggle .active {

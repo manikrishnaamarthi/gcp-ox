@@ -36,16 +36,32 @@ const Home: React.FC = () => {
   const fetchAddress = async (latitude: number, longitude: number) => {
     const apiKey = 'AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU'; // Replace with your API key
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
-
+  
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log("response", response);
       console.log("response", data);
-
+  
       if (data.status === 'OK') {
-        const address = data.results[0]?.formatted_address || 'Address not found';
-        setLocation(address);
+        const addressComponents = data.results[0]?.address_components;
+        if (addressComponents) {
+          const city = addressComponents.find((comp: any) =>
+            comp.types.includes("locality")
+          )?.long_name || '';
+          const state = addressComponents.find((comp: any) =>
+            comp.types.includes("administrative_area_level_1")
+          )?.long_name || '';
+          const country = "India";
+          const postalCode = addressComponents.find((comp: any) =>
+            comp.types.includes("postal_code")
+          )?.long_name || '';
+  
+          // Construct the location string with only city, state, country, and postal code
+          const formattedLocation = `${city}, ${state}, ${country} - ${postalCode}`;
+          setLocation(formattedLocation);
+        } else {
+          setLocation('Address not found');
+        }
       } else {
         console.error('Geocoding API error:', data);
         setLocation('Unable to fetch address');
@@ -55,14 +71,17 @@ const Home: React.FC = () => {
       setLocation('Unable to fetch address');
     }
   };
+  
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        fetchAddress(latitude, longitude); // Fetch address based on lat/lon
+        console.log("Latitude:", latitude, "Longitude:", longitude);
+        fetchAddress(latitude, longitude); // Call the Geocoding API
       },
       (error) => {
+        console.error('Location error:', error); // Log the exact error
         switch (error.code) {
           case error.PERMISSION_DENIED:
             setLocation('Location permission denied.');
@@ -77,11 +96,10 @@ const Home: React.FC = () => {
             setLocation('Unable to fetch location.');
             break;
         }
-        console.error('Error getting location:', error);
       }
     );
-  }, []); // Only run once on component mount
-
+  }, []);
+  
   const handleFooterIconClick = (icon: string) => {
     setActiveFooterIcon(icon); // Set active icon based on click
     if (icon === 'home') {
@@ -167,23 +185,26 @@ const Home: React.FC = () => {
           <div className="service-icon-container">
             <div className="service-icon-clinic" onClick={() => router.push('/DashBoard/LocationPage')}>
               <BiClinic size={40} className="service-icon" />
+              <span className="service-text-clinic">Oxi Clinic</span>
             </div>
-            <span className="service-text-clinic">Oxi Clinic</span>
+            
           </div>
 
           <div className="service-icon-container">
             <div className="service-icon-ambulance" onClick={() => router.push('/DashBoard/LocationPage')}>
               <PiAmbulanceLight size={40} className="service-icon" />
+              <span className="service-text-wheel">Oxi Wheel</span>
             </div>
-            <span className="service-text-wheel">Oxi Wheel</span>
+           
           </div>
 
           {showGymIcon && (
             <div className="service-icon-container">
               <div className="service-icon-gym" onClick={() => router.push('/DashBoard/LocationPage')}>
                 <MdSportsGymnastics size={40} className="service-icon gym-icon" />
+                <span className="service-text-gym">Oxi Gym</span>
               </div>
-              <span className="service-text-gym">Oxi Gym</span>
+              
             </div>
           )}
         </div>
