@@ -1,10 +1,11 @@
-'use client'; // This ensures the component runs on the client-side
+// UserProfile.js
+'use client';
 
-import React, { useState } from 'react';
-import './UserProfile.css';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaBox,  } from 'react-icons/fa'; 
-import { GoHome,GoShareAndroid } from "react-icons/go";
+import axios from 'axios'; // Import axios
+import { FaBox } from 'react-icons/fa';
+import { GoHome, GoShareAndroid } from "react-icons/go";
 import { CiSearch, CiStar } from "react-icons/ci";
 import { RxCalendar } from "react-icons/rx";
 import { IoMdHelpCircleOutline } from 'react-icons/io';
@@ -12,68 +13,84 @@ import { BiMessageRoundedDetail } from 'react-icons/bi';
 import { AiOutlineFileProtect } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
 import { IoIosArrowForward } from "react-icons/io";
-import { IoPersonOutline } from "react-icons/io5";
+import { IoPersonOutline, IoChevronBackSharp } from "react-icons/io5";
 import { LiaHandshakeSolid } from "react-icons/lia";
+import './UserProfile.css';
 
 const UserProfile = () => {
   const router = useRouter();
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-  const [activeFooter, setActiveFooter] = useState<string>(''); // Track active footer icon
+  const [activeFooter, setActiveFooter] = useState('');
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    profile_photo: '/images/profile.jpg',
+  });
+  const [isLoading, setIsLoading] = useState(true); // For loading state
 
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    const userId = '1009917741782859777';
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/usmapp/usmapp-oxiusers/1009917741782859777/`, {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true, // Equivalent to credentials: 'include' in fetch
+      });
+
+      if (response.status === 200) {
+        const data = response.data;
+        setUserData({
+          name: data.name,
+          email: data.email,
+          profile_photo: data.profile_photo || '/images/profile.jpg',
+        });
+      } else {
+        console.error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  console.log (userData)
   const handleEditProfile = () => {
-    router.push('/UserProfile/UserInfo');
+    const userDataString = encodeURIComponent(JSON.stringify(userData));
+    router.push(`/UserProfile/UserInfo`);
   };
 
-  const handleReferFriend = () => {
-    router.push('/UserProfile/ReferFriend');
-  };
+  const handleReferFriend = () => router.push('/UserProfile/ReferFriend');
+  const handleFaq = () => router.push('/UserProfile/Faq');
+  const handlePrivacy = () => router.push('/UserProfile/Privacy');
+  const handleLogoutClick = () => setShowLogoutPopup(true);
+  const handleCancelLogout = () => setShowLogoutPopup(false);
+  const handleConfirmLogout = () => router.push('/logout');
+  const handleBack = () => router.push('/Dashboard');
 
-  const handleFaq = () => {
-    router.push('/UserProfile/Faq');
-  };
+  const handleFooterClick = (iconName) => setActiveFooter(iconName);
 
-  const handlePrivacy = () => {
-    router.push('/UserProfile/Privacy');
-  };
-
-  const handleLogoutClick = () => {
-    setShowLogoutPopup(true);
-  };
-
-  const handleCancelLogout = () => {
-    setShowLogoutPopup(false);
-  };
-
-  const handleConfirmLogout = () => {
-    router.push('/logout');
-  };
-
-  // Handle Footer click, update active state
-  const handleFooterClick = (iconName: string) => {
-    setActiveFooter(iconName);
+  const handleProfileUpdate = async () => {
+    await fetchUserData();
   };
 
   return (
     <div className="user-profile">
-      {/* Profile Header */}
-      <div className="profile-header">
-        <img
-          className="profile-image"
-          src="./images/profile.jpg"
-          alt="Profile"
-        />
-        <h2 className="profile-name">Gnanendra</h2>
-        <p className="profile-email">Gnanendra@gmail.com</p>
-        <button className="edit-profile-btn" onClick={handleEditProfile}>
-          Edit Profile
-        </button>
+      <div className="back-button" onClick={() => router.push('/DashBoard/HomePage')}>
+        <IoChevronBackSharp size={24} />
       </div>
 
-      {/* Profile Menu */}
+      <div className="profile-header">
+        <img className="profile-image" src={userData.profile_photo} alt="Profile" />
+        <h2 className="profile-name">{userData.name}</h2>
+        <p className="profile-email">{userData.email}</p>
+        <button className="edit-profile-btn" onClick={handleEditProfile}>Edit Profile</button>
+      </div>
+
       <div className="profile-menu">
         <p className='profile'>Profile</p>
         <ul>
-          <li >
+          <li>
             <div className="icon-container"><LiaHandshakeSolid size={20} /></div> 
             Register as a Partner
             <IoIosArrowForward style={{ marginLeft: 'auto' }} />
@@ -116,7 +133,6 @@ const UserProfile = () => {
         </ul>
       </div>
 
-      {/* Logout Confirmation Popup */}
       {showLogoutPopup && (
         <div className="logout-popup">
           <div className="popup-content">
@@ -128,7 +144,6 @@ const UserProfile = () => {
         </div>
       )}
 
-      {/* Footer Navigation */}
       <div className="footer-section">
         <div 
           className={`footer-icon ${activeFooter === 'home' ? 'active' : ''}`} 

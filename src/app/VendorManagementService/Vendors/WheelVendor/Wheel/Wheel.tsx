@@ -1,8 +1,12 @@
+'use client';
 import React from 'react';
 import './Wheel.css';
 import { FaHome, FaCalendarAlt, FaBell, FaUser } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+
 
 const Wheel = () => {
+  const router = useRouter();
   return (
     <div className="container">
       <header className="header">
@@ -19,24 +23,24 @@ const Wheel = () => {
       <div className="main">
         <div className="grid">
             <div className="card">
-            <img src="/images/dashboard.png" alt="Dashboard" className="cardIcon" />
+            <img src="/images/dashboard.png" alt="Dashboard" className="cardIcon" onClick={()=> router.push('/VendorManagementService/WheelVendor/ClinicPerformance')} />
             <p className="label">Dashboard</p>
             </div>
             <div className="card">
-            <img src="/images/bookings.png" alt="Bookings" className="cardIcon" />
+            <img src="/images/bookings.png" alt="Bookings" className="cardIcon" onClick={()=> router.push('/VendorManagementService/WheelVendor/MyBookings')} />
             <p className="label">Bookings</p>
             </div>
             <div className="card">
-            <img src="/images/inventory.png" alt="Inventory" className="cardIcon" />
+            <img src="/images/inventory.png" alt="Inventory" className="cardIcon" onClick={()=> router.push('/VendorManagementService/WheelVendorInventory')} />
             <p className="label">Inventory</p>
             </div>
             <div className="card">
-            <img src="/images/invoice.png" alt="Invoice" className="cardIcon" />
+            <img src="/images/invoice.png" alt="Invoice" className="cardIcon" onClick={()=> router.push('/VendorManagementService/WheelVendorInvoice')}/>
             <p className="label">Invoice</p>
             </div>
             <div className="card">
-            <img src="/images/driver.png" alt="Driver's" className="cardIcon" />
-            <p className="label">Driver's</p>
+            <img src="/images/driver.png" alt="Doctor's" className="cardIcon" onClick={()=> router.push('/VendorManagementService/WheelVendor/MyDoctors')}/>
+            <p className="label">Doctor's</p>
             </div>
         </div>
         </div>

@@ -51,7 +51,7 @@ const Bookings: React.FC = () => {
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/my-bookings/");
+      const response = await axios.get("http://localhost:8000/api/bookings/");
       setAllBookings(response.data); // Store all bookings
     } catch (error) {
       console.error("Error fetching bookings:", error);

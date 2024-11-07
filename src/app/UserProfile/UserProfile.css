@@ -17,8 +17,8 @@ body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   padding: 20px;
-  width: 100%;
-  max-width: 900px; /* Ensures max-width for mobile responsiveness */
+  width: 130%;
+  max-width: 375px; /* Ensures max-width for mobile responsiveness */
   margin: 0 auto; /* Centers the container */
   display: flex;
   flex-direction: column;
@@ -30,6 +30,21 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   
 }
+.back-button {
+  position: absolute;
+  top: 16px;
+  margin-right: 270px;
+  background-color: #cecccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Profile Header */
 .profile-header {
@@ -82,15 +97,15 @@ body {
   color: white;
 }
 .profile{
-  padding-left: 20px;
-  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-bottom: px;
 
 }
 
 /* Profile Menu Section */
 .profile-menu {
   flex-grow: 1; /* Ensures the profile menu grows and pushes footer down */
-  margin-top: -20px;
+  margin-top: px;
   margin-right: px;
   color: red;
   border-radius: 8px;
@@ -227,27 +242,29 @@ body {
 
 /* Footer Navigation */
 .footer-section {
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 110%;
-  display: flex;
-  justify-content: center;
-  padding: 10px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 999;
-  gap: 60px;
-  align-items: center;
+  position: fixed;
+    bottom: 0;
+    width: 100vw;
+    max-width: 350px;
+    background-color: #fff;
+    padding: 8px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+    margin-bottom: px;
+    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 20px;
+    box-sizing: border-box;
 }
 
 .footer-icon {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 24px;
-  cursor: pointer;
-  color: rgb(151, 147, 147);
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    color: gray;
+
 }
 .footer-icon.active {
   color: red;
@@ -261,8 +278,7 @@ body {
 
 .footer-header {
   font-size: 12px;
-  margin-top: 5px;
-  margin-bottom: px;
+  margin-bottom:-10px;
   color: rgb(173, 171, 171);
 }
 
