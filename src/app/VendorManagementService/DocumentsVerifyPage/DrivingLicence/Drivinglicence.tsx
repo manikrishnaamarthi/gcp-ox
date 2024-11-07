@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FiUpload, FiArrowLeft } from "react-icons/fi";
-import "./DrivingLicence.css";
+import "./Drivinglicence.css";
 import { useRouter } from "next/navigation";
 
 const DrivingLicence: React.FC = () => {

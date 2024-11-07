@@ -18,12 +18,13 @@ body {
   }
   
   .ticket-image {
-    width: 130px; /* Adjust size as needed */
+    width: 130px; 
+    height: 130px; 
     margin-bottom: 25px;
     color: #FC000E;
-    
-  }
-  
+    border-radius: 50%; 
+    object-fit: cover; 
+}
   .payment-status-text {
     color: #FC000E;
     font-size: 18px;

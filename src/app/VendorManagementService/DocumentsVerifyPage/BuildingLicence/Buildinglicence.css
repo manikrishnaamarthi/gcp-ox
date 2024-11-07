@@ -6,7 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    width: 375px;
+    width: 350px;
     margin: auto;
     /* min-height: 100vh; */
     justify-content: center;
@@ -49,7 +49,7 @@ body {
   
 /* Instruction paragraph */
 .instruction {
-    font-size: 14px;
+    font-size: 13px;
     color: #555;
     margin-bottom: 20px;
     text-align: left;
