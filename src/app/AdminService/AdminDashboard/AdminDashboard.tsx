@@ -1,21 +1,50 @@
-
-'use client'
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import './AdminDashboard.css';
-import { FaHome, FaUsers, FaClipboardList, FaCog, FaSignOutAlt, FaClinicMedical, FaWheelchair, FaDumbbell } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
+import { BiSolidBookAdd } from "react-icons/bi";
+import { FaCartPlus } from "react-icons/fa";
+import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { FaChartArea } from "react-icons/fa";
 
-const categories = ["OxiviveClinic", "OxiWheel"];
-
-const vendors = [
-  { name: "Veeresh Singh", applied: "Oxivive Clinic", location: "Bengaluru", image: "/images/a.jpg" },
-  { name: "Raja Hari Singh", applied: "OxiWheel", location: "Mumbai", image: "/images/b.jpg" },
-  { name: "Ravi Bishnoi", applied: "OxiWheel", location: "Bengaluru", image: "/images/c.jpg" },
-  { name: "Randhir Tripathi", applied: "OxiWheel", location: "Pune", image: "/images/d.jpg" },
-  { name: "Deepanshu Kori", applied: "Oxivive Clinic", location: "Hyderabad", image: "/images/e.jpg" },
-];
+const categories = ["OxiviveClinic", "OxiviveWheel"];
 
 const AdminDashboard = () => {
   const [activeCategory, setActiveCategory] = useState("OxiviveClinic");
+  const [vendors, setVendors] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // State for the search query
+  const router = useRouter();
+
+  // Fetch data from backend API
+  useEffect(() => {
+    const fetchVendors = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/adminservice-vendordetails/');
+        const data = await response.json();
+        setVendors(data);
+      } catch (error) {
+        console.error("Error fetching vendors:", error);
+      }
+    };
+
+    fetchVendors();
+  }, []);
+
+  // Filter vendors based on active category and search query
+  const filteredVendors = vendors.filter(vendor => {
+    const matchesCategory = activeCategory === "OxiviveClinic" 
+      ? vendor.selectedService === "Oxi Clinic" 
+      : vendor.selectedService === "Oxi Wheel";
+    const matchesSearch = vendor.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  // Navigate to the details page for the selected vendor
+  const handleCardClick = () => {
+    router.push(`/AdminService/AdminDashboard/AdminDetails/`);
+  };
 
   return (
     <div className="admin-dashboard">
@@ -30,32 +59,43 @@ const AdminDashboard = () => {
             <FaHome />
           </div>
           <div className="sidebar-icon" data-name="Invoice">
-            <FaUsers />
+            <FaCartPlus />
           </div>
           <div className="sidebar-icon" data-name="Booking">
-            <FaClinicMedical />
+            <BiSolidBookAdd />
           </div>
           <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaWheelchair />
+            <FaPeopleGroup />
           </div>
           <div className="sidebar-icon" data-name="Revenue">
-            <FaDumbbell />
+            <FaChartArea />
           </div>
           <div className="sidebar-icon" data-name="Manage Service">
-            <FaClipboardList />
+            <MdManageAccounts />
           </div>
           <div className="sidebar-icon" data-name="Inventory">
-            <FaCog />
+            <MdOutlineInventory />
           </div>
           <div className="sidebar-icon" data-name="Vendor">
-            <FaSignOutAlt />
+            <MdOutlinePeopleAlt />
           </div>
         </nav>
       </aside>
       
       <main className="admin-content">
-        <h2 className="admin-title">Vendors Applications</h2>
-        
+        <div className="admin-header">
+          <h2 className="admin-title">Vendors Applications</h2>
+          
+          {/* Search Bar */}
+          <input
+            type="text"
+            placeholder="Search by vendor name..."
+            className="search-bar"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on input change
+          />
+        </div>
+
         <div className="admin-categories">
           {categories.map((category) => (
             <button
@@ -69,14 +109,18 @@ const AdminDashboard = () => {
         </div>
         
         <div className="cards-container">
-          {vendors.map((vendor, index) => (
-            <div key={index} className="card">
-              <img src={vendor.image} alt={vendor.name} className="vendor-image" />
-              <p className="vendor-name">Name: {vendor.name}</p>
-              <p className="vendor-info">Applied: {vendor.applied}</p>
-              <p className="vendor-info">Location: {vendor.location}</p>
-            </div>
-          ))}
+          {filteredVendors.length > 0 ? (
+            filteredVendors.map((vendor, index) => (
+              <div key={index} className="card" onClick={() => handleCardClick()}>
+                <img src={`${vendor.profile_photo}`} alt={vendor.name} className="vendor-image" />
+                <p className="vendor-name">Name: {vendor.name}</p>
+                <p className="vendor-info">Applied: {vendor.selectedService}</p>
+                <p className="vendor-info">Location: {vendor.address}</p>
+              </div>
+            ))
+          ) : (
+            <p>No vendors available for {activeCategory}.</p>
+          )}
         </div>
       </main>
     </div>

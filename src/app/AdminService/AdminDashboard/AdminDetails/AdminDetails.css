@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f6f3f3;
+  }
+
+/* General styling */
+.admin-details {
+    display: flex;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #e50000;
+    border-right: 1px solid #ddd;
+  }
+  
+  .sidebar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: -30px;
+    margin-left: -40px;
+}
+
+.sidebar .logo img {
+    width: 120px;
+    height: 120px;
+    margin-right: -10px; /* Add space between the logo and text */
+}
+  
+  .sidebar .logo h1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .search-container {
+    position: relative;
+    width: 100%;
+    margin-top: -20px;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 8px 8px 8px 35px; /* Add padding-left for icon space */
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-sizing: border-box;
+    background-color: #ece9e9;
+    color: darkgray;
+}
+
+.search-icon {
+    position: absolute;
+    top: 35%;
+    left: 10px; /* Position icon inside the input */
+    transform: translateY(-50%);
+    color: #0a0a0a;
+    font-size: 16px;
+    color: darkgray;
+}
+
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .menu ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+    font-weight: bold;
+    color: #ef0b0b;
+  }
+  
+  .menu ul li .icon {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  .logout {
+    display: flex;
+    align-items: center; /* Vertically center icon and text */
+    margin-top: auto;
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    color: #e50000;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: -75px;
+  }
+
+
+.logout svg {
+    margin-right: 8px; /* Space between the icon and text */
+}
+  
+  /* Content styling */
+  .content {
+    flex-grow: 1;
+    /* padding: 10px; */
+    background-color: #fff;
+  }
+  
+  .page-title {
+    text-align: center;
+    font-size: 24px;
+    color: #e50000;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #0e0d0d;
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 15px;
+  }
+  
+  .vendor-info {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    flex-direction: column; /* Stack items vertically */
+    margin-right: 30px;
+    text-align: center; /* Center-align text under the image */
+  }
+  
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 10px; /* Adjust spacing between image and text */
+    margin-top: -50px;
+  }
+  
+  .profile-details h3 {
+    margin: 0;
+    font-size: 25px;
+  }
+
+  .info-details {
+    padding-left: 40px;
+  }
+  
+  .info-details p {
+    color: #030303;
+    margin: 10px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .info-details p strong {
+    width: 120px; /* Set a fixed width to align all labels */
+    margin-right: 10px; /* Space between label and text */
+    color: #ef0b0b;
+}
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 130px;
+  }
+  
+  .action-buttons .approve {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .action-buttons .reject {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Documents section */
+  .documents h3 {
+    color: #e50000;
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-left: 30px;
+  }
+  
+  .document-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-left: 30px;
+  }
+  
+  .document-row img {
+    width: 180px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .document-row p {
+    font-size: 14px;
+    text-align: center;
+  }
+  .icon {
+    font-size: 20px;  /* Adjust size as needed */
+    margin-right: 10px;
+    color: #f50909;  /* Set icon color */
+    vertical-align: middle;
+  }
+    
