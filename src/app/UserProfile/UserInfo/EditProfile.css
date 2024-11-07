@@ -21,7 +21,7 @@ body {
     padding: 80px;
     padding-right:90px;
     width: 100%;
-    max-width: 375px; /* Ensures max-width for mobile responsiveness */
+    max-width: 350px; /* Ensures max-width for mobile responsiveness */
     margin: auto; /* Centers the container */
     display: flex;
     flex-direction: column;
@@ -52,7 +52,7 @@ body {
     margin-left:50px ;
     position: absolute;
   }
-  .close-btn {
+  .back-btn {
     font-size: 18px;
     color: #FC000E;
     cursor: pointer;
@@ -63,12 +63,12 @@ body {
     margin-bottom: 180px
   }
   
-  .save-btn {
+  .edit-btn {
     font-size: 18px;
     color: #FC000E;
     cursor: pointer;
     width: 0px; /* Adjust as needed */
-    margin-left: 240px;
+    margin-left: 220px;
     margin-right: 100px;
     margin-top: 70px;
     margin-bottom: 180px;
@@ -156,7 +156,7 @@ body {
   right: 10px;
   cursor: pointer;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 20cdpx;
   width: 15px;
   height: 15px;
   background-color: #dfdfdf; /* Light background for the circle */
@@ -183,10 +183,9 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 200px; 
+    margin-top: 250px; 
     align-self: flex-end;
-    margin-left: -45px;
-    margin-right: 20px; /* Center the button horizontally */
+    margin-right: -50px; /* Center the button horizontally */
   }
   
   .save-profile-btn:hover {
@@ -200,7 +199,7 @@ body {
   cursor: pointer;
   margin-top: -50px;
   margin-bottom: 200px;
-  margin-left: 90px;
+  margin-left: 80px;
   }
   
   .camera-icon {
