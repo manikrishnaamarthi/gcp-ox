@@ -73,30 +73,32 @@ const Appointment = () => {
     return false;
   };
 
-  // Handle proceeding with the booking
-  const handleProceed = async () => {
+  // Handle proceeding with the booking (show modal if not selected)
+  const handleProceed = () => {
     if (selectedDay === null || selectedSlot === null) {
       setShowError(true);
       setIsModalOpen(true);
     } else {
       setShowError(false);
-  
+      setIsModalOpen(true);
+    }
+  };
+
+  // Handle "Continue" button in the modal
+  const handleContinue = () => {
+    if (selectedDay !== null && selectedSlot !== null) {
       // Prepare the data for submission
       const bookingData = {
-        service_type: selectedData?.serviceType === 'Oxivive Clinic' ? 'clinic' : 'wheel',
+        serviceType: selectedData?.serviceType,
         address: selectedData?.address,
         name: selectedData?.name,
-        appointment_date: `${today.getFullYear()}-${today.getMonth() + 1}-${weekDates[selectedDay].day}`,
-        appointment_time: selectedSlot.split('-')[1],
+        appointmentDate: `${today.getFullYear()}-${today.getMonth() + 1}-${weekDates[selectedDay].day}`,
+        appointmentTime: selectedSlot.split('-')[1],
       };
-      
-  
-      try {
-        await axios.post('http://localhost:8000/api/booking/', bookingData); // Adjust the URL as needed
-        setIsModalOpen(true); // Open confirmation modal
-      } catch (error) {
-        console.error('Error saving appointment:', error);
-      }
+
+      // Store data in localStorage and navigate to payment page
+      localStorage.setItem("bookingData", JSON.stringify(bookingData));
+      router.push("http://localhost:3000/DashBoard/paymentPage"); // Redirect to payment page
     }
   };
 
@@ -112,15 +114,15 @@ const Appointment = () => {
   return (
     <div className="appointment-container">
       <div className="header">
-      <button className="back-button" onClick={() => router.back()}>
+        <button className="back-button" onClick={() => router.back()}>
           <IoChevronBackSharp size={35} /> {/* Back icon */}
         </button>
         <h1>Oxivive Services</h1>
       </div>
       <div className="header-line"></div> {/* New line below header */}
 
-     {/* Conditionally render selected service */}
-     <div className="services">
+      {/* Conditionally render selected service */}
+      <div className="services">
         {selectedData?.serviceType === 'Oxivive Clinic' && (
           <div className="service">
             <p>Oxivive Clinic</p>
@@ -186,37 +188,34 @@ const Appointment = () => {
       </div>
 
       {isModalOpen && (
-  <div className="modal-overlay">
-    <div className="modal-content">
-      <h1>Confirmation</h1>
-      {showError ? (
-        <p><strong>Please select the date and time.</strong></p>
-      ) : (
-        <>
-          {/* Display user details */}
-          <p><strong></strong> {selectedData?.name || "N/A"}</p>
-          <p><strong></strong> {selectedData?.address || "Fetching address..."}</p>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h1>Confirmation</h1>
+            {showError ? (
+              <p><strong>Please select the date and time.</strong></p>
+            ) : (
+              <>
+                {/* Display user details */}
+                <p><strong>Name:</strong> {selectedData?.name || "N/A"}</p>
+                <p><strong>Address:</strong> {selectedData?.address || "Fetching address..."}</p>
 
-          {/* Display appointment date and time */}
-          <p><strong>Time:</strong> {selectedSlot?.split('-')[1]}</p>
-          <p>
-            <strong></strong> {weekDates[selectedDay!].weekDay}, 
-            <strong> </strong> {weekDates[selectedDay!].day} 
-            <strong></strong> {weekDates[selectedDay!].month} 
-            <strong></strong> {today.getFullYear()}
-          </p>
-        </>
+                {/* Display appointment date and time */}
+                <p><strong>Time:</strong> {selectedSlot?.split('-')[1]}</p>
+                <p>
+                  <strong>Date:</strong> {weekDates[selectedDay!].weekDay}, 
+                  {weekDates[selectedDay!].day} 
+                  {weekDates[selectedDay!].month} 
+                  {today.getFullYear()}
+                </p>
+              </>
+            )}
+            <div className="modal-buttons">
+              <button className="modal-button" onClick={handleContinue}>Continue</button>
+              <button className="modal-button cancel" onClick={handleCloseModal}>Cancel</button>
+            </div>
+          </div>
+        </div>
       )}
-      <div className="modal-buttons">
-        <button className="modal-button" onClick={handleCloseModal}>Continue</button>
-        <button className="modal-button cancel" onClick={handleCloseModal}>Cancel</button>
-      </div>
-    </div>
-  </div>
-)}
-
-
-
     </div>
   );
 };

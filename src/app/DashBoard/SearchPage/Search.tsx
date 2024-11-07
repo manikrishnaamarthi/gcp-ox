@@ -1,10 +1,10 @@
 "use client"; // Ensure this component runs on the client side
 import React, { useState, useEffect } from "react";
-import { CiSearch } from "react-icons/ci";
-import { VscChevronLeft } from "react-icons/vsc";
+
+import { IoChevronBackSharp } from 'react-icons/io5';
 import { FiNavigation } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
-import { CiSearch as CiSearchIcon } from "react-icons/ci";
+import { CiSearch  } from "react-icons/ci";
 import { RxCalendar } from "react-icons/rx";
 import { BsPerson } from "react-icons/bs";
 import { useRouter } from 'next/navigation';
@@ -42,11 +42,17 @@ const Search = () => {
   return (
     <div className="search-page">
       <div className="search-bar-container">
-        <VscChevronLeft className="back-icon" onClick={() => router.back()} />
-        <div className="search-bar">
-          <input type="text" placeholder="Search for a location" />
-          <CiSearch className="search-icon" />
-        </div>
+      <button className="back-button" onClick={() => router.back()}>
+          <IoChevronBackSharp size={35} /> {/* Back icon */}
+        </button>
+        <div className="search-container" onClick={() => router.push('/DashBoard/SearchPage')}>
+        <CiSearch size={24} className="search-icon" />
+        <input
+          type="text"
+          placeholder="Search for a location "
+          className="search-input"
+        />
+      </div>
       </div>
 
 
@@ -62,7 +68,7 @@ const Search = () => {
         {['home', 'search', 'booking', 'profile'].map(icon => (
           <div key={icon} className="footer-icon" style={footerIconStyle(icon)} onClick={() => handleFooterIconClick(icon)}>
             {icon === 'home' && <GoHome size={24} />}
-            {icon === 'search' && <CiSearchIcon size={24} />} {/* Footer search icon */}
+            {icon === 'search' && <CiSearch size={24} />} {/* Footer search icon */}
             {icon === 'booking' && <RxCalendar size={24} />}
             {icon === 'profile' && <BsPerson size={28} />}
             <span className="footer-header" style={{ color: footerIconStyle(icon).color }}>{icon.charAt(0).toUpperCase() + icon.slice(1)}</span>
