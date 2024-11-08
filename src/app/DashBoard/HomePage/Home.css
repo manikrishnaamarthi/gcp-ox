@@ -31,7 +31,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-style: normal;
     width: 100%; 
-    max-width: 375px;
+    max-width: 350px;
     min-height: 100vh;
     background-color: white;
     flex-direction: column;
@@ -52,17 +52,27 @@ body {
     margin-right: 10px;
     color: #a3a2a2; /* icon color */
     margin-bottom: 10px;
+    
   }
 
   .location-text-wrapper {
     display: flex;
     flex-direction: column; /* Stacks the current location and fetched location */
+    white-space: nowrap;            /* Prevents the text from wrapping to a new line */
+    overflow-x: auto;               /* Adds horizontal scrolling if text exceeds container */
+    scroll-behavior: smooth;        /* Smooth scrolling experience */
+    max-width: 200px;  
+    scrollbar-width: none; 
   }
 
-  
+  .location-text::-webkit-scrollbar {
+    display: none;                  /* Optional: hides the scrollbar for a cleaner look */
+  }
+
   .current-location {
     font-size: 16px;
     color: #a3a2a2;
+    display: block;
     
   }
   
@@ -70,6 +80,8 @@ body {
     font-size: 14px;
     color: #333;
     font-weight: bold;
+    position: sticky;
+   
   }
   
 
@@ -77,6 +89,7 @@ body {
   color: #a3a2a2;
   cursor: pointer;
   margin-left: auto; /* Push to the right */
+  
   }
 
 
@@ -94,7 +107,7 @@ body {
   }
   
   .search-input {
-    
+  
     margin-bottom: 35px;
     border: 1px solid #ededed;
     font-size: 16px;
@@ -207,16 +220,35 @@ body {
 
 
   .services-icon-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
+  overflow-x: auto; /* Enable horizontal scrolling */
+  display: flex;     /* Display icons horizontally */
+  gap: 20px;         /* Optional: Add some gap between the icons */
+  padding: 10px 0;   /* Optional: Adjust the top and bottom padding */
+  scroll-behavior: smooth; /* Optional: Smooth scrolling */
+  scrollbar-width: none; 
   }
   
+/* Optional: Style for the scrollbar (if needed for better UX) */
+.services-icon-section::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar in Webkit-based browsers (Chrome, Safari) */
+  
+}
+
+.services-icon-section::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* Scrollbar color */
+  border-radius: 3px; /* Rounded corners for the scrollbar */
+  scrollbar-width: none; 
+}
+
+.services-icon-section::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Scrollbar track color */
+}
+
+
   .icon-row {
     display: flex;
     justify-content: center;
-    
+    flex-wrap: nowrap;
     
   }
   
@@ -227,8 +259,18 @@ body {
     padding: 12px;
     font-family: "Poppins", sans-serif;
     font-style: normal;
+    margin-bottom: -16px;
     
   }
+/* Optionally adjust individual icon containers if needed */
+.service-icon-clinic {
+  margin-right: 35px; /* Increase the right margin for better spacing */
+}
+
+.service-icon-ambulance {
+  margin-right: 15px; /* Optionally adjust left margin if needed */
+}
+
 
   .service-icon-clinic, 
   .service-icon-ambulance, 
@@ -265,6 +307,7 @@ body {
   text-align: left;
   font-size:20px;
   color:#FC000E;
+  margin-top: 30px;
 }
 
   .oxi-images-section {
@@ -273,7 +316,7 @@ body {
     gap: 16px;
     margin-top: 16px;
     gap: 20px;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
     padding-top: -30px;
   }
   
@@ -307,7 +350,7 @@ body {
     padding: 16px;
     background-color: #ffffff;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 375px;
+    max-width: 350px;
     z-index: 1000;
     align-items: center;
     gap: 24px; 
@@ -413,6 +456,5 @@ body {
   background-color: #fae0e0; /* Light blue background on hover */
   transition: background-color 0.3s ease;
 }
-
 
 

@@ -145,7 +145,6 @@ const Home: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <FaMapMarkerAlt size={24} className="location-icon" />
           <div className="location-text-wrapper">
-            <p className="current-location">Current Location</p>
             <span className="location-text">{location}</span>
           </div>
         </div>
@@ -220,7 +219,7 @@ const Home: React.FC = () => {
         <img src="/images/oxiwheel.png" alt="Oxi Wheel" className="oxi-image"  onClick={handleWheelClick}  />
       </div>
 
-      <div className="oxi-separator-line"></div>
+      
 
 
       {/* Oxi Educate Sections */}
