@@ -96,9 +96,13 @@ const Appointment = () => {
         appointmentTime: selectedSlot.split('-')[1],
       };
 
+      // Log bookingData to verify structure
+      console.log("Booking Data:", bookingData);
+
+
       // Store data in localStorage and navigate to payment page
       localStorage.setItem("bookingData", JSON.stringify(bookingData));
-      router.push("http://localhost:3000/DashBoard/paymentPage"); // Redirect to payment page
+      window.location.href = '/DashBoard/paymentPage';
     }
   };
 
@@ -119,7 +123,7 @@ const Appointment = () => {
         </button>
         <h1>Oxivive Services</h1>
       </div>
-      <div className="header-line"></div> {/* New line below header */}
+     
 
       {/* Conditionally render selected service */}
       <div className="services">

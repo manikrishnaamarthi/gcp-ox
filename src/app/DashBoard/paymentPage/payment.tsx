@@ -40,7 +40,7 @@ const PaymentPage: React.FC = () => {
         } catch (error) {
           console.error("Error saving booking:", error);
         }
-      },
+      },  
       prefill: {
         name: bookingData.name,
         email: "johndoe@example.com",
