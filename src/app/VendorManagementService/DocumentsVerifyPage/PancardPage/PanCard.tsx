@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { FiUpload, FiArrowLeft } from 'react-icons/fi';
+import { FiUpload } from 'react-icons/fi';
+import { BiArrowBack } from "react-icons/bi";
 import './PanCard.css';
 import { useRouter } from "next/navigation";
 
@@ -65,7 +66,7 @@ const convertFileToBase64 = (file: File): Promise<string> => {
   return (
     <div className="container">
       <div className="back-arrow">
-        <FiArrowLeft className="arrow-icon" onClick={() => Router.back()}/>
+        <BiArrowBack className="arrow-icon" onClick={() => Router.back()}/>
       </div>
 
       <h1 className="header1">Pan Card</h1>

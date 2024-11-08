@@ -1,12 +1,11 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { MdKeyboardBackspace } from "react-icons/md";
+import { BiArrowBack } from "react-icons/bi";
 import './Details.css';
 
 const Details = () => {
   const router = useRouter();
-
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
   useEffect(() => {
@@ -17,6 +16,7 @@ const Details = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    email: '',
     state: '',
     district: '',
     pincode: '',
@@ -28,9 +28,8 @@ const Details = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    // Check if all relevant fields are filled
+    const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
     const allFieldsFilled = Object.entries(formData).every(([field, value]) => {
-      // Only check wheelName or clinicName if their respective service is selected
       if (
         (selectedService === 'Oxi Wheel' && field === 'wheelName') ||
         (selectedService === 'Oxi Clinic' && field === 'clinicName') ||
@@ -38,9 +37,9 @@ const Details = () => {
       ) {
         return value.trim() !== '';
       }
-      return true; // Skip checking if the field is not relevant
+      return true;
     });
-    setIsFormValid(allFieldsFilled);
+    setIsFormValid(allFieldsFilled && emailIsValid);
   }, [formData, selectedService]);
 
   const handleBackClick = () => {
@@ -49,9 +48,23 @@ const Details = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Validation rules
+    let validatedValue = value;
+
+    if (name === 'name' || name === 'state' || name === 'district' || name === 'address' || name === 'wheelName' || name === 'clinicName') {
+      validatedValue = value.replace(/[^a-zA-Z\s]/g, ''); // Only letters and spaces
+    } else if (name === 'phone') {
+      validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10); // Only digits, max 10 characters
+    } else if (name === 'pincode') {
+      validatedValue = value.replace(/[^0-9]/g, '').slice(0, 6); // Only digits, max 6 characters
+    } else if (name === 'email') {
+      validatedValue = value; // No character restrictions, validate format later
+    }
+
     setFormData(prevData => ({
       ...prevData,
-      [name]: value
+      [name]: validatedValue
     }));
   };
 
@@ -66,7 +79,7 @@ const Details = () => {
     <div className="container">
       <div className="details-back">
         <button className="back-icon" onClick={handleBackClick}>
-          <MdKeyboardBackspace />
+          <BiArrowBack />
         </button>
       </div>
 
@@ -75,7 +88,6 @@ const Details = () => {
 
       <form className="form" onSubmit={handleContinue}>
         {Object.entries(formData).map(([field, value]) => {
-          // Condition to render only the relevant field based on the selected service
           if (
             (selectedService === 'Oxi Wheel' && field === 'wheelName') ||
             (selectedService === 'Oxi Clinic' && field === 'clinicName') ||
@@ -90,7 +102,7 @@ const Details = () => {
                   {field.charAt(0).toUpperCase() + field.slice(1)}
                 </label>
                 <input
-                  type="text"
+                  type={field === 'email' ? 'email' : 'text'}
                   id={field}
                   name={field}
                   value={value}
@@ -101,7 +113,7 @@ const Details = () => {
               </div>
             );
           }
-          return null; // Skip rendering for fields that shouldn't be shown
+          return null;
         })}
       </form>
 

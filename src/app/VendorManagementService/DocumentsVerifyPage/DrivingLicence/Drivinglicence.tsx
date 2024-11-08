@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FiUpload, FiArrowLeft } from "react-icons/fi";
+import { FiUpload } from "react-icons/fi";
+import { BiArrowBack } from "react-icons/bi";
 import "./Drivinglicence.css";
 import { useRouter } from "next/navigation";
 
@@ -55,23 +56,32 @@ const DrivingLicence: React.FC = () => {
         setDateOfBirth(formattedValue);
     };
 
+    // Handle driving licence number change with integer validation
+    const handleLicenceNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        // Only allow numbers (integers)
+        if (/^\d*$/.test(value)) {
+            setLicenceNumber(value);
+        }
+    };
+
     const handleSubmit = () => {
-      if (frontSide && backSide && licenceNumber && dateOfBirth) {
-          localStorage.setItem("drivingLicenceNumber", licenceNumber);
-          localStorage.setItem("dateOfBirth", dateOfBirth);
-          localStorage.setItem("isDrivingLicenceUploaded", "true"); // Update the status in localStorage
-  
-          alert("Files uploaded successfully!");
-          Router.push("/VendorManagementService/DocumentsVerifyPage");
-      } else {
-          alert("Please complete all fields and upload both sides of the licence.");
-      }
-  };
+        if (frontSide && backSide && licenceNumber && dateOfBirth) {
+            localStorage.setItem("drivingLicenceNumber", licenceNumber);
+            localStorage.setItem("dateOfBirth", dateOfBirth);
+            localStorage.setItem("isDrivingLicenceUploaded", "true"); // Update the status in localStorage
+        
+            alert("Files uploaded successfully!");
+            Router.push("/VendorManagementService/DocumentsVerifyPage");
+        } else {
+            alert("Please complete all fields and upload both sides of the licence.");
+        }
+    };
 
     return (
         <div className="container">
             <div className="back-arrow">
-                <FiArrowLeft className="arrow-icon" onClick={() => Router.back()} />
+                <BiArrowBack className="arrow-icon" onClick={() => Router.back()} />
             </div>
 
             <h1 className="header1">Driving Licence</h1>
@@ -136,7 +146,9 @@ const DrivingLicence: React.FC = () => {
                     placeholder="Enter Driving Licence Number"
                     className="inputField"
                     value={licenceNumber}
-                    onChange={(e) => setLicenceNumber(e.target.value)}
+                    onChange={handleLicenceNumberChange}
+                    pattern="\d*" // Ensures only digits can be entered
+                    title="Please enter a valid Driving Licence Number (only integers)"
                 />
 
                 <label className="formLabel">Date of Birth</label>

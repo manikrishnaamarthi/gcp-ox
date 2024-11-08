@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { FiUpload, FiArrowLeft } from 'react-icons/fi';
 import './Aadhar.css';
+import { BiArrowBack } from "react-icons/bi";
 import { useRouter } from "next/navigation";
-import { TiTick } from "react-icons/ti";
 
 const Aadhar: React.FC = () => {
   const Router = useRouter();
@@ -12,7 +12,6 @@ const Aadhar: React.FC = () => {
   const [frontPreview, setFrontPreview] = useState<string | null>(null);
   const [backPreview, setBackPreview] = useState<string | null>(null);
 
-  // Load data from localStorage on mount
   useEffect(() => {
     const storedFront = localStorage.getItem("aadharFrontPreview");
     const storedBack = localStorage.getItem("aadharBackPreview");
@@ -60,7 +59,7 @@ const Aadhar: React.FC = () => {
   return (
     <div className="container">
       <div className="back-arrow">
-        <FiArrowLeft className="arrow-icon" onClick={() => Router.back()}/>
+        <BiArrowBack className="arrow-icon" onClick={() => Router.back()}/>
       </div>
 
       <h1 className="header1">Aadhar Card</h1>

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import './Oxivive.css';
-import { MdKeyboardBackspace } from "react-icons/md";
+import { BiArrowBack } from "react-icons/bi";
 import { useRouter } from 'next/navigation';
 
 const Oxivive: React.FC = () => {
@@ -32,7 +32,7 @@ const Oxivive: React.FC = () => {
         <div className="oxivive-container">
             <div className="oxivive-back">
                 <button className="back-icon" onClick={handleBackClick}>
-                    <MdKeyboardBackspace />
+                    <BiArrowBack />
                 </button>
             </div>
             <div className="oxivive-content">

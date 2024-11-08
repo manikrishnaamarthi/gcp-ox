@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
-import { BsPersonAdd } from 'react-icons/bs';
+import { CgProfile } from "react-icons/cg";
+import { PiPlusCircleFill } from 'react-icons/pi';
 import './Profilephoto.css';
 import { useRouter } from "next/navigation";
 
@@ -20,24 +21,23 @@ const ProfilePhoto: React.FC = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-        const file = e.target.files[0];
-        const fileURL = URL.createObjectURL(file);
-        setProfileImage(file);
-        setProfilePreview(fileURL);
-        
-        // Store preview in localStorage for displaying the image
-        localStorage.setItem("profilePhotoPreview", fileURL);
+      const file = e.target.files[0];
+      const fileURL = URL.createObjectURL(file);
+      setProfileImage(file);
+      setProfilePreview(fileURL);
+      
+      // Store preview in localStorage for displaying the image
+      localStorage.setItem("profilePhotoPreview", fileURL);
 
-        // Convert the file to base64 and store it as `profilePhotoFile` for backend upload
-        const reader = new FileReader();
-        reader.onload = () => {
-            const base64String = reader.result as string;
-            localStorage.setItem("profilePhotoFile", base64String);
-        };
-        reader.readAsDataURL(file);
+      // Convert the file to base64 and store it as profilePhotoFile for backend upload
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        localStorage.setItem("profilePhotoFile", base64String);
+      };
+      reader.readAsDataURL(file);
     }
-};
-
+  };
 
   const handleSubmit = () => {
     if (profileImage) {
@@ -67,7 +67,8 @@ const ProfilePhoto: React.FC = () => {
             <img src={profilePreview} alt="Profile Preview" className="profileImage" />
           ) : (
             <div className="imagePlaceholder">
-              <BsPersonAdd className="personAddIcon" />
+              <CgProfile className="profileIcon" />
+              <PiPlusCircleFill className="plusIcon" />
             </div>
           )}
         </label>

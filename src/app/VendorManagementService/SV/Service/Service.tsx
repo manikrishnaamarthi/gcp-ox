@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import './Service.css';
-import { MdKeyboardBackspace } from "react-icons/md";
+import { BiArrowBack } from "react-icons/bi";
 import { useRouter } from 'next/navigation'; // Import from next/navigation instead of next/router
 
 const Service: React.FC = () => {
@@ -18,7 +18,7 @@ const Service: React.FC = () => {
   return (
     <div className="service-container">
       <div className="header">
-        <button className="back-button"><MdKeyboardBackspace /></button>
+        <button className="back-button"><BiArrowBack /></button>
         <div className="logo">
           <img src="/images/circle.png" alt="Oxivive Logo" />
         </div>
