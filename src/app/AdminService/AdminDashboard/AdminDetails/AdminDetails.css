@@ -46,13 +46,13 @@ body {
     margin: 0;
   }
   
-  .search-container {
+  .search-container-bar {
     position: relative;
     width: 100%;
     margin-top: -20px;
 }
 
-.search-bar {
+.search-bar-page {
     width: 100%;
     padding: 8px 8px 8px 35px; /* Add padding-left for icon space */
     margin-bottom: 20px;
@@ -130,19 +130,20 @@ body {
     padding-bottom: 15px;
   }
   
-  .vendor-info {
+  .vendor-info-page { 
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
     padding-bottom: 20px;
     margin-bottom: 20px;
     padding-left: 30px;
-  }
-  
+    flex-wrap: wrap; /* Allow wrapping to make sure the document section moves below */
+  } 
+    
   .profile {
     display: flex;
     align-items: center;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column; 
     margin-right: 30px;
     text-align: center; /* Center-align text under the image */
   }
@@ -159,7 +160,7 @@ body {
     margin: 0;
     font-size: 25px;
   }
-
+  
   .info-details {
     padding-left: 40px;
   }
@@ -171,12 +172,12 @@ body {
     display: flex;
     align-items: center;
   }
-
+  
   .info-details p strong {
     width: 120px; /* Set a fixed width to align all labels */
     margin-right: 10px; /* Space between label and text */
     color: #ef0b0b;
-}
+  }
   
   .action-buttons {
     display: flex;
@@ -206,24 +207,26 @@ body {
   }
   
   /* Documents section */
+  .documents {
+    width: 100%; /* Make sure documents section takes full width */
+    margin-top: 30px; /* Add space above the documents section */
+  }
+  
   .documents h3 {
     color: #e50000;
     font-size: 18px;
     margin-bottom: 10px;
-    padding-left: 30px;
   }
   
   .document-row {
     display: flex;
     gap: 15px;
-    align-items: center;
     margin-bottom: 20px;
-    padding-left: 30px;
+    flex-wrap: wrap; /* Allow wrapping for document images */
   }
   
   .document-row img {
     width: 180px;
-    height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;
   }
@@ -232,6 +235,7 @@ body {
     font-size: 14px;
     text-align: center;
   }
+  
   .icon {
     font-size: 20px;  /* Adjust size as needed */
     margin-right: 10px;

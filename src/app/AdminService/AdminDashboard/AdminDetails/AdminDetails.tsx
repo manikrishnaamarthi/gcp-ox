@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import React from 'react';
 import { FaHome, FaCartPlus, FaChartArea } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
@@ -8,27 +9,24 @@ import { IoIosSearch } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import './AdminDetails.css';
 
-const AdminDetails: React.FC = () => {
-  const [adminDetailsList, setAdminDetailsList] = useState([]);
+const AdminDetails = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+  const name = searchParams.get('name');
+  const profile_photo = searchParams.get('profile_photo');
+  const selectedService = searchParams.get('selectedService');
+  const address = searchParams.get('address');
+  const email = searchParams.get('email');
+  const phone = searchParams.get('phone');
+  const pan_front_side = searchParams.get('pan_front_side');
+  const gstNumber = searchParams.get('gstNumber');
+  const aadhar_front_side = searchParams.get('aadhar_front_side');
+  const aadhar_back_side = searchParams.get('aadhar_back_side');
+  const pan_back_side = searchParams.get('pan_back_side');
+  const licence_end_date = searchParams.get('licence_end_date');
+  const medical_front_side = searchParams.get('medical_front_side')
 
-  useEffect(() => {
-    // Fetch details from backend API
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/adminservice-vendordetails/');
-        const data = await response.json();
-        setAdminDetailsList(data); // Assuming data is an array of vendor details
-      } catch (error) {
-        console.error("Error fetching admin details:", error);
-      }
-    };
-    
-    fetchData();
-  }, []);
-
-  if (!adminDetailsList.length) {
-    return <p>Loading...</p>;
-  }
+  if (!name) return <p>Loading...</p>; // Display loading until data is available
 
   return (
     <div className="admin-details">
@@ -37,9 +35,9 @@ const AdminDetails: React.FC = () => {
           <img src="/images/shot(1).png" alt="Oxivive Logo" />
           <h1>Oxivive</h1>
         </div>
-        <div className="search-container">
+        <div className="search-container-bar">
           <i className="search-icon"><IoIosSearch /></i>
-          <input type="text" placeholder="Search" className="search-bar" />
+          <input type="text" placeholder="Search" className="search-bar-page" />
         </div>
         <nav className="menu">
           <ul>
@@ -57,50 +55,48 @@ const AdminDetails: React.FC = () => {
       </aside>
       
       <main className="content">
-        <h2 className="page-title">Vendors Applications</h2>
-        
-        {adminDetailsList.map((admin, index) => (
-          <section className="vendor-info" key={index}>
-            <div className="profile">
-              <img src={`http://127.0.0.1:8000/${admin.profile_photo}`} alt="Profile" className="profile-pic" />
-              <div className="profile-details">
-                <h3>{admin.name}</h3>
-                <p>{admin.address}</p>
-              </div>
+        <h2 className="page-title">Vendor Details</h2>
+
+        <section className="vendor-info-page">
+          <div className="profile">
+            <img src={`http://127.0.0.1:8000/${profile_photo}`} alt="Profile" className="profile-pic" />
+            <div className="profile-details">
+              <h3>{name}</h3>
+              <p>{address}</p>
             </div>
-            
-            <div className="info-details">
-              <p><strong>Oxi Type:</strong> {admin.selectedService}</p>
-              <p><strong>Email ID:</strong> {admin.email}</p>
-              <p><strong>Phone:</strong> {admin.phone}</p>
-              <p><strong>PAN Number:</strong> {admin.pan_front_side}</p>
-              <p><strong>GST Number:</strong> {admin.gstNumber}</p>
-              <div className="action-buttons">
-                <button className="approve">Approve</button>
-                <button className="reject">Reject</button>
-              </div>
+          </div>
+
+          <div className="info-details">
+            <p><strong>Oxi Type:</strong> {selectedService}</p>
+            <p><strong>Email ID:</strong> {email}</p>
+            <p><strong>Phone:</strong> {phone}</p>
+            <p><strong>PAN Number:</strong> {pan_front_side}</p>
+            <p><strong>GST Number:</strong> {gstNumber}</p>
+            <div className="action-buttons">
+              <button className="approve">Approve</button>
+              <button className="reject">Reject</button>
             </div>
-            
-            <section className="documents">
-              <h3>Aadhar Card</h3>
-              <div className="document-row">
-                <img src={`http://127.0.0.1:8000/${admin.aadhar_front_side}`} alt="Aadhar Front" />
-                <img src={`http://127.0.0.1:8000/${admin.aadhar_back_side}`} alt="Aadhar Back" />
-              </div>
-              
-              <h3>PAN Card</h3>
-              <div className="document-row">
-                <img src={`http://127.0.0.1:8000/${admin.pan_front_side}`} alt="PAN Front" />
-                <img src={`http://127.0.0.1:8000/${admin.pan_back_side}`} alt="PAN Back" />
-              </div>
-              
-              <h3>Additional Documents</h3>
-              <div className="document-row">
-                <p>Medical Licence Exp Date: {admin.licence_end_date}</p>
-              </div>
-            </section>
+          </div>
+
+          <section className="documents">
+            <h3>Aadhar Card</h3>
+            <div className="document-row">
+              <img src={`http://127.0.0.1:8000/${aadhar_front_side}`} alt="Aadhar Front" />
+              <img src={`http://127.0.0.1:8000/${aadhar_back_side}`} alt="Aadhar Back" />
+            </div>
+
+            <h3>PAN Card</h3>
+            <div className="document-row">
+              <img src={`http://127.0.0.1:8000/${pan_front_side}`} alt="PAN Front" />
+              <img src={`http://127.0.0.1:8000/${pan_back_side}`} alt="PAN Back" />
+            </div>
+
+            <h3>Additional Documents</h3>
+            <div className="document-row">
+              <p><img src={`http://127.0.0.1:8000/${medical_front_side}`} alt="Medical Front" />Medical Licence Exp Date: {licence_end_date}</p>
+            </div>
           </section>
-        ))}
+        </section>
       </main>
     </div>
   );
