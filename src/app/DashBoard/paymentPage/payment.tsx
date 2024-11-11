@@ -1,12 +1,30 @@
 "use client";
-import React from 'react';
 import { IoChevronBackSharp } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import './payment.css';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+
+interface BookingData {
+  name: string;
+  address: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  serviceType: string;
+}
 
 const PaymentPage: React.FC = () => {
     const router = useRouter();
+    const [bookingData, setBookingData] = useState<BookingData | null>(null);
+
+    useEffect(() => {
+      // Retrieve booking data from local storage on component mount
+      const data = localStorage.getItem("bookingData");
+      if (data) {
+        setBookingData(JSON.parse(data));
+      }
+    }, []);
     
     const handlePayment = () => {
   const bookingData = JSON.parse(localStorage.getItem("bookingData") || "{}");
@@ -27,7 +45,11 @@ const PaymentPage: React.FC = () => {
 
         // Update bookingData with payment info
         const completedBookingData = {
-          ...bookingData,
+          serviceType: bookingData?.serviceType,
+          address: bookingData?.address,
+          name: bookingData?.name,
+          appointmentDate:bookingData?. appointmentDate,
+          appointmentTime:bookingData?. appointmentTime,
           payment_id: response.razorpay_payment_id,
           booking_status: "completed",
           booking_id: bookingId,
@@ -61,10 +83,22 @@ const PaymentPage: React.FC = () => {
         <div className="payment-container">
             <div className="payment-method">
                 <button className="back-button" onClick={() => router.back()}>
-                    <IoChevronBackSharp size={25} />
+                    <IoChevronBackSharp size={20} />
                 </button>
                 <span className="payment-text">Payment Method</span>
             </div>
+
+
+            {bookingData && (
+                <div className="booking-details">
+                    <h3>Booking Details</h3>
+                    <p><strong>Service Type:</strong> {bookingData.serviceType}</p>
+                    <p><strong>Name:</strong> {bookingData.name}</p>
+                    <p><strong>Address:</strong> {bookingData.address}</p>
+                    <p><strong>Date:</strong> {bookingData.appointmentDate}</p>
+                    <p><strong>Time:</strong> {bookingData.appointmentTime}</p>
+                </div>
+            )}
 
             <div className="order-summary">
                 <h3>Order Summary</h3>

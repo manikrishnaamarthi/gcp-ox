@@ -95,7 +95,7 @@ const MyBooking: React.FC = () => {
             <h2 style={{ color: '#FC000E', textAlign: 'center',fontSize :'24px' }}>{selectedBooking.name}</h2>
             <div className="modalDetails">
               <div className="modalInfo">
-                <FaMapMarkerAlt color="#FC000E" />
+                <FaMapMarkerAlt color="#FC000E" size ={50} margin-top = "50px"/>
                 <p>{selectedBooking.location}</p>
               </div>
               <div className="modalInfo">

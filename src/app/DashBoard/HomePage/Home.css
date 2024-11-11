@@ -39,8 +39,7 @@ body {
   }
   
 
-  .location-container{
-    
+  .location-container{ 
   display: flex;
   align-items: center;
   justify-content: space-between; /* space between location and notification */
@@ -69,16 +68,11 @@ body {
     display: none;                  /* Optional: hides the scrollbar for a cleaner look */
   }
 
-  .current-location {
-    font-size: 16px;
-    color: #a3a2a2;
-    display: block;
-    
-  }
+  
   
   .location-text {
     font-size: 14px;
-    color: #333;
+    color: #000000;
     font-weight: bold;
     position: sticky;
    
@@ -107,7 +101,6 @@ body {
   }
   
   .search-input {
-  
     margin-bottom: 35px;
     border: 1px solid #ededed;
     font-size: 16px;
@@ -184,7 +177,6 @@ body {
 
 .section-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -201,19 +193,22 @@ body {
     font-family: "Poppins", sans-serif;
     font-style: normal;
     font-size: 14px;
-    color:#FC000E;
+    color: #FC000E;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 0; /* Reduce padding */
     cursor: pointer;
     border-radius: 4px;
-    margin-left: 130px;
+    display: inline-flex;
+    margin-left:165px;
      
     
   }
  
 .arrow-icon{
-  color:#FC000E;
-  margin-right: 10px;
+  color: #FC000E;
+  margin-left: 4px; /* Remove margin-left if needed */
+  display: inline-flex;
+ 
   
 }
 
@@ -281,6 +276,7 @@ body {
     border: 1px solid #ededed;
     padding: 25px;
     border-radius: 10px;
+    color:black;
    
     
   }
@@ -288,20 +284,24 @@ body {
   .service-text-gym,
   .service-text-wheel,
   .service-text-clinic{
-    font-size:13px;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
+    color:black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 100%; /* Adjust based on the layout */
+    text-align: center;
+    font-size: 14px; /* Adjust font size as needed */
   }
 
   .service-icon {
     color: #999999; /* Adjust color if needed */
     display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 8px; 
-  }
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px; 
+  } 
   
-   
+  
   
 .images-above-section{
   text-align: left;
@@ -327,16 +327,7 @@ body {
     
   }
   
-  
 
-
-.oxi-separator-line {
-  width: 100%; /* Adjust the width as needed */
-  height: 5px;
-  max-width: 360px;
-  background-color: rgba(186, 186, 186, 0.36);
-  margin: -10px auto; /* Centering the line */
-}
 
   
   .footer-section {
@@ -347,7 +338,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-around;
-    padding: 16px;
+    padding: 10px;
     background-color: #ffffff;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     max-width: 350px;
@@ -363,7 +354,7 @@ body {
     font-size: 24px;
     cursor: pointer;
     color: rgb(151, 147, 147);
-    margin: 0 14px;
+    margin: 0 12px;
 
   }
 
@@ -438,6 +429,7 @@ body {
   list-style-type: decimal; /* Display numbers (1, 2, 3...) */
   padding-left: 20px; /* Indent the list */
   line-height: 1.6; /* Increase line height for better readability */
+  color:black;
 }
 
 .educate-list li {
