@@ -53,7 +53,7 @@ const Doctors: React.FC = () => {
   return (
     <div className="doctors-container">
       <header className="doctors-header">
-        <FaArrowLeft className="back-icon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
+        <FaArrowLeft className="back-icon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')}/>
         <h1>My Doctors's</h1>
         <button className="add-button" onClick={openModal}>
           <FaPlus /> ADD

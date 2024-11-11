@@ -22,7 +22,7 @@ const InvoicePage: React.FC = () => {
   };
 
   return (
-    <div className="invoice-container">
+    <div className="invoice-containerz">
       {/* Header Section */}
       <div className="header">
         <button className="back-button" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}>
@@ -48,7 +48,7 @@ const InvoicePage: React.FC = () => {
       </div>
 
       {/* Card Section - All inside a single gray card */}
-      <div className="new-invoice-card">
+      <div className="new-invoice-cardz">
         <div className="cards">
           <div className="invoice-card">
             <div className="invoice-info">
@@ -70,7 +70,7 @@ const InvoicePage: React.FC = () => {
               <span className="status paid">Paid</span>
             </div>
           </div>
-          <div className="invoice-card">
+          <div className="invoice-cards">
             <div className="invoice-info">
               <p className="invoice-title">Wheel maintenance</p>
               <p className="invoice-date">25 Sept 2024</p>
@@ -83,11 +83,11 @@ const InvoicePage: React.FC = () => {
         </div>
 
         {/* New Invoice Button */}
-        <button className="new-invoice-button">New Invoice</button>
+        <button className="new-invoice-buttons">New Invoice</button>
       </div>
 
       {/* Footer */}
-      <div className="footer">
+      <div className="footerd">
         <div
           className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
           onClick={() => handleFooterClick('home')}

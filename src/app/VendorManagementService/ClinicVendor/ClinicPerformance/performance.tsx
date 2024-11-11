@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { FaArrowLeft, FaClipboardList, FaHome, FaBell, FaUser } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './performance.css';
@@ -28,24 +28,29 @@ const Performance = () => {
   });
 
   const handleDateClick = (index) => setSelectedDate(index);
+  useEffect(() => {
+    document.body.classList.add('performance');
+    return () => document.body.classList.remove('performance');
+  }, []);
+  
 
   return (
-    <div className="container">
-      <header className="header">
-        <FaArrowLeft className="backIcon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')} /> {/* Navigate on click */}
+    <div className="performance-container">
+      <header className="heading">
+        <FaArrowLeft className="backIcon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')} /> {/* Navigate on click */}
         <h1>Clinic Performance</h1>
       </header>
 
       {/* Graph and Dropdown */}
-      <div className="card">
-        <div className="graphHeader">
+      <div className="cards">
+        <div className="graphHeaders">
           <h2>Total booking</h2>
-          <select className="dropdown">
+          <select className="dropdowns">
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
           </select>
         </div>
-        <div className="graph">
+        <div className="graphs">
           <span>
             {activeTab} data for{' '}
             {selectedDate !== null
@@ -56,7 +61,7 @@ const Performance = () => {
       </div>
 
       {/* Week Selection */}
-      <div className="week-selection">
+      <div className="week-selections">
         {dates.map((date, index) => (
           <div
             key={index}
@@ -124,7 +129,7 @@ const Performance = () => {
       </div>
 
       {/* Footer Navigation */}
-      <div className="footer">
+      <div className="performance-footer">
         <div
           className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
           onClick={() => handleFooterClick('home')}

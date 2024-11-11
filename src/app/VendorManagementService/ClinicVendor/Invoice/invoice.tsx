@@ -22,17 +22,17 @@ const InvoicePage: React.FC = () => {
   };
 
   return (
-    <div className="invoice-container">
+    <div className="invoice-container1">
       {/* Header Section */}
-      <div className="header">
-        <button className="back-button" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}>
+      <div className="header1">
+        <button className="back-button" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
-        <h1 className="title">Invoice</h1>
+        <h1 className="title1">Invoice</h1>
       </div>
 
       {/* Tab Navigation */}
-      <div className="tabs">
+      <div className="tabs2">
         <div
           className={`tab ${selectedTab === 'invoice' ? 'active' : ''}`}
           onClick={() => handleTabClick('invoice')}
@@ -48,8 +48,8 @@ const InvoicePage: React.FC = () => {
       </div>
 
       {/* Card Section - All inside a single gray card */}
-      <div className="new-invoice-card">
-        <div className="cards">
+      <div className="new-invoice-card2">
+        <div className="cards1">
           <div className="invoice-card">
             <div className="invoice-info">
               <p className="invoice-title">Wheel rent</p>
@@ -83,11 +83,11 @@ const InvoicePage: React.FC = () => {
         </div>
 
         {/* New Invoice Button */}
-        <button className="new-invoice-button">New Invoice</button>
+        <button className="new-invoice-button1">New Invoice</button>
       </div>
 
       {/* Footer */}
-      <div className="footer">
+      <div className="footer2">
         <div
           className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
           onClick={() => handleFooterClick('home')}

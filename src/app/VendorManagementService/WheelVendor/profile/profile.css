@@ -24,7 +24,6 @@ background-color: white;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-border-radius: 4%;
 }
 .edit-icon {
   position: absolute;
@@ -50,6 +49,7 @@ font-size: 24px;
 text-align: center;
 font-weight: bold;
 margin-top: 15px;
+margin-right: 20px;
 }
 
 .profile-image-wrapper {
@@ -57,7 +57,7 @@ margin-top: 15px;
   display: inline-block; /* Keeps the camera icon with the image */
 }
 
-.arrow-icon {
+.arrow-icon1 {
   position: absolute;
   left: 10px;
   font-size: 24px;
@@ -213,20 +213,19 @@ color: black;
   
 }
 
-.footer {
+.footer4 {
   position: fixed;
   bottom: 0;
   width: 50%;
-  max-width: 30px;
+  max-width: 350px;
   background-color: #fff;
   padding: 6px;
   display: flex;
   justify-content: space-around;
   border-top: 1px solid #ccc;
   margin-bottom: 10px;
-  margin-left: 3px;
-  border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-border-bottom-right-radius: 20px;
+  margin-left: px;
+  
 }
 
 .footer-icon {

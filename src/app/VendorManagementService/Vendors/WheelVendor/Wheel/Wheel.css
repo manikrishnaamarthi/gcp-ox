@@ -110,8 +110,8 @@ body {
 
 .label {
   margin-top: 10px;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: bo;
   position: relative;
   top: 20px; /* Moves text outside of the card */
 }

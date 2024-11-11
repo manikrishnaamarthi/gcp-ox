@@ -85,13 +85,13 @@ const Bookings: React.FC = () => {
   });
 
   return (
-    <div className="bookings-container">
-      <header className="header">
-        <FaArrowLeft className="back-icon"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
+    <div className="bookings-containers">
+      <header className="headerb">
+        <FaArrowLeft className="back-icona"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')}/>
         <h1>My Bookings</h1>
       </header>
 
-      <div className="week-selection">
+      <div className="week-selectionq">
         {weekDates.map((date, index) => {
           const [day, month, dayNumber] = date.split(" ");
           return (
@@ -110,7 +110,7 @@ const Bookings: React.FC = () => {
         })}
       </div>
 
-      <div className="tabs">
+      <div className="tabs3">
         {["Bookings", "Cancelled", "Completed", "History"].map((tab) => (
           <div
             key={tab}

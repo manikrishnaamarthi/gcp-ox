@@ -13,23 +13,22 @@ body {
     overflow-y: hidden;
     scroll-behavior: smooth;
 }
-.invoice-container {
+.invoice-container1 {
     height: 100vh;
   width: 100%;
   max-width: 100%;
-  width: 375px;
+  width: 350px;
   margin: 0 auto;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 4%;
   overflow-y: hidden;
   box-sizing: border-box;
 
   }
   
-  .header {
+  .header1 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -47,7 +46,7 @@ body {
     font-size: 26px;
   }
   
-  .title {
+  .title1 {
     text-align: center;
     flex-grow: 1;
     font-size: 26px;
@@ -57,7 +56,7 @@ body {
     margin-right: 30px;
   }
   
-  .tabs {
+  .tabs2 {
     display: flex;
     justify-content: space-around;
     margin: 20px;
@@ -86,12 +85,12 @@ body {
     background-color: red;
   }
   
-  .cards {
+  .cards1 {
     display: flex;
   flex-direction: column;
   gap: 10px; /* Space between cards */
   }
-  .new-invoice-card {
+  .new-invoice-card2 {
     background-color: #dddddd; /* Gray card */
   padding: 20px;
   margin: 15px 0;
@@ -99,7 +98,7 @@ body {
   margin-bottom: px;
   margin-top: -220px;
   }
-  .new-invoice-button {
+  .new-invoice-button1 {
     background-color: #ff0004;
     color: #fff;
     padding: 10px 20px;
@@ -107,7 +106,7 @@ body {
     cursor: pointer;
     border-radius: 5px;
     margin-bottom: 200px;
-    margin-top: 250px;
+    margin-top: 210px;
     box-sizing: border-box;
   }
   .invoice-card {
@@ -167,7 +166,7 @@ body {
     background-color: red;
   }
   
-  .new-invoice-button {
+  .new-invoice-button1 {
     background-color: red;
     color: white;
     border: none;
@@ -180,19 +179,17 @@ body {
     margin-top: 240 px;
   }
   
-  .footer {
+  .footer2 {
     position: fixed;
     bottom: 0;
     width: 100vw;
-    max-width: 375px;
+    max-width: 350px;
     background-color: #fff;
     padding: 8px;
     display: flex;
     justify-content: space-around;
     border-top: 1px solid #ccc;
     margin-bottom: 5px;
-    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-    border-bottom-right-radius: 20px;
     box-sizing: border-box;
   }
   
