@@ -17,13 +17,12 @@ body {
   height: 100vh;
   width: 100%;
   max-width: 100%;
-  width: 375px;
+  width: 350px;
   margin: 0 auto;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 4%;
   overflow-y: hidden;
   box-sizing: border-box;
   }
@@ -131,14 +130,12 @@ body {
     position: fixed;
     bottom: 0;
     width: 100vw;
-    max-width: 375px;
+    max-width: 350px;
     background-color: #fff;
     padding: 8px;
     display: flex;
     justify-content: space-around;
     border-top: 1px solid #ccc;
-    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-    border-bottom-right-radius: 20px;
     box-sizing: border-box;
   }
   

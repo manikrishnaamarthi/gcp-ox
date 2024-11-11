@@ -1,0 +1,235 @@
+body.clinic {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  margin: 0;
+  background-color: rgb(228, 226, 226);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: hidden;
+  
+  }
+  
+  .clinic-container1 {
+    height: 100vh;
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+    background-color: #ff0000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .headera{
+    background-color: #ff0000;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    height: 170px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .logoContainer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  
+  .logo {
+    width: 140px; /* Adjust to desired size */
+    height: 140px; /* Adjust to desired size */
+  }
+  
+  .titlea {
+    display: flex;
+    flex-direction: column; /* Stack the text vertically */
+    align-items: center; /* Center the text horizontally */
+    margin: 0;
+    position: relative; /* Positioning adjustments */
+    top: 20px; /* Adjust for vertical spacing */
+  }
+  
+  .welcome {
+    font-size: 14px; /* Font size for 'Welcome to' */
+    margin: 0; /* No margin */
+    margin-left: 30px;
+    margin-top: 20px;
+    color: white;
+  }
+  
+  .oxiClinics {
+    font-size: 40px; /* Font size for 'OxiWheel' */
+    margin: 0; /* No margin */
+    margin-left: 130px;
+    color: white;
+    /* margin-top: 10px; */
+  }
+  
+  .notificationIcon {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 35px; /* Size of the notification icon */
+    height: 35px; /* Size of the notification icon */
+  }
+  
+  
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+    height: 100px;
+    background-color: #ffffff;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #ff0000;
+    /* border-radius: 10px; */
+    padding: 0px;
+    width: 90px; 
+    height: 90px; 
+    color: #ff0000;
+    position: relative; /* To position label correctly */
+    
+  }
+  
+  .cardIcon {
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+    
+  }
+  
+  .label {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    top: 20px; /* Moves text outside of the card */
+  }
+  
+  .card p {
+    margin: 0;
+  }
+  
+  /* Footer Styles */
+.clinic-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  max-width: 325px;
+  background-color: #fff;
+  padding: 8px;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #ccc;
+  margin-bottom: px;
+  box-sizing: border-box;
+}
+
+.footer-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 22px;
+  cursor: pointer;
+  color: gray;
+}
+
+.footer-icon.selected {
+  color: red;
+}
+
+.footer-icon span {
+  font-size: 12px;
+}
+  /* Responsive for small screens */
+  @media (max-width: 480px) {
+    .header {
+      height: 150px;
+    }
+  
+    .logo {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .oxiClinic{
+      font-size: 40px;
+      margin-left: 100px;
+      
+    }
+  
+    .welcome {
+      font-size: 14px; /* Font size for 'Welcome to' */
+      margin: 0; /* No margin */
+      margin-left: -15px;
+      margin-top: 20px;
+    }
+  
+    
+  
+    .footer {
+      padding: 5px 0;
+    }
+  
+    .footerIcon {
+      font-size: 22px;
+    }
+  }
+  
+  /* Responsive for medium screens (tablets, small desktops) */
+  @media (min-width: 481px) and (max-width: 1024px) {
+    .container {
+      max-width: 768px; /* Set to tablet width */
+    }
+  
+    .logo {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .oxiClinic {
+      font-size: 40px;
+      margin-left: 130px;
+    }
+  
+    .grid {
+      grid-gap: 100px;
+    }
+  
+    .card {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .cardIcon {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .footerIcon {
+      font-size: 28px;
+    }
+  }
+  

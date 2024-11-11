@@ -29,7 +29,7 @@ const AvailableSlots: React.FC = () => {
         ))}
       </div>
 
-      <button className="edit-button">EDIT</button>
+      <button className="edit-button">SAVE</button>
     </div>
   );
 };

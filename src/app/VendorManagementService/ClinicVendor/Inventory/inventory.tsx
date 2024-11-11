@@ -15,7 +15,7 @@ const Inventory: React.FC = () => {
   return (
     <div className="inventory-page">
       <header className="inventory-header">
-        <FaArrowLeft className="back-arrow"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
+        <FaArrowLeft className="back-arrow"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')}/>
         <h1>Inventory</h1>
       </header>
 

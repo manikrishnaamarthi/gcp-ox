@@ -13,7 +13,7 @@ const Inventory: React.FC = () => {
   };
 
   return (
-    <div className="inventory-page">
+    <div className="inventory-pagee">
       <header className="inventory-header">
         <FaArrowLeft className="back-arrow"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
         <h1>Inventory</h1>
@@ -46,7 +46,7 @@ const Inventory: React.FC = () => {
 
       
 
-      <div className="footer">
+      <div className="footere">
         <div
           className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
           onClick={() => handleFooterClick('home')}

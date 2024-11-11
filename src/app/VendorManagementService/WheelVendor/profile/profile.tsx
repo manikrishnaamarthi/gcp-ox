@@ -1,15 +1,21 @@
 'use client';
 import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import './profile.css';
-import { FaCamera, FaArrowLeft, FaTimes, FaHome, FaBell, FaUser, FaCalendarAlt, FaPlusCircle, FaEdit } from 'react-icons/fa';
+import {
+  FaCamera, FaArrowLeft, FaTimes, FaHome, FaBell, FaUser,
+  FaCalendarAlt, FaPlusCircle, FaEdit
+} from 'react-icons/fa';
 
 const Profile: React.FC = () => {
+  const router = useRouter();
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [email, setEmail] = useState('');
   const [profileImage, setProfileImage] = useState('/path-to-profile-image.jpg'); // Initial profile image
   const [oxiImage1, setOxiImage1] = useState(''); // State for first Oxi Upload image
   const [oxiImage2, setOxiImage2] = useState(''); // State for second Oxi Upload image
   const [isEditing, setIsEditing] = useState(false); // Toggle editing mode
+  const [selectedTime, setSelectedTime] = useState(''); // Store selected time
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference for profile image file input
   const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null); // Reference for first Oxi Upload input
   const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null); // Reference for second Oxi Upload input
@@ -48,16 +54,22 @@ const Profile: React.FC = () => {
     }
   };
 
+  const handleTimeBoxClick = (time: string) => {
+    setSelectedTime(time);
+    // Navigate to the new page with selected time as a query parameter
+    router.push(`/VendorManagementService/WheelVendor/Availableslots?time=${encodeURIComponent(time)}`);
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <FaArrowLeft className="arrow-icon" />
+        <FaArrowLeft className="arrow-icon1" />
         <h2 className="profile-title">Profile</h2>
         <FaEdit
           className="edit-icon"
           onClick={handleEditClick}
           style={{ color: 'red', fontSize: '20px', cursor: 'pointer' }}
-        /> {/* Red edit icon in the top-right */}
+        />
       </div>
 
       {/* Profile Image Section */}
@@ -123,7 +135,7 @@ const Profile: React.FC = () => {
               <img src={oxiImage1} alt="Oxi Upload 1" className="oxi-upload-image" />
             ) : (
               <div className="oxi-upload">
-                <span>Oxi Upload 1</span>
+                <span>Oxi Image 1</span>
               </div>
             )}
             <input
@@ -140,7 +152,7 @@ const Profile: React.FC = () => {
               <img src={oxiImage2} alt="Oxi Upload 2" className="oxi-upload-image" />
             ) : (
               <div className="oxi-upload">
-                <span>Oxi Upload 2</span>
+                <span>Oxi Image 2</span>
               </div>
             )}
             <input
@@ -156,16 +168,21 @@ const Profile: React.FC = () => {
         <div className="input-group">
           <label htmlFor="time">Time</label>
           <div className="time-boxes">
-            <div className="time-box">10:00 PM</div>
-            <div className="time-box">12:00 PM</div>
-            <div className="time-box">05:00 AM</div>
-            <div className="time-box">10:00 AM</div>
+            {['10:00 PM', '12:00 PM', '05:00 AM', '10:00 AM'].map((time) => (
+              <div
+                key={time}
+                className="time-box"
+                onClick={() => handleTimeBoxClick(time)}
+              >
+                {time}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Footer with icons */}
-      <div className="footer">
+      <div className="footer4">
         <div
           className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
           onClick={() => handleFooterClick('home')}

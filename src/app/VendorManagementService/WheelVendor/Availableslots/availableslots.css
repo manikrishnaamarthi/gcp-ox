@@ -17,13 +17,13 @@ body {
 .available-slots-container {
     height: 100vh;
   width: 100%;
-  width: 375px;
+  width: 350px;
   margin: auto;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 4%;
+  
   }
   
   
@@ -58,7 +58,7 @@ body {
   .time-slots-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 12px;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom:px ;
