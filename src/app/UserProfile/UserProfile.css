@@ -17,8 +17,8 @@ body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   padding: 20px;
-  width: 130%;
-  max-width: 375px; /* Ensures max-width for mobile responsiveness */
+  width: 100vw;
+  max-width: 350px; /* Ensures max-width for mobile responsiveness */
   margin: 0 auto; /* Centers the container */
   display: flex;
   flex-direction: column;
@@ -97,21 +97,21 @@ body {
   color: white;
 }
 .profile{
-  margin-left: 20px;
-  margin-bottom: px;
+  margin-right: 255px;
+  margin-bottom: 10px;
 
 }
 
 /* Profile Menu Section */
 .profile-menu {
   flex-grow: 1; /* Ensures the profile menu grows and pushes footer down */
-  margin-top: px;
-  margin-right: px;
+  margin-top: -10px;
+  margin-bottom: px;
   color: red;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   padding: px;
-  width: 110%;
+  width: 113%;
 }
 
 .profile-menu ul {
@@ -124,7 +124,7 @@ body {
   display: flex;
   align-items: center; /* Align icon and text vertically */
   justify-content: flex-start;
-  padding: 14px;
+  padding: 13px;
   /* padding-left: 20px; */
   border-bottom: 1px solid #eaeaea;
   cursor: pointer;
@@ -247,14 +247,12 @@ body {
     width: 100vw;
     max-width: 350px;
     background-color: #fff;
-    padding: 8px;
+    padding: 6px;
     display: flex;
     justify-content: space-around;
-    border-top: 1px solid #ccc;
     margin-bottom: px;
-    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-    border-bottom-right-radius: 20px;
     box-sizing: border-box;
+    margin-right:-23px;
 }
 
 .footer-icon {
@@ -264,6 +262,7 @@ body {
     font-size: 22px;
     cursor: pointer;
     color: gray;
+    margin-right: 10px;
 
 }
 .footer-icon.active {
