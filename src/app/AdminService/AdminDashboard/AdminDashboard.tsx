@@ -6,7 +6,7 @@ import { FaHome } from 'react-icons/fa';
 import { BiSolidBookAdd } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa";
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
-import { FaPeopleGroup } from "react-icons/fa6";
+import { FaPeopleGroup } from 'react-icons/fa6';
 import { FaChartArea } from "react-icons/fa";
 
 const categories = ["OxiviveClinic", "OxiviveWheel"];
@@ -41,9 +41,10 @@ const AdminDashboard = () => {
     return matchesCategory && matchesSearch;
   });
 
-  // Navigate to the details page for the selected vendor
-  const handleCardClick = () => {
-    router.push(`/AdminService/AdminDashboard/AdminDetails/`);
+  // Navigate to the details page for the selected vendor, passing the vendor's details
+  const handleCardClick = (vendor) => {
+    // Navigate to the details page for the selected vendor, passing vendor's details as URL params
+    router.push(`/AdminService/AdminDashboard/AdminDetails?id=${vendor.id}&name=${vendor.name}&profile_photo=${vendor.profile_photo}&selectedService=${vendor.selectedService}&address=${vendor.address}&email=${vendor.email}&phone=${vendor.phone}&pan_front_side=${vendor.pan_front_side}&gstNumber=${vendor.gstNumber}&aadhar_front_side=${vendor.aadhar_front_side}&aadhar_back_side=${vendor.aadhar_back_side}&pan_back_side=${vendor.pan_back_side}&licence_end_date=${vendor.licence_end_date}`);
   };
 
   return (
@@ -83,35 +84,40 @@ const AdminDashboard = () => {
       </aside>
       
       <main className="admin-content">
-        <div className="admin-header">
-          <h2 className="admin-title">Vendors Applications</h2>
-          
-          {/* Search Bar */}
-          <input
-            type="text"
-            placeholder="Search by vendor name..."
-            className="search-bar"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on input change
-          />
-        </div>
+      <div className="admin-header">
+  <h2 className="admin-title">Vendors Applications</h2>
+</div>
 
-        <div className="admin-categories">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={`category-button ${activeCategory === category ? 'active' : ''}`}
-              onClick={() => setActiveCategory(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+<div className="admin-categories">
+  {/* Category Buttons */}
+  <div className="categories-container">
+    {categories.map((category) => (
+      <button
+        key={category}
+        className={`category-button ${activeCategory === category ? 'active' : ''}`}
+        onClick={() => setActiveCategory(category)}
+      >
+        {category}
+      </button>
+    ))}
+  </div>
+
+  {/* Search Bar */}
+  <input
+    type="text"
+    placeholder="Search by vendor name..."
+    className="search-bar"
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+  />
+</div>
+
+
         
         <div className="cards-container">
           {filteredVendors.length > 0 ? (
             filteredVendors.map((vendor, index) => (
-              <div key={index} className="card" onClick={() => handleCardClick()}>
+              <div key={index} className="card" onClick={() => handleCardClick(vendor)}>
                 <img src={`${vendor.profile_photo}`} alt={vendor.name} className="vendor-image" />
                 <p className="vendor-name">Name: {vendor.name}</p>
                 <p className="vendor-info">Applied: {vendor.selectedService}</p>

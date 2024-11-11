@@ -45,7 +45,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    margin-left: -90px;
+    margin-left: -40px;
   }
   
   .sidebar-icon {
@@ -80,51 +80,57 @@ body {
   }
 
   .admin-header {
-  display: flex;
-  justify-content: center; /* Center everything horizontally */
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%; /* Ensure the header takes full width */
-}
-
-.search-bar {
-  padding: 8px;
-  width: 200px;
-  border-radius: 5px;
-  border: 1px solid red; /* Set the border color to red */
-  font-size: 14px;
-  margin-left: auto;
-  color: red; /* Set text color to red */
-}
-
-.search-bar:focus {
-  border-color: red; /* Keep the border red when focused */
-  color: red; /* Keep the text color red when focused */
-  outline: none; /* Remove default focus outline */
-}
-
-
-.admin-title {
-  font-size: 28px;
-  color: #ff0000;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  width: 100%; /* Allow the title to stretch and align text */
-  text-align: center;
-  margin-left: 200px;
-}
-
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
   
-  /* Category buttons */
+  .admin-title {
+    font-size: 28px;
+    color: #ff0000;
+    font-weight: bold;
+    margin-bottom: 10px; /* Space between title and categories */
+  }
+  
+  /* Categories and Search Bar */
   .admin-categories {
+    display: flex;
+    justify-content: space-between; /* Space between categories and search bar */
+    align-items: center;
+    width: 100%;
+    padding: 0 20px; /* Add padding on the sides */
+    margin-bottom: 20px;
+  }
+  
+  .categories-container {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 20px;
-    top: 60px;
+    flex-grow: 1; /* Allow this section to grow to center the buttons */
+    margin-left: 200px;
   }
   
+  /* Search bar styles */
+  .search-bar {
+    padding: 8px;
+    width: 200px;
+    border-radius: 10px;
+    border: 1px solid red;
+    font-size: 14px;
+    color: red;
+  }
+  
+  .search-bar:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+  }
+  
+  .search-bar::placeholder {
+    color: red;
+  }
+  
+  /* Category buttons */
   .category-button {
     padding: 10px 18px;
     border-radius: 15px;
@@ -143,6 +149,8 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+  
+  
   /* Vendor cards */
   .cards-container {
     display: flex;
@@ -153,7 +161,7 @@ body {
   }
   
   .card {
-    width: 250px;
+    width: 300px;
     background-color: #faf5f5;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -182,20 +190,42 @@ body {
     margin: 4px 0;
   }
   
-  /* Responsive Design */
-  @media (min-width: 768px) {
-    .cards-container {
-      gap: 30px;
+  /* Responsive Design for Laptop Screens */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .admin-dashboard {
+        display: flex;
     }
-  
-    .card {
-      width: 300px;
-    }
-  
-    .admin-title {
-      font-size: 32px;
-    }
-  }
-  
-  
 
+    .admin-sidebar {
+        width: 200px; /* Increase sidebar width for larger screens */
+    }
+
+    .logo img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .logo p {
+        font-size: 16px;
+    }
+
+    .admin-title {
+        font-size: 32px;
+    }
+
+    .categories-container {
+        margin-left: 230px; /* Adjust margin for better layout */
+    }
+
+    .search-bar {
+        width: 200px;
+    }
+
+    .cards-container {
+        gap: 30px;
+    }
+
+    .card {
+        width: 300px; /* Increase card size */
+    }
+}

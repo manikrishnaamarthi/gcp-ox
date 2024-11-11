@@ -18,7 +18,7 @@ const Booking = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/my-bookings/');
+                const response = await fetch('http://127.0.0.1:8000/api/bookingapp_bookingservice/');
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Fetched bookings:', data); // Check the response data here
@@ -34,20 +34,21 @@ const Booking = () => {
         fetchBookings();
     }, []);
 
-    const handleCardClick = () => {
+    const handleCardClick = (booking) => {
         if (activeTab === 'Completed') {
-            router.push(`/Booking/CompleteBooking/`);
+            router.push(`/Booking/CompleteBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}`);
         }
     };
 
-    const handleCancelClick = () => {
-        router.push(`/Booking/CancelBooking/`);
+    const handleCancelClick = (booking) => {
+        router.push(`/Booking/CancelBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}`);
     };
+    
 
     const filteredBookings = bookings.filter((booking) => {
         if (activeTab === 'MyBooking') return true;
-        if (activeTab === 'Cancelled') return booking.status.toLowerCase() === 'cancelled';
-        if (activeTab === 'Completed') return booking.status.toLowerCase() === 'completed';
+        if (activeTab === 'Cancelled') return booking.booking_status.toLowerCase() === 'cancel';
+        if (activeTab === 'Completed') return booking.booking_status.toLowerCase() === 'completed';
         return false;
     });
 
@@ -84,19 +85,23 @@ const Booking = () => {
             <section className="booking-list">
                 {filteredBookings.length > 0 ? (
                     filteredBookings.map((booking) => (
-                        <article key={booking.id} className="booking-card" onClick={handleCardClick}>
+                        <article key={booking.id} className="booking-card" onClick={() => handleCardClick(booking)}>
                             <header className="booking-header">
-                                <span className={`status ${booking.status.toLowerCase()}`}>{booking.status}</span>
+                                <span className={`status ${booking.booking_status.toLowerCase()}`}>{booking.booking_status}</span>
                             </header>
                             <p className="service-name">{booking.service_type}</p>
                             <p className="service-time">
-                                {new Date(booking.date).toLocaleDateString()} {booking.time}
+                                {new Date(booking.appointment_date).toLocaleDateString()} {booking.appointment_time}
                                 <span className="price">$149</span>
                             </p>
                             <div className="action-buttons">
                                 {activeTab === 'MyBooking' && (
                                     <>
-                                        <button className="cancel-button" onClick={handleCancelClick}>Cancel Booking</button>
+                                        <button className="cancel-button" onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleCancelClick(booking);
+                                        }}>Cancel Booking</button>
+
                                         <button className="reschedule-button">
                                             <FaRedoAlt /> Reschedule
                                         </button>
@@ -106,7 +111,7 @@ const Booking = () => {
                             <footer className="booking-footer">
                                 <div className="service-provider">
                                     <div className="text-content">
-                                        <h2>Akshay Kumar</h2>
+                                        <h2>{booking.name}</h2>
                                     </div>
                                     <img src="/images/doctor.png" alt="Service Provider" className="provider-image" />
                                 </div>
