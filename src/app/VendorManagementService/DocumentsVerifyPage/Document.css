@@ -5,7 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* width: 375px; */
+    width: 350px;
     margin: auto;
     min-height: 100vh;
     justify-content: center;
@@ -21,7 +21,7 @@ body {
     background-color: #FC000E;
     min-height: 100vh;
     border-radius: 25px;
-    width: 375px;
+    width: 350px;
     
 }
 
@@ -71,7 +71,7 @@ body {
     align-items: center;
     background-color: #e1dddd;
     padding: 12px;
-    margin-left: 38px;
+    margin-left: 15px;
     border-radius: 10px;
     margin-bottom: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -114,6 +114,7 @@ body {
     border: none;
     width: 322px;
     cursor: pointer;
+    margin-left: -11px;
     margin-top: 20px;
 }
 
@@ -139,13 +140,13 @@ body {
 
 
 .uploaded {
-    border: 2px solid green;
+    border: 2px solid #34C759;
 }
 
 .tick-icon {
-    color: green;
-    font-size: 1.0em;
-    margin-right: 2px;
+    color: #34C759;
+    font-size: 1.1em;
+    margin-right: px;
     margin-bottom: 20px;
 }
 

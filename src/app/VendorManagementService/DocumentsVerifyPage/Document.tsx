@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import './Document.css'; // External CSS for styling
 import { FaIdBadge, FaBuilding, FaIdCard, FaUser } from 'react-icons/fa';
-import { IoIosArrowForward, IoMdArrowBack } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
+import { BiArrowBack } from "react-icons/bi";
 import { useRouter } from 'next/navigation';
 import { TiTick } from 'react-icons/ti';
 import axios from 'axios';
@@ -184,7 +185,7 @@ if (dateOfBirth) {
     return (
         <div className="document-container">
             <header className="header">
-                <IoMdArrowBack className="back-icon1" onClick={() => router.back()} />
+                <BiArrowBack className="back-icon1" onClick={() => router.back()} />
                 <h1>Upload documents</h1>
                 <p>Quick & Simple Process</p>
             </header>

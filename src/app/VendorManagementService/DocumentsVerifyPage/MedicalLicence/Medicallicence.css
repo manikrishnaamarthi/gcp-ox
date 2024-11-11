@@ -86,8 +86,8 @@ body {
     cursor: pointer;
     position: relative;
     border-radius: 5px;
-    border: 1px dashed #2641f7;
-    background-color: #d9d4d4;
+    border: 1px dashed #213ef7;
+  background-color: #d5daf9;
 }
 
 .uploadLabel {
@@ -145,7 +145,7 @@ body {
     width: 100%;
     padding: 8px;
     margin-bottom: 5px;
-    border: 1px solid #a8a7a7;
+    border: 1px solid rgb(139, 139, 139);
     font-size: 14px;
     color: rgb(154, 152, 152);
   }
@@ -156,6 +156,7 @@ body {
     font-size: 16px;
     margin-bottom: 5px;
     text-align: left;
+    border:1px;
   }
   
   
@@ -168,6 +169,19 @@ body {
     font-weight: normal; 
   }
 
+  .inputField:focus {
+    outline: black; 
+    border: 2px solid #FC000E; 
+}
+
+.inputField:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid red; /* Add red border on focus */
+}
+
+  
+
+  
 
 
   

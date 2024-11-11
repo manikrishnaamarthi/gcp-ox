@@ -1,7 +1,8 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { FiUpload, FiArrowLeft } from "react-icons/fi";
+import { FiUpload } from "react-icons/fi";
 import "./Buildinglicence.css"; 
+import { BiArrowBack } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 
 const Buildinglicence: React.FC = () => {
@@ -44,7 +45,7 @@ const Buildinglicence: React.FC = () => {
   return (
     <div className="container">
       <div className="back-arrow">
-        <FiArrowLeft className="arrow-icon" onClick={() => router.back()} />
+        <BiArrowBack className="arrow-icon" onClick={() => router.back()} />
       </div>
 
       <h1 className="header1">Building Permit & Licence</h1>

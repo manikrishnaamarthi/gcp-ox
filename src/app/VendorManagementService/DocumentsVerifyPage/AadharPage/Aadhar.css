@@ -67,7 +67,7 @@ body {
   margin-bottom: 210px;
   position: relative;
   object-fit: cover;
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* Styling for the upload boxes */
@@ -81,10 +81,8 @@ body {
   cursor: pointer;
   position: relative;
   border-radius: 5px;
-  border: 1px dashed #2641f7;
-  background-color: #d9d4d4;
-  margin-bottom: 10px;
-
+  border: 1px dashed #213ef7;
+background-color: #c9d0ff;
 }
 
 /* Upload label containing icon and text */

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FiUpload, FiArrowLeft } from "react-icons/fi";
+import { FiUpload } from "react-icons/fi";
+import { BiArrowBack } from "react-icons/bi";
 import "./Medicallicence.css";
 import { useRouter } from "next/navigation";
 
@@ -57,6 +58,14 @@ const Medicallicence: React.FC = () => {
         setLicenceEndDate(formattedValue);
     };
 
+    const handleLicenceNumberChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const value = e.target.value;
+        const formattedValue = value.replace(/[^0-9]/g, ""); // Allow only integers
+        setLicenceNumber(formattedValue);
+    };
+
     const handleSubmit = () => {
         if (frontSide && backSide && licenceNumber && licenceEndDate) {
             localStorage.setItem("licenceNumber", licenceNumber);
@@ -73,7 +82,7 @@ const Medicallicence: React.FC = () => {
     return (
         <div className="container">
             <div className="back-arrow">
-                <FiArrowLeft className="arrow-icon" onClick={() => Router.back()} />
+                <BiArrowBack className="arrow-icon" onClick={() => Router.back()} />
             </div>
 
             <h1 className="header1">Medical Practitioner Licence</h1>
@@ -138,7 +147,7 @@ const Medicallicence: React.FC = () => {
                     placeholder="Medical Practitioner Licence Number"
                     className="inputField"
                     value={licenceNumber}
-                    onChange={(e) => setLicenceNumber(e.target.value)}
+                    onChange={handleLicenceNumberChange} // Added validation here
                 />
 
                 <label className="formLabel">Licence End Date</label>
