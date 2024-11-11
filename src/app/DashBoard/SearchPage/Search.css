@@ -4,7 +4,7 @@
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(228, 228, 228);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -16,139 +16,88 @@ body {
 
   }
 
+/* Search.css */
 
-  .search-page {
-    padding: 16px;
-    font-family: Arial, sans-serif;
-    width: 80vw;  
-    box-sizing: border-box;
-    height: 100vh;
-    background-color: white;
-    box-sizing: border-box; /* Ensures padding is included in the width */
-    margin: 0 auto; /* Centers the container */
-    box-shadow: 0 4px 8px rgba(21, 21, 21, 0.1);
-    max-width: 375px;
-  }
-  
-  .search-bar-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px; 
-    margin-left: 0; /* Adjusted to keep elements aligned */
-  padding: 10px; /* Added padding for even spacing */
-    
-  }
-  
-  
-  
-  .back-button {
-    
-    font-size: 10px;
-    color: rgb(192, 183, 183);
-    position: relative;
-    background-color: #eae8e8ea; /* Light grey background */
-    border-radius: 50%;        /* Circular button */
-    padding: 5px;
-    margin-right: 15px;
+.home-container {
+  padding: 16px;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  width: 100%; 
+  max-width: 350px;
+  width: 80vw; 
+  min-height: 100vh;
+  background-color: white;
+  flex-direction: column;
+ 
 }
-  
-  
- /* Search Bar */
 
-
- .search-container {
-  position: relative;
+.search-container {
   display: flex;
-  width: 100%;
-  align-items: center; 
-  
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
 }
 
-.search-input {
-  
-  border: 1px solid #ededed;
-  font-size: 16px;
-  box-sizing: border-box;
-  border-radius: 13px;
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 8px;
   width: 100%;
-  padding: 10px 16px; /* Adjusted for even padding */
-  background-color: #f7f4f4;
-  padding-left: 45px; 
-  color:#999999;
+  max-width: 400px;
+  margin-bottom: 16px;
 }
 
+.search-bar input {
+  border: none;
+  outline: none;
+  margin-left: 8px;
+  width: 100%;
+}
 
+ 
+.footer-section {
+  position: fixed;
+  margin-left:14px;
+  bottom: 0;
+  transform: translateX(-2%);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  z-index: 1000;
+  align-items: center;
+  gap: 24px; 
+}
 
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #6f7071;
+.footer-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
   cursor: pointer;
+  color: rgb(151, 147, 147);
+  margin: 0 12px;
+
 }
 
-.search-input::placeholder {
-  color: #959090;
-  opacity: 1; /* Ensures the color is fully opaque */
+.footer-header{
+  font-size:12px;
+  margin-top:2px;
+  color:rgb(146, 127, 127);
+
 }
 
-  .popular-locations {
-    margin-top: 20px;
-  }
-  
-  .location-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-  }
-  
-  .navigation-icon {
-    cursor: pointer;
-  }
-  
-  .footer-section {
-    position: fixed;
-    margin-left:-9px;
-    bottom: 0;
-    transform: translateX(-2%);
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 16px;
-    background-color: #ffffff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 375px;
-    z-index: 1000;
-    align-items: center;
-    gap: 24px; 
-  }
-  
-  .footer-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 24px;
-    cursor: pointer;
-    color: rgb(151, 147, 147);
-    margin: 0 16px;
+.footer-icon.active {
+  color:#FC000E;
+}
 
-  }
-
-  .footer-header{
-    font-size:12px;
-    margin-top:2px;
-    color:rgb(146, 127, 127);
-  
-  }
-
-  .footer-icon.active {
-    color: red;
-  }
-  
-  .footer-icon.active .footer-header {
-    color: red;
-  }
+.footer-icon.active .footer-header {
+  color:#FC000E;
+}
 
 

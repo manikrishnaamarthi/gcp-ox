@@ -209,7 +209,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div>
+      <div className='explore-container'>
         <p className='images-above-section'> Explore</p>
       </div>
 

@@ -8,7 +8,7 @@ body {
 .myBookingContainer {
   height: 100vh;
   width: 100%;
-  max-width: 375px;
+  max-width: 350px;
   margin: auto;
   background-color:#ffffff;
   display: flex;
@@ -47,6 +47,7 @@ body {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
+    gap:5px !important;
   }
   
   .tab {
@@ -139,11 +140,20 @@ body {
   }
   
   .footer {
+    position: fixed;
+    margin-left:5px;
+    bottom: 0;
+    transform: translateX(-2%);
+    width: 100%;
     display: flex;
     justify-content: space-around;
-    background-color: #fff;
-    padding: 10px 0;
+    padding: 10px;
+    background-color: #ffffff;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    z-index: 1000;
+    align-items: center;
+    gap: 24px; 
   }
   
   .footerItem {
@@ -245,6 +255,9 @@ body {
 
   .footerIcon {
     font-size: 20px; /* Adjust footer icon size */
+  }
+  .footer {
+    width:768px;
   }
 }
 

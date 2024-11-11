@@ -15,10 +15,11 @@ const DriverMap: React.FC = () => {
   const [directionsRenderer, setDirectionsRenderer] = useState<google.maps.DirectionsRenderer | null>(null);
   const [distance, setDistance] = useState<string | null>(null);
   const [duration, setDuration] = useState<string | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<google.maps.LatLngLiteral | null>(null);
 
-  const customerLocation = { lat: 16.816951274337345, lng: 81.53855014949437 }; // Example location, replace with dynamic data.
+  const customerLocation = { lat: 16.816951274337345, lng: 81.53855014949437 };
+  const reachThreshold = 0.1; // Distance threshold in kilometers to mark as "reached"
 
-  // Initialize the map and track driver’s current position
   const initializeMap = (initialPosition: google.maps.LatLngLiteral) => {
     const mapOptions: google.maps.MapOptions = {
       center: initialPosition,
@@ -35,7 +36,6 @@ const DriverMap: React.FC = () => {
     updateRoute(directionsService, renderer, initialPosition, customerLocation);
   };
 
-  // Function to update the route dynamically
   const updateRoute = (
     directionsService: google.maps.DirectionsService,
     directionsRenderer: google.maps.DirectionsRenderer,
@@ -61,7 +61,19 @@ const DriverMap: React.FC = () => {
     );
   };
 
-  // Load Google Maps script and set up tracking for driver's current position
+  const calculateDistance = (location1: google.maps.LatLngLiteral, location2: google.maps.LatLngLiteral) => {
+    const radLat1 = (Math.PI * location1.lat) / 180;
+    const radLat2 = (Math.PI * location2.lat) / 180;
+    const theta = location1.lng - location2.lng;
+    const radTheta = (Math.PI * theta) / 180;
+    let dist =
+      Math.sin(radLat1) * Math.sin(radLat2) +
+      Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
+    dist = Math.acos(Math.min(dist, 1));
+    dist = (dist * 180) / Math.PI;
+    return dist * 60 * 1.1515 * 1.609344; // Convert to kilometers
+  };
+
   useEffect(() => {
     const loadGoogleMapsScript = () => {
       if (!document.querySelector("#googleMaps")) {
@@ -77,7 +89,18 @@ const DriverMap: React.FC = () => {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
               };
-              initializeMap(currentLocation);
+              setCurrentLocation(currentLocation);
+              
+              if (!map) {
+                initializeMap(currentLocation);
+              } else {
+                updateRoute(new google.maps.DirectionsService(), directionsRenderer!, currentLocation, customerLocation);
+              }
+
+              const distanceToCustomer = calculateDistance(currentLocation, customerLocation);
+              if (distanceToCustomer < reachThreshold) {
+                setIsReached(true);
+              }
             },
             error => {
               alert("Error getting location. Ensure location access is enabled.");
@@ -90,14 +113,9 @@ const DriverMap: React.FC = () => {
       }
     };
     loadGoogleMapsScript();
-  }, []);
-  
-
-
-
+  }, [map, directionsRenderer]);
 
   const handleReached = () => {
-    setIsReached(true);
     const otp = Math.floor(10000 + Math.random() * 90000); // Generate a random 5-digit OTP
     alert(`OTP sent to customer: ${otp}`);
     router.push("/VendorManagementService/VendorDriverBooking/MyBooking");
@@ -115,7 +133,7 @@ const DriverMap: React.FC = () => {
       </div>
       {isReached ? (
         <button onClick={handleStartRide} className="startButton">
-          Start
+          Start Ride
         </button>
       ) : (
         <button onClick={handleReached} className="reachedButton">
@@ -123,8 +141,7 @@ const DriverMap: React.FC = () => {
         </button>
       )}
 
-
-<footer className="footer">
+      <footer className="footer">
         <div className="footerItem">
           <SlHome className="footerIcon" />
           <p>Home</p>

@@ -1,59 +1,49 @@
-"use client"
-import "./DriverDashBoard.css";
+"use client";
 import React from 'react';
-import { useRouter } from 'next/navigation'; 
-import { SlHome } from "react-icons/sl";
-import { IoNotificationsOutline } from "react-icons/io5";
-import { BsPerson } from "react-icons/bs";
-import { LuBookPlus } from "react-icons/lu";
+import './DriverDashBoard.css';
+import { useRouter } from 'next/navigation';
+import { FaRegAddressBook } from 'react-icons/fa';
+import { SlHome } from 'react-icons/sl';
+import { LuBookPlus } from 'react-icons/lu';
+import { IoNotificationsOutline } from 'react-icons/io5';
+import { BsPerson } from 'react-icons/bs';
 
-const DriverDashBoard = () => {
+const DriverDashBoard: React.FC = () => {
   const router = useRouter();
-
   return (
-    <div className="container">
-      <header className="header">
-        <div className="logoContainer">
-          <img src="/images/circle.png" alt="OxiWheel Logo" className="logo" />
-          <p className="logo-below-text"> Driver</p>
+    <div className="dashboard">
+      <div className="dashboard-header">
+        <IoNotificationsOutline className="notification-icon" />
+        <img src="/images/shot(1).png" alt="Logo" className="logo" />
+        <div className="dashboard-text">
+          <h1>Welcome</h1>
+          <h2>Oxi Wheel</h2>
         </div>
-        <h1 className="title">
-          <span className="welcome">Welcome to</span>
-          <span className="oxiwheel">OxiWheel</span>
-        </h1>
-        <img src="/images/bell.png" alt="Notification Icon" className="notificationIcon" />
-      </header>
-
-      <div className="main">
-        <div className="card-book" >
-          <img src="/images/bookings.png" alt="Dashboard" className="cardIcon"  onClick={() => router.push('/DriverManagementService/VendorDriverBooking/MyBooking')}/>
-        </div>
-        <p className="cardText">Bookings</p>
-        
-        <div className="card-dashboard">
-          <img src="/images/dashboard.png" alt="Bookings" className="cardIcon" />
-        </div>
-        <p className="cardText-dashboard">Dashboard</p>
       </div>
+      <p className="dashboard-role">Driver</p>
 
-      <footer className="footer">
-        <div className="footerItem">
-          <SlHome className="footerIcon" />
-          <p>Home</p>
-        </div>
-        <div className="footerItem">
-          <LuBookPlus className="footerIcon" />
-          <p>Booking</p>
-        </div>
-        <div className="footerItem">
-          <IoNotificationsOutline className="footerIcon" />
-          <p>Notification</p>
-        </div>
-        <div className="footerItem">
-          <BsPerson className="footerIcon" />
-          <p>Profile</p>
-        </div>
-      </footer>
+      <div className="dashboard-container">
+        <FaRegAddressBook size={100} className="dashboard-icon" onClick={() => router.push('/DriverManagementService/VendorDriverBooking/MyBooking')} />
+        <p className="dashboard-icon-text">Booking</p>
+        <footer className="footer">
+          <div className="footerItem">
+            <SlHome className="footerIcon" />
+            <p>Home</p>
+          </div>
+          <div className="footerItem">
+            <LuBookPlus className="footerIcon" />
+            <p>Booking</p>
+          </div>
+          <div className="footerItem">
+            <IoNotificationsOutline className="footerIcon" />
+            <p>Notification</p>
+          </div>
+          <div className="footerItem">
+            <BsPerson className="footerIcon" />
+            <p>Profile</p>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 };

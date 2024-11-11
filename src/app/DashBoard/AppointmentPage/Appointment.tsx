@@ -1,14 +1,13 @@
 "use client";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect , useRef} from 'react';
 import { useRouter } from 'next/navigation';
 import { IoChevronBackSharp } from 'react-icons/io5';
 import './Appointment.css';
 
+
 const Appointment = () => {
   const router = useRouter();
   const today = new Date();
-  
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<string>(today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -16,6 +15,9 @@ const Appointment = () => {
   const [showError, setShowError] = useState<boolean>(false);
   const [selectedData, setSelectedData] = useState<{ serviceType: string; address: string; name: string } | null>(null);
 
+  const modalRef = useRef(null);
+  
+  
   // Load data from local storage
   useEffect(() => {
     const savedData = localStorage.getItem('selectedData');
@@ -115,11 +117,41 @@ const Appointment = () => {
     setSelectedSlot(null); // Reset selected time slot when date changes
   };
 
+  const startDrag = (e) => {
+    e.preventDefault();
+    const modalElement = modalRef.current;
+    let initialY = e.clientY || e.touches[0].clientY;
+
+    const onDrag = (event) => {
+      const currentY = event.clientY || event.touches[0].clientY;
+      const offset = currentY - initialY;
+
+      if (modalElement && offset < 0) { // Only allow upward drag
+        modalElement.style.transform = `translateY(${offset}px)`;
+      }
+    };
+
+    const endDrag = () => {
+      if (modalElement) modalElement.style.transform = `translateY(0)`;
+      document.removeEventListener("mousemove", onDrag);
+      document.removeEventListener("mouseup", endDrag);
+      document.removeEventListener("touchmove", onDrag);
+      document.removeEventListener("touchend", endDrag);
+    };
+
+    document.addEventListener("mousemove", onDrag);
+    document.addEventListener("mouseup", endDrag);
+    document.addEventListener("touchmove", onDrag);
+    document.addEventListener("touchend", endDrag);
+  };
+  
+
   return (
     <div className="appointment-container">
       <div className="header">
+        
         <button className="back-button" onClick={() => router.back()}>
-          <IoChevronBackSharp size={35} /> {/* Back icon */}
+          <IoChevronBackSharp size={20} /> {/* Back icon */}
         </button>
         <h1>Oxivive Services</h1>
       </div>
@@ -130,7 +162,7 @@ const Appointment = () => {
         {selectedData?.serviceType === 'Oxivive Clinic' && (
           <div className="service">
             <p>Oxivive Clinic</p>
-            <p><span className="amount">$ 49</span></p>
+            <p><span className="amount">INR 49</span></p>
           </div>
         )}
         {selectedData?.serviceType === 'Oxivive Wheel' && (
@@ -143,7 +175,8 @@ const Appointment = () => {
 
       <div className="appointment-dates">
         <h2>Appointment</h2>
-        <div className="date-picker">
+        <div className="date-picker-container">
+        <div className="date-picker" >
           {weekDates.map((date, index) => (
             <button
               key={index}
@@ -154,6 +187,7 @@ const Appointment = () => {
               <p className="date-weekday">{date.weekDay}</p>
             </button>
           ))}
+        </div>
         </div>
       </div>
 
@@ -193,8 +227,13 @@ const Appointment = () => {
 
       {isModalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content">
-            <h1>Confirmation</h1>
+           <div
+            className="modal-content"
+            ref={modalRef}
+            onMouseDown={startDrag}
+            onTouchStart={startDrag}
+          >
+            <h1 className='modal-header'>Confirmation</h1>
             {showError ? (
               <p><strong>Please select the date and time.</strong></p>
             ) : (

@@ -10,6 +10,7 @@ const Location: React.FC = () => {
   const [activeTab, setActiveTab] = useState('Oxivive Clinic');
   const [currentLocation, setCurrentLocation] = useState<google.maps.LatLngLiteral | null>(null);
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);
+  const [location, setLocation] = useState<string | null>(null);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU', // Replace with your API key
   });
@@ -46,12 +47,10 @@ const Location: React.FC = () => {
   const addressDetails = {
     'Oxivive Clinic': {
       address: 'HSR Layout Pvt. Ltd.',
-      street: '148, 10th Main Rd, Sector 7',
       name: 'Sai',
     },
     'Oxivive Wheel': {
       address: 'Right Joy Pvt. Ltd.',
-      street: '1534 Single Street, USA',
       name: 'Kumar Sai',
     },
   };
@@ -80,7 +79,7 @@ const Location: React.FC = () => {
         >
           <Marker position={currentLocation} />
           <button className="back-button" onClick={() => router.back()}>
-          <IoChevronBackSharp size={35} /> {/* Back icon */}
+          <IoChevronBackSharp size={20} /> {/* Back icon */}
         </button>
         </GoogleMap>
         
@@ -89,11 +88,19 @@ const Location: React.FC = () => {
       <div className="appointment-container">
         
         
-        <div className="tab-toggle">
-          <button className={activeTab === 'Oxivive Clinic' ? 'active' : ''} onClick={() => setActiveTab('Oxivive Clinic')}>
+      <div className="tab-toggle">
+          <button
+            className={activeTab === 'Oxivive Clinic' ? 'active' : ''}
+            style={{ color: activeTab === 'Oxivive Clinic' ? 'white' : '#FC000E' }}
+            onClick={() => setActiveTab('Oxivive Clinic')}
+          >
             Oxivive Clinic
           </button>
-          <button className={activeTab === 'Oxivive Wheel' ? 'active' : ''} onClick={() => setActiveTab('Oxivive Wheel')}>
+          <button
+            className={activeTab === 'Oxivive Wheel' ? 'active' : ''}
+            style={{ color: activeTab === 'Oxivive Wheel' ? 'white' : '#FC000E' }}
+            onClick={() => setActiveTab('Oxivive Wheel')}
+          >
             Oxivive Wheel
           </button>
         </div>
@@ -104,7 +111,7 @@ const Location: React.FC = () => {
             <h3 className="value">{currentAddress || 'Fetching address...'}</h3>
           </div>
           <div className="address-line">
-            <p className="label">Street/Building/Flat</p>
+            
             <h3 className="value">{addressDetails[activeTab].street}</h3>
           </div>
           <div className="address-line">

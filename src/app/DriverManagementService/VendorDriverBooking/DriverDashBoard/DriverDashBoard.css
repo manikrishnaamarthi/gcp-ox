@@ -1,236 +1,126 @@
 body {
-    margin: 0;
+    
     font-family: "Poppins", sans-serif;
     font-style: normal;
     background-color: #d7d2d2;
   }
   
-  .container {
-    height: 100vh;
-    width: 100%;
-    max-width: 370px;
-    margin: auto;
-    background-color:#FC000E;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .header {
+  .dashboard {
     background-color: #FC000E;
-    color: white;
-    padding: 20px;
-    text-align: center;
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+
+  .dashboard-header {
+    display: flex;
+    align-items: center;
     position: relative;
-    height: 25vh;
-    font-family: Arial, sans-serif;
+    color: white;
+  }
+
+  .dashboard-text h2{
+    color:white;
+    font-size:30px;
+  }
+
+  .dashboard-text h1,
+  .dashboard-text p {
+    color: white;
   }
   
-  .logoContainer {
-    position: absolute;
-    margin-right:5px;
-  }
-  .logo-below-text{
-    margin-top:30px;
-    margin-right:5px;
-    font-size: 24px;
-    font-weight:300;
-  }
-  .logo {
-    top: 5px;
-    left: 30px;
-    margin-top:10px;
-    margin-right:5px;
-    width: 100px; /* Adjust to desired size */
-    height: 100px; /* Adjust to desired size */
-  }
-  
-  .title {
-    display: flex;
-    flex-direction: column; /* Stack the text vertically */
-    align-items: center; /* Center the text horizontally */
-    margin: 0;
-    position: relative; /* Positioning adjustments */
-    top: 20px; /* Adjust for vertical spacing */
-  }
-  
-  .welcome {
-    font-size: 14px; 
-    margin: 0; 
-    margin-left: -42px;
-    margin-top: 20px;
-    
-  }
-  
-  .oxiwheel {
-    font-size: 40px; /* Font size for 'OxiWheel' */
-    margin: 0; /* No margin */
-    margin-left: 80px;
-    
-  }
-  
-  .notificationIcon {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    width: 25px; /* Size of the notification icon */
-    height: 25px; /* Size of the notification icon */
-  }
-  
-  
-  .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    padding: 20px;
-    height: 100px;
-    background-color: #ffffff;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-  }
-  
-  .card-dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    border: 2px solid #FC000E;
-    border-radius: 2px;
-    padding: 10px;
-    text-align: center;
-    width: 80px; 
-    height: 80px; 
-    color: #FC000E;
-    margin: 0 -90px;
-    margin-bottom: 250px;
-    gap: 24px;
-  }
-  
-  .card-book{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    border: 2px solid #FC000E;
-    border-radius: 2px;
-    padding: 10px;
-    text-align: center;
-    width: 80px; /* Adjusted size */
-    height: 80px; /* Adjusted size */
-    color: #FC000E;
-    margin: 0 -90px;
-    margin-bottom: 250px;
+  .dashboard-role{
+    color: white;
+    font-size:20px;
     margin-left:50px;
-    gap: 54px;
-  }
-  .cardIcon {
-    width: 100px;
-    height: 100px;
-    margin-right: 1px;
-    
   }
   
-  .cardText {
-    margin-top: 10px;
-    font-size: 16px;
-    margin-bottom: 130px;
-    margin-right: 120px;
+  .logo {
+    margin-right: 20px;
+  }
+  
+  .notification-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 24px;
+  }
+  
+  .logo {
+  width: 150px;
+  height: 150px;
+ 
+ }
+  
+  .dashboard-text h1,
+  .dashboard-text h2,
+  .dashboard-text p {
+    margin: 0;
+  }
+  
+  .dashboard-container {
+    background-color: white;
     color: #FC000E;
+    height: 90vh;
+    padding: 16px;
+    margin-top:30px;
+    text-align: center;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
   }
   
-  .cardText-dashboard{
-    margin-top: 10px;
-    font-size: 16px;
-    margin-bottom: 130px;
-    margin-right: 70px;
+  .dashboard-icon {
+    font-size: 24px;
     color: #FC000E;
+    border: 1px solid #FC000E;
+    padding: 20px;
+    margin-top:20px;
+    border-radius: 10px;
   }
-  
-  
-  
-  
+
+  .dashboard-icon-text {
+    color: #FC000E;
+    margin-top: 8px; /* Adjust as needed for spacing */
+  }
+
   
   .footer {
+    position: fixed;
+    margin-left:14px;
+    bottom: 0;
+    transform: translateX(-2%);
+    width: 100%;
     display: flex;
     justify-content: space-around;
-    padding: 10px 0;
-    background-color: white;
-    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    z-index: 1000;
+    align-items: center;
+    gap: 24px; 
   }
   
   .footerItem {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
   }
   
   .footerIcon {
-    font-size: 25px;
-    color:rgb(155, 148, 148)
+    font-size: 24px;
+    color: #bbb7b7;
   }
   
   .footerItem p {
     margin: 5px 0 0;
-    font-size: 0.75em;
-    font-weight: 500;
+    font-size: 12px;
   }
-  
-  
-
-  /* Media queries for responsive adjustments */
-@media (min-width: 375px) and (max-width: 767px) {
-  .header {
-    height: 25vh; /* Reduce height for smaller screens */
-  }
-  
-  .logo {
-    width: 50px;
-    height: 50px;
-  }
-
-  .oxiwheel {
-    font-size: 22px;
-  }
-
-  .main {
-    flex-direction: row;
-    justify-content: space-around; /* Align cards horizontally on small screens */
-  }
-
-  .card-book, .card-dashboard {
-    width: 60px;
-    height: 60px;
-  }
-
-  .cardIcon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .footerIcon {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 400px; /* Center container for larger mobile screens */
-  }
-  
-  .logo {
-    width: 80px;
-    height: 80px;
-  }
-
-  .card-book, .card-dashboard {
-    width: 90px;
-    height: 90px;
-  }
-
-  .cardIcon {
-    width: 60px;
-    height: 60px;
-  }
-}
