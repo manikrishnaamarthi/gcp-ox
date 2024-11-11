@@ -12,7 +12,7 @@ const EditProfile = () => {
   const [mobile, setMobile] = useState('');
   const [profileImage, setProfileImage] = useState('/images/profile.jpg');
   const [profileImageFile, setProfileImageFile] = useState(null); // To store the selected file
-  const [isEditable, setIsEditable] = useState(false);
+  const [isEditable, setIsEditable] = useState(true); // Set true to make fields editable by default
   const router = useRouter();
 
   // Fetch user data on component mount
@@ -84,6 +84,8 @@ const EditProfile = () => {
     }
   };
 
+  
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -100,10 +102,6 @@ const EditProfile = () => {
     document.getElementById('profileImageInput').click();
   };
 
-  const handleEdit = () => {
-    setIsEditable(true);
-  };
-
   const handleBack = () => {
     router.push('/user-profile');
   };
@@ -113,16 +111,20 @@ const EditProfile = () => {
       <header className="edit-profile-header">
         <span className="back-btn" onClick={() => router.push('/UserProfile')}>Back</span>
         <h2>Edit Profile</h2>
-        <span className="edit-btn" onClick={handleEdit}>Edit</span>
+        <span className="save-btn" onClick={handleSave}>Save</span>
       </header>
 
       <div className="edit-profile-content">
         <div className="profile-image-container">
-          <img
-            src={profileImage}
-            alt="Profile"
-            className="profile-image"
-          />
+          {profileImage === '/images/profile.jpg' ? (
+            <i className="fas fa-user person-icon"></i> // Display person icon if no profile image
+          ) : (
+            <img
+              src={profileImage}
+              alt="Profile"
+              className="profile-image"
+            />
+          )}
         </div>
 
         {isEditable && (
@@ -185,16 +187,6 @@ const EditProfile = () => {
           />
         </div>
       </div>
-
-      {/* Red-colored Save button at the bottom */}
-      {isEditable && (
-        <button
-          className="save-profile-btn"
-          onClick={handleSave}
-        >
-          Save
-        </button>
-      )}
     </div>
   );
 };
