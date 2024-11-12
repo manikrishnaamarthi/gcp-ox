@@ -67,6 +67,14 @@ body {
     background-color: transparent;
     white-space: nowrap;
   }
+  /* Logout Icon Styling */
+.sidebar-icon.logout-icon {
+  margin-top: 48px;
+}
+
+.sidebar-icon.logout-icon:hover {
+  color: #ff0000;
+}
   
   
   /* Main content */
