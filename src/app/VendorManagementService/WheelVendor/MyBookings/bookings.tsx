@@ -85,8 +85,8 @@ const Bookings: React.FC = () => {
   });
 
   return (
-    <div className="bookings-container">
-      <header className="header">
+    <div className="bookings-container0">
+      <header className="header0">
         <FaArrowLeft className="back-icon"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
         <h1>My Bookings</h1>
       </header>
@@ -110,7 +110,7 @@ const Bookings: React.FC = () => {
         })}
       </div>
 
-      <div className="tabs">
+      <div className="tabs8">
         {["Bookings", "Cancelled", "Completed", "History"].map((tab) => (
           <div
             key={tab}
@@ -122,7 +122,7 @@ const Bookings: React.FC = () => {
         ))}
       </div>
 
-      <div className="gray-section">
+      <div className="gray-section0">
         {loading ? (
           <p>Loading bookings...</p>
         ) : filteredBookings.length > 0 ? (
@@ -146,7 +146,7 @@ const Bookings: React.FC = () => {
         )}
       </div>
 
-      <div className="footer">
+      <div className="footer0">
         {[
           { icon: faHome, label: 'Home', key: 'home' },
           { icon: faClipboardList, label: 'Bookings', key: 'bookings' },

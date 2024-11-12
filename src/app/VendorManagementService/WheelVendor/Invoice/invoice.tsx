@@ -22,25 +22,25 @@ const InvoicePage: React.FC = () => {
   };
 
   return (
-    <div className="invoice-containerz">
+    <div className="invoice-container6">
       {/* Header Section */}
-      <div className="header">
-        <button className="back-button" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}>
+      <div className="header9">
+        <button className="back-button1" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
         <h1 className="title">Invoice</h1>
       </div>
 
       {/* Tab Navigation */}
-      <div className="tabs">
+      <div className="tabsp">
         <div
-          className={`tab ${selectedTab === 'invoice' ? 'active' : ''}`}
+          className={`tab1 ${selectedTab === 'invoice' ? 'active' : ''}`}
           onClick={() => handleTabClick('invoice')}
         >
           Invoice
         </div>
         <div
-          className={`tab ${selectedTab === 'history' ? 'active' : ''}`}
+          className={`tab1 ${selectedTab === 'history' ? 'active' : ''}`}
           onClick={() => handleTabClick('history')}
         >
           History
@@ -48,9 +48,9 @@ const InvoicePage: React.FC = () => {
       </div>
 
       {/* Card Section - All inside a single gray card */}
-      <div className="new-invoice-cardz">
-        <div className="cards">
-          <div className="invoice-card">
+      <div className="new-invoice-card1">
+        <div className="cards0">
+          <div className="invoice-cards">
             <div className="invoice-info">
               <p className="invoice-title">Wheel rent</p>
               <p className="invoice-date">25 Sept 2024</p>
@@ -60,7 +60,7 @@ const InvoicePage: React.FC = () => {
               <span className="status paid">Paid</span>
             </div>
           </div>
-          <div className="invoice-card">
+          <div className="invoice-cards">
             <div className="invoice-info">
               <p className="invoice-title">Wheel rent</p>
               <p className="invoice-date">25 Sept 2024</p>

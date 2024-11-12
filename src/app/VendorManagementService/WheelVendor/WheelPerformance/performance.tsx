@@ -30,14 +30,14 @@ const Performance = () => {
   const handleDateClick = (index) => setSelectedDate(index);
 
   return (
-    <div className="container">
-      <header className="header">
+    <div className="containerg">
+      <header className="headerh">
         <FaArrowLeft className="backIcon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')} /> {/* Navigate on click */}
         <h1>Wheel Performance</h1>
       </header>
 
       {/* Graph and Dropdown */}
-      <div className="card">
+      <div className="cardz">
         <div className="graphHeader">
           <h2>Total booking</h2>
           <select className="dropdown">
@@ -73,7 +73,7 @@ const Performance = () => {
       </div>
 
       {/* Tabs */}
-      <div className="tabs">
+      <div className="tabs1">
         {['Bookings', 'Cancelled', 'Completed', 'History'].map((tab) => (
           <div
             key={tab}

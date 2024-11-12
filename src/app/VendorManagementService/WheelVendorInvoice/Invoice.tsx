@@ -22,7 +22,7 @@ const InvoicePage: React.FC = () => {
   return (
     <div className="invoice-container">
       {/* Header Section */}
-      <div className="header">
+      <div className="header6">
         <button className="back-button">
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
@@ -30,7 +30,7 @@ const InvoicePage: React.FC = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="tabs">
+      <div className="tabsg">
         <div
           className={`tab ${selectedTab === 'invoice' ? 'active' : ''}`}
           onClick={() => handleTabClick('invoice')}
@@ -46,8 +46,8 @@ const InvoicePage: React.FC = () => {
       </div>
 
       {/* Card Section - All inside a single gray card */}
-      <div className="new-invoice-card">
-        <div className="cards">
+      <div className="new-invoice-card8">
+        <div className="cards8">
           <div className="invoice-card">
             <div className="invoice-info">
               <p className="invoice-title">Wheel rent</p>
@@ -81,11 +81,11 @@ const InvoicePage: React.FC = () => {
         </div>
 
         {/* New Invoice Button */}
-        <button className="new-invoice-button">New Invoice</button>
+        <button className="new-invoice-buttonf">New Invoice</button>
       </div>
 
       {/* Footer */}
-      <div className="footer">
+      <div className="footerf">
         <div
           className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
           onClick={() => handleFooterClick('home')}

@@ -14,7 +14,7 @@ body {
     scroll-behavior: smooth;
 }
 .invoice-container {
-    height: 100vh;
+  height: 100vh;
   width: 100%;
   max-width: 100%;
   width: 375px;
@@ -23,13 +23,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 4%;
   overflow-y: hidden;
   box-sizing: border-box;
 
   }
   
-  .header {
+  .header6 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -57,7 +56,7 @@ body {
     margin-right: 30px;
   }
   
-  .tabs {
+  .tabsg {
     display: flex;
     justify-content: space-around;
     margin: 20px;
@@ -86,12 +85,12 @@ body {
     background-color: red;
   }
   
-  .cards {
+  .cards8 {
     display: flex;
   flex-direction: column;
   gap: 10px; /* Space between cards */
   }
-  .new-invoice-card {
+  .new-invoice-card8 {
     background-color: #dddddd; /* Gray card */
   padding: 20px;
   margin: 15px 0;
@@ -99,7 +98,7 @@ body {
   margin-bottom: px;
   margin-top: -220px;
   }
-  .new-invoice-button {
+  .new-invoice-buttonf {
     background-color: #ff0004;
     color: #fff;
     padding: 10px 20px;
@@ -167,7 +166,7 @@ body {
     background-color: red;
   }
   
-  .new-invoice-button {
+  .new-invoice-buttonf {
     background-color: red;
     color: white;
     border: none;
@@ -176,11 +175,11 @@ body {
     font-size: 16px;
     cursor: pointer;
     width: 100%;
-    margin-bottom: px;
+    margin-bottom: 10px;
     margin-top: 240 px;
   }
   
-  .footer {
+  .footerf {
     position: fixed;
     bottom: 0;
     width: 100vw;
@@ -191,8 +190,6 @@ body {
     justify-content: space-around;
     border-top: 1px solid #ccc;
     margin-bottom: 5px;
-    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-    border-bottom-right-radius: 20px;
     box-sizing: border-box;
   }
   

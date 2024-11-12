@@ -15,21 +15,20 @@ body {
     border-radius: 4%;
 }
 
-.bookings-container{
+.bookings-container0{
 height: 100vh;
   width: 100%;
   max-width: 100%;
-  width: 375px;
+  width: 350px;
   margin: 0 auto;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 4%;
   overflow: hidden;
   box-sizing: border-box;
 }
-.header {
+.header0 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,10 +58,13 @@ h1 {
     gap: 12px;
     justify-content: space-around;
     background-color: white;
-    overflow: hidden; /* Remove scrolling */
+    overflow-x: scroll;
     flex-wrap: nowrap;
     padding: 0 10px; /* Add padding to adjust spacing */
 }
+.week-selection::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
 
 .week-day {
     font-size: 16px;
@@ -91,17 +93,16 @@ h1 {
     gap: 5px;
     margin-bottom: 10px;
 }
-.tabs {
+.tabs8{
     display: flex;
     justify-content: space-around;
-    padding: 0.5rem;
     border-bottom: 1px solid #e0e0e0;
-    margin-left: -20px;
+    margin-left: px;
     margin-top: px;
 }
 
 .tab-item {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem ;
     cursor: pointer;
     color: red;
     position: relative;
@@ -116,7 +117,7 @@ h1 {
 }
 
 /* Gray section covering the entire width */
-.gray-section {
+.gray-section0 {
     background-color: #f0f0f0;
     padding: 1rem 0;
     margin: 0;
@@ -209,19 +210,17 @@ p{
 }
 
 /* Footer Styles */
-.footer {
+.footer0 {
     position: fixed;
     bottom: 0;
     width: 100vw;
-    max-width: 375px;
+    max-width: 350px;
     background-color: #fff;
     padding: 8px;
     display: flex;
     justify-content: space-around;
     border-top: 1px solid #ccc;
     margin-bottom: px;
-    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-    border-bottom-right-radius: 20px;
     box-sizing: border-box;
 }
 

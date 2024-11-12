@@ -13,8 +13,8 @@ body {
     overflow-y: hidden;
     scroll-behavior: smooth;
 }
-.invoice-containerz {
-    height: 100vh;
+.invoice-container6 {
+  height: 100vh;
   width: 100%;
   max-width: 100%;
   width: 350px;
@@ -23,20 +23,19 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 4%;
   overflow-y: hidden;
   box-sizing: border-box;
 
   }
   
-  .header {
+  .header9 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     position: relative;
   }
   
-  .back-button {
+  .back-button1 {
     background: none;
     border: none;
     padding: 0;
@@ -57,14 +56,14 @@ body {
     margin-right: 30px;
   }
   
-  .tabs {
+  .tabsp {
     display: flex;
     justify-content: space-around;
     margin: 20px;
     color: red;
   }
   
-  .tab {
+  .tab1 {
     font-size: 20px;
   padding: 10px;
   cursor: pointer;
@@ -86,13 +85,13 @@ body {
     background-color: red;
   }
   
-  .cards {
+  .cards0 {
     display: flex;
   flex-direction: column;
-  gap: 10px; /* Space between cards */
+  gap: 10px; 
   }
-  .new-invoice-cardz {
-    background-color: #dddddd; /* Gray card */
+  .new-invoice-card1 {
+  background-color: #dddddd; /* Gray card */
   padding: 20px;
   margin: 15px 0;
   border-radius: 10px;
@@ -129,6 +128,7 @@ body {
     font-size: 15px;
     font-weight: bold;
     color: black;
+    text-align: left;
 
   }
   
@@ -167,7 +167,7 @@ body {
     background-color: red;
   }
   
-  .new-invoice-button {
+  .new-invoice-buttons {
     background-color: red;
     color: white;
     border: none;
@@ -177,7 +177,7 @@ body {
     cursor: pointer;
     width: 100%;
     margin-bottom: px;
-    margin-top: 240 px;
+    margin-top: 220px;
   }
   
   .footerd {
@@ -191,8 +191,6 @@ body {
     justify-content: space-around;
     border-top: 1px solid #ccc;
     margin-bottom: 5px;
-    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-    border-bottom-right-radius: 20px;
     box-sizing: border-box;
   }
   
