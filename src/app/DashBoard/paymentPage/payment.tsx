@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-interface BookingData {
+interface appointmentData {
   name: string;
   address: string;
   appointmentDate: string;
@@ -16,67 +16,108 @@ interface BookingData {
 
 const PaymentPage: React.FC = () => {
     const router = useRouter();
-    const [bookingData, setBookingData] = useState<BookingData | null>(null);
+    const [appointmentData, setappointmentData] = useState<appointmentData | null>(null);
 
     useEffect(() => {
       // Retrieve booking data from local storage on component mount
-      const data = localStorage.getItem("bookingData");
+      const data = localStorage.getItem("appointmentData");
       if (data) {
-        setBookingData(JSON.parse(data));
+        setappointmentData(JSON.parse(data));
       }
     }, []);
     
     const handlePayment = () => {
-  const bookingData = JSON.parse(localStorage.getItem("bookingData") || "{}");
-  const totalAmount = 10.00;
-  const amountInPaise = totalAmount * 100;
-
-  const script = document.createElement("script");
-  script.src = "https://checkout.razorpay.com/v1/checkout.js";
-  script.onload = () => {
-    const razorpayOptions = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_41ch2lqayiGZ9X",
-      amount: amountInPaise,
-      currency: "INR",
-      name: "Oxivive Services",
-      description: "Order Payment",
-      handler: async (response: any) => {
-        const bookingId = `BI${Math.floor(10000 + Math.random() * 90000)}`; // Generate booking ID
-
-        // Update bookingData with payment info
-        const completedBookingData = {
-          serviceType: bookingData?.serviceType,
-          address: bookingData?.address,
-          name: bookingData?.name,
-          appointmentDate:bookingData?. appointmentDate,
-          appointmentTime:bookingData?. appointmentTime,
-          payment_id: response.razorpay_payment_id,
-          booking_status: "completed",
-          booking_id: bookingId,
+      const appointmentData = JSON.parse(localStorage.getItem("appointmentData") || "{}");
+      const totalAmount = 10.00;
+      const amountInPaise = totalAmount * 100;
+    
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => {
+        const razorpayOptions = {
+          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_41ch2lqayiGZ9X",
+          amount: amountInPaise,
+          currency: "INR",
+          name: "Oxivive Services",
+          description: "Order Payment",
+          handler: async (response: any) => {
+            const appointmentDate = new Date(appointmentData?.appointmentDate);
+            const formattedDate = appointmentDate.toISOString().split("T")[0]; // Convert to YYYY-MM-DD format
+            const paymentData = {
+              service_type: appointmentData?.serviceType === "Oxivive Clinic" ? "clinic" : "wheel",  // Map the display name to the value
+              address: appointmentData?.address,
+              name: appointmentData?.name,
+              appointment_date: formattedDate,
+              appointment_time: appointmentData?.appointmentTime,
+              payment_id: response.razorpay_payment_id,
+              booking_id: `BI${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
+              booking_status: 'completed',
+            };
+    
+            try {
+              await axios.post("http://localhost:8000/api/save-booking/", paymentData);
+              router.push('/DashBoard/TickPage')
+            } catch (error) {
+              console.error("Error saving booking:", error);
+            }
+          },
+          prefill: {
+            name: appointmentData.name,
+            email: "johndoe@example.com",
+            contact: "1234567890",
+          },
+          theme: { color: "#3399cc" },
         };
-
-        try {
-          // Send bookingData to API
-          await axios.post("http://localhost:8000/api/booking/", completedBookingData);
-          router.push("/DashBoard/TickPage"); // Redirect to success page
-        } catch (error) {
-          console.error("Error saving booking:", error);
-        }
-      },  
-      prefill: {
-        name: bookingData.name,
-        email: "johndoe@example.com",
-        contact: "1234567890",
-      },
-      theme: { color: "#3399cc" },
+    
+        const razorpay = new (window as any).Razorpay(razorpayOptions);
+    
+        razorpay.on('payment.failed', async (response: any) => {
+          const failedData = {
+            ...appointmentData,
+            payment_id: response.error.metadata.payment_id,
+            booking_id: `BI${Math.floor(10000 + Math.random() * 90000)}`,
+            booking_status: 'cancelled',
+          };
+    
+          try {
+            await axios.post("http://localhost:8000/api/api/save-booking/", failedData);
+          } catch (error) {
+            console.error("Error saving failed booking:", error);
+          }
+        });
+    
+        razorpay.open();
+    
+        // Inject custom styles to control the modal's width and height
+        const customStyles = `
+          .razorpay-checkout-frame {
+            width: 350px !important; /* Adjust the width to match the payment container */
+            height: 500px !important; /* Adjust the height to match your container's height */
+            max-width: 100% !important;
+            margin: auto !important;
+          }
+          .razorpay-checkout-frame iframe {
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+           }
+      /* Ensure modal is centered vertically and horizontally */
+      .razorpay-checkout-frame {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+      }
+    `;
+    
+        const styleTag = document.createElement('style');
+        styleTag.innerHTML = customStyles;
+        document.head.appendChild(styleTag);
+      };
+    
+      document.body.appendChild(script);
     };
-
-    const razorpay = new (window as any).Razorpay(razorpayOptions);
-    razorpay.open();
-  };
-  document.body.appendChild(script);
-};
-
+    
   
 
     return (
@@ -89,14 +130,14 @@ const PaymentPage: React.FC = () => {
             </div>
 
 
-            {bookingData && (
+            {appointmentData && (
                 <div className="booking-details">
                     <h3>Booking Details</h3>
-                    <p><strong>Service Type:</strong> {bookingData.serviceType}</p>
-                    <p><strong>Name:</strong> {bookingData.name}</p>
-                    <p><strong>Address:</strong> {bookingData.address}</p>
-                    <p><strong>Date:</strong> {bookingData.appointmentDate}</p>
-                    <p><strong>Time:</strong> {bookingData.appointmentTime}</p>
+                    <p><strong>Service Type:</strong> {appointmentData.serviceType}</p>
+                    <p><strong>Name:</strong> {appointmentData.name}</p>
+                    <p><strong>Address:</strong> {appointmentData.address}</p>
+                    <p><strong>Date:</strong> {appointmentData.appointmentDate}</p>
+                    <p><strong>Time:</strong> {appointmentData.appointmentTime}</p>
                 </div>
             )}
 

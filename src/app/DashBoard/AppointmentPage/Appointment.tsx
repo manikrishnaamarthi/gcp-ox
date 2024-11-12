@@ -86,26 +86,24 @@ const Appointment = () => {
     }
   };
 
-  // Handle "Continue" button in the modal
   const handleContinue = () => {
     if (selectedDay !== null && selectedSlot !== null) {
-      // Prepare the data for submission
-      const bookingData = {
+      const selectedDate = `${new Date(today.getFullYear(), new Date(`${weekDates[selectedDay].month} 1, 2024`).getMonth(), weekDates[selectedDay].day).toISOString().split('T')[0]}`;
+
+      const selectedTime = selectedSlot.split('-')[1];
+  
+      const appointmentData = {
         serviceType: selectedData?.serviceType,
         address: selectedData?.address,
         name: selectedData?.name,
-        appointmentDate: `${today.getFullYear()}-${today.getMonth() + 1}-${weekDates[selectedDay].day}`,
-        appointmentTime: selectedSlot.split('-')[1],
+        appointmentDate: selectedDate,
+        appointmentTime: selectedTime,
       };
-
-      // Log bookingData to verify structure
-      console.log("Booking Data:", bookingData);
-
-
-      // Store data in localStorage and navigate to payment page
-      localStorage.setItem("bookingData", JSON.stringify(bookingData));
+  
+      localStorage.setItem('appointmentData', JSON.stringify(appointmentData));
       window.location.href = '/DashBoard/paymentPage';
     }
+    setIsModalOpen(false);
   };
 
   const handleCloseModal = () => {
