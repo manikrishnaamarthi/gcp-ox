@@ -4,10 +4,10 @@ body {
   background-color: #d7d2d2;
 }
 
-.container {
+.container5 {
   height: 100vh;
   width: 100%;
-  max-width: 375px;
+  max-width: 350px;
   margin: auto;
   background-color: #ff0000;
   display: flex;
@@ -36,7 +36,7 @@ body {
   height: 140px; /* Adjust to desired size */
 }
 
-.title {
+.title0 {
   display: flex;
   flex-direction: column; /* Stack the text vertically */
   align-items: center; /* Center the text horizontally */
@@ -45,26 +45,28 @@ body {
   top: 20px; /* Adjust for vertical spacing */
 }
 
-.welcome {
+.welcome0 {
   font-size: 14px; /* Font size for 'Welcome to' */
   margin: 0; /* No margin */
   margin-left: 30px;
   margin-top: 20px;
+  color: white;
 }
 
-.oxiwheel {
+.oxiwheel0 {
   font-size: 40px; /* Font size for 'OxiWheel' */
   margin: 0; /* No margin */
-  margin-left: 150px;
+  margin-left: 130px;
+  color: white;
   /* margin-top: 10px; */
 }
 
 .notificationIcon {
   position: absolute;
   top: 10px;
-  right: 30px;
-  width: 35px; /* Size of the notification icon */
-  height: 35px; /* Size of the notification icon */
+  right: 10px;
+  width: 30px; /* Size of the notification icon */
+  height: 30px; /* Size of the notification icon */
 }
 
 
@@ -120,29 +122,36 @@ body {
   margin: 0;
 }
 
-.footer {
+/* Footer Styles */
+.Wheel-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  max-width: 350px;
+  background-color: #fff;
+  padding: 8px;
   display: flex;
   justify-content: space-around;
-  padding: 10px 0;
-  background-color: white;
-  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #ccc;
+  margin-bottom: px;
+  box-sizing: border-box;
 }
 
-.footerItem {
+.footer-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #998a8a;
+  font-size: 22px;
+  cursor: pointer;
+  color: gray;
 }
 
-.footerIcon {
-  font-size: 25px;
+.footer-icon.selected {
+  color: red;
 }
 
-.footerItem p {
-  margin: 5px 0 0;
-  font-size: 0.75em;
-  font-weight: 500;
+.footer-icon span {
+  font-size: 12px;
 }
 
 /* Responsive for small screens */

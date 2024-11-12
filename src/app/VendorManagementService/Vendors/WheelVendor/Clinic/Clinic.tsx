@@ -5,6 +5,8 @@ import { FaHome, FaCalendarAlt, FaBell, FaUser, FaRegBell, FaRegAddressBook, FaF
 import { BsGraphUpArrow } from 'react-icons/bs';
 import { MdInventory } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Clinic = () => {
   const [selectedFooter, setSelectedFooter] = useState<string>('home'); // Declare state for selected footer
@@ -20,7 +22,7 @@ const Clinic = () => {
   
 
   return (
-    <div className="clinic-container1">
+    <div className="clinic-containers6">
       <header className="headera">
         <div className="logoContainer">
           <img src="/images/shot(1).png" alt="OxiWheel Logo" className="logo" />
@@ -59,35 +61,23 @@ const Clinic = () => {
 
       {/* Footer Navigation */}
       <div className="clinic-footer">
-        <div
-          className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('home')}
-        >
-          <FaHome />
+        <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => handleFooterClick('home')}>
+          <FontAwesomeIcon icon={faHome} />
           <span>Home</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('bookings')}
-        >
-          <FaCalendarAlt />
+        <div className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`} onClick={() => handleFooterClick('bookings')}>
+          <FontAwesomeIcon icon={faClipboardList} />
           <span>Bookings</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('notifications')}
-        >
-          <FaBell />
+        <div className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`} onClick={() => handleFooterClick('notifications')}>
+          <FontAwesomeIcon icon={faBell} />
           <span>Notifications</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('profile')}
-        >
-          <FaUser />
+        <div className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`} onClick={() => handleFooterClick('profile')}>
+          <FontAwesomeIcon icon={faUser} />
           <span>Profile</span>
         </div>
-      </div>
+        </div>
     </div>
   );
 };

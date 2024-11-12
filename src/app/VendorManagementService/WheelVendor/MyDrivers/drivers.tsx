@@ -1,29 +1,24 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaArrowLeft, FaPlus } from 'react-icons/fa';
-import './doctors.css';
+import './drivers.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
 
-interface Doctor {
+interface Driver {
   id: number;
   name: string;
   phone: string;
   imageUrl: string;
 }
 
-const doctors: Doctor[] = [
-  { id: 1, name: 'Praveen', phone: '8975889945', imageUrl: 'https://via.placeholder.com/50' },
-  { id: 2, name: 'Saigen', phone: '8855559789', imageUrl: 'https://via.placeholder.com/50' },
-  { id: 3, name: 'Amelie', phone: '9658745558', imageUrl: 'https://via.placeholder.com/50' },
-  { id: 4, name: 'Jaylen', phone: '9998885566', imageUrl: 'https://via.placeholder.com/50' }
-];
-
-const Doctors: React.FC = () => {
+const Drivers: React.FC = () => {
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newDoctor, setNewDoctor] = useState({ name: '', phone: '', imageUrl: '' });
+  const [newDriver, setNewDriver] = useState({ name: '', email: '', phone: '', imageUrl: '' });
+  const [drivers, setDrivers] = useState<Driver[]>([]);
   const router = useRouter();
 
   const handleFooterClick = (footer: string) => {
@@ -33,51 +28,85 @@ const Doctors: React.FC = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    setNewDoctor({ name: '', phone: '', imageUrl: '' }); // Reset newDoctor to initial state
+    setNewDriver({ name: '', email: '', phone: '', imageUrl: '' });
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      setNewDoctor({
-        ...newDoctor,
+      setNewDriver({
+        ...newDriver,
         imageUrl: URL.createObjectURL(event.target.files[0])
       });
     }
   };
 
-  const handleSave = () => {
-    // Save logic can be added here (e.g., add the new doctor to the list)
-    setIsModalOpen(false);
+  const handleSave = async () => {
+    try {
+      // Send the POST request to the backend
+      const response = await axios.post('http://localhost:8000/driverapp/drivers/create', {
+        name: newDriver.name,
+        email: newDriver.email,
+        phone: newDriver.phone,
+        profile_photo: newDriver.imageUrl // Ensure the backend handles this correctly
+      });
+  
+      // Log the response or handle success
+      console.log("Driver added successfully:", response.data);
+  
+      // Close the modal after saving
+      closeModal();
+  
+      // Optionally, refresh the list of drivers
+      fetchDrivers();
+    } catch (error) {
+      // Log the error instead of using console.error
+      console.log("Error adding driver:", error);
+    }
+  };
+  
+
+  const fetchDrivers = async () => {
+    try {
+      const response = await axios.get('/driverapp/drivers/create');
+      setDrivers(response.data);
+    } catch (error) {
+      // Log the error instead of using console.error
+      console.log("Error fetching drivers:", error);
+    }
   };
 
+  useEffect(() => {
+    fetchDrivers();
+  }, []);
+
   return (
-    <div className="doctors-container">
-      <header className="doctors-header">
-        <FaArrowLeft className="back-icon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
-        <h1>My Driver's</h1>
+    <div className="drivers-container">
+      <header className="drivers-header">
+        <FaArrowLeft className="back-icon5" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
+        <h1>My Drivers</h1>
         <button className="add-button" onClick={openModal}>
           <FaPlus /> ADD
         </button>
       </header>
 
-      <div className="doctor-list">
-        <div className="doctor-headings">
+      <div className="driver-list">
+        <div className="driver-headings">
           <p>Name</p>
           <p>Phone no</p>
         </div>
         
-        {doctors.map((doctor) => (
-          <div key={doctor.id} className="doctor-card">
-            <img src={doctor.imageUrl} alt={doctor.name} className="doctor-image" />
-            <div className="doctor-info">
-              <p className="doctor-name">{doctor.name}</p>
-              <p className="doctor-phone">{doctor.phone}</p>
+        {drivers.map((driver) => (
+          <div key={driver.id} className="driver-card">
+            <img src={driver.imageUrl || 'https://via.placeholder.com/50'} alt={driver.name} className="driver-image" />
+            <div className="driver-info">
+              <p className="driver-name">{driver.name}</p>
+              <p className="driver-phone">{driver.phone}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="doctors-footer">
+      <div className="drivers-footer">
         <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => handleFooterClick('home')}>
           <FontAwesomeIcon icon={faHome} />
           <span>Home</span>
@@ -99,18 +128,20 @@ const Doctors: React.FC = () => {
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <div className="image-upload">
+            <div className="image-upload1">
               <label htmlFor="file-input">
-                <img src={newDoctor.imageUrl || 'https://via.placeholder.com/100'} alt="Doctor" className="doctor-modal-image" />
+                <img src={newDriver.imageUrl || 'https://via.placeholder.com/100'} alt="Driver" className="driver-modal-image" />
                 <FaPlus className="plus-icon" />
               </label>
               <input id="file-input" type="file" onChange={handleImageUpload} style={{ display: 'none' }} />
             </div>
             <div className="modal-fields">
               <label>Name:</label>
-              <input type="text" value={newDoctor.name} onChange={(e) => setNewDoctor({ ...newDoctor, name: e.target.value })} />
+              <input type="text" value={newDriver.name} onChange={(e) => setNewDriver({ ...newDriver, name: e.target.value })} />
+              <label>Email:</label>
+              <input type="text" value={newDriver.email} onChange={(e) => setNewDriver({ ...newDriver, email: e.target.value })} />
               <label>Phone Number:</label>
-              <input type="text" value={newDoctor.phone} onChange={(e) => setNewDoctor({ ...newDoctor, phone: e.target.value })} />
+              <input type="text" value={newDriver.phone} onChange={(e) => setNewDriver({ ...newDriver, phone: e.target.value })} />
             </div>
             <div className="modal-footer">
               <button className="modal-close" onClick={closeModal}>Close</button>
@@ -123,4 +154,4 @@ const Doctors: React.FC = () => {
   );
 };
 
-export default Doctors;
+export default Drivers;

@@ -15,21 +15,20 @@ body {
     border-radius: 4%;
 }
 
-.container {
+.containerg {
     height: 100vh;
     width: 100%;
-    max-width: 375px;
+    max-width: 350px;
     margin: 0 auto;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 4%;
     overflow: hidden;
     box-sizing: border-box;
 }
 
-.header {
+.headerh {
     display: flex;
     align-items: center;
     color: red;
@@ -43,7 +42,7 @@ body {
 
 }
 
-.card {
+.cardz {
     background-color: white;
     padding: 16px;
     border-radius: 8px;
@@ -82,10 +81,14 @@ body {
     gap: 12px;
     justify-content: space-around;
     background-color: white;
-    overflow: hidden; /* Remove scrolling */
+    overflow-x: scroll;
+
     flex-wrap: nowrap;
     padding: 0 10px; /* Add padding to adjust spacing */
 }
+.week-selection::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
 
 .week-day {
     font-size: 16px;
@@ -131,7 +134,7 @@ body {
     
 }
 
-.tabs {
+.tabs1 {
     display: flex;
     justify-content: space-around;
     padding: 10px;
@@ -243,7 +246,7 @@ body {
     border: 1px solid #ddd;
     margin-bottom: 1rem;
     color: rgb(241, 8, 8);
-    width: 41%;
+    width: 45%;
     font-weight: bold;
     margin-left: 100px;
 }
@@ -267,15 +270,13 @@ body {
     position: fixed;
     bottom: 0;
     width: 100vw;
-    max-width: 375px;
+    max-width: 350px;
     background-color: #fff;
     padding: 8px;
     display: flex;
     justify-content: space-around;
     border-top: 1px solid #ccc;
     margin-bottom: px;
-    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
-    border-bottom-right-radius: 20px;
     box-sizing: border-box;
 }
 
