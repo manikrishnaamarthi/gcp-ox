@@ -1,12 +1,10 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
-import { FaHome, FaCartPlus, FaChartArea } from 'react-icons/fa';
+import { FaHome, FaCartPlus, FaChartArea,FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
 import { FaPeopleGroup } from 'react-icons/fa6';
-import { IoIosSearch } from "react-icons/io";
-import { TbLogout } from "react-icons/tb";
 import './AdminDetails.css';
 
 const AdminDetails = () => {
@@ -24,34 +22,52 @@ const AdminDetails = () => {
   const aadhar_back_side = searchParams.get('aadhar_back_side');
   const pan_back_side = searchParams.get('pan_back_side');
   const licence_end_date = searchParams.get('licence_end_date');
-  const medical_front_side = searchParams.get('medical_front_side')
+  const medical_front_side = searchParams.get('medical_front_side');
+  const medical_back_side = searchParams.get('medical_back_side');
+  const medical_licence_number = searchParams.get('medical_licence_number');
+  const driving_front_side = searchParams.get('driving_front_side');
+  const driving_back_side = searchParams.get('driving_back_side');
+  const driving_licence_number = searchParams.get('driving_licence_number');
+  const vehicle_rc_front_side = searchParams.get('vehicle_rc_front_side');
+  const vehicle_rc_back_side = searchParams.get('vehicle_rc_back_side');
 
   if (!name) return <p>Loading...</p>; // Display loading until data is available
 
   return (
     <div className="admin-details">
-      <aside className="sidebar">
+      <aside className="admin-sidebar">
         <div className="logo">
-          <img src="/images/shot(1).png" alt="Oxivive Logo" />
-          <h1>Oxivive</h1>
+          <img src="/images/shot(1).png" alt="Logo" />
+          <p>Super Admin</p>
         </div>
-        <div className="search-container-bar">
-          <i className="search-icon"><IoIosSearch /></i>
-          <input type="text" placeholder="Search" className="search-bar-page" />
-        </div>
-        <nav className="menu">
-          <ul>
-            <li><FaHome className="icon" /> Admin</li>
-            <li><FaCartPlus className="icon" /> Invoice</li>
-            <li><BiSolidBookAdd className="icon" /> Booking</li>
-            <li><FaPeopleGroup className="icon" /> Vendor Approval</li>
-            <li><FaChartArea className="icon" /> Revenue</li>
-            <li><MdManageAccounts className="icon" /> Manage Service</li>
-            <li><MdOutlineInventory className="icon" /> Inventory</li>
-            <li><MdOutlinePeopleAlt className="icon" /> Vendor</li>
-          </ul>
+        
+        <nav className="sidebar-icons">
+          <div className="sidebar-icon" data-name="Admin">
+            <FaHome />
+          </div>
+          <div className="sidebar-icon" data-name="Invoice">
+            <FaCartPlus />
+          </div>
+          <div className="sidebar-icon" data-name="Booking">
+            <BiSolidBookAdd />
+          </div>
+          <div className="sidebar-icon" data-name="Vendor Approval">
+            <FaPeopleGroup />
+          </div>
+          <div className="sidebar-icon" data-name="Revenue">
+            <FaChartArea />
+          </div>
+          <div className="sidebar-icon" data-name="Manage Service">
+            <MdManageAccounts />
+          </div>
+          <div className="sidebar-icon" data-name="Inventory">
+            <MdOutlineInventory />
+          </div>
+          <div className="sidebar-icon" data-name="Vendor">
+            <MdOutlinePeopleAlt />
+          </div>
+          <div className="sidebar-icon logout-icon" data-name="Logout"><FaSignOutAlt /></div>
         </nav>
-        <button className="logout"><TbLogout /> Logout</button>
       </aside>
       
       <main className="content">
@@ -59,7 +75,7 @@ const AdminDetails = () => {
 
         <section className="vendor-info-page">
           <div className="profile">
-            <img src={`http://127.0.0.1:8000/${profile_photo}`} alt="Profile" className="profile-pic" />
+            <img src={`${profile_photo}`} alt="Profile" className="profile-pic" />
             <div className="profile-details">
               <h3>{name}</h3>
               <p>{address}</p>
@@ -81,20 +97,41 @@ const AdminDetails = () => {
           <section className="documents">
             <h3>Aadhar Card</h3>
             <div className="document-row">
-              <img src={`http://127.0.0.1:8000/${aadhar_front_side}`} alt="Aadhar Front" />
-              <img src={`http://127.0.0.1:8000/${aadhar_back_side}`} alt="Aadhar Back" />
+              <img src={`${aadhar_front_side}`} alt="Aadhar Front" />
+              <img src={`${aadhar_back_side}`} alt="Aadhar Back" />
             </div>
 
             <h3>PAN Card</h3>
             <div className="document-row">
-              <img src={`http://127.0.0.1:8000/${pan_front_side}`} alt="PAN Front" />
-              <img src={`http://127.0.0.1:8000/${pan_back_side}`} alt="PAN Back" />
+              <img src={`${pan_front_side}`} alt="PAN Front" />
+              <img src={`${pan_back_side}`} alt="PAN Back" />
             </div>
 
-            <h3>Additional Documents</h3>
-            <div className="document-row">
-              <p><img src={`http://127.0.0.1:8000/${medical_front_side}`} alt="Medical Front" />Medical Licence Exp Date: {licence_end_date}</p>
-            </div>
+            {selectedService === 'Oxi Clinic' && (
+              <>
+                <h3>Medical License</h3>
+                <div className="document-row">
+                  <p><img src={`${medical_front_side}`} alt="Medical Front" />Medical Licence Number: {medical_licence_number}</p>
+                  <p><img src={`${medical_back_side}`} alt="Medical Back" />Medical Licence Exp Date: {licence_end_date}</p>
+                </div>
+              </>
+            )}
+
+            {selectedService === 'Oxi Wheel' && (
+              <>
+                <h3>Driving License</h3>
+                <div className="document-row">
+                  <p><img src={`${driving_front_side}`} alt="Driving Front" />Driving Licence Number: {driving_licence_number}</p>
+                  <p><img src={`${driving_back_side}`} alt="Driving Back" /></p>
+                </div>
+
+                <h3>Vehicle Registration</h3>
+                <div className="document-row">
+                  <p><img src={`${vehicle_rc_front_side}`} alt="Vehicle Front" /></p>
+                  <p><img src={`${vehicle_rc_back_side}`} alt="Vehicle Back" /></p>
+                </div>
+              </>
+            )}
           </section>
         </section>
       </main>

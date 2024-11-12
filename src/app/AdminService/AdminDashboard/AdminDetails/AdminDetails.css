@@ -11,111 +11,80 @@ body {
     color: #333;
   }
   
-  /* Sidebar styling */
-  .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #fff;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #e50000;
-    border-right: 1px solid #ddd;
-  }
-  
-  .sidebar .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    text-align: center;
-    margin-top: -30px;
-    margin-left: -40px;
+ /* Sidebar styling */
+ .admin-sidebar {
+  height: 100vh;
+  width: 150px;
+  background-color: #fff;
+  /* border-right: 1px solid #ddd; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  position: fixed; /* Fix sidebar position */
 }
 
-.sidebar .logo img {
-    width: 120px;
-    height: 120px;
-    margin-right: -10px; /* Add space between the logo and text */
-}
-  
-  .sidebar .logo h1 {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  .search-container-bar {
-    position: relative;
-    width: 100%;
-    margin-top: -20px;
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: -25px;
 }
 
-.search-bar-page {
-    width: 100%;
-    padding: 8px 8px 8px 35px; /* Add padding-left for icon space */
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-sizing: border-box;
-    background-color: #ece9e9;
-    color: darkgray;
+.logo img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
-.search-icon {
-    position: absolute;
-    top: 35%;
-    left: 10px; /* Position icon inside the input */
-    transform: translateY(-50%);
-    color: #0a0a0a;
-    font-size: 16px;
-    color: darkgray;
+.logo p {
+  font-size: 14px;
+  color: red;
+  font-weight: bold;
 }
 
-  
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-  }
-  
-  .menu ul li {
-    display: flex;
-    align-items: center;
-    padding: 10px 5px;
-    font-weight: bold;
-    color: #ef0b0b;
-  }
-  
-  .menu ul li .icon {
-    margin-right: 10px;
-    font-size: 18px;
-  }
-  
-  .logout {
-    display: flex;
-    align-items: center; /* Vertically center icon and text */
-    margin-top: auto;
-    padding: 10px 20px;
-    border: none;
-    background-color: transparent;
-    color: #e50000;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: -75px;
-  }
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-left: -40px;
+}
 
+.sidebar-icon {
+  font-size: 24px;
+  color: #ff0000;
+  cursor: pointer;
+  position: relative;
+}
 
-.logout svg {
-    margin-right: 8px; /* Space between the icon and text */
+.sidebar-icon:hover::after {
+  content: attr(data-name); 
+  position: absolute;
+  left: 40px; /* Adjust distance between icon and text */
+  top: 50%; /* Center the text vertically with the icon */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  white-space: nowrap;
+}
+/* Logout Icon Styling */
+.sidebar-icon.logout-icon {
+  margin-top: 48px;
+}
+
+.sidebar-icon.logout-icon:hover {
+  color: #ff0000;
 }
   
   /* Content styling */
   .content {
     flex-grow: 1;
-    /* padding: 10px; */
+    padding: 20px;
     background-color: #fff;
+    margin-left: 150px; /* Space for the fixed sidebar */
+    height: 100vh;
+    overflow-y: auto; /* Enable vertical scrolling */
   }
   
   .page-title {
@@ -226,6 +195,7 @@ body {
   }
   
   .document-row img {
+    height: 180px;
     width: 180px;
     border: 1px solid #ddd;
     border-radius: 4px;

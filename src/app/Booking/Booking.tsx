@@ -18,7 +18,7 @@ const Booking = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/bookingapp_bookingservice/');
+                const response = await fetch('http://127.0.0.1:8000/api/bookingapp-bookingservice/');
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Fetched bookings:', data); // Check the response data here
@@ -36,12 +36,12 @@ const Booking = () => {
 
     const handleCardClick = (booking) => {
         if (activeTab === 'Completed') {
-            router.push(`/Booking/CompleteBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}`);
+            router.push(`/Booking/CompleteBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
         }
     };
 
     const handleCancelClick = (booking) => {
-        router.push(`/Booking/CancelBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}`);
+        router.push(`/Booking/CancelBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
     };
     
 

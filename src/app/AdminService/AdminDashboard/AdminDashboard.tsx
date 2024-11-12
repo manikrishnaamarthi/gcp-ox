@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './AdminDashboard.css';
 import { FaHome } from 'react-icons/fa';
+import {FaSignOutAlt} from 'react-icons/fa'
 import { BiSolidBookAdd } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa";
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
   // Navigate to the details page for the selected vendor, passing the vendor's details
   const handleCardClick = (vendor) => {
     // Navigate to the details page for the selected vendor, passing vendor's details as URL params
-    router.push(`/AdminService/AdminDashboard/AdminDetails?id=${vendor.id}&name=${vendor.name}&profile_photo=${vendor.profile_photo}&selectedService=${vendor.selectedService}&address=${vendor.address}&email=${vendor.email}&phone=${vendor.phone}&pan_front_side=${vendor.pan_front_side}&gstNumber=${vendor.gstNumber}&aadhar_front_side=${vendor.aadhar_front_side}&aadhar_back_side=${vendor.aadhar_back_side}&pan_back_side=${vendor.pan_back_side}&licence_end_date=${vendor.licence_end_date}`);
+    router.push(`/AdminService/AdminDashboard/AdminDetails?id=${vendor.id}&name=${vendor.name}&profile_photo=${vendor.profile_photo}&selectedService=${vendor.selectedService}&address=${vendor.address}&email=${vendor.email}&phone=${vendor.phone}&pan_front_side=${vendor.pan_front_side}&gstNumber=${vendor.gstNumber}&aadhar_front_side=${vendor.aadhar_front_side}&aadhar_back_side=${vendor.aadhar_back_side}&pan_back_side=${vendor.pan_back_side}&medical_front_side=${vendor.medical_front_side}&medical_back_side=${vendor.medical_back_side}&medical_licence_number=${vendor.medical_licence_number}&licence_end_date=${vendor.licence_end_date}&driving_front_side=${vendor.driving_front_side}&driving_back_side=${vendor.driving_back_side}&driving_licence_number=${vendor.driving_licence_number}&vehicle_rc_front_side=${vendor.vehicle_rc_front_side}&vehicle_rc_back_side=${vendor.vehicle_rc_back_side}`);
   };
 
   return (
@@ -80,6 +81,7 @@ const AdminDashboard = () => {
           <div className="sidebar-icon" data-name="Vendor">
             <MdOutlinePeopleAlt />
           </div>
+          <div className="sidebar-icon logout-icon" data-name="Logout"><FaSignOutAlt /></div>
         </nav>
       </aside>
       

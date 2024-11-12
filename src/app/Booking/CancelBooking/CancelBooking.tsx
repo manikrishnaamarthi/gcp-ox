@@ -13,6 +13,7 @@ const CancelBooking = () => {
 
   // Retrieve booking details from URL query parameters
   const id = searchParams.get('id') || '#524587';
+  const bookingid = searchParams.get('booking_id')
   const status = searchParams.get('status') || 'Accepted';
   const serviceType = searchParams.get('serviceType') || 'oxiwheel';
   const appointmentDate = searchParams.get('appointmentDate') || 'N/A';
@@ -24,12 +25,34 @@ const CancelBooking = () => {
     router.back();
   };
 
+  // Function to handle cancel booking
+  const handleCancelBooking = async () => {
+    try {
+      // Send the booking `id` in the body to specify which booking to cancel
+      const response = await fetch(`http://127.0.0.1:8000/api/bookingapp-bookingservice/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bookingid, status: 'cancel' }), // send `id` and update status to 'Cancelled'
+      });
+
+      if (response.ok) {
+        alert("Booking status updated to 'Cancelled'");
+        router.push('/Booking/'); 
+      } else {
+        alert("Failed to cancel booking. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error cancelling booking:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
   return (
     <div className='cancel-booking-container'>
       <header className="cancel-booking-header">
         <span className="cancel-booking-back-arrow" onClick={handleBackClick}><IoIosArrowBack /></span>
-        {/* <h1>{id}</h1> */}
-        {/* <span className="cancel-booking-phone-icon"><BsFillTelephoneFill /></span> */}
       </header>
 
       <main className='cancel-booking-main-container'>
@@ -40,12 +63,10 @@ const CancelBooking = () => {
 
         <div className="cancel-booking-details">
           <div className="header">
-            {/* <h2>{id}</h2> */}
             <div className="status">{status}</div>
           </div>
           <p>{name}</p>
           <p className='location'><IoLocationSharp />{location}</p>
-          {/* <p><strong>Appointment:</strong> {appointmentDate} at {appointmentTime}</p> */}
         </div>
 
         <div className="cancel-booking-cancellation-policy">
@@ -61,7 +82,7 @@ const CancelBooking = () => {
           </div>
           <p className='cancel-booking-total'>Total<span><FaDollarSign />168.00</span></p>
         </footer>
-        <button className="cancel-booking-button">Cancel Booking</button>
+        <button className="cancel-booking-button" onClick={handleCancelBooking}>Cancel Booking</button>
       </main>
     </div>
   );
