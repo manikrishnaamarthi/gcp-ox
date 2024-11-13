@@ -8,12 +8,15 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  /* width: 100%; */
 }
 
 /* Main container */
 .application-under-review {
   width: 350px;
-  padding: 20px;
+  /* width: 50%; */
+  max-width: 350px;
+  /* padding: 20px; */
   background-color: #ffffff;
   display: flex;
   height:100vh;
@@ -47,42 +50,34 @@ body {
   text-align: center;
 }
 
-/* Responsive styling */
-@media (max-width: 768px) {
-  .application-under-review {
-    max-width: 300px;
-  }
-
-  .review-image {
-    max-width: 120px;
-    margin-bottom: 15px;
-  }
-
-  .review-text {
-    font-size: 16px;
-  }
-
-  .review-text-below {
-    font-size: 14px;
-  }
+/* Mobile Devices - Small screens (portrait phones) */
+@media (max-width: 599px) {
+   
 }
 
-@media (max-width: 480px) {
-  .application-under-review {
-    max-width: 280px;
-    padding: 15px;
-  }
-
-  .review-image {
-    max-width: 100px;
-    margin-bottom: 10px;
-  }
-
-  .review-text {
-    font-size: 14px;
-  }
-
-  .review-text-below {
-    font-size: 12px;
-  }
+/* Small Tablets - Portrait Tablets */
+@media (min-width: 600px) and (max-width: 767px) {
+   
 }
+
+/* Large Tablets - Landscape Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+   
+}
+
+/* Small Laptops / Desktops */
+@media (min-width: 1025px) and (max-width: 1366px) {
+    
+}
+
+/* Large Laptops / Desktops */
+@media (min-width: 1367px) and (max-width: 1920px) {
+   
+}
+
+/* Ultra-Wide Screens - Larger Desktops */
+@media (min-width: 1921px) {
+   
+}
+
+

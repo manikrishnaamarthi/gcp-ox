@@ -6,13 +6,13 @@ import './paymentSuccess.css';
 const PaymentSuccess: React.FC = () => {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     router.push('/VendorManagementService/paymentPage/applicationUnderReview');
-  //   }, 3000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/VendorManagementService/paymentPage/applicationUnderReview');
+    }, 3000);
 
-  //   return () => clearTimeout(timer);
-  // }, [router]);
+    return () => clearTimeout(timer);
+  }, [router]);
 
   return (
     <div className="payment-success-container">

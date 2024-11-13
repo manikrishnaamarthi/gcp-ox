@@ -1,16 +1,18 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 350px;
+    width: 100%;
     margin: auto;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     justify-content: center;
     box-sizing: border-box;
     height:100vh;
+    min-width: 320px;
+    max-width: 1080px;
     background-color: rgb(215, 212, 212);
 }
 
@@ -217,6 +219,12 @@ body {
 .tick-icon2 {
     color: #34C759; /* Green color for tick */
     font-size: 1.5em; /* Adjust size as needed */
+    
+}
+.arrow-icon3 {
+    color: #FC000E;
+    font-size: 1.5rem;
+    margin-right: -6px;
 }
 
 
@@ -241,6 +249,12 @@ body {
     color: #34C759;
     font-size: 1.5em;
     margin-left: 5px; /* Adjust spacing between title and tick */
+    
+}
+.arrow-icon2 {
+    color: #FC000E;
+    font-size: 1.5rem;
+    margin-right: -6px;
 }
 
 .document-info p {
@@ -268,9 +282,11 @@ body {
 }
 .arrow-icon1 {
     color: #FC000E;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-right: -6px;
 }
+
+
 
 
 

@@ -83,8 +83,8 @@ const Details = () => {
         </button>
       </div>
 
-      <h2 className="heading">Add your {selectedService} details</h2>
-      <p className="subtext">Fill all the details properly</p>
+      <h2 className="heading1">Add your {selectedService} details</h2>
+      <p className="subtext1">Fill all the details properly</p>
 
       <form className="form" onSubmit={handleContinue}>
         {Object.entries(formData).map(([field, value]) => {
@@ -120,7 +120,7 @@ const Details = () => {
       <button
         onClick={handleContinue}
         type="button"
-        className="submit-btn"
+        className="submit-btn1"
         disabled={!isFormValid}
       >
         Continue
