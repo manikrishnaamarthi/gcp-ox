@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { FiUpload, FiArrowLeft } from 'react-icons/fi';
+import { FiUpload } from 'react-icons/fi';
 import './Aadhar.css';
 import { BiArrowBack } from "react-icons/bi";
 import { useRouter } from "next/navigation";
@@ -13,41 +13,38 @@ const Aadhar: React.FC = () => {
   const [backPreview, setBackPreview] = useState<string | null>(null);
 
   useEffect(() => {
+    // Load stored previews on component mount
     const storedFront = localStorage.getItem("aadharFrontPreview");
     const storedBack = localStorage.getItem("aadharBackPreview");
-
     if (storedFront) setFrontPreview(storedFront);
     if (storedBack) setBackPreview(storedBack);
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
     if (e.target.files && e.target.files.length > 0) {
-        const file = e.target.files[0];
-        const fileURL = URL.createObjectURL(file);
-        
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const base64String = reader.result as string;
-            if (side === 'front') {
-                setFrontSide(file);
-                setFrontPreview(fileURL);
-                localStorage.setItem("aadharFrontPreview", fileURL);
-                localStorage.setItem("aadharFrontFile", base64String); // Store Base64 string
-            } else {
-                setBackSide(file);
-                setBackPreview(fileURL);
-                localStorage.setItem("aadharBackPreview", fileURL);
-                localStorage.setItem("aadharBackFile", base64String); // Store Base64 string
-            }
-        };
-        
-        reader.readAsDataURL(file); // Convert file to Base64
-    }
-};
+      const file = e.target.files[0];
+      const fileURL = URL.createObjectURL(file);
 
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (side === 'front') {
+          setFrontSide(file);
+          setFrontPreview(fileURL);
+        } else {
+          setBackSide(file);
+          setBackPreview(fileURL);
+        }
+      };
+
+      reader.readAsDataURL(file); // Convert file to Base64
+    }
+  };
 
   const handleSubmit = () => {
     if (frontSide && backSide) {
+      // Store images only on 'Done' button click
+      localStorage.setItem("aadharFrontPreview", frontPreview as string);
+      localStorage.setItem("aadharBackPreview", backPreview as string);
       localStorage.setItem("isAadharUploaded", "true");
       alert('Files uploaded successfully!');
       Router.push("/VendorManagementService/DocumentsVerifyPage");
@@ -68,12 +65,12 @@ const Aadhar: React.FC = () => {
         Make sure that all the data on your document is fully visible, glare-free and not blurred
       </p>
       <div className="imagePreview">
-                <img
-                    src="/images/vehiclerc.jpg"
-                    alt="Medical Practitioner Licence Preview"
-                    className="aadharImage"
-                />
-            </div>
+        <img
+          src="/images/vehiclerc.jpg"
+          alt="Medical Practitioner Licence Preview"
+          className="aadharImage"
+        />
+      </div>
 
       <div className="uploadContainer">
         <div className="uploadBox">

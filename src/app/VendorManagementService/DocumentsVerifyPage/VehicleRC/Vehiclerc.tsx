@@ -26,18 +26,12 @@ const Vehiclerc: React.FC = () => {
       const file = e.target.files[0];
       const previewUrl = URL.createObjectURL(file);
 
-      const fileBase64 = await convertFileToBase64(file); // Convert file to base64
-
       if (side === 'front') {
         setFrontSide(file);
         setFrontPreview(previewUrl);
-        localStorage.setItem("vehicleFrontSidePreview", previewUrl);
-        localStorage.setItem("vehicleFrontFile", fileBase64); // Store base64 in localStorage
       } else {
         setBackSide(file);
         setBackPreview(previewUrl);
-        localStorage.setItem("vehicleBackSidePreview", previewUrl);
-        localStorage.setItem("vehicleBackFile", fileBase64); // Store base64 in localStorage
       }
     }
   };
@@ -52,9 +46,18 @@ const Vehiclerc: React.FC = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (frontSide && backSide) {
+      // Convert files to base64 and save to local storage on submit
+      const frontBase64 = await convertFileToBase64(frontSide);
+      const backBase64 = await convertFileToBase64(backSide);
+
+      localStorage.setItem("vehicleFrontSidePreview", frontPreview || "");
+      localStorage.setItem("vehicleBackSidePreview", backPreview || "");
+      localStorage.setItem("vehicleFrontFile", frontBase64);
+      localStorage.setItem("vehicleBackFile", backBase64);
       localStorage.setItem("isVehicleRCUploaded", "true");
+
       alert("Vehicle RC uploaded successfully!");
       Router.push("/VendorManagementService/DocumentsVerifyPage");
     } else {
