@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState  } from 'react';
 import './Home.css';
 import { useRouter } from 'next/navigation';
 import Slider from "react-slick";

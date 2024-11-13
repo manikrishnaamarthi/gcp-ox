@@ -17,13 +17,19 @@ interface appointmentData {
 const PaymentPage: React.FC = () => {
     const router = useRouter();
     const [appointmentData, setappointmentData] = useState<appointmentData | null>(null);
-
+    const [randomPhoneNumber, setRandomPhoneNumber] = useState<string>("");
+    const fixedPhoneNumber = "6303872390";
     useEffect(() => {
       // Retrieve booking data from local storage on component mount
       const data = localStorage.getItem("appointmentData");
       if (data) {
         setappointmentData(JSON.parse(data));
       }
+
+        // Generate a random Indian phone number
+      const randomPhone = `9${Math.floor(100000000 + Math.random() * 900000000)}`;
+      setRandomPhoneNumber(randomPhone);
+
     }, []);
     
     const handlePayment = () => {
@@ -44,14 +50,15 @@ const PaymentPage: React.FC = () => {
             const appointmentDate = new Date(appointmentData?.appointmentDate);
             const formattedDate = appointmentDate.toISOString().split("T")[0]; // Convert to YYYY-MM-DD format
             const paymentData = {
-              service_type: appointmentData?.serviceType === "Oxivive Clinic" ? "clinic" : "wheel",  // Map the display name to the value
+              service_type: appointmentData?.serviceType === "Oxi Clinic" ? "Oxi clinic" : "Oxi wheel",  // Map the display name to the value
               address: appointmentData?.address,
               name: appointmentData?.name,
               appointment_date: formattedDate,
               appointment_time: appointmentData?.appointmentTime,
               payment_id: response.razorpay_payment_id,
-              booking_id: `BI${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
+              booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
               booking_status: 'completed',
+              phone_number: fixedPhoneNumber,
             };
     
             try {
@@ -64,7 +71,7 @@ const PaymentPage: React.FC = () => {
           prefill: {
             name: appointmentData.name,
             email: "johndoe@example.com",
-            contact: "1234567890",
+            contact: "fixedPhoneNumber,",
           },
           theme: { color: "#3399cc" },
         };
@@ -80,7 +87,7 @@ const PaymentPage: React.FC = () => {
           };
     
           try {
-            await axios.post("http://localhost:8000/api/api/save-booking/", failedData);
+            await axios.post("http://localhost:8000/api/save-booking/", failedData);
           } catch (error) {
             console.error("Error saving failed booking:", error);
           }
@@ -138,6 +145,7 @@ const PaymentPage: React.FC = () => {
                     <p><strong>Address:</strong> {appointmentData.address}</p>
                     <p><strong>Date:</strong> {appointmentData.appointmentDate}</p>
                     <p><strong>Time:</strong> {appointmentData.appointmentTime}</p>
+                    <p><strong>Phone Number:</strong> {fixedPhoneNumber}</p>
                 </div>
             )}
 

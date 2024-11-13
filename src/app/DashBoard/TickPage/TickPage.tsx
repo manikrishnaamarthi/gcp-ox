@@ -17,8 +17,10 @@ const TickPage: React.FC = () => {
                 <button className="back-button" onClick={() => router.back()}>
                     <IoChevronBackSharp size={20} />
                 </button>
-            <div className="tick-content">
+
+
                 
+            <div className="tick-content">
                 <div className="tick-icon">
                     <img src="/images/Right.png" alt="Success" />
                 </div>

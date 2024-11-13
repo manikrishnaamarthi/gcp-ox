@@ -23,14 +23,15 @@ body {
     border-top-left-radius: 20px;
     background-color: white;
     flex-direction: column;
-    transform: translateY(-15%); /* Moves it to overlap from the middle */
+    transform: translateY(-100%); /* Moves it to overlap from the middle */
     margin: 0 auto;
     overflow: hidden;
+    
   }
   
   .map-section {
   position: relative;
-  height: 55vh; /* Full viewport height */
+  height: 100vh; /* Full viewport height */
   width: 100%;
   overflow: hidden;
     

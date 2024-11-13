@@ -1,281 +1,278 @@
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    background-color: #d7d2d2;
-  }
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  background-color: #d7d2d2;
+}
 
 .myBookingContainer {
-  height: 100vh;
-  width: 100%;
-  max-width: 350px;
-  margin: auto;
-  background-color:#ffffff;
+height: 100vh;
+width: 100%;
+max-width: 350px;
+margin: auto;
+background-color:#ffffff;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.heading {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centers the content */
-    margin-bottom: 20px;
-    position: relative; /* To help position the icon relative to the title */
-  }
-  
-  .backArrow {
-    color: #FC000E; /* Set the icon color */
-    font-size: 36px; /* Increase the size of the icon */
-    position: absolute;
-    left: 18px; /* Adjust to position it to the left of the title */
-  }
-  
-  
+  flex-direction: row;
+  gap: 60px;
+  margin-left: 20px;
+
+}
+
+.backArrow {
+  color: #FC000E; /* Set the icon color */
+  font-size: 32px; /* Increase the size of the icon */
   
  
-  .myBookingsTitle {
-    text-align: center;
-    font-size: 24px;
-    color: #FC000E;
-    margin-left: 20px;
-    margin-top: 20px;
-    font-weight: bold;
-  }
-  
-  .tabs {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    gap:5px !important;
-  }
-  
-  .tab {
-    cursor: pointer;
-    padding: 10px 20px;
-    font-size: 18px;
-    border-bottom: 2px solid transparent;
-    color:#FC000E;
-  }
-  
-  .tab.active {
-    border-bottom: 2px solid #FC000E;
-    font-weight: bold;
-    
-  }
-  
-  .greyBackground {
-    background-color: #f2f2f2;
-    padding: 15px;
-    margin-bottom: 120px;
-  }
-  
-  .bookingContainer {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .bookingDetails {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .bookingInfo {
-    flex: 1;
-  }
-  
-  .bookingInfo h2 {
-    color: #FC000E;
-    font-size: 20px;
-    margin: 0;
-  }
-  
-  .bookingInfo p {
-    margin: 0;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .bookingActions {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  
-  .cancelButton {
-    background-color: transparent;
-    border: 2px solid #FC000E;
-    border-radius: 18px;
-    color: #FC000E;
-    padding: 1px 10px;
-    margin-bottom: 5px;
-    cursor: pointer;
-  }
-  
-  .cancelButton:hover {
-    background-color: #FC000E;
-    color: white;
-  }
-  
-  .date {
-    font-size: 12px;
-    color: #555;
-  }
-  
+}
 
-  .timeLeft {
-    font-size: 12px;
-    color: #555;
-    display: flex;
-    align-items: center;
-  }
-  
-  .timeLeft svg {
-    margin-right: 5px; /* Adds space between the icon and the text */
-  }
-  
-  .footer {
-    position: fixed;
-    margin-left:5px;
-    bottom: 0;
-    transform: translateX(-2%);
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 350px;
-    z-index: 1000;
-    align-items: center;
-    gap: 24px; 
-  }
-  
-  .footerItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .footerIcon {
-    font-size: 24px;
-    color: #bbb7b7;
-  }
-  
-  .footerItem p {
-    margin: 5px 0 0;
-    font-size: 12px;
-  }
-  
-  
-  .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.716);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modalContent {
-    background: white;
-    padding: 20px;
-    width: 90%;
-    max-width: 350px;
-    border-radius: 10px;
-    text-align: center;
-  }
-  
-  .modalDetails {
-    margin-top: 20px;
-  }
-  
-  .modalInfo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 10px 0;
-    font-size: 1rem;
-  }
-  
-  .modalButtons {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .modalButtons button {
-    padding: 10px 20px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .startButton {
-    border: 2px solid green;
-    color: green;
-  }
-  
 
-  /* Responsive styling */
+
+
+.myBookingsTitle {
+  text-align: center;
+  font-size: 22px;
+  color: #FC000E;
+
+ 
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-bottom: 2px solid transparent;
+  color:#FC000E;
+}
+
+.tab.active {
+  border-bottom: 2px solid #FC000E;
+  font-weight: bold;
+  
+}
+
+.greyBackground {
+  background-color: #f2f2f2;
+  padding: 15px;
+  overflow-y: auto;
+  height: calc(100vh - 90px);
+  
+}
+.greyBackground::-webkit-scrollbar {
+display: none; /* Hides scrollbar in WebKit browsers */
+}
+
+.bookingContainer {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  
+}
+
+.bookingDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookingInfo {
+  flex: 1;
+}
+
+.bookingInfo h2 {
+  color: #FC000E;
+  font-size: 20px;
+  margin: 0;
+}
+
+.bookingInfo p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.bookingActions {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.cancelButton {
+  background-color: transparent;
+  border: 2px solid #FC000E;
+  border-radius: 18px;
+  color: #FC000E;
+  padding: 1px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.cancelButton:hover {
+  background-color: #FC000E;
+  color: white;
+}
+
+.date {
+  font-size: 12px;
+  color: #555;
+}
+
+
+.timeLeft {
+  font-size: 12px;
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.timeLeft svg {
+  margin-right: 5px; /* Adds space between the icon and the text */
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footerItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerIcon {
+  font-size: 24px;
+  color: #bbb7b7;
+}
+
+.footerItem p {
+  margin: 5px 0 0;
+  font-size: 12px;
+}
+
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.716);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 350px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modalDetails {
+  margin-top: 20px;
+}
+
+.modalInfo {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  text-align: left;
+  gap: 22px;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.modalButtons button {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.startButton {
+  border: 2px solid green;
+  color: green;
+}
+
+
+/* Responsive styling */
 @media (max-width: 768px) {
-  .myBookingContainer {
-    max-width: 100%; /* Ensure container fills the screen width on smaller devices */
-  }
+.myBookingContainer {
+  max-width: 100%; /* Ensure container fills the screen width on smaller devices */
+}
 
-  .myBookingsTitle {
-    font-size: 20px; /* Reduce font size for smaller screens */
-  }
+.myBookingsTitle {
+  font-size: 20px; /* Reduce font size for smaller screens */
+}
 
-  .tab {
-    padding: 8px 10px; /* Adjust padding for smaller screens */
-    font-size: 16px; 
-  }
+.tab {
+  padding: 8px 10px; /* Adjust padding for smaller screens */
+  font-size: 16px; 
+}
 
-  .bookingInfo h2 {
-    font-size: 18px; /* Adjust heading size for smaller screens */
-  }
+.bookingInfo h2 {
+  font-size: 18px; /* Adjust heading size for smaller screens */
+}
 
-  .bookingInfo p {
-    font-size: 12px; /* Reduce font size for smaller screens */
-  }
+.bookingInfo p {
+  font-size: 12px; /* Reduce font size for smaller screens */
+}
 
-  .cancelButton {
-    padding: 3px 8px; /* Adjust button padding for smaller screens */
-  }
+.cancelButton {
+  padding: 3px 8px; /* Adjust button padding for smaller screens */
+}
 
-  .footerIcon {
-    font-size: 20px; /* Adjust footer icon size */
-  }
-  .footer {
-    width:768px;
-  }
+.footerIcon {
+  font-size: 20px; /* Adjust footer icon size */
+}
 }
 
 @media (max-width: 480px) {
-  .backArrow {
-    font-size: 28px; /* Reduce the size of the back arrow on smaller screens */
-    left: 10px;
-  }
+.backArrow {
+  font-size: 28px; /* Reduce the size of the back arrow on smaller screens */
+  left: 10px;
+}
 
-  .tab {
-    font-size: 14px; /* Further reduce the tab font size */
-  }
+.tab {
+  font-size: 14px; /* Further reduce the tab font size */
+}
 
-  .bookingInfo h2 {
-    font-size: 16px;
-  }
+.bookingInfo h2 {
+  font-size: 16px;
+}
 
-  .cancelButton {
-    font-size: 12px; /* Reduce button text size */
-  }
+.cancelButton {
+  font-size: 12px; /* Reduce button text size */
+}
 }

@@ -2,16 +2,10 @@
 
 
 body {
-  font-family: 'Arial', sans-serif;
   margin: 0;
-  background-color: rgb(228, 228, 228);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(21, 21, 21, 0.1);
-  scroll-behavior: smooth;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: rgb(212, 207, 207);
   
 
   }
@@ -19,15 +13,14 @@ body {
 /* Search.css */
 
 .home-container {
-  padding: 16px;
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  width: 100%; 
-  max-width: 350px;
-  width: 80vw; 
-  min-height: 100vh;
-  background-color: white;
-  flex-direction: column;
+  padding: 20px;
+  background-color: #f9f9f9;
+  width: 350px;
+  margin: auto;
+  color: black;
+  height: 100vh;
+  align-items: center;
+  position: relative;
  
 }
 
@@ -45,7 +38,7 @@ body {
   border-radius: 10px;
   padding: 8px;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   margin-bottom: 16px;
 }
 
@@ -58,20 +51,20 @@ body {
 
  
 .footer-section {
-  position: fixed;
-  margin-left:14px;
-  bottom: 0;
-  transform: translateX(-2%);
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  max-width: 350px;
-  z-index: 1000;
-  align-items: center;
-  gap: 24px; 
+    position: fixed;
+    margin-left:19px;
+    bottom: 0;
+    transform: translateX(-2%);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    z-index: 1000;
+    align-items: center;
+    gap: 24px; 
 }
 
 .footer-icon {
@@ -100,4 +93,12 @@ body {
   color:#FC000E;
 }
 
-
+@media (max-width: 768px) {
+  .footer-section {
+      width: 550px; /* Full width for mobile */
+      margin-left: -8px; /* Center alignment */
+      padding: 8px;
+      margin-bottom:2px;
+      position: fixed;
+  }
+}

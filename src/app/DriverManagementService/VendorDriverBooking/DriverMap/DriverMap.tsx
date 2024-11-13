@@ -1,108 +1,95 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { LuBookPlus } from "react-icons/lu";
 import { SlHome } from "react-icons/sl";
 import { IoNotificationsOutline } from "react-icons/io5";
+import { FaLocationArrow } from "react-icons/fa6";
 import { BsPerson } from "react-icons/bs";
 import './DriverMap.css';
 
+const getGeocode = async (address: string) => {
+  const apiKey = 'AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU';  // Replace with your Google API Key
+  const encodedAddress = encodeURIComponent(address); // URL encode the address
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${apiKey}`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (data.status === 'OK') {
+    const location = data.results[0].geometry.location;
+    return {
+      latitude: location.lat,
+      longitude: location.lng
+    };
+  } else {
+    throw new Error('Geocoding failed');
+  }
+};
 const DriverMap: React.FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const location = searchParams.get('location') || '';
+
   const [isReached, setIsReached] = useState(false);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [directionsRenderer, setDirectionsRenderer] = useState<google.maps.DirectionsRenderer | null>(null);
   const [distance, setDistance] = useState<string | null>(null);
   const [duration, setDuration] = useState<string | null>(null);
-  const [currentLocation, setCurrentLocation] = useState<google.maps.LatLngLiteral | null>(null);
+  const [driverMarker, setDriverMarker] = useState<google.maps.Marker | null>(null);
 
-  const customerLocation = { lat: 16.816951274337345, lng: 81.53855014949437 };
-  const reachThreshold = 0.1; // Distance threshold in kilometers to mark as "reached"
+  const initialCustomerLocation = { lat: 16.7506273, lng: 81.6904138 };
+  const [customerLocation, setCustomerLocation] = useState(initialCustomerLocation);
+  const [coordinates, setCoordinates] = useState<{ latitude: number; longitude: number } | null>(null);
 
-  const initializeMap = (initialPosition: google.maps.LatLngLiteral) => {
-    const mapOptions: google.maps.MapOptions = {
-      center: initialPosition,
-      zoom: 15,
-      disableDefaultUI: true,
-    };
-    const mapInstance = new google.maps.Map(document.getElementById("map") as HTMLElement, mapOptions);
-    setMap(mapInstance);
-
-    const directionsService = new google.maps.DirectionsService();
-    const renderer = new google.maps.DirectionsRenderer({ map: mapInstance, suppressMarkers: true });
-    setDirectionsRenderer(renderer);
-
-    updateRoute(directionsService, renderer, initialPosition, customerLocation);
-  };
-
-  const updateRoute = (
-    directionsService: google.maps.DirectionsService,
-    directionsRenderer: google.maps.DirectionsRenderer,
-    start: google.maps.LatLngLiteral,
-    end: google.maps.LatLngLiteral
-  ) => {
-    directionsService.route(
-      {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.DRIVING,
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK && result) {
-          directionsRenderer.setDirections(result);
-          const route = result.routes[0].legs[0];
-          setDistance(route.distance?.text || null);
-          setDuration(route.duration?.text || null);
-        } else {
-          console.error("Error calculating route: ", status);
-        }
+  // Fetch geocode coordinates based on the location query parameter
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const coordinate = await getGeocode(location);
+        setCoordinates(coordinate);
+      } catch (error) {
+        console.error('Error fetching geocode:', error);
       }
-    );
-  };
+    };
+    fetchLocation();
+  }, [location]);
 
-  const calculateDistance = (location1: google.maps.LatLngLiteral, location2: google.maps.LatLngLiteral) => {
-    const radLat1 = (Math.PI * location1.lat) / 180;
-    const radLat2 = (Math.PI * location2.lat) / 180;
-    const theta = location1.lng - location2.lng;
-    const radTheta = (Math.PI * theta) / 180;
-    let dist =
-      Math.sin(radLat1) * Math.sin(radLat2) +
-      Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radTheta);
-    dist = Math.acos(Math.min(dist, 1));
-    dist = (dist * 180) / Math.PI;
-    return dist * 60 * 1.1515 * 1.609344; // Convert to kilometers
-  };
+  useEffect(() => {
+    if (coordinates) {
+      setCustomerLocation({
+        lat: coordinates.latitude,
+        lng: coordinates.longitude,
+      });
+    }
+  }, [coordinates]);
 
+  // Initialize the map and set up marker and directions
   useEffect(() => {
     const loadGoogleMapsScript = () => {
       if (!document.querySelector("#googleMaps")) {
         const script = document.createElement("script");
         script.id = "googleMaps";
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU`; // Replace with your API key
         script.async = true;
         script.defer = true;
         script.onload = () => {
           navigator.geolocation.watchPosition(
-            position => {
+            (position) => {
               const currentLocation = {
                 lat: position.coords.latitude,
-                lng: position.coords.longitude
+                lng: position.coords.longitude,
               };
-              setCurrentLocation(currentLocation);
-              
+
               if (!map) {
                 initializeMap(currentLocation);
-              } else {
-                updateRoute(new google.maps.DirectionsService(), directionsRenderer!, currentLocation, customerLocation);
-              }
-
-              const distanceToCustomer = calculateDistance(currentLocation, customerLocation);
-              if (distanceToCustomer < reachThreshold) {
-                setIsReached(true);
+              } else if (driverMarker) {
+                driverMarker.setPosition(currentLocation);
+                map.setCenter(currentLocation);
               }
             },
-            error => {
+            (error) => {
               alert("Error getting location. Ensure location access is enabled.");
               console.error("Geolocation error:", error);
             },
@@ -112,28 +99,92 @@ const DriverMap: React.FC = () => {
         document.head.appendChild(script);
       }
     };
+
+    const initializeMap = (initialPosition: google.maps.LatLngLiteral) => {
+      const mapOptions: google.maps.MapOptions = {
+        center: initialPosition,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
+        tilt: 45,
+      };
+
+      const mapInstance = new google.maps.Map(document.getElementById("map") as HTMLElement, mapOptions);
+      setMap(mapInstance);
+
+      const renderer = new google.maps.DirectionsRenderer({
+        map: mapInstance,
+        suppressMarkers: true,
+        polylineOptions: {
+          strokeColor: '#FF0000',
+          strokeWeight: 5,
+        },
+      });
+      setDirectionsRenderer(renderer);
+
+      const marker = new google.maps.Marker({
+        position: initialPosition,
+        map: mapInstance,
+        icon: {
+          url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+        },
+      });
+      setDriverMarker(marker);
+    };
+
     loadGoogleMapsScript();
-  }, [map, directionsRenderer]);
+  }, []);
+
+  // Update route whenever map, directionsRenderer, or customerLocation changes
+  useEffect(() => {
+    if (map && directionsRenderer && driverMarker) {
+      const updateRoute = (
+        start: google.maps.LatLngLiteral,
+        end: google.maps.LatLngLiteral
+      ) => {
+        const directionsService = new google.maps.DirectionsService();
+        directionsService.route(
+          {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING,
+          },
+          (result, status) => {
+            if (status === google.maps.DirectionsStatus.OK && result) {
+              directionsRenderer.setDirections(result);
+              const route = result.routes[0].legs[0];
+              setDistance(route.distance?.text || null);
+              setDuration(route.duration?.text || null);
+            } else {
+              console.error("Error calculating route: ", status);
+            }
+          }
+        );
+      };
+      updateRoute(driverMarker.getPosition()!.toJSON(), customerLocation);
+    }
+  }, [map, directionsRenderer, driverMarker, customerLocation]);
 
   const handleReached = () => {
-    const otp = Math.floor(10000 + Math.random() * 90000); // Generate a random 5-digit OTP
+    setIsReached(true);
+    const otp = Math.floor(10000 + Math.random() * 90000);
     alert(`OTP sent to customer: ${otp}`);
-    router.push("/VendorManagementService/VendorDriverBooking/MyBooking");
+    router.push("/DriverManagementService/VendorDriverBooking/DriverOtp");
   };
 
   const handleStartRide = () => {
-    router.push("/VendorManagementService/VendorDriverBooking/DriverOtp");
+    router.push("/DriverManagementService/VendorDriverBooking/DriverOtp");
   };
 
   return (
     <div className="driverMapContainer">
       <div id="map" style={{ width: "100%", height: "80vh" }}></div>
-      <div className="mapOverlay">
-        <p>{distance ? `${distance} | ${duration}` : "Calculating route..."}</p>
-      </div>
+     
+        <label className="distance">{distance ? `${distance} | ${duration}` : "Calculating route..."}</label>
+     
       {isReached ? (
         <button onClick={handleStartRide} className="startButton">
-          Start Ride
+          Start
         </button>
       ) : (
         <button onClick={handleReached} className="reachedButton">
@@ -160,6 +211,7 @@ const DriverMap: React.FC = () => {
         </div>
       </footer>
     </div>
+
   );
 };
 
