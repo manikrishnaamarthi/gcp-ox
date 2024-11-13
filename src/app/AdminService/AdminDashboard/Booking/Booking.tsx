@@ -1,7 +1,6 @@
-// src/components/Bookings.tsx
 "use client"
-import React, { useState } from 'react';
-import { FaHome } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaHome, FaClock, FaMapMarkerAlt, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa";
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
@@ -12,22 +11,31 @@ import './Booking.css';
 const Bookings = () => {
   const [selectedClinic, setSelectedClinic] = useState('OxiviveClinic');
   const [selectedStatus, setSelectedStatus] = useState('Booking');
+  const [bookings, setBookings] = useState([]); // state to store the fetched bookings
+  const [loading, setLoading] = useState(true); // loading state for API request
+  const [error, setError] = useState(''); // error state to handle any errors
 
-  const bookings = [
-    { date: 'Wed 16', time: '09:00 AM - 10:00 AM', location: 'Bandra, Mumbai', name: 'Shivakumar Shetty', doctor: 'Dr. Manoj Jonam', status: 'Booking', clinic: 'OxiviveClinic' },
-    { date: 'Wed 16', time: '10:00 AM - 11:00 AM', location: 'Thane, Mumbai', name: 'Anthony', doctor: 'Dr. Raghu', status: 'Completed', clinic: 'OxiviveClinic' },
-    { date: 'Wed 16', time: '01:00 PM - 02:30 PM', location: 'Juhu, Mumbai', name: 'Dilip Raja', doctor: 'Dr. Sneha', status: 'Cancelled', clinic: 'OxiviveClinic' },
-    { date: 'Thu 17', time: '10:00 AM - 11:30 AM', location: 'Malad, Mumbai', name: 'Virendra Patil', doctor: 'Dr. Raghu', status: 'Booking', clinic: 'OxiWheel' },
-    { date: 'Thu 17', time: '03:00 PM - 04:00 PM', location: 'Borivali, Mumbai', name: 'Rohit Kumar', doctor: 'Dr. Piyush Shah', status: 'Completed', clinic: 'OxiviveClinic' },
-    { date: 'Fri 18', time: '09:30 AM - 10:30 AM', location: 'Powai, Mumbai', name: 'Kavita Sharma', doctor: 'Dr. Shalini Kapoor', status: 'Cancelled', clinic: 'OxiWheel' },
-    { date: 'Fri 18', time: '11:00 AM - 12:30 PM', location: 'Colaba, Mumbai', name: 'Suresh Iyer', doctor: 'Dr. Rakesh Gupta', status: 'Booking', clinic: 'OxiWheel' },
-    { date: 'Fri 18', time: '02:00 PM - 03:00 PM', location: 'Worli, Mumbai', name: 'Prakash Singh', doctor: 'Dr. Aditi Nair', status: 'Completed', clinic: 'OxiviveClinic' },
-    { date: 'Sat 19', time: '10:00 AM - 11:00 AM', location: 'Kandivali, Mumbai', name: 'Neha Joshi', doctor: 'Dr. Manisha Agarwal', status: 'Booking', clinic: 'OxiviveClinic' },
-    { date: 'Sat 19', time: '01:00 PM - 02:00 PM', location: 'Vile Parle, Mumbai', name: 'Sunil Desai', doctor: 'Dr. Ashok Bhatia', status: 'Completed', clinic: 'OxiWheel' },
-    { date: 'Sat 19', time: '03:00 PM - 04:00 PM', location: 'Kurla, Mumbai', name: 'Ramesh Naidu', doctor: 'Dr. Mahesh Chawla', status: 'Cancelled', clinic: 'OxiWheel' },
-    { date: 'Sun 20', time: '11:00 AM - 12:00 PM', location: 'Dadar, Mumbai', name: 'Pooja Rane', doctor: 'Dr. Kiran Mhatre', status: 'Booking', clinic: 'OxiWheel' },
-    { date: 'Sun 20', time: '02:00 PM - 03:00 PM', location: 'Marine Lines, Mumbai', name: 'Ajay Varma', doctor: 'Dr. Anita Singh', status: 'Completed', clinic: 'OxiviveClinic' }
-  ];
+  // Fetch bookings data from the backend API
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        // Replace with your API endpoint
+        const response = await fetch('http://127.0.0.1:8000/api/bookingapp-bookingservice/');
+        console.log(response)
+        if (!response.ok) {
+          throw new Error('Failed to fetch bookings');
+        }
+        const data = await response.json();
+        setBookings(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, []); // Empty dependency array means this will run only once when the component mounts
 
   const filteredBookings = bookings.filter(
     (booking) => booking.status === selectedStatus && booking.clinic === selectedClinic
@@ -50,6 +58,7 @@ const Bookings = () => {
           <div className="sidebar-icon" data-name="Manage Service"><MdManageAccounts /></div>
           <div className="sidebar-icon" data-name="Inventory"><MdOutlineInventory /></div>
           <div className="sidebar-icon" data-name="Vendor"><MdOutlinePeopleAlt /></div>
+          <div className="sidebar-icon logout-icon" data-name="Logout"><FaSignOutAlt /></div>
         </nav>
       </aside>
 
@@ -101,19 +110,30 @@ const Bookings = () => {
           </div>
         </div>
 
-        <div className="booking-cards">
-    {filteredBookings.map((booking, index) => (
-        <div className="booking-card" key={index}>
-            <p className="booking-date">{booking.date}</p>
-            <div className="booking-info">
-                <p className="booking-time">{booking.time}</p>
-                <p className="booking-location">{booking.location}</p>
-                <p className="booking-name">{booking.name}</p>
-            </div>
-            <p className="booking-doctor">{booking.doctor}</p>
-        </div>
-    ))}
-</div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : (
+          <div className="booking-cards">
+            {filteredBookings.map((booking, index) => (
+              <div className="booking-card" key={index}>
+                <p className="booking-date">{booking.date}</p>
+                <div className="booking-info">
+                  <div className="booking-time">
+                    <FaClock className="icon" />
+                    <span>{booking.time}</span>
+                  </div>
+                  <div className="booking-location">
+                    <FaMapMarkerAlt className="icon" />
+                    <span>{booking.location}</span>
+                  </div>
+                  <p className="booking-name">{booking.name}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
