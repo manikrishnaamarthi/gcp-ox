@@ -1,33 +1,77 @@
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    background-color: #d7d2d2;
-  }
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  margin: auto;
+  justify-content: center;
+  box-sizing: border-box;
+  height:100vh;
+  background-color: rgb(215, 212, 212);
+}
 
 .payment-success-container {
-    height: 100vh;
-    width: 100%;
-    max-width: 375px;
-    margin: auto;
-    background-color:#ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 350px;
+  height: 100vh;
+  margin: auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-image {
+  width: 130px;
+  height: 130px;
+  margin-bottom: 25px;
+  color: #FC000E;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.payment-status-text {
+  color: #FC000E;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .payment-success-container {
+    max-width: 350px;
+    max-height: 100vh;
   }
   
   .ticket-image {
-    width: 130px; 
-    height: 130px; 
-    margin-bottom: 25px;
-    color: #FC000E;
-    border-radius: 50%; 
-    object-fit: cover; 
-}
+    width: 100px;
+    height: 100px;
+  }
+
   .payment-status-text {
-    color: #FC000E;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 350px) {
+  .payment-success-container {
+    max-width: 280px;
+    padding: 15px;
   }
   
+  .ticket-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .payment-status-text {
+    font-size: 14px;
+  }
+}

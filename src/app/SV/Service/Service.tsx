@@ -17,18 +17,18 @@ const Service: React.FC = () => {
 
   return (
     <div className="service-container">
-      <div className="header">
+      <div className="header1">
         <button className="back-button"><MdKeyboardBackspace /></button>
-        <div className="logo">
+        <div className="logo1">
           <img src="/images/circle.png" alt="Oxivive Logo" />
         </div>
-        <h1 className="title">
+        <h1 className="title1">
           <span className="welcome">Welcome to</span>
           <span className="oxivive">Oxivive</span>
         </h1>
       </div>
 
-      <div className="service-selection">
+      <div className="service-selection1">
         <h2>Please select your service</h2>
         <p>What specific service will you be providing?</p>
         <div className="services">

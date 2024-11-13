@@ -25,25 +25,25 @@ const ProfilePhoto: React.FC = () => {
       const fileURL = URL.createObjectURL(file);
       setProfileImage(file);
       setProfilePreview(fileURL);
-      
-      // Store preview in localStorage for displaying the image
-      localStorage.setItem("profilePhotoPreview", fileURL);
-
-      // Convert the file to base64 and store it as profilePhotoFile for backend upload
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64String = reader.result as string;
-        localStorage.setItem("profilePhotoFile", base64String);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
   const handleSubmit = () => {
     if (profileImage) {
-      alert('Profile photo uploaded successfully!');
+      // Store preview and file in localStorage only when submit is clicked
+      localStorage.setItem("profilePhotoPreview", profilePreview || "");
       localStorage.setItem("isProfilePhotoUploaded", "true"); // Mark as uploaded
-      Router.push("/VendorManagementService/DocumentsVerifyPage"); // Redirect to the verification page
+      
+      // Convert the file to base64 and store it as profilePhotoFile for backend upload
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        localStorage.setItem("profilePhotoFile", base64String);
+        
+        alert('Profile photo uploaded successfully!');
+        Router.push("/VendorManagementService/DocumentsVerifyPage"); // Redirect to the verification page
+      };
+      reader.readAsDataURL(profileImage);
     } else {
       alert('Please upload your profile photo');
     }

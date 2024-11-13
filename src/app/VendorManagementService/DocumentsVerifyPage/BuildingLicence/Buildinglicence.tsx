@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { FiUpload } from "react-icons/fi";
 import "./Buildinglicence.css"; 
@@ -10,33 +10,39 @@ const Buildinglicence: React.FC = () => {
   const [frontSide, setFrontSide] = useState<File | null>(null);
   const [frontPreview, setFrontPreview] = useState<string | null>(null);
 
-  // Load data from localStorage on mount
+  // Load preview data from localStorage on mount
   useEffect(() => {
-    const storedFront = localStorage.getItem("buildingFrontFile");
+    const storedFront = localStorage.getItem("buildingFrontPreview");
     if (storedFront) setFrontPreview(storedFront);
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      const reader = new FileReader();
-      
-      // Convert file to base64 and store in localStorage
-      reader.onload = () => {
-        const base64String = reader.result as string;
-        setFrontPreview(base64String);
-        localStorage.setItem("buildingFrontFile", base64String); // Store base64 data for document component
-        localStorage.setItem("isBuildingLicenceUploaded", "true");
-      };
-      reader.readAsDataURL(file);
-      setFrontSide(file);
+      setFrontSide(file); // Set file to state for submission
+
+      // Generate a URL for preview without saving to local storage yet
+      const previewURL = URL.createObjectURL(file);
+      setFrontPreview(previewURL);
     }
   };
 
   const handleSubmit = () => {
     if (frontSide) {
-      alert("File uploaded successfully!");
-      router.push("/VendorManagementService/DocumentsVerifyPage");
+      const reader = new FileReader();
+
+      // Save to localStorage only after the "Done" button is clicked
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        localStorage.setItem("buildingFrontFile", base64String); // Save base64 data for backend
+        localStorage.setItem("buildingFrontPreview", frontPreview as string); // Save preview for consistent display
+        localStorage.setItem("isBuildingLicenceUploaded", "true");
+
+        alert("File uploaded successfully!");
+        router.push("/VendorManagementService/DocumentsVerifyPage");
+      };
+
+      reader.readAsDataURL(frontSide); // Convert file to base64
     } else {
       alert("Please upload the front side of the Building Permit & Licence");
     }

@@ -37,20 +37,16 @@ const DrivingLicence: React.FC = () => {
                 if (side === "front") {
                     setFrontSide(file);
                     setFrontPreview(fileBase64);
-                    localStorage.setItem("drivingFrontFile", fileBase64);
                 } else {
                     setBackSide(file);
                     setBackPreview(fileBase64);
-                    localStorage.setItem("drivingBackFile", fileBase64);
                 }
             };
             reader.readAsDataURL(file);
         }
     };
 
-    const handleDateOfBirthChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         const formattedValue = value.replace(/[^0-9\-\/]/g, "");
         setDateOfBirth(formattedValue);
@@ -67,10 +63,13 @@ const DrivingLicence: React.FC = () => {
 
     const handleSubmit = () => {
         if (frontSide && backSide && licenceNumber && dateOfBirth) {
+            // Save data in localStorage only when submit is clicked
+            localStorage.setItem("drivingFrontFile", frontPreview || "");
+            localStorage.setItem("drivingBackFile", backPreview || "");
             localStorage.setItem("drivingLicenceNumber", licenceNumber);
             localStorage.setItem("dateOfBirth", dateOfBirth);
             localStorage.setItem("isDrivingLicenceUploaded", "true"); // Update the status in localStorage
-        
+
             alert("Files uploaded successfully!");
             Router.push("/VendorManagementService/DocumentsVerifyPage");
         } else {
@@ -153,7 +152,7 @@ const DrivingLicence: React.FC = () => {
 
                 <label className="formLabel">Date of Birth</label>
                 <input
-                    type="text"
+                    type="date"
                     placeholder="Enter Date of Birth in Driving Licence"
                     className="inputField"
                     value={dateOfBirth}

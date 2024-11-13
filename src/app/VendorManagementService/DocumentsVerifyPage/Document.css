@@ -20,7 +20,7 @@ body {
     justify-content: space-between;
     background-color: #FC000E;
     min-height: 100vh;
-    border-radius: 25px;
+    /* border-radius: 15px; */
     width: 350px;
     
 }
@@ -59,7 +59,9 @@ body {
 .content-container {
     background-color: #ffffff;
     padding: 25px;
-    border-radius: 25px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    /* position: absolute; */
 }
 
 .document-cards {
@@ -72,7 +74,7 @@ body {
     background-color: #e1dddd;
     padding: 12px;
     margin-left: 15px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-bottom: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     width: 320px;
@@ -104,6 +106,9 @@ body {
 .arrow-icon {
     color: #FC000E;
     font-size: 1.2rem;
+    margin-right: -6px;
+    /* position: relative; */
+
 }
 
 .submit-btn {
@@ -145,46 +150,127 @@ body {
 
 .tick-icon {
     color: #34C759;
-    font-size: 1.1em;
+    font-size: 1.5em;
     margin-right: px;
     margin-bottom: 20px;
 }
 
 
 
+.document-info {
+    flex-grow: 1;
+    color: black;
+}
 
+.title-and-tick {
+    display: flex;
+    align-items: center;
+}
 
-/* .document-card.uploaded {
-    border: 1px solid green;
+.document-title {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: bold;
+    margin-right: 8px; /* Space between title and tick */
 }
 
 .tick-icon {
-    color: green;
-    font-size: 1.em;
-    margin-left: -8px;
-} */
+    color: #34C759;
+    font-size: 1.5em;
+    margin-bottom: 5px;
 
-/* 
-.tick-iconmedical{
-    color: green;
-    font-size: 1.0em;
-    margin-right: px;
-    margin-bottom: 20px;  
 }
 
-.tick-iconbuiling{
-    color: green;
-    font-size: 1.0em;
-    margin-right: 15px;
-    margin-bottom: 20px;
+.title-with-tick {
+    display: flex;
+    align-items: center;
 }
 
-.tick-iconAadhar{
-    color: green;
-    font-size: 1.0em;
-    margin-right: 100px;
-    margin-bottom: 20px;
-} */
+.document-title1 {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: bold;
+    margin-right: 20px; /* Space between title and tick */
+}
+.tick-icon1 {
+    color: #34C759;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+
+}
+
+
+/* Flex container for heading and tick icon */
+.title-container {
+    display: flex;
+    align-items: center; /* Aligns the heading and tick icon vertically */
+}
+
+.document-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 8px; /* Space between the title and tick icon */
+}
+
+/* Adjust tick icon size and color */
+.tick-icon2 {
+    color: #34C759; /* Green color for tick */
+    font-size: 1.5em; /* Adjust size as needed */
+}
+
+
+.document-info {
+    flex-grow: 1;
+    color: black;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+}
+
+.document-title {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: bold;
+    margin-right: 5px; /* Space between title and tick icon */
+}
+
+.tick-icon3 {
+    color: #34C759;
+    font-size: 1.5em;
+    margin-left: 5px; /* Adjust spacing between title and tick */
+}
+
+.document-info p {
+    font-size: 0.8rem;
+    color: gray;
+    margin: 2px 0 0;
+}
+
+
+.document-title-container {
+    display: flex;
+    align-items: center; /* Aligns tick icon with title text */
+}
+
+.document-title {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.tick-icon4 {
+    color: #34C759;
+    font-size: 1.2em;
+    margin-left: 20px; /* Adjust spacing as needed */
+}
+.arrow-icon1 {
+    color: #FC000E;
+    font-size: 1.2rem;
+    margin-right: -6px;
+}
 
 
 

@@ -26,36 +26,38 @@ const PanCard: React.FC = () => {
         const file = e.target.files[0];
         const previewUrl = URL.createObjectURL(file);
 
-        const fileBase64 = await convertFileToBase64(file); // Convert file to base64
-
         if (side === 'front') {
             setFrontSide(file);
             setFrontPreview(previewUrl);
-            localStorage.setItem("pancardFrontSidePreview", previewUrl);
-            localStorage.setItem("panFrontFile", fileBase64); // Store base64 in localStorage
         } else {
             setBackSide(file);
             setBackPreview(previewUrl);
-            localStorage.setItem("pancardBackSidePreview", previewUrl);
-            localStorage.setItem("panBackFile", fileBase64); // Store base64 in localStorage
         }
     }
-};
+  };
 
-// Helper function to convert file to base64
-const convertFileToBase64 = (file: File): Promise<string> => {
+  // Helper function to convert file to base64
+  const convertFileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result as string);
         reader.onerror = (error) => reject(error);
     });
-};
+  };
 
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (frontSide && backSide) {
+      // Convert files to base64 and save to local storage when "Done" is clicked
+      const frontBase64 = await convertFileToBase64(frontSide);
+      const backBase64 = await convertFileToBase64(backSide);
+      
+      localStorage.setItem("pancardFrontSidePreview", frontPreview || "");
+      localStorage.setItem("pancardBackSidePreview", backPreview || "");
+      localStorage.setItem("panFrontFile", frontBase64);
+      localStorage.setItem("panBackFile", backBase64);
       localStorage.setItem("isPancardUploaded", "true");
+
       alert("Pan Card uploaded successfully!");
       Router.push("/VendorManagementService/DocumentsVerifyPage");
     } else {

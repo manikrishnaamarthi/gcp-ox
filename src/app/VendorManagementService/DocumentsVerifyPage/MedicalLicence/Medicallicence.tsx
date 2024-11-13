@@ -6,7 +6,7 @@ import "./Medicallicence.css";
 import { useRouter } from "next/navigation";
 
 const Medicallicence: React.FC = () => {
-    const Router = useRouter();
+    const router = useRouter();
     const [frontSide, setFrontSide] = useState<File | null>(null);
     const [backSide, setBackSide] = useState<File | null>(null);
     const [frontPreview, setFrontPreview] = useState<string | null>(null);
@@ -14,15 +14,15 @@ const Medicallicence: React.FC = () => {
     const [licenceNumber, setLicenceNumber] = useState("");
     const [licenceEndDate, setLicenceEndDate] = useState("");
 
-    // Load data from localStorage on mount
+    // Load preview data and fields from localStorage on mount
     useEffect(() => {
-        const storedFront = localStorage.getItem("frontSidePreview");
-        const storedBack = localStorage.getItem("backSidePreview");
+        const storedFrontPreview = localStorage.getItem("medicalFrontPreview");
+        const storedBackPreview = localStorage.getItem("medicalBackPreview");
         const storedLicenceNumber = localStorage.getItem("licenceNumber");
         const storedLicenceEndDate = localStorage.getItem("licenceEndDate");
 
-        if (storedFront) setFrontPreview(storedFront);
-        if (storedBack) setBackPreview(storedBack);
+        if (storedFrontPreview) setFrontPreview(storedFrontPreview);
+        if (storedBackPreview) setBackPreview(storedBackPreview);
         if (storedLicenceNumber) setLicenceNumber(storedLicenceNumber);
         if (storedLicenceEndDate) setLicenceEndDate(storedLicenceEndDate);
     }, []);
@@ -30,50 +30,55 @@ const Medicallicence: React.FC = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, side: string) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
-    
-            // Create a FileReader to read the file as a Base64 string
-            const reader = new FileReader();
-            reader.onload = () => {
-                const fileBase64 = reader.result as string;
-                if (side === "front") {
-                    setFrontSide(file);
-                    setFrontPreview(fileBase64);
-                    localStorage.setItem("medicalFrontFile", fileBase64); // Save Base64 string
-                } else {
-                    setBackSide(file);
-                    setBackPreview(fileBase64);
-                    localStorage.setItem("medicalBackFile", fileBase64); // Save Base64 string
-                }
-            };
-            reader.readAsDataURL(file); // Converts file to Base64 format
+            const previewURL = URL.createObjectURL(file);
+
+            // Update preview image
+            if (side === "front") {
+                setFrontSide(file);
+                setFrontPreview(previewURL);
+            } else {
+                setBackSide(file);
+                setBackPreview(previewURL);
+            }
         }
     };
-    
 
-    const handleLicenceEndDateChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const value = e.target.value;
-        const formattedValue = value.replace(/[^0-9\-\/]/g, "");
-        setLicenceEndDate(formattedValue);
+    const handleLicenceNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLicenceNumber(e.target.value.replace(/[^0-9]/g, ""));
     };
 
-    const handleLicenceNumberChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const value = e.target.value;
-        const formattedValue = value.replace(/[^0-9]/g, ""); // Allow only integers
-        setLicenceNumber(formattedValue);
+    const handleLicenceEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLicenceEndDate(e.target.value);
     };
 
     const handleSubmit = () => {
         if (frontSide && backSide && licenceNumber && licenceEndDate) {
+            const readerFront = new FileReader();
+            const readerBack = new FileReader();
+
+            // Read the front side image as base64
+            readerFront.onload = () => {
+                const frontBase64 = readerFront.result as string;
+                localStorage.setItem("medicalFrontFile", frontBase64);
+                localStorage.setItem("medicalFrontPreview", frontPreview as string);
+            };
+            readerFront.readAsDataURL(frontSide);
+
+            // Read the back side image as base64
+            readerBack.onload = () => {
+                const backBase64 = readerBack.result as string;
+                localStorage.setItem("medicalBackFile", backBase64);
+                localStorage.setItem("medicalBackPreview", backPreview as string);
+            };
+            readerBack.readAsDataURL(backSide);
+
+            // Save the other fields after reading the images
             localStorage.setItem("licenceNumber", licenceNumber);
             localStorage.setItem("licenceEndDate", licenceEndDate);
             localStorage.setItem("isMedicalUploaded", "true");
 
-            alert("Files uploaded successfully!");
-            Router.push("/VendorManagementService/DocumentsVerifyPage");
+            alert("Files and data uploaded successfully!");
+            router.push("/VendorManagementService/DocumentsVerifyPage");
         } else {
             alert("Please complete all fields and upload both sides of the licence.");
         }
@@ -82,7 +87,7 @@ const Medicallicence: React.FC = () => {
     return (
         <div className="container">
             <div className="back-arrow">
-                <BiArrowBack className="arrow-icon" onClick={() => Router.back()} />
+                <BiArrowBack className="arrow-icon" onClick={() => router.back()} />
             </div>
 
             <h1 className="header1">Medical Practitioner Licence</h1>
@@ -147,13 +152,12 @@ const Medicallicence: React.FC = () => {
                     placeholder="Medical Practitioner Licence Number"
                     className="inputField"
                     value={licenceNumber}
-                    onChange={handleLicenceNumberChange} // Added validation here
+                    onChange={handleLicenceNumberChange}
                 />
 
                 <label className="formLabel">Licence End Date</label>
                 <input
-                    type="text"
-                    placeholder="Enter Licence End Date in Medical Licence"
+                    type="date"
                     className="inputField"
                     value={licenceEndDate}
                     onChange={handleLicenceEndDateChange}
