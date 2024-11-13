@@ -1,86 +1,91 @@
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-color: #d7d2d2;
-}
+/* DriverMap.css */
 
+/* Container for the entire map and overlay */
 .driverMapContainer {
+  position: relative;
+  width: 350px;
   height: 100vh;
-  max-width: 350px; /* Maximum width for mobile */
-  margin: auto;
-  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden; /* Prevent overflow issues */
-}
-
-#map {
-  flex: 1;
-  width: 100%;
-  height: 80vh; /* Set height relative to viewport */
   margin: auto;
-  position: relative;
-  z-index: 1;
+  align-items: center;
+  justify-content: space-between;
+  background-color:  #f8f9fa;
 }
 
+/* Google Map container */
+#map {
+  width: 100%;
+  height: 80vh; /* Set the map height */
+}
+
+/* Overlay to show distance and duration */
 .mapOverlay {
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 10;
 }
 
-.reachedButton,
-.startButton {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgb(238, 20, 20);
+/* Reached and Start buttons */
+.reachedButton, .startButton {
+  width: 90%;
+  max-width: 300px;
+  padding: 12px;
+  margin: 10px 0;
+  background-color:  #FC000E;
   color: white;
-  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  z-index: 2;
+  transition: background-color 0.3s ease;
 }
 
-/* Footer styles */
+.reachedButton:hover, .startButton:hover {
+  opacity: 0.7;
+}
+
+/* Footer styling */
 .footer {
   display: flex;
   justify-content: space-around;
-  padding: 10px 0;
-  background-color: white;
-  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  bottom: 0;
+  align-items: center;
+  background-color: #f8f9fa;
   width: 100%;
-  max-width: 350px; /* Maximum width for mobile */
-  z-index: 3;
+  padding: 12px 0;
+  box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
 }
 
 .footerItem {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #6c757d;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
+.footerItem:hover {
+  color:  #FC000E;
+}
+
+/* Icon styling for footer icons */
 .footerIcon {
-  font-size: 25px;
-  color: rgb(155, 148, 148);
+  font-size: 24px;
+  margin-bottom: 4px;
 }
 
-.footerItem p {
-  margin: 5px 0 0;
-  font-size: 0.75em;
-  font-weight: 500;
+.distance{
+  margin-top: 5px;
+  color: black;
 }
-

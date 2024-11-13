@@ -32,7 +32,7 @@ const Search: React.FC = () => {
       <div className="search-bar">
         <CiSearch size={24} />
         <input type="text" placeholder="Search for a location" />
-      </div>
+      
 
       <div className="footer-section">
         {['home', 'search', 'booking', 'profile'].map((icon) => (
@@ -49,6 +49,7 @@ const Search: React.FC = () => {
             <span className="footer-header">{icon.charAt(0).toUpperCase() + icon.slice(1)}</span>
           </div>
         ))}
+      </div>
       </div>
     </div>
     </div>
