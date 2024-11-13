@@ -206,7 +206,7 @@ const Document: React.FC = () => {
                             </div>
                             <p>Upload Medical Practitioner License</p>
                         </div>
-                        <IoIosArrowForward className="arrow-icon" />
+                        <IoIosArrowForward className="arrow-icon3" />
                     </div>
                     
                     )}
@@ -225,7 +225,7 @@ const Document: React.FC = () => {
                             </div>
                             <p>Upload Building Permit & Licence</p>
                         </div>
-                        <IoIosArrowForward className="arrow-icon" />
+                        <IoIosArrowForward className="arrow-icon3" />
                     </div>
                     
                     )}
@@ -241,7 +241,7 @@ const Document: React.FC = () => {
                             </div>
                             <p>Upload Aadhar Card</p>
                         </div>
-                        <IoIosArrowForward className="arrow-icon" />
+                        <IoIosArrowForward className="arrow-icon3" />
                     </div>
                     
                     )}
@@ -260,7 +260,7 @@ const Document: React.FC = () => {
             </div>
             <p>Upload Pancard</p>
         </div>
-        <IoIosArrowForward className="arrow-icon" />
+        <IoIosArrowForward className="arrow-icon3" />
     </div>
 )}
 
@@ -279,7 +279,7 @@ const Document: React.FC = () => {
                             </div>
                             <p>Upload Profile Photo</p>
                         </div>
-                        <IoIosArrowForward className="arrow-icon" />
+                        <IoIosArrowForward className="arrow-icon2" />
                     </div>
                     
                     )}

@@ -18,7 +18,7 @@ body {
   .header {
     background-color: #ff0000;
     color: white;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     position: relative;
     height: 170px;
@@ -39,7 +39,7 @@ body {
   .logo {
     position: absolute;
   top: 50px;
-  left: 25px;
+  left: 20px;
   }
   
   .logo img {
