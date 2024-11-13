@@ -1,239 +1,246 @@
-
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f6f3f3;
-  }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f6f3f3;
+}
+
 /* Overall layout */
 .admin-dashboard {
-    display: flex;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Sidebar styling */
-  .admin-sidebar {
-    height: 100vh;
-    width: 150px;
-    background-color: #fff;
-    /* border-right: 1px solid #ddd; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    position: fixed; /* Fix sidebar position */
-  }
-  
-  .logo {
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: -25px;
-  }
-  
-  .logo img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
-  }
-  
-  .logo p {
-    font-size: 14px;
-    color: red;
-    font-weight: bold;
-  }
-  
-  .sidebar-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-left: -40px;
-  }
-  
-  .sidebar-icon {
-    font-size: 24px;
-    color: #ff0000;
-    cursor: pointer;
-    position: relative;
-  }
+  display: flex;
+  font-family: Arial, sans-serif;
+}
 
-  .sidebar-icon:hover::after {
-    content: attr(data-name); 
-    position: absolute;
-    left: 40px; /* Adjust distance between icon and text */
-    top: 50%; /* Center the text vertically with the icon */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    color: red;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: transparent;
-    white-space: nowrap;
-  }
-  /* Logout Icon Styling */
+/* Sidebar styling */
+.admin-sidebar {
+  height: 100vh;
+  width: 150px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  position: fixed;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: -25px;
+}
+
+.logo img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.logo p {
+  font-size: 14px;
+  color: red;
+  font-weight: bold;
+}
+
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-left: -40px;
+}
+
+/* Icon styling with hover animation */
+.sidebar-icon {
+  font-size: 24px;
+  color: #ff0000;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-icon:hover {
+  transform: scale(1.2); /* Scale up icon on hover */
+  color: #ff5555; /* Slightly lighter red on hover */
+}
+
+.sidebar-icon:hover::after {
+  content: attr(data-name);
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  white-space: nowrap;
+}
+
+/* Logout Icon Styling */
 .sidebar-icon.logout-icon {
   margin-top: 48px;
 }
 
-.sidebar-icon.logout-icon:hover {
-  color: #ff0000;
+/* Main content */
+.admin-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  margin-left: 150px;
+  height: 100vh;
+  overflow-y: auto;
 }
-  
-  
-  /* Main content */
-  .admin-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #fff;
-    margin-left: 150px; /* Space for the fixed sidebar */
-    height: 100vh;
-    overflow-y: auto; /* Enable vertical scrolling */
-  }
 
-  .admin-header {
-    text-align: center;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  
-  .admin-title {
-    font-size: 28px;
-    color: #ff0000;
-    font-weight: bold;
-    margin-bottom: 10px; /* Space between title and categories */
-  }
-  
-  /* Categories and Search Bar */
-  .admin-categories {
-    display: flex;
-    justify-content: space-between; /* Space between categories and search bar */
-    align-items: center;
-    width: 100%;
-    padding: 0 20px; /* Add padding on the sides */
-    margin-bottom: 20px;
-  }
-  
-  .categories-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-grow: 1; /* Allow this section to grow to center the buttons */
-    margin-left: 200px;
-  }
-  
-  /* Search bar styles */
-  .search-bar {
-    padding: 8px;
-    width: 200px;
-    border-radius: 10px;
-    border: 1px solid red;
-    font-size: 14px;
-    color: red;
-  }
-  
-  .search-bar:focus {
-    border-color: red;
-    color: red;
-    outline: none;
-  }
-  
-  .search-bar::placeholder {
-    color: red;
-  }
-  
-  /* Category buttons */
-  .category-button {
-    padding: 10px 18px;
-    border-radius: 15px;
-    border: none;
-    background-color: #faf5f5;
-    color: #333;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .category-button.active {
-    background-color: #ff0000;
-    color: #fff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  
-  /* Vendor cards */
-  .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
-    margin-left: 25px;
-  }
-  
-  .card {
-    width: 300px;
-    background-color: #faf5f5;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .vendor-image {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    margin-left: 80px;
-  }
-  
-  .vendor-name {
-    color: #ff0000;
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  .vendor-info {
-    color: #555;
-    font-size: 16px;
-    margin: 4px 0;
-  }
-  
-  /* Responsive Design for Laptop Screens */
+.admin-header {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.admin-title {
+  font-size: 28px;
+  color: #ff0000;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Categories and Search Bar */
+.admin-categories {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.categories-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-grow: 1;
+  margin-left: 200px;
+}
+
+/* Search bar styles */
+.search-bar {
+  padding: 8px;
+  width: 200px;
+  border-radius: 10px;
+  border: 1px solid red;
+  font-size: 14px;
+  color: red;
+}
+
+.search-bar:focus {
+  border-color: red;
+  color: red;
+  outline: none;
+}
+
+.search-bar::placeholder {
+  color: red;
+}
+
+/* Category buttons */
+.category-button {
+  padding: 10px 18px;
+  border-radius: 15px;
+  border: none;
+  background-color: #faf5f5;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-button.active {
+  background-color: #ff0000;
+  color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Vendor cards */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  margin-left: 25px;
+}
+
+/* Card styling with hover animation */
+.card {
+  width: 300px;
+  background-color: #faf5f5;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.vendor-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  margin-left: 80px;
+}
+
+.vendor-name {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.vendor-info {
+  color: #555;
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+/* Responsive Design for Laptop Screens */
 @media (min-width: 1024px) and (max-width: 1440px) {
-    .admin-dashboard {
-        display: flex;
-    }
+  .admin-dashboard {
+      display: flex;
+  }
 
-    .admin-sidebar {
-        width: 200px; /* Increase sidebar width for larger screens */
-    }
+  .admin-sidebar {
+      width: 200px;
+  }
 
-    .logo img {
-        width: 120px;
-        height: 120px;
-    }
+  .logo img {
+      width: 120px;
+      height: 120px;
+  }
 
-    .logo p {
-        font-size: 16px;
-    }
+  .logo p {
+      font-size: 16px;
+  }
 
-    .admin-title {
-        font-size: 32px;
-    }
+  .admin-title {
+      font-size: 32px;
+  }
 
-    .categories-container {
-        margin-left: 230px; /* Adjust margin for better layout */
-    }
+  .categories-container {
+      margin-left: 230px;
+  }
 
-    .search-bar {
-        width: 200px;
-    }
+  .search-bar {
+      width: 200px;
+  }
 
-    .cards-container {
-        gap: 30px;
-    }
+  .cards-container {
+      gap: 30px;
+  }
 
-    .card {
-        width: 300px; /* Increase card size */
-    }
+  .card {
+      width: 300px;
+  }
 }

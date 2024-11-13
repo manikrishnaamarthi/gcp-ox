@@ -189,7 +189,7 @@ body {
   
   .document-row {
     display: flex;
-    gap: 15px;
+    gap: 65px;
     margin-bottom: 20px;
     flex-wrap: wrap; /* Allow wrapping for document images */
   }

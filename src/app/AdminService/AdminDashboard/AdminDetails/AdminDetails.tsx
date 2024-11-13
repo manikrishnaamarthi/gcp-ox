@@ -1,13 +1,14 @@
 'use client';
-import { useSearchParams } from 'next/navigation';
 import React from 'react';
-import { FaHome, FaCartPlus, FaChartArea,FaSignOutAlt } from 'react-icons/fa';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { FaHome, FaCartPlus, FaChartArea, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
 import { FaPeopleGroup } from 'react-icons/fa6';
 import './AdminDetails.css';
 
 const AdminDetails = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
   const name = searchParams.get('name');
@@ -16,10 +17,12 @@ const AdminDetails = () => {
   const address = searchParams.get('address');
   const email = searchParams.get('email');
   const phone = searchParams.get('phone');
-  const pan_front_side = searchParams.get('pan_front_side');
-  const gstNumber = searchParams.get('gstNumber');
+  const state = searchParams.get('state');
+  const district = searchParams.get('district');
+  const pincode = searchParams.get('pincode');
   const aadhar_front_side = searchParams.get('aadhar_front_side');
   const aadhar_back_side = searchParams.get('aadhar_back_side');
+  const pan_front_side = searchParams.get('pan_front_side');
   const pan_back_side = searchParams.get('pan_back_side');
   const licence_end_date = searchParams.get('licence_end_date');
   const medical_front_side = searchParams.get('medical_front_side');
@@ -31,7 +34,37 @@ const AdminDetails = () => {
   const vehicle_rc_front_side = searchParams.get('vehicle_rc_front_side');
   const vehicle_rc_back_side = searchParams.get('vehicle_rc_back_side');
 
-  if (!name) return <p>Loading...</p>; // Display loading until data is available
+  if (!name) return <p>Loading...</p>;
+
+  const handleApprove = async () => {
+    try {
+      await fetch(`http://127.0.0.1:8000/api/vendorapp-vendordetails/`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'approved', email }),
+      });
+    
+      router.push('/AdminService/AdminDashboard');
+    } catch (error) {
+      console.error(error);
+      alert('Error approving the document');
+    }
+  };
+
+  const handleReject = async () => {
+    try {
+      await fetch(`http://127.0.0.1:8000/api/vendorapp-vendordetails/`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'rejected', email }),
+      });
+    
+      router.push('/AdminService/AdminDashboard');
+    } catch (error) {
+      console.error(error);
+      alert('Error rejecting the document');
+    }
+  };
 
   return (
     <div className="admin-details">
@@ -84,13 +117,16 @@ const AdminDetails = () => {
 
           <div className="info-details">
             <p><strong>Oxi Type:</strong> {selectedService}</p>
+            <p><strong>Name:</strong> {name}</p>
+            <p><strong>State:</strong> {state}</p>
+            <p><strong>District:</strong> {district}</p>
+            <p><strong>Pincode:</strong> {pincode}</p>
+            <p><strong>Address:</strong> {address}</p>
             <p><strong>Email ID:</strong> {email}</p>
             <p><strong>Phone:</strong> {phone}</p>
-            <p><strong>PAN Number:</strong> {pan_front_side}</p>
-            <p><strong>GST Number:</strong> {gstNumber}</p>
             <div className="action-buttons">
-              <button className="approve">Approve</button>
-              <button className="reject">Reject</button>
+            <button className="approve" onClick={handleApprove}>Approve</button>
+            <button className="reject" onClick={handleReject}>Reject</button>
             </div>
           </div>
 
