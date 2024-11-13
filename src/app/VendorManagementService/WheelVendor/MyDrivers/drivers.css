@@ -3,7 +3,7 @@ body {
   font-style: normal;
   margin: 0;
   background-color: rgb(228, 226, 226);
-  text-align: center;
+  /* text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,7 @@ body {
   padding: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; */
 }
 .drivers-container {
   height: 100vh;
@@ -35,7 +35,7 @@ body {
   border-bottom: 1px solid #ccc;
 }
 .driver-headings p:first-child {
-  margin-left: 125px;
+  margin-left: 120px;
   text-align: center;
 }
 .driver-headings p:last-child {
@@ -203,6 +203,12 @@ margin-bottom: 15px;
 color: rgb(10, 10, 10); /* Set text color to black */
 font-size: 14px; /* Adjust font size if needed */
 }
+/* Target the input fields within the modal */
+.modal-fields input:focus {
+  border: 2px solid red; /* Change border color to red */
+  outline: none; /* Remove default outline if desired */
+  border-radius: 5px; /* Adjust as needed for rounded corners */
+}
 
 .modal-footer {
   display: flex;
@@ -218,4 +224,187 @@ font-size: 14px; /* Adjust font size if needed */
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* Responsive styles for mobile screens */
+@media (max-width: 600px) {
+  .drivers-container {
+    width: 100%;
+    max-width: 100%;
+    /* padding: 0 10px; */
+  }
+
+  .driver-headings p:first-child {
+    margin-left: 60px;
+  }
+
+  .driver-headings p:last-child {
+    margin-right: 0;
+  }
+
+  .drivers-header h1 {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+
+  .driver-name {
+    font-size: 14px;
+  }
+
+  .driver-phone {
+    font-size: 12px;
+  }
+
+  .driver-card {
+    padding: 8px;
+    margin: 8px 0;
+  }
+
+  .drivers-footer {
+    max-width: 100%;
+    /* padding: 8px; */
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: 280px;
+  }
+
+  .modal-fields input {
+    font-size: 13px;
+  }
+}
+
+/* Responsive styles for tablets */
+@media (min-width: 600px) and (max-width: 900px) {
+  .drivers-container {
+    width: 100%;
+    max-width: 850px;
+  }
+
+  .driver-headings p:first-child {
+    margin-left: 80px;
+  }
+
+  .driver-headings p:last-child {
+    margin-right: -5px;
+  }
+
+  .drivers-header h1 {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+
+  .driver-name {
+    font-size: 15px;
+  }
+
+  .driver-phone {
+    font-size: 13px;
+  }
+
+  .driver-card {
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .drivers-footer {
+    max-width: 850px;
+  }
+
+  .modal-content {
+    width: 80%;
+    max-width: 320px;
+  }
+}
+
+/* Responsive styles for iPads and larger tablets */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .drivers-container {
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .driver-headings p:first-child {
+    margin-left: 100px;
+  }
+
+  .driver-headings p:last-child {
+    margin-right: -5px;
+  }
+
+  .drivers-header h1 {
+    font-size: 22px;
+    margin-left: 25px;
+  }
+
+  .driver-name {
+    font-size: 16px;
+  }
+
+  .driver-phone {
+    font-size: 14px;
+  }
+
+  .driver-card {
+    padding: 12px;
+    margin: 12px 0;
+  }
+
+  .drivers-footer {
+    max-width: 1100px;
+  }
+
+  .modal-content {
+    width: 70%;
+    max-width: 400px;
+  }
+}
+
+/* Responsive styles for large screens (1200px to 1500px) */
+@media (min-width: 1200px) and (max-width: 1500px) {
+  .drivers-container {
+    width: 100%;
+    max-width: 1300px;
+  }
+
+  .driver-headings p:first-child {
+    margin-left: 120px;
+  }
+
+  .driver-headings p:last-child {
+    margin-right: -10px;
+  }
+
+  .drivers-header h1 {
+    font-size: 24px;
+    margin-left: 30px;
+  }
+
+  .driver-name {
+    font-size: 18px;
+  }
+
+  .driver-phone {
+    font-size: 16px;
+  }
+
+  .driver-card {
+    padding: 14px;
+    margin: 14px 0;
+  }
+
+  .drivers-footer {
+    max-width: 1300px;
+    padding: 10px;
+  }
+
+  .modal-content {
+    width: 60%;
+    max-width: 500px;
+  }
+
+  .modal-fields input {
+    font-size: 16px;
+  }
 }

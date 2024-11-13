@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './drivers.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,15 +14,37 @@ interface Driver {
 }
 
 const Drivers: React.FC = () => {
+  const [drivers, setDrivers] = useState<Driver[]>([]);
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newDriver, setNewDriver] = useState({ name: '', email: '', phone: '', imageUrl: '' });
-  const [drivers, setDrivers] = useState<Driver[]>([]);
   const router = useRouter();
 
-  const handleFooterClick = (footer: string) => {
-    setSelectedFooter(footer);
+  useEffect(() => {
+    fetchDrivers();
+  }, []);
+
+  const fetchDrivers = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/drivers/');
+      if (response.ok) {
+        const data = await response.json();
+        const formattedDrivers = data.map((driver: any) => ({
+          id: driver.id,
+          name: driver.name,
+          phone: driver.phone,
+          imageUrl: driver.profile_photo ? `${driver.profile_photo}` : 'https://via.placeholder.com/50',
+        }));
+        setDrivers(formattedDrivers);
+      } else {
+        console.log("Failed to fetch drivers");
+      }
+    } catch (error) {
+      console.log("Error fetching drivers:", error);
+    }
   };
+
+  const handleFooterClick = (footer: string) => setSelectedFooter(footer);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -35,49 +56,89 @@ const Drivers: React.FC = () => {
     if (event.target.files && event.target.files[0]) {
       setNewDriver({
         ...newDriver,
-        imageUrl: URL.createObjectURL(event.target.files[0])
+        imageUrl: URL.createObjectURL(event.target.files[0]),
       });
     }
   };
 
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePhone = (phone: string) => /^\d{10}$/.test(phone);
+  const validateName = (name: string) => name.trim() !== '';
+
   const handleSave = async () => {
+    if (!validateName(newDriver.name)) {
+      alert("Please enter a valid name.");
+      return;
+    }
+    if (!validateEmail(newDriver.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    if (!validatePhone(newDriver.phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return;
+    }
+  
     try {
-      // Send the POST request to the backend
-      const response = await axios.post('http://localhost:8000/driverapp/drivers/create', {
+      let imageUrl = '';
+  
+      // Get the file from the input
+      const fileInput = document.getElementById('file-input') as HTMLInputElement;
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('upload_preset', 'driver_images'); // Cloudinary upload preset
+  
+        // Upload image to Cloudinary
+        const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dvxscrjk0/image/upload', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        if (cloudinaryResponse.ok) {
+          const cloudinaryData = await cloudinaryResponse.json();
+          imageUrl = cloudinaryData.secure_url;
+        } else {
+          console.log('Failed to upload image to Cloudinary');
+          alert("Failed to upload image. Please try again.");
+          return;
+        }
+      }
+  
+      // Prepare the driver data to be sent to the backend
+      const driverData = {
         name: newDriver.name,
         email: newDriver.email,
         phone: newDriver.phone,
-        profile_photo: newDriver.imageUrl // Ensure the backend handles this correctly
+        profile_photo: imageUrl, // Cloudinary image URL
+      };
+  
+      // Send driver data to the backend
+      const response = await fetch('http://localhost:8000/api/drivers/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(driverData),
       });
   
-      // Log the response or handle success
-      console.log("Driver added successfully:", response.data);
-  
-      // Close the modal after saving
-      closeModal();
-  
-      // Optionally, refresh the list of drivers
-      fetchDrivers();
+      if (response.ok) {
+        console.log('Driver saved successfully');
+        closeModal();
+        fetchDrivers(); // Re-fetch drivers to update the list
+        alert("Driver saved successfully!");
+      } else {
+        const errorData = await response.json();
+        console.log('Failed to save driver:', errorData);
+        alert(`Failed to save driver: ${errorData.message || 'Please check the details and try again.'}`);
+      }
     } catch (error) {
-      // Log the error instead of using console.error
-      console.log("Error adding driver:", error);
+      console.log('Error occurred while saving driver:', error);
+      alert('An error occurred while saving the driver. Please try again.');
     }
   };
   
-
-  const fetchDrivers = async () => {
-    try {
-      const response = await axios.get('/driverapp/drivers/create');
-      setDrivers(response.data);
-    } catch (error) {
-      // Log the error instead of using console.error
-      console.log("Error fetching drivers:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDrivers();
-  }, []);
+  
 
   return (
     <div className="drivers-container">
@@ -97,7 +158,7 @@ const Drivers: React.FC = () => {
         
         {drivers.map((driver) => (
           <div key={driver.id} className="driver-card">
-            <img src={driver.imageUrl || 'https://via.placeholder.com/50'} alt={driver.name} className="driver-image" />
+            <img src={driver.imageUrl} alt={driver.name} className="driver-image" />
             <div className="driver-info">
               <p className="driver-name">{driver.name}</p>
               <p className="driver-phone">{driver.phone}</p>
