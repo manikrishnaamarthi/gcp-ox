@@ -179,7 +179,7 @@ const DriverMap: React.FC = () => {
       
       if (response.ok) {
         alert('OTP has been sent to the customer');
-        router.push("/DriverManagementService/VendorDriverBooking/DriverOtp");
+        router.push(`/DriverManagementService/VendorDriverBooking/DriverOtp?email=${email}`);
       } else {
         console.error(data.error);
       }
@@ -187,7 +187,7 @@ const DriverMap: React.FC = () => {
       console.error("Error sending OTP:", error);
     }
   };
-
+  
 
 
   const handleStartRide = () => {
