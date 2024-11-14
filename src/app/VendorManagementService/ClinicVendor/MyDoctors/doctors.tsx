@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './doctors.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,27 +13,22 @@ interface Doctor {
   imageUrl: string;
 }
 
-const doctors: Doctor[] = [
-  { id: 1, name: 'Praveen', phone: '8975889945', imageUrl: 'https://via.placeholder.com/50' },
-  { id: 2, name: 'Saigen', phone: '8855559789', imageUrl: 'https://via.placeholder.com/50' },
-  { id: 3, name: 'Amelie', phone: '9658745558', imageUrl: 'https://via.placeholder.com/50' },
-  { id: 4, name: 'Jaylen', phone: '9998885566', imageUrl: 'https://via.placeholder.com/50' }
-];
-
 const Doctors: React.FC = () => {
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newDoctor, setNewDoctor] = useState({ name: '', phone: '', imageUrl: '' });
   const router = useRouter();
 
-  const handleFooterClick = (footer: string) => {
-    setSelectedFooter(footer);
-  };
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    setNewDoctor({ name: '', phone: '', imageUrl: '' }); // Reset newDoctor to initial state
+    setNewDoctor({ name: '', phone: '', imageUrl: '' });
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,23 +40,112 @@ const Doctors: React.FC = () => {
     }
   };
 
-  const handleSave = () => {
-    // Save logic can be added here (e.g., add the new doctor to the list)
-    setIsModalOpen(false);
+  const fetchDoctors = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/doctors/list_doctors/');
+      if (response.ok) {
+        const data = await response.json();
+        const formattedDoctors = data.map((doctor: any) => ({
+          id: doctor.doctor_id, // Make sure doctor_id matches your model's field
+          name: doctor.name,
+          phone: doctor.phone,
+          imageUrl: doctor.profile_photo || 'https://via.placeholder.com/50',
+        }));
+        setDoctors(formattedDoctors);
+      } else {
+        console.log("Failed to fetch doctors");
+      }
+    } catch (error) {
+      console.log("Error fetching doctors:", error);
+    }
+  };
+  
+
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePhone = (phone: string) => /^\d{10}$/.test(phone);
+  const validateName = (name: string) => name.trim() !== '';
+
+const handleSave = async () => {
+    if (!validateName(newDoctor.name)) {
+      alert("Please enter a valid name.");
+      return;
+    }
+    if (!validateEmail(newDoctor.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    if (!validatePhone(newDoctor.phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
+    try {
+      let imageUrl = '';
+
+      const fileInput = document.getElementById('file-input') as HTMLInputElement;
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('upload_preset', 'driver_images'); // Cloudinary upload preset
+
+        const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dvxscrjk0/image/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (cloudinaryResponse.ok) {
+          const cloudinaryData = await cloudinaryResponse.json();
+          imageUrl = cloudinaryData.secure_url;
+        } else {
+          console.log('Failed to upload image to Cloudinary');
+          alert("Failed to upload image. Please try again.");
+          return;
+        }
+      }
+
+      const doctorData = {
+        name: newDoctor.name,
+        email: newDoctor.email,
+        phone: newDoctor.phone,
+        profile_photo: imageUrl,
+      };
+
+      const response = await fetch('http://127.0.0.1:8000/api/doctors/add_doctor/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(doctorData),
+      });
+
+      if (response.ok) {
+        console.log('Doctor saved successfully');
+        closeModal();
+        fetchDoctors(); // Re-fetch doctors to update the list
+        alert("Doctor saved successfully!");
+      } else {
+        const errorData = await response.json();
+        console.log('Failed to save doctor:', errorData);
+        alert(`Failed to save doctor: ${errorData.message || 'Please check the details and try again.'}`);
+      }
+    } catch (error) {
+      console.log('Error occurred while saving doctor:', error);
+      alert('An error occurred while saving the doctor. Please try again.');
+    }
   };
 
   return (
     <div className="doctors-container">
       <header className="doctors-header">
         <FaArrowLeft className="back-icon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')}/>
-        <h1>My Doctor's</h1>
+        <h1>My Doctors</h1>
         <button className="add-button" onClick={openModal}>
           <FaPlus /> ADD
         </button>
       </header>
 
       <div className="doctor-list">
-        <div className="doctor-headings">
+        <div className="doctor-headings1">
           <p>Name</p>
           <p>Phone no</p>
         </div>
@@ -109,6 +193,8 @@ const Doctors: React.FC = () => {
             <div className="modal-fields">
               <label>Name:</label>
               <input type="text" value={newDoctor.name} onChange={(e) => setNewDoctor({ ...newDoctor, name: e.target.value })} />
+              <label>Email:</label>
+              <input type="text" value={newDoctor.email} onChange={(e) => setNewDoctor({ ...newDoctor, email: e.target.value })} />
               <label>Phone Number:</label>
               <input type="text" value={newDoctor.phone} onChange={(e) => setNewDoctor({ ...newDoctor, phone: e.target.value })} />
             </div>
