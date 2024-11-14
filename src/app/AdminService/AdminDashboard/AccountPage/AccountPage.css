@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f6f3f3;
+  }
+/* Container styling for overall layout */
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Left section with red background and centered content */
+  .leftSection {
+    flex: 1;
+    background-color: #ff2525;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Circular background around the logo and brand */
+.circleBackground {
+    background-color: #fb4f4f; /* Light red for inner circle */
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Wrapper to stack logo and brand text */
+  .logoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Logo styling */
+  .logo {
+    width: 300px;
+    height: 300px;
+  }
+  
+  /* Brand name styling, positioned below the logo */
+  .brand {
+    font-size: 40px;
+    margin-top: -10px; /* Adjust space between logo and brand */
+    font-weight: bold;
+  }
+  
+  /* Tagline and description styling */
+  .tagline {
+    font-size: 28px;
+    margin-top: 10px;
+  }
+  
+  .description {
+    font-size: 18px;
+    margin-top: 10px;
+    padding: 0 20px;
+    max-width: 600px;
+  }
+  
+  /* Right section with white background and centered form */
+  .rightSection {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+  }
+  
+  /* Centered form container with specific width */
+  .formContainer {
+    width: 350px;
+    /* text-align: center; */
+  }
+  
+  /* Title styling */
+  .title {
+    font-size: 24px;
+    color: #ff3b3b;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  /* Form styling */
+  .form {
+    width: 100%;
+  }
+  
+  /* Input group with red border and icon alignment */
+  .inputGroup {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ff3b3b;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .icon {
+    color: #ff3b3b;
+    margin-right: 8px;
+  }
+  
+  .input {
+    border: none;
+    outline: none;
+    flex: 1;
+    color: #333;
+  }
+  
+  /* Password note styling */
+  .passwordNote {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  
+  /* Sign up button styling */
+  .signupButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff3b3b;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 50px;
+  }
+  
+  .signupButton:hover {
+    background-color: #e03636;
+  }
+  
+  /* Login prompt styling */
+  .loginPrompt {
+    margin-top: 15px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .loginLink {
+    color: #ff3b3b;
+    text-decoration: none;
+  }
+  
+  .loginLink:hover {
+    text-decoration: underline;
+  }
+  /* Toggle icon styling */
+.toggleIcon {
+    color: #ff3b3b;
+    cursor: pointer;
+  }
+ /* Toggle link styling */
+.toggleLink {
+    color: #ff3b3b;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .toggleLink:hover {
+    text-decoration: underline;
+  }
+  
+  /* Styling for the forgot password link */
+  .forgotLink {
+    color: #ff3b3b;
+    text-decoration: none;
+    
+  }
+  
+  .forgotLink:hover {
+    text-decoration: underline;
+  }
+   
+  
