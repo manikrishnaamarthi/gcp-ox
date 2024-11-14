@@ -3,15 +3,15 @@ body {
     font-style: normal;
     margin: 0;
     background-color: rgb(228, 226, 226);
-    text-align: center;
+    /* text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    padding: 0;  /* Remove padding */
+    padding: 0;  
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: hidden;
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; */
 }
 .doctors-container {
   height: 100vh;
@@ -26,7 +26,7 @@ body {
   overflow-y: hidden;
   box-sizing: border-box;
   }
-  .doctor-headings {
+  .doctor-headings1 {
     display: flex;
     justify-content: space-between;
     padding: 10px 20px;
@@ -34,12 +34,11 @@ body {
     color: #ff0000;
     border-bottom: 1px solid #ccc;
   }
-  .doctor-headings p:first-child {
-    margin-left: 125px;
-    text-align: center; /* Center the Name heading */
+  .doctor-headings1 p:first-child {
+    margin-left: 110px;
   }
   
-  .doctor-headings p:last-child {
+  .doctor-headings1 p:last-child {
    margin-right: -10px;
     text-align: right; /* Align the Phone no heading to the right */
   }
@@ -225,6 +224,11 @@ body {
   color: black; /* Set text color to black */
   font-size: 14px; /* Adjust font size if needed */
   }
+  .modal-fields input:focus {
+    border: 2px solid red; /* Change border color to red */
+    outline: none; /* Remove default outline if desired */
+    border-radius: 5px; /* Adjust as needed for rounded corners */
+  }
   
   .modal-footer {
     display: flex;
@@ -242,3 +246,185 @@ body {
     cursor: pointer;
   }
   
+  /* Responsive styles for mobile screens */
+@media (max-width: 600px) {
+  .doctors-container {
+    width: 100%;
+    max-width: 100%;
+    /* padding: 0 10px; */
+  }
+
+  .doctor-headings1 p:first-child {
+    margin-left: 140px;
+  }
+
+  .doctor-headings1 p:last-child {
+    margin-right: 0;
+  }
+
+  .doctors-header h1 {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+
+  .doctor-name {
+    font-size: 14px;
+  }
+
+  .doctor-phone {
+    font-size: 12px;
+  }
+
+  .doctor-card {
+    padding: 8px;
+    margin: 8px 0;
+  }
+
+  .doctors-footer {
+    max-width: 100%;
+    /* padding: 8px; */
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: 280px;
+  }
+
+  .modal-fields input {
+    font-size: 13px;
+  }
+}
+
+/* Responsive styles for tablets */
+@media (min-width: 600px) and (max-width: 900px) {
+  .doctors-container {
+    width: 100%;
+    max-width: 850px;
+  }
+
+  .doctor-headings1 p:first-child {
+    margin-left: 350px;
+  }
+
+  .doctor-headings1 p:last-child {
+    margin-right: -5px;
+  }
+
+  .doctors-header h1 {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+
+  .doctor-name {
+    font-size: 15px;
+  }
+
+  .doctor-phone {
+    font-size: 13px;
+  }
+
+  .doctor-card {
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .doctors-footer {
+    max-width: 850px;
+  }
+
+  .modal-content {
+    width: 80%;
+    max-width: 320px;
+  }
+}
+
+/* Responsive styles for iPads and larger tablets */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .doctors-container {
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .doctor-headings1 p:first-child {
+    margin-left: 100px;
+  }
+
+  .doctor-headings1 p:last-child {
+    margin-right: -5px;
+  }
+
+  .doctors-header h1 {
+    font-size: 22px;
+    margin-left: 25px;
+  }
+
+  .doctor-name {
+    font-size: 16px;
+  }
+
+  .doctor-phone {
+    font-size: 14px;
+  }
+
+  .doctor-card {
+    padding: 12px;
+    margin: 12px 0;
+  }
+
+  .doctors-footer {
+    max-width: 1100px;
+  }
+
+  .modal-content {
+    width: 70%;
+    max-width: 400px;
+  }
+}
+
+/* Responsive styles for large screens (1200px to 1500px) */
+@media (min-width: 1200px) and (max-width: 1500px) {
+  .doctors-container {
+    width: 100%;
+    max-width: 1300px;
+  }
+
+  .doctor-headings1 p:first-child {
+    margin-left: 570px;
+  }
+
+  .doctor-headings1 p:last-child {
+    margin-right: -10px;
+  }
+
+  .doctors-header h1 {
+    font-size: 24px;
+    margin-left: 30px;
+  }
+
+  .doctor-name {
+    font-size: 18px;
+  }
+
+  .doctor-phone {
+    font-size: 16px;
+  }
+
+  .doctor-card {
+    padding: 14px;
+    margin: 14px 0;
+  }
+
+  .doctors-footer {
+    max-width: 1300px;
+    padding: 10px;
+  }
+
+  .modal-content {
+    width: 60%;
+    max-width: 500px;
+  }
+
+  .modal-fields input {
+    font-size: 16px;
+  }
+}
