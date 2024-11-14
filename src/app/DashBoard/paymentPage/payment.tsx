@@ -19,6 +19,8 @@ const PaymentPage: React.FC = () => {
     const [appointmentData, setappointmentData] = useState<appointmentData | null>(null);
     const [randomPhoneNumber, setRandomPhoneNumber] = useState<string>("");
     const fixedPhoneNumber = "6303872390";
+    const fixedEmail = "satyasaiseshagiri1919@gmail.com";  // Set fixed email here
+
     useEffect(() => {
       // Retrieve booking data from local storage on component mount
       const data = localStorage.getItem("appointmentData");
@@ -40,6 +42,7 @@ const PaymentPage: React.FC = () => {
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
       script.onload = () => {
+        document.body.style.overflow = 'hidden';
         const razorpayOptions = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_41ch2lqayiGZ9X",
           amount: amountInPaise,
@@ -59,6 +62,7 @@ const PaymentPage: React.FC = () => {
               booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
               booking_status: 'completed',
               phone_number: fixedPhoneNumber,
+              email: fixedEmail,  
             };
     
             try {
@@ -70,7 +74,7 @@ const PaymentPage: React.FC = () => {
           },
           prefill: {
             name: appointmentData.name,
-            email: "johndoe@example.com",
+            email: "fixedEmail",
             contact: "fixedPhoneNumber,",
           },
           theme: { color: "#3399cc" },
@@ -84,6 +88,8 @@ const PaymentPage: React.FC = () => {
             payment_id: response.error.metadata.payment_id,
             booking_id: `BI${Math.floor(10000 + Math.random() * 90000)}`,
             booking_status: 'cancelled',
+            phone_number: fixedPhoneNumber,
+            email: fixedEmail,  
           };
     
           try {
@@ -98,23 +104,34 @@ const PaymentPage: React.FC = () => {
         // Inject custom styles to control the modal's width and height
         const customStyles = `
           .razorpay-checkout-frame {
-            width: 350px !important; /* Adjust the width to match the payment container */
-            height: 500px !important; /* Adjust the height to match your container's height */
-            max-width: 100% !important;
-            margin: auto !important;
-          }
-          .razorpay-checkout-frame iframe {
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-           }
-      /* Ensure modal is centered vertically and horizontally */
-      .razorpay-checkout-frame {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-      }
+    width: 350px !important; /* Adjust the width to match the payment container */
+    height: 500px !important; /* Adjust the height to match your container's height */
+    max-width: 100% !important;
+    margin: auto !important;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    overflow: hidden !important; /* Hide overflow to prevent scrollbars */
+  }
+
+  .razorpay-checkout-frame iframe {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    overflow: hidden !important; /* Hide overflow within iframe */
+  }
+
+  /* Ensure no scrollbars appear on the iframe (for WebKit browsers) */
+  .razorpay-checkout-frame iframe::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Also hide scrollbar on iframe for other browsers */
+  .razorpay-checkout-frame iframe {
+    scrollbar-width: none; /* Firefox */
+  }
+        
     `;
     
         const styleTag = document.createElement('style');
@@ -145,7 +162,8 @@ const PaymentPage: React.FC = () => {
                     <p><strong>Address:</strong> {appointmentData.address}</p>
                     <p><strong>Date:</strong> {appointmentData.appointmentDate}</p>
                     <p><strong>Time:</strong> {appointmentData.appointmentTime}</p>
-                    <p><strong>Phone Number:</strong> {fixedPhoneNumber}</p>
+                    {/* <p><strong>Phone Number:</strong> {fixedPhoneNumber}</p> */}
+                    {/* <p><strong>Email:</strong> {fixedEmail}</p>   */}
                 </div>
             )}
 
