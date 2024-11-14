@@ -10,11 +10,12 @@ import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import './MyBooking.css';
 import { useRouter } from 'next/navigation';
 
-// Define the types for the booking and error data
+
 interface Booking {
   name: string;
   address: string;
-  phone: string;
+  phone_number: string;
+  email: string;
   timeLeft: string;
   booking_status: 'pending' | 'completed' | 'cancelled';
 }
@@ -27,51 +28,44 @@ const MyBooking: React.FC = () => {
   const router = useRouter();
   const currentDate = new Date();
   const formattedDate = `${currentDate.getDate()}-${currentDate.toLocaleString('default', { month: 'short' }).toLowerCase()}-${currentDate.getFullYear()}`;
-  
- 
+
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'bookings' | 'cancelled' | 'history'>('bookings');
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  
 
   useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/driverapp/booking-service/');
-      
-      // Check if response is ok
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/booking-service/');
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        console.log('Fetched bookings data:', result);
+
+        if (Array.isArray(result) && result.length > 0) {
+          setBookings(result);
+        } else {
+          setBookings([]);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError((error as Error).message);
       }
+    };
 
-      const result = await response.json();
-      
-      // Log the result to see the data structure
-      console.log('Fetched bookings data:', result);
-
-      // Check if the data structure is as expected and update the state
-      if (Array.isArray(result) && result.length > 0) {
-        setBookings(result); // Update bookings state with the fetched data
-      } else {
-        setBookings([]); // Ensure bookings is set as an empty array if no data
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setError((error as Error).message);  // Set error if fetch fails
-    }
-  };
-
-  fetchData();
-}, []);
-
-
+    fetchData();
+  }, []);
 
   const handleBackClick = () => {
     router.back();
   };
 
   const openBookingDetails = (booking: Booking) => {
-   
     setSelectedBooking(booking);
   };
 
@@ -80,26 +74,33 @@ const MyBooking: React.FC = () => {
   };
 
   const openDriverMap = (booking: Booking) => {
-    router.push(`/DriverManagementService/VendorDriverBooking/DriverMap?location=${booking.address}`);
+    router.push(`/DriverManagementService/VendorDriverBooking/DriverMap?location=${booking.address}&email=${booking.email}`);
   };
+  
 
   const completeRide = () => {
     if (selectedBooking) {
       const updatedBookings = bookings.map((booking, index) => {
         if (booking === selectedBooking) {
-          return { ...booking, status: 'completed' };
+          return { ...booking, booking_status: 'completed' };
         } else if (bookings[index - 1] && bookings[index - 1].booking_status === 'completed' && booking.booking_status === 'cancelled') {
-          return { ...booking, status: 'active' };
+          return { ...booking, booking_status: 'active' };
         }
         return booking;
       });
       setBookings(updatedBookings);
-
       closeBookingDetails();
     }
   };
 
- 
+  // Filter bookings based on the active tab
+  const filteredBookings = bookings.filter((booking) => {
+    if (activeTab === 'bookings') return booking.booking_status === 'completed'; // show only completed bookings
+    if (activeTab === 'cancelled') return booking.booking_status === 'cancelled'; // show only cancelled bookings
+    if (activeTab === 'history') return booking.booking_status === 'completed' || booking.booking_status === 'cancelled'; // show both completed and cancelled
+    return false;
+  });
+
   return (
     <>
       <div className="myBookingContainer">
@@ -112,32 +113,31 @@ const MyBooking: React.FC = () => {
           <span className={`tab ${activeTab === 'cancelled' ? 'active' : ''}`} onClick={() => setActiveTab('cancelled')}>Cancelled</span>
           <span className={`tab ${activeTab === 'history' ? 'active' : ''}`} onClick={() => setActiveTab('history')}>History</span>
         </div>
-       
-        <div className="greyBackground">
-  {activeTab === 'bookings' && bookings.length > 0 ? (
-    bookings.map((booking, index) => (
-      <div className="bookingContainer" key={index} onClick={() => openBookingDetails(booking)}>
-        <div className="bookingDetails">
-          <div className="bookingInfo">
-            <h2>{booking.name}</h2>
-            <p>{booking.address}</p>
-            <p>{booking.phone}</p>
-          </div>
-          <div className="bookingActions">
-            <button className="cancelButton">Cancel</button>
-            <p className="date">{formattedDate}</p>
-            <p className="timeLeft">
-              <MdAccessTime /> {booking.timeLeft}
-            </p>
-          </div>
-        </div>
-      </div>
-    ))
-  ) : (
-    <p>No bookings available.</p>  // Show a message if no bookings are present
-  )}
-</div>
 
+        <div className="greyBackground">
+          {filteredBookings.length > 0 ? (
+            filteredBookings.map((booking, index) => (
+              <div className="bookingContainer" key={index} onClick={() => openBookingDetails(booking)}>
+                <div className="bookingDetails">
+                  <div className="bookingInfo">
+                    <h2>{booking.name}</h2>
+                    <p>{booking.address}</p>
+                    <p>{booking.phone_number}</p>
+                  </div>
+                  <div className="bookingActions">
+                    <button className="cancelButton">Cancel</button>
+                    <p className="date">{formattedDate}</p>
+                    <p className="timeLeft">
+                      <MdAccessTime /> {booking.timeLeft}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No bookings available.</p>
+          )}
+        </div>
 
         {selectedBooking && (
           <div className="modalOverlay" onClick={closeBookingDetails}>
@@ -150,20 +150,26 @@ const MyBooking: React.FC = () => {
                 </div>
                 <div className="modalInfo">
                   <FaPhoneAlt color="#FC000E" size={18} />
-                  <p>{selectedBooking.phone||'123456789'}</p>
+                  <p>{selectedBooking.phone_number}</p>
                 </div>
+                <div className="modalInfo">
+                  <p><strong>Email:</strong> {selectedBooking.email}</p>
+                </div>
+
+                
+
                 <div className="modalButtons">
-                  <button 
-                    onClick={() => openDriverMap(selectedBooking)} 
-                    style={{ backgroundColor: selectedBooking.booking_status === 'pending' ? '#FC000E' : '#CCCCCC' }}
-                    disabled={selectedBooking.booking_status !== 'pending'}
+                  <button
+                    onClick={() => openDriverMap(selectedBooking)}
+                    style={{ backgroundColor: selectedBooking.booking_status === 'completed' ? '#FC000E' : '#CCCCCC' }}
+                    disabled={selectedBooking.booking_status !== 'completed'}
                   >
                     Start
                   </button>
-                  <button 
-                    onClick={completeRide} 
-                    style={{ backgroundColor: selectedBooking.booking_status === 'pending' ? '#FC000E' : '#CCCCCC' }}
-                    disabled={selectedBooking.booking_status !== 'pending'}
+                  <button
+                    onClick={completeRide}
+                    style={{ backgroundColor: selectedBooking.booking_status === 'completed' ? '#FC000E' : '#CCCCCC' }}
+                    disabled={selectedBooking.booking_status !== 'completed'}
                   >
                     OTP
                   </button>
