@@ -181,34 +181,25 @@ const Home: React.FC = () => {
 
       <div className="services-icon-section">
         <div className="icon-row">
-          <div className="service-icon-container">
-            <div className="service-icon-clinic" onClick={() => router.push('/DashBoard/LocationPage')}>
-              <BiClinic size={40} className="service-icon" />
-              <span className="service-text-clinic">Oxi Clinic</span>
-            </div>
-            
+          <div className="service-icon-container" onClick={() => router.push('/DashBoard/LocationPage')}>
+            <BiClinic size={40} className="service-icon" />
+            <span className="service-text-clinic">Oxi Clinic</span>
           </div>
-
-          <div className="service-icon-container">
-            <div className="service-icon-ambulance" onClick={() => router.push('/DashBoard/LocationPage')}>
-              <PiAmbulanceLight size={40} className="service-icon" />
-              <span className="service-text-wheel">Oxi Wheel</span>
-            </div>
-           
+          <div className="service-icon-container" onClick={() => router.push('/DashBoard/LocationPage')}>
+            <PiAmbulanceLight size={40} className="service-icon" />
+            <span className="service-text-wheel">Oxi Wheel</span>
           </div>
-
           {showGymIcon && (
-            <div className="service-icon-container">
-              <div className="service-icon-gym" onClick={() => router.push('/DashBoard/LocationPage')}>
-                <MdSportsGymnastics size={40} className="service-icon gym-icon" />
-                <span className="service-text-gym">Oxi Gym</span>
-              </div>
-              
+            <div className="service-icon-container" onClick={() => router.push('/DashBoard/LocationPage')}>
+              <MdSportsGymnastics size={40} className="service-icon" />
+              <span className="service-text-gym">Oxi Gym</span>
             </div>
           )}
         </div>
       </div>
 
+
+      
       <div className='explore-container'>
         <p className='images-above-section'> Explore</p>
       </div>
