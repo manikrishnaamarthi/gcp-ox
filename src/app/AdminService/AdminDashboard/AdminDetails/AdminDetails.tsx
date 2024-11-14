@@ -43,7 +43,7 @@ const AdminDetails = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'approved', email }),
       });
-    
+      alert('Approved successfully');
       router.push('/AdminService/AdminDashboard');
     } catch (error) {
       console.error(error);
@@ -58,7 +58,7 @@ const AdminDetails = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'rejected', email }),
       });
-    
+      alert('Rejected successfully');
       router.push('/AdminService/AdminDashboard');
     } catch (error) {
       console.error(error);
