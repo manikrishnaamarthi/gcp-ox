@@ -5,9 +5,13 @@ import { SlHome } from "react-icons/sl";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { BsPerson } from "react-icons/bs";
 import { LuBookPlus } from "react-icons/lu";
+import { useRouter , useSearchParams } from 'next/navigation';
 
 const DriverOtp = () => {
+  const router = useRouter();
   const [otp, setOtp] = useState(['', '', '', '', '']);
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email');  // Get email from URL query
 
   const handleChange = (element, index) => {
     const value = element.value;
@@ -23,10 +27,28 @@ const DriverOtp = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Submitted OTP: ${otp.join('')}`);
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const enteredOtp = otp.join('');
+  console.log("Entered OTP:", enteredOtp);  // Check OTP value
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/validate-otp/?email=${email}&otp=${enteredOtp}`);
+    const data = await response.json();
+    console.log("Server Response:", data);  // Log server response for debugging
+
+    if (response.ok) {
+      alert('OTP validated successfully');
+      router.push("/DriverManagementService/VendorDriverBooking/DriverDashBoard");
+    } else {
+      alert(data.error || 'Invalid OTP');
+    }
+  } catch (error) {
+    console.error("Error validating OTP:", error);
+    alert('Failed to validate OTP');
+  }
+};
+
+  
 
   return (
     <div className="container">
