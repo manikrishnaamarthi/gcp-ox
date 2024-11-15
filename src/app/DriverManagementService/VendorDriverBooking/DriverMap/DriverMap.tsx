@@ -31,7 +31,7 @@ const DriverMap: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const location = searchParams.get('location') || '';
-
+  const email = searchParams.get('email') || '';  // Get email from query params
   const [isReached, setIsReached] = useState(false);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [directionsRenderer, setDirectionsRenderer] = useState<google.maps.DirectionsRenderer | null>(null);
@@ -42,7 +42,7 @@ const DriverMap: React.FC = () => {
   const initialCustomerLocation = { lat: 16.7506273, lng: 81.6904138 };
   const [customerLocation, setCustomerLocation] = useState(initialCustomerLocation);
   const [coordinates, setCoordinates] = useState<{ latitude: number; longitude: number } | null>(null);
-
+  
   // Fetch geocode coordinates based on the location query parameter
   useEffect(() => {
     const fetchLocation = async () => {
@@ -165,12 +165,30 @@ const DriverMap: React.FC = () => {
     }
   }, [map, directionsRenderer, driverMarker, customerLocation]);
 
-  const handleReached = () => {
-    setIsReached(true);
-    const otp = Math.floor(10000 + Math.random() * 90000);
-    alert(`OTP sent to customer: ${otp}`);
-    router.push("/DriverManagementService/VendorDriverBooking/DriverOtp");
+
+  
+
+
+
+
+  const handleReached = async () => {
+    try {
+      // Send OTP to the customer's email using the email from URL parameters
+      const response = await fetch(`http://127.0.0.1:8000/api/send-otp/?email=${email}`);
+      const data = await response.json();
+      
+      if (response.ok) {
+        alert('OTP has been sent to the customer');
+        router.push(`/DriverManagementService/VendorDriverBooking/DriverOtp?email=${email}`);
+      } else {
+        console.error(data.error);
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+    }
   };
+  
+
 
   const handleStartRide = () => {
     router.push("/DriverManagementService/VendorDriverBooking/DriverOtp");
