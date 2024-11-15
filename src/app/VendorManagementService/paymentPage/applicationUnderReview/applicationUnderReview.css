@@ -8,24 +8,21 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  /* width: 100%; */
 }
 
 /* Main container */
 .application-under-review {
-  width: 350px;
-  /* width: 50%; */
+  width: 100%;
   max-width: 350px;
-  /* padding: 20px; */
+  height: 100%;
+  padding: 20px;
   background-color: #ffffff;
   display: flex;
-  height:100vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: 20px;
 }
 
 /* Image styling */
@@ -50,34 +47,82 @@ body {
   text-align: center;
 }
 
-/* Mobile Devices - Small screens (portrait phones) */
-@media (max-width: 599px) {
-   
+/* Small mobile screens (up to 350px) */
+@media (max-width: 350px) {
+  .application-under-review {
+    max-width: 280px;
+    padding: 15px;
+  }
+
+  .review-image {
+    max-width: 120px;
+  }
+
+  .review-text {
+    font-size: 16px;
+  }
+
+  .review-text-below {
+    font-size: 14px;
+  }
 }
 
-/* Small Tablets - Portrait Tablets */
-@media (min-width: 600px) and (max-width: 767px) {
-   
+/* Mobile devices (up to 600px) */
+@media (max-width: 600px) {
+  .application-under-review {
+    max-width: 320px;
+    padding: 20px;
+  }
+
+  .review-image {
+    max-width: 130px;
+  }
+
+  .review-text {
+    font-size: 17px;
+  }
+
+  .review-text-below {
+    font-size: 15px;
+  }
 }
 
-/* Large Tablets - Landscape Tablets */
-@media (min-width: 768px) and (max-width: 1024px) {
-   
+/* Tablets and small laptops (up to 1024px) */
+@media (max-width: 1024px) {
+  .application-under-review {
+    max-width: 400px;
+    padding: 25px;
+  }
+
+  .review-image {
+    max-width: 140px;
+  }
+
+  .review-text {
+    font-size: 18px;
+  }
+
+  .review-text-below {
+    font-size: 16px;
+  }
 }
 
-/* Small Laptops / Desktops */
-@media (min-width: 1025px) and (max-width: 1366px) {
-    
+/* Larger tablets and laptops (up to 1200px) */
+@media (max-width: 1200px) {
+  .application-under-review {
+    max-width: 450px;
+    padding: 30px;
+  }
+
+  .review-image {
+    max-width: 150px;
+  }
+
+  .review-text {
+    font-size: 19px;
+  }
+
+  .review-text-below {
+    font-size: 17px;
+  }
 }
-
-/* Large Laptops / Desktops */
-@media (min-width: 1367px) and (max-width: 1920px) {
-   
-}
-
-/* Ultra-Wide Screens - Larger Desktops */
-@media (min-width: 1921px) {
-   
-}
-
-
