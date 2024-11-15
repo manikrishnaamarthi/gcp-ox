@@ -3,17 +3,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 350px;
-  margin: auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   justify-content: center;
   box-sizing: border-box;
   background-color: rgb(215, 212, 212);
 }
 
 .payment-success-container {
-
   height: 100vh;
-
   width: 100%;
   max-width: 350px;
   background-color: #ffffff;
@@ -21,7 +20,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* padding: 20px; */
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -42,13 +40,13 @@ body {
   margin: 0;
 }
 
-/* Responsive styling */
+/* Small tablets (up to 768px) */
 @media (max-width: 768px) {
   .payment-success-container {
-    max-width: 350px;
-    max-height: 100vh;
+    max-width: 400px;
+    padding: 20px;
   }
-  
+
   .ticket-image {
     width: 100px;
     height: 100px;
@@ -59,12 +57,29 @@ body {
   }
 }
 
+/* Tablets and iPads (up to 1024px) */
+@media (max-width: 1024px) {
+  .payment-success-container {
+    max-width: 500px;
+  }
+
+  .ticket-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .payment-status-text {
+    font-size: 18px;
+  }
+}
+
+/* Small mobile screens (up to 350px) */
 @media (max-width: 350px) {
   .payment-success-container {
     max-width: 280px;
     padding: 15px;
   }
-  
+
   .ticket-image {
     width: 80px;
     height: 80px;
