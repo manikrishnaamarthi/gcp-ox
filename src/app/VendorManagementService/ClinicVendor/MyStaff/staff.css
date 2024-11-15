@@ -1,0 +1,425 @@
+body {
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    margin: 0;
+    background-color: rgb(228, 226, 226);
+    /* text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: hidden;
+    scroll-behavior: smooth; */
+}
+.staff-container {
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  width: 350px;
+  margin: 0 auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: hidden;
+  box-sizing: border-box;
+}
+.staff-headings1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: #ff0000;
+    border-bottom: 1px solid #ccc;
+}
+.staff-headings1 p:first-child {
+    margin-left: 110px;
+}
+
+.staff-headings1 p:last-child {
+    margin-right: -10px;
+    text-align: right;
+}
+
+.staff-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-icon {
+    font-size: 24px;
+    color: #ff0000;
+}
+
+.staff-header h1 {
+    font-size: 20px;
+    color: #ff0000;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.add-button {
+    display: flex;
+    align-items: center;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-button svg {
+    margin-right: 5px;
+}
+
+.staff-list {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.staff-card {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px 0;
+    justify-content: space-between;
+}
+
+.staff-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.staff-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.staff-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff0000;
+    flex: 1;
+    text-align: center;
+}
+
+.staff-phone {
+    font-size: 14px;
+    color: #333333;
+    text-align: right;
+}
+
+.staff-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    max-width: 350px;
+    background-color: #fff;
+    padding: 8px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.footer-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 22px;
+    cursor: pointer;
+    color: rgb(151, 147, 147);
+    margin: 0 16px;
+}
+
+.footer-icon.selected {
+    color: red;
+}
+
+.footer-icon span {
+    display: block;
+    font-size: 10px;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.image-upload {
+    position: relative;
+    margin-bottom: 20px;
+    margin-left: 80px;
+}
+
+.staff-modal-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.plus-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 80px;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.modal-fields label {
+    display: block;
+    font-weight: bold;
+    color: red;
+    margin: 10px 0 5px;
+    text-align: left;
+}
+
+.modal-fields input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    color: black;
+    font-size: 14px;
+}
+.modal-fields input:focus {
+    border: 2px solid red;
+    outline: none;
+    border-radius: 5px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-close, .modal-save {
+    display: flex;
+    align-items: center;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive styles for mobile screens */
+@media (max-width: 600px) {
+    .staff-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .staff-headings1 p:first-child {
+        margin-left: 140px;
+    }
+
+    .staff-headings1 p:last-child {
+        margin-right: 0;
+    }
+
+    .staff-header h1 {
+        font-size: 18px;
+        margin-left: 10px;
+    }
+
+    .staff-name {
+        font-size: 14px;
+    }
+
+    .staff-phone {
+        font-size: 12px;
+    }
+
+    .staff-card {
+        padding: 8px;
+        margin: 8px 0;
+    }
+
+    .staff-footer {
+        max-width: 100%;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 280px;
+    }
+
+    .modal-fields input {
+        font-size: 13px;
+    }
+}
+
+/* Responsive styles for tablets */
+@media (min-width: 600px) and (max-width: 900px) {
+    .staff-container {
+        width: 100%;
+        max-width: 850px;
+    }
+
+    .staff-headings1 p:first-child {
+        margin-left: 350px;
+    }
+
+    .staff-headings1 p:last-child {
+        margin-right: -5px;
+    }
+
+    .staff-header h1 {
+        font-size: 20px;
+        margin-left: 20px;
+    }
+
+    .staff-name {
+        font-size: 15px;
+    }
+
+    .staff-phone {
+        font-size: 13px;
+    }
+
+    .staff-card {
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .staff-footer {
+        max-width: 850px;
+    }
+
+    .modal-content {
+        width: 80%;
+        max-width: 320px;
+    }
+}
+
+/* Responsive styles for iPads and larger tablets */
+@media (min-width: 900px) and (max-width: 1200px) {
+    .staff-container {
+        width: 100%;
+        max-width: 1100px;
+    }
+
+    .staff-headings1 p:first-child {
+        margin-left: 100px;
+    }
+
+    .staff-headings1 p:last-child {
+        margin-right: -5px;
+    }
+
+    .staff-header h1 {
+        font-size: 22px;
+        margin-left: 25px;
+    }
+
+    .staff-name {
+        font-size: 16px;
+    }
+
+    .staff-phone {
+        font-size: 14px;
+    }
+
+    .staff-card {
+        padding: 12px;
+        margin: 12px 0;
+    }
+
+    .staff-footer {
+        max-width: 1100px;
+    }
+
+    .modal-content {
+        width: 70%;
+        max-width: 400px;
+    }
+}
+
+/* Responsive styles for large screens (1200px to 1500px) */
+@media (min-width: 1200px) and (max-width: 1500px) {
+    .staff-container {
+        width: 100%;
+        max-width: 1300px;
+    }
+
+    .staff-headings1 p:first-child {
+        margin-left: 570px;
+    }
+
+    .staff-headings1 p:last-child {
+        margin-right: -10px;
+    }
+
+    .staff-header h1 {
+        font-size: 24px;
+        margin-left: 30px;
+    }
+
+    .staff-name {
+        font-size: 18px;
+    }
+
+    .staff-phone {
+        font-size: 16px;
+    }
+
+    .staff-card {
+        padding: 14px;
+        margin: 14px 0;
+    }
+
+    .staff-footer {
+        max-width: 1300px;
+        padding: 10px;
+    }
+
+    .modal-content {
+        width: 60%;
+        max-width: 500px;
+    }
+
+    .modal-fields input {
+        font-size: 16px;
+    }
+}

@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 import './Wheel.css';
-import {  FaRegBell, FaRegAddressBook, FaFileInvoiceDollar, FaCarAlt } from 'react-icons/fa';
+import {  FaRegBell, FaRegAddressBook, FaFileInvoiceDollar, FaCarAlt,FaUsers } from 'react-icons/fa';
 import { BsGraphUpArrow } from 'react-icons/bs';
 import { MdInventory } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faClipboardList, faBell, faUser, } from '@fortawesome/free-solid-svg-icons';
 
 const Wheel = () => {
   const router = useRouter();
@@ -50,6 +50,10 @@ const Wheel = () => {
           <div className="card" onClick={() => router.push('/VendorManagementService/WheelVendor/MyDrivers')}>
             <FaCarAlt className="cardIcon" />
             <p className="label">Driver's</p>
+          </div>
+          <div className="card" onClick={() => router.push('/VendorManagementService/WheelVendor/MyStaff')}>
+            <FaUsers className="cardIcon" />
+            <p className="label">Staff</p>
           </div>
         </div>
       </div>

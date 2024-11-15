@@ -1,7 +1,7 @@
 'use client';
 import React, { useState,useEffect } from 'react';
 import './Clinic.css';
-import { FaHome, FaCalendarAlt, FaBell, FaUser, FaRegBell, FaRegAddressBook, FaFileInvoiceDollar, FaUserMd } from 'react-icons/fa';
+import { FaHome, FaCalendarAlt, FaBell, FaUser, FaRegBell, FaRegAddressBook, FaFileInvoiceDollar, FaUserMd ,FaUsers} from 'react-icons/fa';
 import { BsGraphUpArrow } from 'react-icons/bs';
 import { MdInventory } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
@@ -55,6 +55,10 @@ const Clinic = () => {
           <div className="card" onClick={() => router.push('/VendorManagementService/ClinicVendor/MyDoctors')}>
             <FaUserMd className="cardIcon" />
             <p className="label">Doctor's</p>
+          </div>
+          <div className="card" onClick={() => router.push('/VendorManagementService/ClinicVendor/MyStaff')}>
+            <FaUsers className="cardIcon" />
+            <p className="label">Staff</p>
           </div>
         </div>
       </div>
