@@ -58,7 +58,17 @@ function LoginForm() {
 
       if (response.ok) {
         setSuccessMessage('Login successful! Redirecting...');
-        setTimeout(() => router.push('/DashBoard/HomePage'), 1500);
+        if(data.user_type=='customer'){
+          router.push('/DashBoard/HomePage');
+      }
+      else if(data.user_type=='driver'){
+        router.push('/DriverManagementService/VendorDriverBooking/DriverDashBoard');
+
+      }
+      else if(data.user_type=='ServiceProvider'){
+        router.push('/VendorManagementService/Vendors/WheelVendor/Wheel');
+
+      }
       } else {
         setErrorMessage(data.message || 'Login failed. Please check your credentials.');
       }
