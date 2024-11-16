@@ -1,0 +1,212 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Sidebar styling */
+  .admin-sidebar {
+    height: 100vh;
+    width: 150px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    position: fixed;
+  }
+  
+  .logo {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: -25px;
+  }
+  
+  .logo img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .logo p {
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+  }
+  
+  .sidebar-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-left: -40px;
+  }
+  
+  /* Icon styling with hover animation */
+  .sidebar-icon {
+    font-size: 24px;
+    color: #ff0000;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .sidebar-icon:hover {
+    transform: scale(1.2);
+    color: #ff5555;
+  }
+  
+  .sidebar-icon:hover::after {
+    content: attr(data-name);
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+    white-space: nowrap;
+  }
+  
+  /* Logout Icon Styling */
+  .sidebar-icon.logout-icon {
+    margin-top: 48px;
+  }
+  
+  /* Main Content */
+  .main {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    margin-left: 150px;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: center;
+    /* border-bottom: 1px solid #ddd; */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .header-title {
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* Popular Cities Section */
+  .popular-cities {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #100f0f;
+  }
+  
+  .section-title {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .cities-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+  
+  .city {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #e6e6e6; */
+    padding: 15px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .city:hover {
+    background-color: #ccc;
+  }
+  
+  .city-image {
+    width: 150px;
+    height: 70px;
+    margin-bottom: 10px;
+  }
+  
+  .search-container {
+    text-align: right;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .search-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    width: 200px;
+  }
+  
+  /* Filters */
+  .filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .center-filters {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .filter {
+    padding: 5px 15px;
+    border: 1px solid red;
+    color: red;
+    border-radius: 15px;
+    font-size: 14px;
+  }
+  
+  .filter-search {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+  }
+  
+  /* Vendors Table */
+  .vendors-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .vendors-table th,
+  .vendors-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: black;
+  }
+  
+  .vendors-table th {
+    color: red;
+    font-weight: bold;
+  }
+  
