@@ -1,8 +1,8 @@
 /* General Styling */
-* {
+  body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: #f6f3f3;
   }
   
   .container {
@@ -108,7 +108,7 @@
   /* Popular Cities Section */
   .popular-cities {
     margin-bottom: 20px;
-    border-bottom: 1px solid #100f0f;
+    /* border-bottom: 1px solid #100f0f; */
   }
   
   .section-title {
@@ -117,33 +117,55 @@
     margin-bottom: 10px;
     text-transform: uppercase;
   }
+
+  .select-city-message {
+    font-size: 18px;
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .city:hover {
+    background-color: #f2f2f2;
+    transition: background-color 0.3s ease;
+  }
   
   .cities-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 15px;
+    /* justify-content: center; */
+    overflow-x: auto;
+    padding: 10px 0;
+    width: 100%; 
+    scroll-snap-type: x mandatory; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+  }
+  
+  
+  .cities-grid::-webkit-scrollbar {
+    display: none; 
   }
   
   .city {
+    flex: 0 0 calc(13.66% - 10px); /* Six pictures per screen */
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: #e6e6e6; */
-    padding: 15px 0;
     border-radius: 8px;
     font-weight: bold;
     color: #333;
     cursor: pointer;
     transition: background-color 0.3s;
+    scroll-snap-align: start; /* Aligns the item at the start */
   }
-  
-  .city:hover {
-    background-color: #ccc;
-  }
-  
+
   .city-image {
-    width: 150px;
-    height: 70px;
+    width: 100%; /* Automatically adjust to fit */
+    height: auto;
+    max-height: 100px;
     margin-bottom: 10px;
   }
   
@@ -152,13 +174,23 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    border: #e80808;
   }
   
   .search-input {
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #eb0909;
     border-radius: 15px;
     width: 200px;
+    color: #eb0909;
+  }
+  .search-input:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+  }
+  .search-input::placeholder{
+    color: #ff0000;
   }
   
   /* Filters */
@@ -177,17 +209,38 @@
   }
   
   .filter {
+    display: flex;
+    align-items: center; /* Ensures icon and text align vertically */
+    gap: 5px; /* Adds spacing between the icon and text */
     padding: 5px 15px;
-    border: 1px solid red;
-    color: red;
+    color: #333;
     border-radius: 15px;
     font-size: 14px;
+    background-color: #faf5f5;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
+  
+  .filter.active {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
   
   .filter-search {
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #e80808;
     border-radius: 15px;
+    color: #eb0909;
+  }
+  .filter-search:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+  }
+  .filter-search::placeholder{
+    color: #ff0000;
   }
   
   /* Vendors Table */
@@ -208,5 +261,4 @@
   .vendors-table th {
     color: red;
     font-weight: bold;
-  }
-  
+  } 
