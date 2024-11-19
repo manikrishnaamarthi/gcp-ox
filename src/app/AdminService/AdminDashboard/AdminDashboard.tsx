@@ -22,6 +22,7 @@ const AdminDashboard = () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/api/vendorapp-vendordetails/');
         const data = await response.json();
+        console.log("API Response:", data); // Debugging API response
         setVendors(data);
         setIsLoading(false);
       } catch (error) {
@@ -37,20 +38,29 @@ const AdminDashboard = () => {
     if (!isLoading && vendors.length > 0) {
       const filtered = vendors.filter(vendor => {
         const matchesCategory = activeCategory === "OxiviveClinic" 
-          ? vendor.selectedService === "Oxi Clinic" 
-          : vendor.selectedService === "Oxi Wheel";
+          ? vendor.selectedService.trim() === "Oxi Clinic" 
+          : vendor.selectedService.trim() === "Oxi Wheel";
         const matchesSearch = vendor.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const underProcessStatus = vendor.document_status === "UnderProcess"; // Show only "underprocess"
-        return matchesCategory && matchesSearch && underProcessStatus;
+        const underProcessStatus = vendor.document_status.trim() === "UnderProcess"; // Ensure case sensitivity
+        const include = matchesCategory && matchesSearch && underProcessStatus;
+
+        // Debugging individual vendor filtering
+        console.log({
+          vendor,
+          matchesCategory,
+          matchesSearch,
+          underProcessStatus,
+          included: include
+        });
+
+        return include;
       });
+
       setFilteredVendors(filtered);
+    } else {
+      setFilteredVendors([]); // Clear the filtered list if vendors are empty
     }
   }, [vendors, activeCategory, searchQuery, isLoading]);
-
-  // Debug: Log filtered vendors
-  useEffect(() => {
-    console.log("Filtered Vendors:", filteredVendors);
-  }, [filteredVendors]);
 
   // Navigate to the details page for the selected vendor
   const handleCardClick = (vendor) => {
@@ -87,7 +97,7 @@ const AdminDashboard = () => {
           <div className="sidebar-icon" data-name="Inventory">
             <MdOutlineInventory />
           </div>
-          <div className="sidebar-icon" data-name="Vendor">
+          <div className="sidebar-icon" data-name="Vendor" onClick={() => router.push('http://localhost:3000/AdminService/VendorsList/')}>
             <MdOutlinePeopleAlt />
           </div>
           <div className="sidebar-icon logout-icon" data-name="Logout"><FaSignOutAlt /></div>
@@ -134,7 +144,7 @@ const AdminDashboard = () => {
               </div>
             ))
           ) : (
-            <p>No vendors available for {activeCategory}.</p>
+            <p className="no-vendors-message">No vendors available for {activeCategory}.</p>
           )}
         </div>
       </main>

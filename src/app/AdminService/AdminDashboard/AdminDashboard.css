@@ -204,6 +204,15 @@ body {
   font-size: 16px;
   margin: 4px 0;
 }
+.no-vendors-message {
+  font-size: 40px; /* Larger text size */
+  font-weight: bold; /* Bold text */
+  color: #ff0000; /* Optional: Change text color */
+  text-align: center;
+  margin-top: 200px; /* Add space from the top */
+  width: 100%;
+}
+
 
 /* Responsive Design for Laptop Screens */
 @media (min-width: 1024px) and (max-width: 1440px) {
