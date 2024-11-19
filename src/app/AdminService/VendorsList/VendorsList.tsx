@@ -15,6 +15,7 @@ const VendorsList = () => {
   const [selectedService, setSelectedService] = useState("Oxi Clinic");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Search input state
 
   const cities = [
     { name: "Bengaluru", image: "/images/bang.png" },
@@ -40,6 +41,11 @@ const VendorsList = () => {
     filterVendorsByService(service);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    filterVendorsByService(selectedService, vendors, event.target.value);
+  };
+
   const fetchVendors = async (city, service) => {
     setIsLoading(true);
     setError("");
@@ -55,8 +61,14 @@ const VendorsList = () => {
     }
   };
 
-  const filterVendorsByService = (service, vendorData = vendors) => {
-    const filtered = vendorData.filter(vendor => vendor.selectedService === service);
+  const filterVendorsByService = (service, vendorData = vendors, query = searchQuery) => {
+    const filteredByService = vendorData.filter(vendor => vendor.selectedService === service);
+
+    // Further filter by search query (if any)
+    const filtered = filteredByService.filter(vendor =>
+      vendor.name.toLowerCase().includes(query.toLowerCase())
+    );
+
     setFilteredVendors(filtered);
   };
 
@@ -113,7 +125,6 @@ const VendorsList = () => {
         <section className="popular-cities">
           <div className="search-container">
             <h3 className="section-title">POPULAR CITIES</h3>
-            <input type="text" placeholder="Search" className="search-input" />
           </div>
           <div className="cities-grid">
             {cities.map((city, index) => (
@@ -153,10 +164,23 @@ const VendorsList = () => {
                   Oxi Wheel
                 </span>
               </div>
-              <input type="text" placeholder="Search" className="filter-search" />
+              <input
+                type="text"
+                placeholder="Search Vendor"
+                className="filter-search"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
             </div>
 
             <table className="vendors-table">
+              <colgroup>
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '20%' }} />
+                <col style={{ width: '20%' }} />
+                <col style={{ width: '20%' }} />
+                <col style={{ width: '20%' }} />
+              </colgroup>
               <thead>
                 <tr>
                   <th>Sl.No</th>
