@@ -11,8 +11,9 @@ const Location: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState<google.maps.LatLngLiteral | null>(null);
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);
   const [location, setLocation] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU', // Replace with your API key
+    googleMapsApiKey: 'AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM', // Replace with your API key
   });
 
   useEffect(() => {
@@ -29,10 +30,12 @@ const Location: React.FC = () => {
     } else {
       console.error('Geolocation is not supported by this browser.');
     }
+    // Fetch user name from the backend
+    fetchUserName();
   }, []);
 
   const fetchAddress = async (location: google.maps.LatLngLiteral) => {
-    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU`);
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM`);
     const data = await response.json();
     if (data.status === 'OK') {
       const address = data.results[0].formatted_address;
@@ -42,16 +45,33 @@ const Location: React.FC = () => {
     }
   };
 
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/usmapp-oxiusers/");
+      if (response.ok) {
+  
+        const data = await response.json();
+      console.log("response ", data);
+
+        setUserName(data.name);
+      } else {
+        console.error("Error fetching user details");
+      }
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
   if (!isLoaded || !currentLocation) return <div>Loading...</div>;
 
   const addressDetails = {
-    'Oxivive Clinic': {
-      address: 'HSR Layout Pvt. Ltd.',
-      name: 'Sai',
+    "Oxivive Clinic": {
+      address: "HSR Layout Pvt. Ltd.",
+      name: userName || "Fetching user name...",
     },
-    'Oxivive Wheel': {
-      address: 'Right Joy Pvt. Ltd.',
-      name: 'Kumar Sai',
+    "Oxivive Wheel": {
+      address: "Right Joy Pvt. Ltd.",
+      name: userName || "Fetching user name...",
     },
   };
 
@@ -110,10 +130,7 @@ const Location: React.FC = () => {
             <p className="label">Your Pick Address</p>
             <h3 className="value">{currentAddress || 'Fetching address...'}</h3>
           </div>
-          <div className="address-line">
-            
-            <h3 className="value">{addressDetails[activeTab].street}</h3>
-          </div>
+          
           <div className="address-line">
             <p className="label">Your Name</p>
             <h3 className="value">{addressDetails[activeTab].name}</h3>

@@ -34,7 +34,7 @@ const Home: React.FC = () => {
   };
 
   const fetchAddress = async (latitude: number, longitude: number) => {
-    const apiKey = 'AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU'; // Replace with your API key
+    const apiKey = 'AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM'; // Replace with your API key
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
   
     try {
