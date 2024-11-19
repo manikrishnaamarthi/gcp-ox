@@ -298,7 +298,7 @@ const Document: React.FC = () => {
                             </div>
                             <p>Upload Driving Licence</p>
                         </div>
-                        <IoIosArrowForward className="arrow-icon1" />
+                        <IoIosArrowForward className="arrow-icon3" />
                     </div>
                     
                     )}
@@ -317,7 +317,7 @@ const Document: React.FC = () => {
                             </div>
                             <p>Upload Vehicle RC</p>
                         </div>
-                        <IoIosArrowForward className="arrow-icon1" />
+                        <IoIosArrowForward className="arrow-icon3" />
                     </div>
                     
                     )}

@@ -99,10 +99,16 @@ body {
     cursor: pointer;
     margin-top: 20px;
   }
+
+  
+  .disabled-btn {
+    background-color: #df8080;
+    cursor: not-allowed;
+  }
   
   /* Disabled submit button */
 .submit-btn:disabled {
-    background-color: #e49c9c;
+    background-color: #f1a1a1;
     cursor: not-allowed;
   }
 

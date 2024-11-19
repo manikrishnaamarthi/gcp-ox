@@ -71,8 +71,8 @@ const Vehiclerc: React.FC = () => {
         <BiArrowBack className="arrow-icon" onClick={() => Router.back()} />
       </div>
 
-      <h1 className="header1">Vehicle RC</h1>
-      <p className="instruction">
+      <h1 className="header4">Vehicle RC</h1>
+      <p className="instruction4">
         Make sure that all the data on your document is fully visible, glare-free, and not blurred.
       </p>
       <div className="imagePreview">
@@ -83,8 +83,8 @@ const Vehiclerc: React.FC = () => {
         />
       </div>
 
-      <div className="uploadContainer">
-        <div className="uploadBox">
+      <div className="uploadContainer4">
+        <div className="uploadBox4">
           <label htmlFor="upload-front" className="uploadLabel">
             {frontPreview ? (
               <img src={frontPreview} alt="Front side preview" className="previewImage" />
@@ -103,7 +103,7 @@ const Vehiclerc: React.FC = () => {
             className="inputFile"
           />
         </div>
-        <div className="uploadBox">
+        <div className="uploadBox4">
           <label htmlFor="upload-back" className="uploadLabel">
             {backPreview ? (
               <img src={backPreview} alt="Back side preview" className="previewImage" />
@@ -124,7 +124,7 @@ const Vehiclerc: React.FC = () => {
         </div>
       </div>
 
-      <button className="submitButton" onClick={handleSubmit}>
+      <button className="submitButton4" onClick={handleSubmit}>
         Done
       </button>
     </div>
