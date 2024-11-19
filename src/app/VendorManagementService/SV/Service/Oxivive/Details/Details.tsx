@@ -86,7 +86,7 @@ const Details = () => {
       <h2 className="heading1">Add your {selectedService} details</h2>
       <p className="subtext1">Fill all the details properly</p>
 
-      <form className="form" onSubmit={handleContinue}>
+      <form className="form" onSubmit={(e) => e.preventDefault()}>
         {Object.entries(formData).map(([field, value]) => {
           if (
             (selectedService === 'Oxi Wheel' && field === 'wheelName') ||
@@ -120,7 +120,7 @@ const Details = () => {
       <button
         onClick={handleContinue}
         type="button"
-        className="submit-btn1"
+        className={`submit-btn1 ${isFormValid ? '' : 'disabled-btn'}`}
         disabled={!isFormValid}
       >
         Continue

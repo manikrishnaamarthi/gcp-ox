@@ -2,8 +2,9 @@
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
-  padding: 20px;
-  width: 350px;
+  /* padding: 20px; */
+  max-width: 350px;
+  width: 100%;
   margin: auto;
   height: 100vh;
   background-color: rgb(215, 212, 212);
@@ -129,5 +130,28 @@ background-color: #c9d0ff;
   cursor: pointer;
   width: 100%;
   margin-bottom: 10px;
+  position: relative;
+  
   
 }
+
+
+
+@media (max-width: 480px) {
+
+   body{
+       width: 100% !important;
+       max-width: 430px !important;
+   }
+}
+
+
+@media (max-width: 1024px) {
+
+  body{
+      width: 100% !important;
+      max-width: 1024px !important;
+  }
+}
+
+

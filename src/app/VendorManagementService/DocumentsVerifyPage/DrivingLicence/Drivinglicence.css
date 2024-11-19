@@ -1,16 +1,17 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     flex-direction: column;
-    width: 350px;
+    max-width: 350px;
+    width: 100%;
     margin: auto;
     height: 100vh;
     background-color: rgb(215, 212, 212);
 }
 
-.container {
+.container1 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,13 +22,14 @@ body {
 }
 
 /* Back arrow styling */
-.back-arrow {
+.back-arrow1 {
     align-self: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: -5px;
+    margin-top: -25px;
 
 }
 
-.arrow-icon {
+.arrow-icon1 {
     font-size: 24px;
     color: #FC000E;
     cursor: pointer;
@@ -37,17 +39,17 @@ body {
 }
 
 /* Header for the page */
-.header1 {
+.header3 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: black;
     text-align: left; 
     width: 100%;
 }
 
 /* Instruction paragraph */
-.instruction {
+.instruction1 {
     font-size: 13px;
     text-align: center;
     color: #555;
@@ -60,14 +62,14 @@ body {
     margin-bottom: 20px;
 }
 
-.aadharImage {
+.dlImage {
     width: 150px;
     height: 100px;
     object-fit: center;
 }
 
 /* Upload buttons */
-.uploadContainer {
+.uploadContainer2 {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -77,9 +79,9 @@ body {
     overflow: hidden;
 }
 
-.uploadBox {
+.uploadBox1 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 47%;
@@ -122,12 +124,12 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 
 /* Done button */
-.submitButton {
+.submitButton1 {
     background-color: #FC000E;
     color: #fff;
     padding: 12px 20px;
@@ -175,6 +177,24 @@ body {
     border: 2px solid red; 
 }
 
+
+
+@media (max-width: 480px) {
+
+    body{
+        width: 100% !important;
+        max-width: 430px !important;
+    }
+ }
+ 
+ 
+ @media (max-width: 1024px) {
+ 
+   body{
+       width: 100% !important;
+       max-width: 1024px !important;
+   }
+ }
 
 
   

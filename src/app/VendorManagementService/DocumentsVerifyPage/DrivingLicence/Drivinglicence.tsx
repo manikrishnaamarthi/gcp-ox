@@ -78,13 +78,13 @@ const DrivingLicence: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <div className="back-arrow">
-                <BiArrowBack className="arrow-icon" onClick={() => Router.back()} />
+        <div className="container1">
+            <div className="back-arrow1">
+                <BiArrowBack className="arrow-icon1" onClick={() => Router.back()} />
             </div>
 
-            <h1 className="header1">Driving Licence</h1>
-            <p className="instruction">
+            <h1 className="header3">Driving Licence</h1>
+            <p className="instruction1">
                 Make sure that all the data on your document is fully visible, glare-free,
                 and not blurred.
             </p>
@@ -93,12 +93,12 @@ const DrivingLicence: React.FC = () => {
                 <img
                     src="/images/vehiclerc.jpg"
                     alt="Driving Licence Preview"
-                    className="aadharImage"
+                    className="dlImage"
                 />
             </div>
 
-            <div className="uploadContainer">
-                <div className="uploadBox">
+            <div className="uploadContainer2">
+                <div className="uploadBox1">
                     <label htmlFor="upload-front" className="uploadLabel">
                         {frontPreview ? (
                             <img src={frontPreview} alt="Front side preview" className="previewImage" />
@@ -117,7 +117,7 @@ const DrivingLicence: React.FC = () => {
                         className="inputFile"
                     />
                 </div>
-                <div className="uploadBox">
+                <div className="uploadBox1">
                     <label htmlFor="upload-back" className="uploadLabel">
                         {backPreview ? (
                             <img src={backPreview} alt="Back side preview" className="previewImage" />
@@ -160,7 +160,7 @@ const DrivingLicence: React.FC = () => {
                 />
             </div>
 
-            <button className="submitButton" onClick={handleSubmit}>
+            <button className="submitButton1" onClick={handleSubmit}>
                 Done
             </button>
         </div>

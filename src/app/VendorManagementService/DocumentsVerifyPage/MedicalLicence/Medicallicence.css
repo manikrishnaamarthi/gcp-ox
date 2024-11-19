@@ -1,10 +1,11 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     flex-direction: column;
-    width: 350px;
+    max-width: 350px;
+    width: 100%;
     margin: auto;
     height: 100vh;
     background-color: rgb(215, 212, 212);
@@ -115,7 +116,7 @@ body {
     cursor: pointer;
 }
 
-/* Container for Driving Licence Number and Date of Birth */
+
 .inputFieldsContainer {
     display: flex;
     flex-direction: column;
@@ -174,9 +175,29 @@ body {
 }
 
 .inputField:focus {
-    outline: none; /* Remove default outline */
+    outline: none; 
     border: 2px solid red; /* Add red border on focus */
 }
+
+
+
+
+@media (max-width: 480px) {
+
+    body{
+        width: 100% !important;
+        max-width: 430px !important;
+    }
+ }
+ 
+ 
+ @media (max-width: 1024px) {
+ 
+   body{
+       width: 100% !important;
+       max-width: 1024px !important;
+   }
+ }
 
   
 
