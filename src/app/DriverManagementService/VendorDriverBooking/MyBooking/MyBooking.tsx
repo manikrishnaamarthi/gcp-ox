@@ -18,6 +18,8 @@ interface Booking {
   email: string;
   timeLeft: string;
   booking_status: 'pending' | 'completed' | 'cancelled';
+  appointment_date: string; // e.g., "2024-11-20"
+  appointment_time: string; // e.g., "10:30:00"
 }
 
 interface Error {
@@ -36,30 +38,38 @@ const MyBooking: React.FC = () => {
   
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/booking-service/');
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/booking-service/');
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const result = await response.json();
-        console.log('Fetched bookings data:', result);
-
-        if (Array.isArray(result) && result.length > 0) {
-          setBookings(result);
-        } else {
-          setBookings([]);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError((error as Error).message);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    };
 
-    fetchData();
-  }, []);
+      const result = await response.json();
+      console.log('Fetched bookings data:', result);
+
+      if (Array.isArray(result) && result.length > 0) {
+        // Sort bookings by appointment date and time
+        const sortedBookings = result.sort((a: Booking, b: Booking) => {
+          const dateA = new Date(`${a.appointment_date}T${a.appointment_time}`);
+          const dateB = new Date(`${b.appointment_date}T${b.appointment_time}`);
+          return dateA.getTime() - dateB.getTime();
+        });
+
+        setBookings(sortedBookings);
+      } else {
+        setBookings([]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError((error as Error).message);
+    }
+  };
+
+  fetchData();
+}, []);
+
 
   const handleBackClick = () => {
     router.back();
