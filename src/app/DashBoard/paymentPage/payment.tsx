@@ -12,6 +12,7 @@ interface appointmentData {
   appointmentDate: string;
   appointmentTime: string;
   serviceType: string;
+  oxiId :string;
 }
 
 const PaymentPage: React.FC = () => {
@@ -62,11 +63,13 @@ const PaymentPage: React.FC = () => {
               booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
               booking_status: 'completed',
               phone_number: fixedPhoneNumber,
-              email: fixedEmail,  
+              email: fixedEmail, 
+              user_id: appointmentData?.oxiId, 
             };
     
             try {
-              await axios.post("http://localhost:8000/api/save-booking/", paymentData);
+              await axios.post("http://localhost:8001/api/save-booking/", paymentData);
+              console.log('payment', paymentData)
               router.push('/DashBoard/TickPage')
             } catch (error) {
               console.error("Error saving booking:", error);

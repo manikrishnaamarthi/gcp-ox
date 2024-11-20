@@ -1,20 +1,41 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import './Location.css';
 import { IoChevronBackSharp } from 'react-icons/io5';
+import axios from 'axios';  // For making API calls
 
 const Location: React.FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const serviceType = searchParams.get('serviceType') || 'Service';
+  const oxiId = searchParams.get('oxi_id'); // Retrieve oxi_id from the URL
+  const [userName, setUserName] = useState<string>('Guest');
   const [activeTab, setActiveTab] = useState('Oxivive Clinic');
   const [currentLocation, setCurrentLocation] = useState<google.maps.LatLngLiteral | null>(null);
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);
   const [location, setLocation] = useState<string | null>(null);
-  const [userName, setUserName] = useState<string | null>(null);
+  
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM', // Replace with your API key
   });
+
+
+
+  useEffect(() => {
+    if (oxiId) {
+      // Fetch the user name from the backend using the oxi_id
+      axios.get(`http://127.0.0.1:8000/usmapp/get_user_name/${oxiId}/`)
+        .then((response) => {
+          setUserName(response.data.name);  // Assuming response contains the name field
+        })
+        .catch((error) => {
+          console.error('Error fetching user name:', error);
+        });
+    }
+  }, [oxiId]);
+
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -30,8 +51,7 @@ const Location: React.FC = () => {
     } else {
       console.error('Geolocation is not supported by this browser.');
     }
-    // Fetch user name from the backend
-    fetchUserName();
+    
   }, []);
 
   const fetchAddress = async (location: google.maps.LatLngLiteral) => {
@@ -45,33 +65,18 @@ const Location: React.FC = () => {
     }
   };
 
-  const fetchUserName = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/usmapp-oxiusers/");
-      if (response.ok) {
   
-        const data = await response.json();
-      console.log("response ", data);
-
-        setUserName(data.name);
-      } else {
-        console.error("Error fetching user details");
-      }
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
 
   if (!isLoaded || !currentLocation) return <div>Loading...</div>;
 
   const addressDetails = {
     "Oxivive Clinic": {
       address: "HSR Layout Pvt. Ltd.",
-      name: userName || "Fetching user name...",
+      name: "sai",
     },
     "Oxivive Wheel": {
       address: "Right Joy Pvt. Ltd.",
-      name: userName || "Fetching user name...",
+      name: "naresh",
     },
   };
 
@@ -79,7 +84,8 @@ const Location: React.FC = () => {
     const selectedData = {
       serviceType: activeTab,
       address: currentAddress,
-      name: addressDetails[activeTab].name,
+      name:  userName,
+      oxiId: oxiId,
     };
     localStorage.setItem('selectedData', JSON.stringify(selectedData));
     window.location.href = '/DashBoard/AppointmentPage';
@@ -133,7 +139,7 @@ const Location: React.FC = () => {
           
           <div className="address-line">
             <p className="label">Your Name</p>
-            <h3 className="value">{addressDetails[activeTab].name}</h3>
+            <h3 className="value"> {userName}</h3>
           </div>
         </div>
 
