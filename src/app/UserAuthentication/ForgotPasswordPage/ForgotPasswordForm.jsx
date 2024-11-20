@@ -8,6 +8,7 @@ import './ForgotPasswordForm.css';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { IoChevronBackSharp } from 'react-icons/io5';
 
 const ForgotPassword = () => {
     const [step, setStep] = useState(1);
@@ -155,6 +156,7 @@ const handleResetPassword = async (e) => {
 
         if (data && data.success) {
             alert('Password reset successfully!');
+            router.push('/UserAuthentication/LoginPage'); // Redirect to the login page
         } else {
             throw new Error(data.error || 'Failed to reset password.');
         }
@@ -176,9 +178,9 @@ const handleResetPassword = async (e) => {
                 <>
                     <div className="top-section">
                         <div className="logoContainer">
-                            <span className="back-arrow" onClick={handleGoBack}>
-                            <FontAwesomeIcon icon={faChevronLeft} />
-                            </span>
+                        <button className="back-button" onClick={() => router.back()}>
+                              <IoChevronBackSharp size={22} /> {/* Back icon */}
+                          </button>
                             <div className="welcomeText">Forgot Password</div>
                         </div>
                     </div>
@@ -207,15 +209,15 @@ const handleResetPassword = async (e) => {
                 <>
                 <div className="top-section">
                     <div className="logoContainer">
-                        <span className="back-arrow" onClick={handleGoBack}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                        </span>
-                        <div className="welcomeText">Verify</div>
+                    <button className="back-button-verify" onClick={() => router.back()}>
+                              <IoChevronBackSharp size={22} /> {/* Back icon */}
+                          </button>
+                        <div className="welcomeText-verify">Verify</div>
                     </div>
                 </div>
                 <div className="ForgotPasswordCard">
                     <h2 className="header-verify">Verify Your Email</h2>
-                    <p className="instruction-text">Enter the OTP Code sent to your E-mailid</p>
+                    <p className="instruction-text">Enter the OTP Code sent to your E-mail id</p>
                     <form onSubmit={handleVerification}>
                         <div className="verification-inputs">
                             {[...Array(4)].map((_, i) => (
@@ -272,9 +274,9 @@ const handleResetPassword = async (e) => {
                 <div>
                    <div className="top-section">
                     <div className="logoContainerPassword">
-                        <span className="back-arrow" onClick={handleGoBack}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                        </span>
+                    <button className="back-button" onClick={() => router.back()}>
+                              <IoChevronBackSharp size={22} /> {/* Back icon */}
+                          </button>
                         <div className="createpassword">Create New Password</div>
                     </div>
                 </div>

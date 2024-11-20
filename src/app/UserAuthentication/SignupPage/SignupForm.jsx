@@ -140,7 +140,7 @@ const handleSubmit = async (event) => {
         </div>
      
       <div className="signup-card">
-      <h2 className="service-provider-title">Signup</h2>
+      <h2 className="service-provider-title">Sign up</h2>
         {successMessage && (
           <p className="alert-success">{successMessage}</p>
         )}
@@ -170,7 +170,12 @@ const handleSubmit = async (event) => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                
               />
+              <span className="password-toggle" onClick={togglePasswordVisibility}>
+      <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+    </span>
+              
             </div>
             {errors.password && <span className="error">{errors.password}</span>}
           </div>

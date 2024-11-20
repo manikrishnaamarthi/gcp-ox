@@ -22,6 +22,11 @@ const Home: React.FC = () => {
   const [showClinicEducate, setShowClinicEducate] = useState<boolean>(false);
   const [showWheelEducate, setShowWheelEducate] = useState<boolean>(false);
   const [activeFooterIcon, setActiveFooterIcon] = useState<string>('home'); // Track the active footer icon
+  const oxiId = localStorage.getItem('oxi_id') || 'Unknown';
+
+  const handleServiceClick = (serviceType: string) => {
+    router.push(`/DashBoard/LocationPage?serviceType=${serviceType}&oxi_id=${oxiId}`);
+  };
 
   const sliderSettings = {
     dots: true,
@@ -181,17 +186,17 @@ const Home: React.FC = () => {
 
       <div className="services-icon-section">
         <div className="icon-row">
-          <div className="service-icon-container" onClick={() => router.push('/DashBoard/LocationPage')}>
+          <div className="service-icon-container" onClick={() => handleServiceClick('Oxi Clinic')}>
             <BiClinic size={40} className="service-icon" />
             <span className="service-text-clinic">Oxi Clinic</span>
           </div>
           
-          <div className="service-icon-container" onClick={() => router.push('/DashBoard/LocationPage')}>
+          <div className="service-icon-container" onClick={() => handleServiceClick('Oxi Clinic')}>
             <PiAmbulanceLight size={40} className="service-icon" />
             <span className="service-text-wheel">Oxi Wheel</span>
           </div>
         
-            <div className="service-icon-container-gym" onClick={() => router.push('/DashBoard/LocationPage')}>
+            <div className="service-icon-container-gym"  onClick={() => handleServiceClick('Oxi Wheel')}>
               <MdSportsGymnastics size={40} className="service-icon" />
               <span className="service-text-gym">Oxi Gym</span>
             </div>

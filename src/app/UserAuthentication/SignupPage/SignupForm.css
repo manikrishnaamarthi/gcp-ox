@@ -65,10 +65,10 @@ body {
 
 .service-provider-title {
   color: #050505;
-  font-size: 2rem;
+  font-size: 26px;
   margin-bottom: 20px;
   margin-top: 5px;
-  font-weight: bold;
+  font-weight: 900;
   text-align: left;
 }
 
@@ -85,17 +85,25 @@ body {
   margin-bottom: 22px;
   position: relative;
   width: 100%;
+  
 }
 
 .input-field input {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #FC000E;
+  border: 1px solid #f4f2f2;
   background-color: #ffffff;
   color: #090909;
   font-size: 16px;
 }
+
+
+.input-field input:focus {
+  border-color: #FC000E; /* Change border color */
+  outline: none; /* Remove default outline */
+}
+
 
 .password-field {
   position: relative;
@@ -106,16 +114,30 @@ body {
 .password-wrapper {
   width: 100%;
   position: relative;
+  display: flex;
+  align-items: center;
+
 }
 
 .password-wrapper input {
   padding-right: 40px;
   border-radius: 5px;
-  border: 1px solid #FC000E;
+  border: 1px solid #f4f2f2;
 }
 
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #666;
+}
+
+.password-toggle:hover {
+  color: #333;
+}
 .input-field{
-  color: #0e0d0d;
+  color: #918a8a;
 }
 
 .upload-field label {
@@ -123,9 +145,8 @@ body {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #FC000E;
+  border: 1px solid #f4f2f2;
   background-color: #ffffff;
-  text-align: center;
   cursor: pointer;
 }
 

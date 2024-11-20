@@ -63,22 +63,23 @@ body, html {
   position: relative;
   text-align: center;
   flex-grow: 1; /* Let this card grow and take available space */
-  
- 
+  flex-direction: column;
+  justify-content: space-between;
  
 }
 
 .login-heading {
   text-align: left;
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 24px;
   color: black;
-  font-weight: bold;
+  font-weight:bolder !important;
 }
 
 .inputLabel {
+  font-family:"Poppins", sans-serif;
   font-size: 1rem;
-  color: #333;
+  color: #c1bebe;
   margin-bottom: 8px;
   display: block;
   text-align: left;
@@ -88,22 +89,34 @@ body, html {
   position: relative;
   margin-bottom: 20px;
   color: black;
+  font-size:24px;
 }
 
 .input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #FC000E;
+  border: 1px solid #f8f4f4;
   border-radius: 5px;
   font-size: 1rem;
 }
 
-.passwordToggle {
+.input:focus {
+  border-color: #FC000E; /* Border color on focus */
+  outline: none; /* Remove default outline */
+ 
+}
+
+.passwordGroup {
+  position: relative;
+}
+
+.togglePassword {
   position: absolute;
-  right: 10px;
   top: 50%;
+  right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
+  color: #888;
 }
 
 .loginButton {
@@ -124,12 +137,18 @@ body, html {
   font-size: 0.9rem;
 }
 
-.forgotPassword,
+.forgotPassword{
+  color:#9a8f8f;
+  cursor: pointer;
+}
 .signup-link {
   color: #FC000E;
   cursor: pointer;
   text-decoration: none;
+  margin-top: 150px;
 }
+
+
 
 .forgotPassword:hover,
 .signup-link:hover {

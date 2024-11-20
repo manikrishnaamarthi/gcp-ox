@@ -57,8 +57,14 @@ function LoginForm() {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccessMessage('Login successful! Redirecting...');
+
+        // Store the user's name in local storage
+        localStorage.setItem('oxi_id', data.oxi_id);
+
+
+        
         if(data.user_type=='customer'){
+          alert('Login successful! Redirecting to the dashboard...');
           router.push('/DashBoard/HomePage');
       }
       else if(data.user_type=='driver'){
@@ -99,9 +105,9 @@ function LoginForm() {
     
 
       <div className="login-card">
-        <h2 className="login-heading">Log in</h2>
+        <h2 className="login-heading">Log In</h2>
         <form onSubmit={handleLoginSubmit}>
-          <label htmlFor="identifier" className="inputLabel">Email</label>
+          <label htmlFor="identifier" className="inputLabel">E-mail</label>
           <div className="inputGroup">
             <input
               type="text"
@@ -124,6 +130,9 @@ function LoginForm() {
               placeholder="Password"
               required
             />
+            <span className="togglePassword" onClick={toggleShowPassword}>
+              <FontAwesomeIcon  icon={showPassword ? faEyeSlash : faEye}    style={{ fontSize: '16px' }}/>
+            </span>
             {passwordError && <p className="errorMessage">{passwordError}</p>}
           </div>
 

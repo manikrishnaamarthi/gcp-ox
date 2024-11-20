@@ -13,7 +13,7 @@ const Appointment = () => {
   const [currentTime, setCurrentTime] = useState<string>(today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
-  const [selectedData, setSelectedData] = useState<{ serviceType: string; address: string; name: string } | null>(null);
+  const [selectedData, setSelectedData] = useState<{ serviceType: string; address: string; name: string; oxiId :string; } | null>(null);
 
   const modalRef = useRef(null);
   
@@ -96,6 +96,7 @@ const Appointment = () => {
         serviceType: selectedData?.serviceType,
         address: selectedData?.address,
         name: selectedData?.name,
+        oxiId: selectedData?.oxiId,  // Pass oxiId as well
         appointmentDate: selectedDate,
         appointmentTime: selectedTime,
       };
