@@ -1,44 +1,53 @@
-"use client"
+'use client';
 import React, { useState, useEffect } from 'react';
-import { FaHome, FaClock, FaMapMarkerAlt, FaSignOutAlt } from 'react-icons/fa';
-import { BiSolidBookAdd } from "react-icons/bi";
-import { FaCartPlus } from "react-icons/fa";
-import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
+import { FaHome, FaClock, FaMapMarkerAlt, FaSignOutAlt, FaCartPlus, FaChartArea } from 'react-icons/fa';
+import { BiSolidBookAdd } from 'react-icons/bi';
+import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
 import { FaPeopleGroup } from 'react-icons/fa6';
-import { FaChartArea } from "react-icons/fa";
 import './Booking.css';
 
-const Bookings = () => {
-  const [selectedClinic, setSelectedClinic] = useState('OxiviveClinic');
-  const [selectedStatus, setSelectedStatus] = useState('Booking');
-  const [bookings, setBookings] = useState([]); // state to store the fetched bookings
-  const [loading, setLoading] = useState(true); // loading state for API request
-  const [error, setError] = useState(''); // error state to handle any errors
+interface Booking {
+  address: string;
+  name: string;
+  appointment_date: string;
+  appointment_time: string;
+  booking_status: string;
+  phone_number: string | null;
+  email: string | null;
+}
+
+const Bookings: React.FC = () => {
+  const [selectedClinic, setSelectedClinic] = useState<string>('OxiviveClinic');
+  const [selectedStatus, setSelectedStatus] = useState<string>('Booking');
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
 
   // Fetch bookings data from the backend API
   useEffect(() => {
     const fetchBookings = async () => {
+      setLoading(true);
       try {
-        // Replace with your API endpoint
         const response = await fetch('http://127.0.0.1:8000/api/bookingapp-bookingservice/');
-        console.log(response)
         if (!response.ok) {
           throw new Error('Failed to fetch bookings');
         }
         const data = await response.json();
         setBookings(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
+      } catch (err: any) {
+        setError(`Error: ${err.message}`);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchBookings();
-  }, []); // Empty dependency array means this will run only once when the component mounts
+  }, []);
 
+  // Filter bookings based on selected status and clinic
   const filteredBookings = bookings.filter(
-    (booking) => booking.status === selectedStatus && booking.clinic === selectedClinic
+    (booking) =>
+      booking.booking_status.toLowerCase() === selectedStatus.toLowerCase()
   );
 
   return (
@@ -48,7 +57,6 @@ const Bookings = () => {
           <img src="/images/shot(1).png" alt="Logo" />
           <p>Super Admin</p>
         </div>
-        
         <nav className="sidebar-icons">
           <div className="sidebar-icon" data-name="Admin"><FaHome /></div>
           <div className="sidebar-icon" data-name="Invoice"><FaCartPlus /></div>
@@ -90,8 +98,8 @@ const Bookings = () => {
         <div className="status-toggle-container">
           <div className="status-toggle">
             <button
-              className={selectedStatus === 'Booking' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Booking')}
+              className={selectedStatus === 'Pending' ? 'active' : ''}
+              onClick={() => setSelectedStatus('Pending')}
             >
               Booking
             </button>
@@ -102,8 +110,8 @@ const Bookings = () => {
               Completed
             </button>
             <button
-              className={selectedStatus === 'Cancelled' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Cancelled')}
+              className={selectedStatus === 'Cancel' ? 'active' : ''}
+              onClick={() => setSelectedStatus('Cancel')}
             >
               Cancelled
             </button>
@@ -113,26 +121,35 @@ const Bookings = () => {
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
-          <p>Error: {error}</p>
-        ) : (
+          <p>{error}</p>
+        ) : filteredBookings.length > 0 ? (
           <div className="booking-cards">
             {filteredBookings.map((booking, index) => (
               <div className="booking-card" key={index}>
-                <p className="booking-date">{booking.date}</p>
+                <p className="booking-date">
+                  Appointment Date: {booking.appointment_date}
+                </p>
                 <div className="booking-info">
                   <div className="booking-time">
                     <FaClock className="icon" />
-                    <span>{booking.time}</span>
+                    <span>Time: {booking.appointment_time}</span>
                   </div>
                   <div className="booking-location">
                     <FaMapMarkerAlt className="icon" />
-                    <span>{booking.location}</span>
+                    <span>Address: {booking.address}</span>
                   </div>
-                  <p className="booking-name">{booking.name}</p>
+                  <p className="booking-name">
+                    Name: {booking.name}
+                  </p>
+                  <p className={`booking-status ${booking.booking_status.toLowerCase()}`}>
+  {booking.booking_status}
+</p>
                 </div>
               </div>
             ))}
           </div>
+        ) : (
+          <p>No bookings found for the selected filters.</p>
         )}
       </main>
     </div>
