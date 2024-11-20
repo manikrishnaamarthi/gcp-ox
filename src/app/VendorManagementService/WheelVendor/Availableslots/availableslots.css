@@ -55,7 +55,7 @@ body {
     margin-bottom: 70px;
   }
   
-  .time-slots-grid {
+  .time-slots-grid2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
@@ -97,3 +97,7 @@ body {
 
   }
   
+  .time-slot.selected {
+    background-color:white;
+    color: red;
+  }

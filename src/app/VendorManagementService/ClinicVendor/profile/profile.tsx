@@ -1,70 +1,134 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import './profile.css';
-import { FaCamera, FaArrowLeft, FaTimes, FaHome, FaBell, FaUser, FaCalendarAlt, FaPlus, FaEdit } from 'react-icons/fa';
+import axios from 'axios';
+import {
+  FaCamera, FaArrowLeft, FaTimes, FaHome, FaBell, FaUser,
+  FaCalendarAlt, FaPlusCircle, FaEdit
+} from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Profile: React.FC = () => {
+  const router = useRouter();
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [email, setEmail] = useState('');
-  const [profileImage, setProfileImage] = useState('/path-to-profile-image.jpg'); // Initial profile image
-  const [oxiImage1, setOxiImage1] = useState(''); // State for first Oxi Upload image
-  const [oxiImage2, setOxiImage2] = useState(''); // State for second Oxi Upload image
-  const [isEditing, setIsEditing] = useState(false); // Toggle editing mode
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference for profile image file input
-  const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null); // Reference for first Oxi Upload input
-  const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null); // Reference for second Oxi Upload input
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+  const [oxiImage1, setOxiImage1] = useState('');
+  const [oxiImage2, setOxiImage2] = useState('');
+  const [availableslots, setAvailableslots] = useState<string>('');
+  const [isEditing, setIsEditing] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null);
+  const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null);
+  const [profileData, setProfileData] = useState<any[]>([]);
+  const vendorId = 'SP-44202';
+
+  useEffect(() => {
+    const fetchVendorData = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`);
+        setProfileData(response.data);
+        setProfileImage(response.data.profile_photo);
+        setEmail(response.data.email);
+        setName(response.data.name);
+        setPhone(response.data.phone);
+        setOxiImage1(response.data.oxi_image1);
+        setOxiImage2(response.data.oxi_image2);
+        setAvailableslots(response.data.available_slots);
+      } catch (error: any) {
+        console.log('Error fetching vendor data:', error.response ? error.response.data : error);
+      }
+    };
+
+    fetchVendorData();
+  }, []);
+
+  const uploadToCloudinary = async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'documents_all'); // Replace with your Cloudinary preset
+    formData.append('cloud_name', 'dpysjcjbf'); // Replace with your Cloudinary cloud name
+  
+    try {
+      const response = await axios.post(
+        'https://api.cloudinary.com/v1_1/dpysjcjbf/image/upload', // Replace with your Cloudinary API endpoint
+        formData
+      );
+      return response.data.secure_url; // Return the uploaded image URL
+    } catch (error) {
+      console.log('Error uploading to Cloudinary:', error);
+      return null;
+    }
+  };
+  
+
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setImage: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const uploadedUrl = await uploadToCloudinary(file);
+        setImage(uploadedUrl);
+      } catch (error) {
+        console.error('File upload failed:', error);
+      }
+    }
+  };
 
   const handleFooterClick = (icon: string) => {
     setSelectedFooter(icon);
   };
 
   const handleEditClick = () => {
-    setIsEditing(!isEditing); // Toggle edit mode
+    setIsEditing(!isEditing);
   };
 
   const handleCameraClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger profile image file input click
-    }
+    fileInputRef.current?.click();
   };
 
   const handleOxiUploadClick = (inputRef: React.RefObject<HTMLInputElement>) => {
-    if (inputRef.current) {
-      inputRef.current.click(); // Trigger Oxi Upload file input click
-    }
+    inputRef.current?.click();
   };
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setImage: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string); // Update the image with the uploaded file
-      };
-      reader.readAsDataURL(file); // Read the image file as a data URL for preview
-    }
+  const handleEditAvailableSlots = () => {
+    const profileData = {
+      profile_photo: profileImage,
+      name,
+      email,
+      phone,
+      oxi_image1: oxiImage1,
+      oxi_image2: oxiImage2,
+    };
+    localStorage.setItem('profileData', JSON.stringify(profileData));
+    router.push('/VendorManagementService/ClinicVendor/Availableslots');
   };
+
+
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <FaArrowLeft className="arrow-icon" />
+    <div className="profile-container1">
+      <div className="profile-header0">
+        <FaArrowLeft className="arrow-icon5" />
         <h2 className="profile-title">Profile</h2>
         <FaEdit
-          className="edit-icon"
+          className="edit-icon0"
           onClick={handleEditClick}
           style={{ color: 'red', fontSize: '20px', cursor: 'pointer' }}
-        /> {/* Red edit icon in the top-right */}
+        />
       </div>
 
       {/* Profile Image Section */}
-      <div className="profile-image-section">
-        <div className="profile-image-wrapper">
-          <img className="profile-image" src={profileImage} alt="Profile" />
-          <FaCamera className="camera-icon" onClick={handleCameraClick} />
+      <div className="profile-image-section1">
+        <div className="profile-image-wrapper0">
+          <img className="profile-image3" src={profileImage} alt="Profile" />
+          <FaCamera className="camera-icon7" onClick={handleCameraClick} />
           <input
             type="file"
             accept="image/*"
@@ -75,23 +139,34 @@ const Profile: React.FC = () => {
         </div>
       </div>
 
-      <div className="profile-info">
-        <div className="input-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Enter your Name"
-            disabled={!isEditing} // Enable only in edit mode
-          />
-        </div>
+      <div className="profile-info9">
+      <div className="input-group">
+  <label htmlFor="name">Name</label>
+  <div className="input-wrapper">
+    <input
+      type="text"
+      id="name"
+      placeholder="Enter your Name"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      disabled={!isEditing} // Enable only in edit mode
+    />
+    {name && isEditing && (
+      <FaTimes
+        className="clear-icon"
+        onClick={() => setName('')}
+        title="Clear"
+      />
+    )}
+  </div>
+</div>
         <div className="input-group email-group">
           <label htmlFor="email">Email</label>
           <div className="email-input-wrapper">
             <input
               type="email"
               id="email"
-              placeholder="Enter your gmail"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={!isEditing} // Enable only in edit mode
@@ -106,24 +181,35 @@ const Profile: React.FC = () => {
           </div>
         </div>
         <div className="input-group">
-          <label htmlFor="mobile">Mobile Number</label>
-          <input
-            type="text"
-            id="mobile"
-            placeholder="Enter your mobile number"
-            disabled={!isEditing} // Enable only in edit mode
-          />
-        </div>
+  <label htmlFor="mobile">Mobile Number</label>
+  <div className="input-wrapper">
+    <input
+      type="text"
+      id="mobile"
+      placeholder="Enter your mobile number"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+      disabled={!isEditing} // Enable only in edit mode
+    />
+    {phone && isEditing && (
+      <FaTimes
+        className="clear-icon"
+        onClick={() => setPhone('')}
+        title="Clear"
+      />
+    )}
+  </div>
+</div>
 
         {/* Oxi Upload Section */}
-        <div className="oxi-upload-section">
+        <div className="oxi-upload-section11">
           <div className="oxi-upload-container" onClick={() => handleOxiUploadClick(oxiFileInputRef1)}>
-            <FaPlus className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
+            <FaPlusCircle className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
             {oxiImage1 ? (
               <img src={oxiImage1} alt="Oxi Upload 1" className="oxi-upload-image" />
             ) : (
               <div className="oxi-upload">
-                <span>Oxi Upload 1</span>
+                <span>Oxi Image 1</span>
               </div>
             )}
             <input
@@ -135,12 +221,12 @@ const Profile: React.FC = () => {
             />
           </div>
           <div className="oxi-upload-container" onClick={() => handleOxiUploadClick(oxiFileInputRef2)}>
-            <FaPlus className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
+            <FaPlusCircle className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
             {oxiImage2 ? (
               <img src={oxiImage2} alt="Oxi Upload 2" className="oxi-upload-image" />
             ) : (
               <div className="oxi-upload">
-                <span>Oxi Upload 2</span>
+                <span>Oxi Image 2</span>
               </div>
             )}
             <input
@@ -154,44 +240,48 @@ const Profile: React.FC = () => {
         </div>
 
         <div className="input-group">
-          <label htmlFor="time">Time</label>
-          <div className="time-boxes">
-            <div className="time-box">10:00 PM</div>
-            <div className="time-box">12:00 PM</div>
-            <div className="time-box">05:00 AM</div>
-            <div className="time-box">10:00 AM</div>
-          </div>
-        </div>
+  <div className="time-label-container">
+    <label htmlFor="availableslots">Time</label>
+    <button
+      className="edit-time-button"
+      onClick={handleEditAvailableSlots}
+    >
+      Edit
+    </button>
+  </div>
+
+  <div className="time-slots-grid1">
+  {(availableslots || '').split(',').map((slot, index) => (
+      <button
+        key={index}
+        className="time-slot1"
+        disabled={!isEditing} // Enable editing only when in edit mode
+      >
+        {slot.trim()} {/* Trim extra spaces if any */}
+      </button>
+    ))}
+  </div>
+</div>
+
+
       </div>
 
       {/* Footer with icons */}
-      <div className="footer">
-        <div
-          className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('home')}
-        >
-          <FaHome />
+      <div className="footer8">
+      <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => handleFooterClick('home')}>
+          <FontAwesomeIcon icon={faHome} />
           <span>Home</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('bookings')}
-        >
-          <FaCalendarAlt />
+        <div className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`} onClick={() => handleFooterClick('bookings')}>
+          <FontAwesomeIcon icon={faClipboardList} />
           <span>Bookings</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('notifications')}
-        >
-          <FaBell />
+        <div className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`} onClick={() => handleFooterClick('notifications')}>
+          <FontAwesomeIcon icon={faBell} />
           <span>Notifications</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('profile')}
-        >
-          <FaUser />
+        <div className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`} onClick={() => handleFooterClick('profile')}>
+          <FontAwesomeIcon icon={faUser} />
           <span>Profile</span>
         </div>
       </div>
