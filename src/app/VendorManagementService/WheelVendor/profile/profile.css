@@ -4,15 +4,15 @@ body {
   font-style: normal;
   margin: 0;
   background-color: rgb(228, 226, 226);
-  text-align: center;
+  /* text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  padding: 0;  /* Remove padding */
+  padding: 0;  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: scroll;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; */
 
   }
 .profile-container {
@@ -100,6 +100,7 @@ margin-bottom: 20px;
 
 .input-group {
   margin-bottom: 5px;
+
 }
 
 .input-group label {
@@ -111,10 +112,27 @@ color: rgb(151, 149, 149);
 margin-top: px;
 margin-left: 10px;
 }
-label[for="time"] {
-  font-weight: bold;  /* Makes the label bold */
-  color: black;       /* Sets the label color to black */
+.input-group input:focus {
+  outline: none; /* Removes the default browser outline */
+  border-color: red; /* Changes the border to red */
+} 
+.time-label-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  margin-top: 10px;
 }
+.edit-time-button {
+  color: red;
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: 180px;
+  margin-bottom: 5px;
+}
+
 
 .input-group input {
   width: 95%;
@@ -124,19 +142,39 @@ label[for="time"] {
   color: black;
   font-weight: bold;
   font-size: 20px;
+  margin-left: 10px;
 }
 
 .email-input-wrapper {
   display: flex;
   align-items: center;
-  margin-left: 10px;
   width: 100%;
   position: relative;
+}
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 95%;
+  padding-right: 30px; /* Add padding to prevent text overlap with the clear icon */
 }
 
 .clear-icon {
   position: absolute;
-  right: 10px;
+  right: 5px; /* Position the icon inside the input box */
+  cursor: pointer;
+  font-size: 16px; /* Adjust size as needed */
+  color: red;
+  background: none;
+  border: none;
+}
+
+
+.clear-icon {
+  position: absolute;
   cursor: pointer;
   color: red;
   margin-right: 15px;
@@ -184,16 +222,19 @@ label[for="time"] {
   display: inline-block;
   margin: 10px;
   cursor: pointer;
+  
 }
 .oxi-upload-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+
 }
 .time-boxes {
   display: flex;
 flex-wrap: wrap;          /* Allows wrapping to the next line if items exceed the space */
 justify-content: space-between;
+margin-top: -20px;
 }
 
 .time-box {
@@ -206,12 +247,36 @@ justify-content: center;
 text-align: center;
 border: 1px solid #ccc;
 border-radius: 5px;
-background-color: #fbcaca;
+background-color: #f8d4d4;
 cursor: pointer;
 font-weight: bold;
 color: black;
   
 }
+
+.time-slots-grid1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  
+}
+
+.time-slot1 {
+  background-color: #f8d4d4;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    width: px;
+    height: 40px;
+}
+
+
+
 
 .footer4 {
   position: fixed;

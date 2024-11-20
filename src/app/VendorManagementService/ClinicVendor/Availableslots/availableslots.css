@@ -1,99 +1,103 @@
 /* Availableslots.css */
 body {
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    margin: 0;
-    background-color: rgb(228, 226, 226);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0;  /* Remove padding */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-}
-.available-slots-container {
-    height: 100vh;
-  width: 100%;
-  width: 375px;
-  margin: auto;
-  background-color: white;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  margin: 0;
+  background-color: rgb(228, 226, 226);
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border-radius: 4%;
-  }
-  
-  
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0;  /* Remove padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+.available-slots-container1 {
+  height: 100vh;
+width: 100%;
+width: 350px;
+margin: auto;
+background-color: white;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+
+}
+
+
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .arrow-icon {
-    cursor: pointer;
-    font-size: 24px; 
-    color: red; 
-    margin-left: px;
-    margin-bottom: 140px;
-    margin-top:px;
-  }
-  
-  .header h1 {
-    font-size: 30px;
-    color: red;
-    font-weight: bold;
-    text-align: center;
-    flex-grow: 1;
-    margin-top: 50px;
-    margin-bottom: 70px;
-  }
-  
-  .time-slots-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom:px ;
-    margin-top: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
 
-  }
-  
-  .time-slot {
-    background-color: #f8d4d4;
-    border: none;
-    border-radius: 10px;
-    padding: 5px;
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    width: px;
-    height: 40px;
-  }
-  
-  .edit-button {
-    background-color: red;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 110px;
-    margin-bottom: 700px;
-    margin-left: 150px;
-    width: 80px;
-    height: 40px;
+.arrow-icon9 {
+  cursor: pointer;
+  font-size: 24px; 
+  color: red; 
+  margin-left: px;
+  margin-bottom: 140px;
+  margin-top:px;
+}
 
-  }
-  
+.header h1 {
+  font-size: 30px;
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
+  margin-top: 50px;
+  margin-bottom: 70px;
+}
+
+.time-slots-grid5 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom:px ;
+  margin-top: -20px;
+
+}
+
+.time-slot {
+  background-color: #f8d4d4;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  width: px;
+  height: 40px;
+}
+
+.edit-button {
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 110px;
+  margin-bottom: 700px;
+  margin-left: 150px;
+  width: 80px;
+  height: 40px;
+
+}
+
+.time-slot.selected {
+  background-color:white;
+  color: red;
+}
