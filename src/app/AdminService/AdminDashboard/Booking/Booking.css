@@ -243,6 +243,39 @@ body {
   color: #333;
 }
 
+/* Booking Status Styling */
+.booking-status {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+/* Status Colors */
+.booking-status.pending {
+  background-color: #fff3cd; /* Light yellow background */
+  color: #856404; /* Dark yellow text */
+}
+
+.booking-status.completed {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green text */
+}
+
+.booking-status.cancelled {
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+}
+
+/* Add hover effects for statuses (optional) */
+.booking-status:hover {
+  opacity: 0.9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
 /* Responsive Styling */
 @media (max-width: 1200px) {
   .booking-list {
