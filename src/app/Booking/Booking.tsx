@@ -10,8 +10,21 @@ import { RxCalendar } from "react-icons/rx";
 import { BsPerson } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 
+interface Booking {
+    id: number;
+    booking_status: string;
+    service_type: string;
+    appointment_date: string;
+    appointment_time: string;
+    name: string;
+    address: string;
+    booking_id: string;
+}
+
+
 const Booking = () => {
-    const [bookings, setBookings] = useState([]);
+    const [bookings, setBookings] = useState<Booking[]>([]);
+
     const [activeTab, setActiveTab] = useState('MyBooking'); 
     const router = useRouter();
 
@@ -34,13 +47,13 @@ const Booking = () => {
         fetchBookings();
     }, []);
 
-    const handleCardClick = (booking) => {
+    const handleCardClick = (booking: Booking) => {
         if (activeTab === 'Completed') {
             router.push(`/Booking/CompleteBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
         }
     };
 
-    const handleCancelClick = (booking) => {
+    const handleCancelClick = (booking: Booking) => {
         router.push(`/Booking/CancelBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
     };
     
@@ -54,7 +67,7 @@ const Booking = () => {
 
     const [activeFooterIcon, setActiveFooterIcon] = useState('booking');
 
-    const handleFooterIconClick = (icon) => {
+    const handleFooterIconClick = (icon: string) => {
         setActiveFooterIcon(icon);
         if (icon === 'home') {
             router.push('/DashBoard/HomePage');
@@ -67,7 +80,7 @@ const Booking = () => {
         }
     };
   
-    const footerIconStyle = (icon) => ({
+    const footerIconStyle = (icon: string) => ({
         color: activeFooterIcon === icon ? '#FC000E' : 'rgb(151, 147, 147)',
     });
 

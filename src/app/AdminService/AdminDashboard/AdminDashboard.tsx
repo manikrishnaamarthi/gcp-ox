@@ -7,12 +7,40 @@ import { BiSolidBookAdd } from "react-icons/bi";
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
 import { FaPeopleGroup } from 'react-icons/fa6';
 
+interface Vendor {
+  id: number;
+  name: string;
+  selectedService: string;
+  address: string;
+  profile_photo: string;
+  document_status: string;
+  state: string;
+  district: string;
+  pincode: number;
+  email: string;
+  phone: number;
+  pan_front_side: string;
+  gstNumber: string;
+  aadhar_front_side: string;
+  aadhar_back_side: string;
+  pan_back_side: string;
+  medical_front_side: string;
+  medical_back_side: string;
+  medical_licence_number: number;
+  licence_end_date: string;
+  driving_front_side: string;
+  driving_back_side: string;
+  driving_licence_number: number;
+  vehicle_rc_front_side: string;
+  vehicle_rc_back_side: string;
+}
+
 const categories = ["OxiviveClinic", "OxiviveWheel"];
 
 const AdminDashboard = () => {
   const [activeCategory, setActiveCategory] = useState("OxiviveClinic");
-  const [vendors, setVendors] = useState([]);
-  const [filteredVendors, setFilteredVendors] = useState([]);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [filteredVendors, setFilteredVendors] = useState<Vendor[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
@@ -21,8 +49,8 @@ const AdminDashboard = () => {
     const fetchVendors = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/api/vendorapp-vendordetails/');
-        const data = await response.json();
-        console.log("API Response:", data); // Debugging API response
+        const data: Vendor[] = await response.json();
+        console.log("API Response:", data);
         setVendors(data);
         setIsLoading(false);
       } catch (error) {
@@ -41,29 +69,17 @@ const AdminDashboard = () => {
           ? vendor.selectedService.trim() === "Oxi Clinic" 
           : vendor.selectedService.trim() === "Oxi Wheel";
         const matchesSearch = vendor.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const underProcessStatus = vendor.document_status.trim() === "UnderProcess"; // Ensure case sensitivity
-        const include = matchesCategory && matchesSearch && underProcessStatus;
-
-        // Debugging individual vendor filtering
-        console.log({
-          vendor,
-          matchesCategory,
-          matchesSearch,
-          underProcessStatus,
-          included: include
-        });
-
-        return include;
+        const underProcessStatus = vendor.document_status.trim() === "UnderProcess";
+        return matchesCategory && matchesSearch && underProcessStatus;
       });
 
       setFilteredVendors(filtered);
     } else {
-      setFilteredVendors([]); // Clear the filtered list if vendors are empty
+      setFilteredVendors([]);
     }
   }, [vendors, activeCategory, searchQuery, isLoading]);
 
-  // Navigate to the details page for the selected vendor
-  const handleCardClick = (vendor) => {
+  const handleCardClick = (vendor: Vendor) => {
     router.push(`/AdminService/AdminDashboard/AdminDetails?id=${vendor.id}&name=${vendor.name}&state=${vendor.state}&district=${vendor.district}&pincode=${vendor.pincode}&profile_photo=${vendor.profile_photo}&selectedService=${vendor.selectedService}&address=${vendor.address}&email=${vendor.email}&phone=${vendor.phone}&pan_front_side=${vendor.pan_front_side}&gstNumber=${vendor.gstNumber}&aadhar_front_side=${vendor.aadhar_front_side}&aadhar_back_side=${vendor.aadhar_back_side}&pan_back_side=${vendor.pan_back_side}&medical_front_side=${vendor.medical_front_side}&medical_back_side=${vendor.medical_back_side}&medical_licence_number=${vendor.medical_licence_number}&licence_end_date=${vendor.licence_end_date}&driving_front_side=${vendor.driving_front_side}&driving_back_side=${vendor.driving_back_side}&driving_licence_number=${vendor.driving_licence_number}&vehicle_rc_front_side=${vendor.vehicle_rc_front_side}&vehicle_rc_back_side=${vendor.vehicle_rc_back_side}`);
   };
 

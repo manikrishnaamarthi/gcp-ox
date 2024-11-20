@@ -1,0 +1,269 @@
+/* Global Styles */
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+    /* color: #333; */
+  }
+  
+  /* Container */
+  .admin-person-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Sidebar styling */
+  .admin-sidebar {
+    height: 100vh;
+    width: 150px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    position: fixed;
+  }
+  
+  .logo {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: -25px;
+  }
+  
+  .logo img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .logo p {
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+  }
+  
+  .sidebar-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-left: -40px;
+  }
+  
+  /* Icon styling with hover animation */
+  .sidebar-icon {
+    font-size: 24px;
+    color: #ff0000;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .sidebar-icon:hover {
+    transform: scale(1.2);
+    color: #ff5555;
+  }
+  
+  .sidebar-icon:hover::after {
+    content: attr(data-name);
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+    white-space: nowrap;
+  }
+  
+  /* Logout Icon Styling */
+  .sidebar-icon.logout-icon {
+    margin-top: 48px;
+  }
+  
+  /* Content */
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    margin-left: 150px;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  header {
+    text-align: center;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .header-text {
+    text-align: center;
+    flex: 1; /* Allows text to stay centered */
+  }
+  
+  header h2 {
+    font-size: 30px;
+    color: #ff0000;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  header p {
+    font-size: 22px;
+    color: #333;
+    margin: 5px 0;
+  }
+  
+  .search-input {
+    padding: 5px;
+    border: 1px solid #eb0909;
+    border-radius: 15px;
+    width: 200px;
+    color: #eb0909;
+  }
+  
+  .search-input:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+  }
+  
+  .search-input::placeholder {
+    color: #ff0000;
+  }
+  
+  
+  .actions {
+    text-align: right;
+    /* margin: 20px 0; */
+  }
+  
+  .add-details-btn {
+    background-color: #e60000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .admin-table th {
+    background-color: #f1f1f1;
+  }
+  
+  .edit-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin-right: 30px;
+    border-radius: 10px;
+  }
+  
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .add-admin-form {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1000px;
+    margin: 20px auto;
+  }
+  
+  .add-admin-form h3 {
+    color: red;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px; /* Add space between buttons */
+  }
+  
+  .cancel-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ddd;
+    color: #333;
+  }
+  
+  .save1-btn {
+    background-color: red;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .reset-btn {
+    background-color: #d9eb1b;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit1-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

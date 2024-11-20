@@ -47,11 +47,12 @@ body {
     width: 300px;
     height: 300px;
     object-fit: contain; /* Keeps the image contained within its box */
+    margin-top: 40px;
 }
 
 .logoContainer1 .brand {
     font-size: 40px;
-    margin-top: 5px; /* Adjusted to avoid negative margins */
+    /* margin-top: 5px;  */
     font-weight: bold;
 }
 
