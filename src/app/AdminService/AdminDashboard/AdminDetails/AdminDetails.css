@@ -37,7 +37,7 @@ body {
 }
 
 .logo p {
-  font-size: 14px;
+  font-size: 20px;
   color: red;
   font-weight: bold;
 }
@@ -194,17 +194,26 @@ body {
     flex-wrap: wrap; /* Allow wrapping for document images */
   }
   
-  .document-row img {
-    height: 180px;
-    width: 180px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
   
-  .document-row p {
-    font-size: 14px;
-    text-align: center;
-  }
+.document-row img {
+  height: 180px;
+  width: 180px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Add space between image and text */
+}
+
+.document-row p {
+  font-size: 17px;
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically */
+  
+}
+
+.document-row span {
+  display: block; /* Ensure each span is on its own line */
+}
   
   .icon {
     font-size: 20px;  /* Adjust size as needed */

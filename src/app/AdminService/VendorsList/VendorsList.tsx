@@ -8,14 +8,21 @@ import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { IoLocationSharp } from "react-icons/io5";
 
-const VendorsList = () => {
-  const [selectedCity, setSelectedCity] = useState("");
-  const [vendors, setVendors] = useState([]);
-  const [filteredVendors, setFilteredVendors] = useState([]);
-  const [selectedService, setSelectedService] = useState("Oxi Clinic");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [searchQuery, setSearchQuery] = useState(""); // Search input state
+interface Vendor {
+  name: string;
+  selectedService: string;
+  phone: number;
+  address: string;
+}
+
+const VendorsList: React.FC = () => {
+  const [selectedCity, setSelectedCity] = useState<string>("");
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [filteredVendors, setFilteredVendors] = useState<Vendor[]>([]);
+  const [selectedService, setSelectedService] = useState<string>("Oxi Clinic");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Search input state
 
   const cities = [
     { name: "Bengaluru", image: "/images/bang.png" },
@@ -31,27 +38,27 @@ const VendorsList = () => {
     { name: "All Cities", image: "/images/all cities.jpg" },
   ];
 
-  const handleCityClick = (city) => {
+  const handleCityClick = (city: string) => {
     setSelectedCity(city);
     fetchVendors(city, selectedService);
   };
 
-  const handleServiceClick = (service) => {
+  const handleServiceClick = (service: string) => {
     setSelectedService(service);
     filterVendorsByService(service);
   };
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
     filterVendorsByService(selectedService, vendors, event.target.value);
   };
 
-  const fetchVendors = async (city, service) => {
+  const fetchVendors = async (city: string, service: string) => {
     setIsLoading(true);
     setError("");
 
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/vendorapp-vendordetails/?city=${city}`);
+      const response = await axios.get<Vendor[]>(`http://127.0.0.1:8000/api/vendorapp-vendordetails/?city=${city}`);
       setVendors(response.data);
       filterVendorsByService(service, response.data);
     } catch (err) {
@@ -61,7 +68,7 @@ const VendorsList = () => {
     }
   };
 
-  const filterVendorsByService = (service, vendorData = vendors, query = searchQuery) => {
+  const filterVendorsByService = (service: string, vendorData: Vendor[] = vendors, query: string = searchQuery) => {
     const filteredByService = vendorData.filter(vendor => vendor.selectedService === service);
 
     // Further filter by search query (if any)

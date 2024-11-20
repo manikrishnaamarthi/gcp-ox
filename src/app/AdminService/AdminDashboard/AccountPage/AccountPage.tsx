@@ -5,13 +5,13 @@ import { FaEnvelope, FaUserAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation
 import axios from 'axios'; // Import axios for API calls
 
-const AccountPage = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+const AccountPage: React.FC = () => {
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const router = useRouter(); // Next.js router for navigation
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!username || !email) {
@@ -24,7 +24,7 @@ const AccountPage = () => {
 
       const response = await axios.post('http://127.0.0.1:8000/api/login/', {
         identifier: email,
-        username : username,
+        username: username,
       });
 
       if (response.data.success) {
@@ -79,7 +79,7 @@ const AccountPage = () => {
             <button type="submit" className="signupButton">Log In</button>
             {error && <p className="errorMessage">{error}</p>}
             <p className="loginPrompt">
-              <a href="/forgot-password" className="forgotLink">Forgot Password</a>
+              {/* <a href="/forgot-password" className="forgotLink">Forgot Password</a> */}
             </p>
           </form>
         </div>

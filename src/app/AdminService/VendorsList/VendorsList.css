@@ -36,7 +36,7 @@
   }
   
   .logo p {
-    font-size: 14px;
+    font-size: 20px;
     color: red;
     font-weight: bold;
   }
@@ -112,10 +112,11 @@
   }
   
   .section-title {
-    font-size: 16px;
+    font-size: 20px;
     color: #333;
     margin-bottom: 10px;
     text-transform: uppercase;
+    font-weight: bold;
   }
 
   .select-city-message {

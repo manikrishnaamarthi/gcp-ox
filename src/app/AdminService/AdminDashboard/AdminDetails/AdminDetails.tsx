@@ -157,7 +157,11 @@ const AdminDetails = () => {
               <>
                 <h3>Driving License</h3>
                 <div className="document-row">
-                  <p><img src={`${driving_front_side}`} alt="Driving Front" />Driving Licence Number: {driving_licence_number}</p>
+                <p>
+                  <img src={`${driving_front_side}`} alt="Driving Front" />
+                  <span>Driving Licence Number:</span>
+                  <span>{driving_licence_number}</span>
+                </p>
                   <p><img src={`${driving_back_side}`} alt="Driving Back" /></p>
                 </div>
 
