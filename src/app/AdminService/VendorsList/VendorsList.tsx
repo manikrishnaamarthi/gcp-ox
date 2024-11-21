@@ -2,11 +2,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./VendorsList.css";
-import { FaHome, FaSignOutAlt, FaCartPlus, FaChartArea } from 'react-icons/fa';
-import { BiSolidBookAdd } from "react-icons/bi";
-import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
-import { FaPeopleGroup } from 'react-icons/fa6';
 import { IoLocationSharp } from "react-icons/io5";
+import Sidebar from '../Sidebar/page';
 
 interface Vendor {
   name: string;
@@ -88,42 +85,7 @@ const VendorsList: React.FC = () => {
 
   return (
     <div className="container">
-      <aside className="admin-sidebar">
-        <div className="logo">
-          <img src="/images/shot(1).png" alt="Logo" />
-          <p>Super Admin</p>
-        </div>
-
-        <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
-            <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice">
-            <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking">
-            <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory">
-            <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor">
-            <MdOutlinePeopleAlt />
-          </div>
-          <div className="sidebar-icon logout-icon" data-name="Logout">
-            <FaSignOutAlt />
-          </div>
-        </nav>
-      </aside>
+      <Sidebar/>
       <main className="main">
         <header className="header">
           <h2 className="header-title">Vendors List</h2>

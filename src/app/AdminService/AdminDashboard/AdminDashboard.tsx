@@ -2,10 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './AdminDashboard.css';
-import { FaHome, FaSignOutAlt, FaCartPlus, FaChartArea } from 'react-icons/fa';
-import { BiSolidBookAdd } from "react-icons/bi";
-import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
-import { FaPeopleGroup } from 'react-icons/fa6';
+import Sidebar from '../Sidebar/page';
 
 interface Vendor {
   id: number;
@@ -85,40 +82,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      <aside className="admin-sidebar">
-        <div className="logo">
-          <img src="/images/shot(1).png" alt="Logo" />
-          <p>Super Admin</p>
-        </div>
-        
-        <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
-            <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice">
-            <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking">
-            <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory">
-            <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor" onClick={() => router.push('http://localhost:3000/AdminService/VendorsList/')}>
-            <MdOutlinePeopleAlt />
-          </div>
-          <div className="sidebar-icon logout-icon" data-name="Logout"><FaSignOutAlt /></div>
-        </nav>
-      </aside>
+      <Sidebar/>
       
       <main className="admin-content">
         <div className="admin-header">

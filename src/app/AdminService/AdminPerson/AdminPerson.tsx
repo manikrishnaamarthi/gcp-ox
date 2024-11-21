@@ -1,85 +1,129 @@
-'use client'
-import React, { useState } from "react";
-import "./AdminPerson.css";
-import { FaHome, FaSignOutAlt, FaCartPlus, FaChartArea } from "react-icons/fa";
-import { BiSolidBookAdd } from "react-icons/bi";
-import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
-import { FaPeopleGroup } from "react-icons/fa6";
+'use client';
+import React, { useState, useEffect } from 'react';
+import './AdminPerson.css';
+import Sidebar from '../Sidebar/page';
 
-const AdminPerson: React.FC = () => {
+const AdminPerson = () => {
   const [showAddAdminForm, setShowAddAdminForm] = useState(false);
+  const [formValues, setFormValues] = useState({
+    name: '',
+    contact: '',
+    email: '',
+    address: '',
+    state: '',
+    district: '',
+    pincode: '',
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [admins, setAdmins] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const admins = [
-    { id: 1, name: "Prashant Patil", contact: "7899639187", location: "Bellary, Karnataka" },
-    { id: 2, name: "Vishwanath", contact: "7899454567", location: "Madurai, Tamilnadu" },
-    { id: 3, name: "Siddharath", contact: "5656789900", location: "Tiruchirappally, Andhra" },
-    { id: 4, name: "Vinesh B", contact: "2323456789", location: "Sagar, Tripura" },
-    { id: 5, name: "Samantha A", contact: "9988776655", location: "Trisura, Kerala" },
-    { id: 6, name: "Aishwarya", contact: "3456787898", location: "Pune, Maharashtra" },
-    { id: 7, name: "Suhas V", contact: "6565787899", location: "Ahmedabad, Gujarat" },
-    { id: 8, name: "Veeresh B", contact: "3456767575", location: "Bikaner, Rajasthan" },
-    { id: 9, name: "Kantesh G", contact: "9090878785", location: "Mysuru, Karnataka" },
-  ];
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/superadmins/');
+        if (response.ok) {
+          const data = await response.json();
+          setAdmins(data);
+        } else {
+          setError('Failed to fetch data');
+        }
+      } catch (err) {
+        setError('An error occurred while fetching data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAdminData();
+  }, []);
 
   const handleAddAdminClick = () => {
     setShowAddAdminForm(true);
   };
 
-  const handleCloseForm = () => {
-    setShowAddAdminForm(false);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formValues.name.trim()) errors.name = 'Name is required';
+    if (!formValues.contact.trim() || !/^\d{10}$/.test(formValues.contact))
+      errors.contact = 'Valid contact number is required';
+    if (!formValues.email.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formValues.email))
+      errors.email = 'Valid email is required';
+    if (!formValues.address.trim()) errors.address = 'Address is required';
+    if (!formValues.state.trim()) errors.state = 'State is required';
+    if (!formValues.district.trim()) errors.district = 'District is required';
+    if (!formValues.pincode.trim() || !/^\d{6}$/.test(formValues.pincode))
+      errors.pincode = 'Valid 6-digit pincode is required';
+    return errors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+    } else {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/superadmins/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formValues),
+        });
+
+        if (response.ok) {
+          const newAdmin = await response.json();
+          setAdmins([...admins, newAdmin]);
+          setShowAddAdminForm(false);
+          setFormValues({
+            name: '',
+            contact: '',
+            email: '',
+            address: '',
+            state: '',
+            district: '',
+            pincode: '',
+          });
+          setFormErrors({});
+
+          // Display success message
+          alert('Data has been submitted successfully!');
+        } else {
+          const errorData = await response.json();
+          alert(`Failed to add admin: ${JSON.stringify(errorData)}`);
+        }
+      } catch (error) {
+        alert('An error occurred while saving the admin details.');
+      }
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="admin-person-container">
-      <aside className="admin-sidebar">
-        <div className="logo">
-          <img src="/images/shot(1).png" alt="Logo" />
-          <p>Super Admin</p>
-        </div>
-        <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
-            <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice">
-            <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking">
-            <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory">
-            <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor">
-            <MdOutlinePeopleAlt />
-          </div>
-          <div className="sidebar-icon logout-icon" data-name="Logout">
-            <FaSignOutAlt />
-          </div>
-        </nav>
-      </aside>
-
+      <Sidebar />
       <main className="content">
         <header>
           <div className="header-content">
             <div className="header-text">
-              <h2>{showAddAdminForm ? "Add Details of Admin" : "Admin Persons"}</h2>
-              <p>{showAddAdminForm ? "Fill the following details to add person" : "The following table consists of Admins details"}</p>
+              <h2>{showAddAdminForm ? 'Add Details of Admin' : 'Admin Persons'}</h2>
+              <p>
+                {showAddAdminForm
+                  ? 'Fill the following details to add person'
+                  : 'The following table consists of Admins details'}
+              </p>
             </div>
             {!showAddAdminForm && (
-              <input
-                type="text"
-                placeholder="Search Admin"
-                className="search-input"
-              />
+              <input type="text" placeholder="Search Admin" className="search-input" />
             )}
           </div>
         </header>
@@ -100,16 +144,16 @@ const AdminPerson: React.FC = () => {
                 <th>Admin's Name</th>
                 <th>Contact No</th>
                 <th>Location</th>
-                <th>Edit or Delete the info</th>
+                <th>Edit Info</th>
               </tr>
             </thead>
             <tbody>
-              {admins.map((admin) => (
-                <tr key={admin.id}>
-                  <td>{admin.id}</td>
+              {admins.map((admin, index) => (
+                <tr key={admin.id || index}>
+                  <td>{index + 1}</td>
                   <td>{admin.name}</td>
                   <td>{admin.contact}</td>
-                  <td>{admin.location}</td>
+                  <td>{admin.location || `${admin.address}, ${admin.state}`}</td>
                   <td>
                     <button className="edit-btn">Edit</button>
                     <button className="delete-btn">Delete</button>
@@ -123,43 +167,24 @@ const AdminPerson: React.FC = () => {
         {showAddAdminForm && (
           <div className="add-admin-form">
             <h3>Add New Admin</h3>
-            <form>
-              <div className="form-group">
-                <label>Name:</label>
-                <input type="text" placeholder="Enter admin name" />
-              </div>
-              <div className="form-group">
-                <label>Phone Number:</label>
-                <input type="text" placeholder="Enter contact number" />
-              </div>
-              <div className="form-group">
-                <label>Email ID:</label>
-                <input type="text" placeholder="Enter location" />
-              </div>
-              <div className="form-group">
-                <label>Address:</label>
-                <input type="text" placeholder="Enter location" />
-              </div>
-              <div className="form-group">
-                <label>State:</label>
-                <input type="text" placeholder="Enter location" />
-              </div>
-              <div className="form-group">
-                <label>District:</label>
-                <input type="text" placeholder="Enter location" />
-              </div>
-              <div className="form-group">
-                <label>Pincode:</label>
-                <input type="text" placeholder="Enter location" />
-              </div>
+            <form onSubmit={handleSubmit}>
+              {['name', 'contact', 'email', 'address', 'state', 'district', 'pincode'].map(
+                (field) => (
+                  <div className="form-group" key={field}>
+                    <label>{field.charAt(0).toUpperCase() + field.slice(1)}:</label>
+                    <input
+                      type="text"
+                      name={field}
+                      placeholder={`Enter ${field}`}
+                      value={formValues[field]}
+                      onChange={handleInputChange}
+                    />
+                    {formErrors[field] && <p className="error">{formErrors[field]}</p>}
+                  </div>
+                )
+              )}
               <div className="form-actions">
-                {/* <button type="button" className="cancel-btn" onClick={handleCloseForm}>
-                  Cancel
-                </button> */}
-                <button type="submit" className="reset-btn">
-                  Reset
-                </button>
-                <button type="submit" className="edit1-btn">
+                <button  className="edit1-btn">
                   Edit
                 </button>
                 <button type="submit" className="save1-btn">
