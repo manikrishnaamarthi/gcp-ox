@@ -3,10 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './profile.css';
 import axios from 'axios';
-import {
-  FaCamera, FaArrowLeft, FaTimes, FaHome, FaBell, FaUser,
-  FaCalendarAlt, FaPlusCircle, FaEdit
-} from 'react-icons/fa';
+import { FaCamera, FaArrowLeft, FaTimes, FaPlusCircle, FaEdit } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,51 +16,59 @@ const Profile: React.FC = () => {
   const [profileImage, setProfileImage] = useState('');
   const [oxiImage1, setOxiImage1] = useState('');
   const [oxiImage2, setOxiImage2] = useState('');
-  const [availableslots, setAvailableslots] = useState<string>('');
+  const [availableslots, setAvailableslots] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null);
-  const [profileData, setProfileData] = useState<any[]>([]);
-  const vendorId = 'SP-44202';
+  const vendorId = 'SP-42024';
 
   useEffect(() => {
     const fetchVendorData = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`);
-        setProfileData(response.data);
+        const fetchedSlots = response.data.available_slots;
         setProfileImage(response.data.profile_photo);
         setEmail(response.data.email);
         setName(response.data.name);
         setPhone(response.data.phone);
         setOxiImage1(response.data.oxi_image1);
         setOxiImage2(response.data.oxi_image2);
-        setAvailableslots(response.data.available_slots);
-      } catch (error: any) {
-        console.log('Error fetching vendor data:', error.response ? error.response.data : error);
+        
+
+
+        // Load selected slots from localStorage or API
+        const savedSlots = localStorage.getItem('selectedSlots');
+        if (savedSlots) {
+          setAvailableslots(JSON.parse(savedSlots)); // Load from localStorage
+        } else {
+          setAvailableslots(fetchedSlots); // Default to API fetched data
+        }
+      } catch (error) {
+        console.log('Error fetching vendor data:', error);
       }
     };
-
     fetchVendorData();
   }, []);
 
   const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'documents_all'); // Replace with your Cloudinary preset
-    formData.append('cloud_name', 'dpysjcjbf'); // Replace with your Cloudinary cloud name
+    formData.append('upload_preset', 'documents_all'); // Ensure this is correct
+    formData.append('cloud_name', 'dpysjcjbf'); // Ensure this is correct
   
     try {
       const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/dpysjcjbf/image/upload', // Replace with your Cloudinary API endpoint
+        'https://api.cloudinary.com/v1_1/dpysjcjbf/image/upload',
         formData
       );
-      return response.data.secure_url; // Return the uploaded image URL
+      return response.data.secure_url; // This should return the URL of the uploaded image
     } catch (error) {
-      console.log('Error uploading to Cloudinary:', error);
-      return null;
+      console.error('Error uploading to Cloudinary:', error);
+      throw new Error('Cloudinary upload failed');
     }
   };
+  
   
 
   const handleFileChange = async (
@@ -88,15 +93,89 @@ const Profile: React.FC = () => {
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
+  const handleOxiUploadClick = (fileInputRef: React.RefObject<HTMLInputElement>) => {
+    fileInputRef.current?.click();
+  };
+  
 
   const handleCameraClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleOxiUploadClick = (inputRef: React.RefObject<HTMLInputElement>) => {
-    inputRef.current?.click();
+  const handleSaveProfile = async () => {
+    const vendorId = 'SP-42024'; // Vendor ID
+    let uploadedOxiImage1 = oxiImage1;
+    let uploadedOxiImage2 = oxiImage2;
+  
+    try {
+      // Upload profile photo if it's changed
+      if (fileInputRef.current?.files?.[0]) {
+        const profileFile = fileInputRef.current.files[0];
+        const profileImageUrl = await uploadToCloudinary(profileFile);
+        setProfileImage(profileImageUrl);
+      }
+  
+      // Upload oxi_image1 to Cloudinary if changed
+      if (oxiFileInputRef1.current?.files?.[0]) {
+        const oxiFile1 = oxiFileInputRef1.current.files[0];
+        uploadedOxiImage1 = await uploadToCloudinary(oxiFile1);
+      }
+  
+      // Upload oxi_image2 to Cloudinary if changed
+      if (oxiFileInputRef2.current?.files?.[0]) {
+        const oxiFile2 = oxiFileInputRef2.current.files[0];
+        uploadedOxiImage2 = await uploadToCloudinary(oxiFile2);
+      }
+  
+      // Load selected slots from localStorage
+      const savedSlots = JSON.parse(localStorage.getItem('selectedSlots') || '[]');
+      const formattedSlots = JSON.stringify(savedSlots);
+  
+      // Prepare updated data payload
+      const updatedData = {
+        profile_photo: profileImage, // Updated URL
+        name,
+        email,
+        phone,
+        oxi_image1: uploadedOxiImage1, // Updated URL
+        oxi_image2: uploadedOxiImage2, // Updated URL
+        available_slots: formattedSlots, // Slots in JSON string format
+      };
+  
+      // Save updated data to backend
+      const response = await axios.patch(
+        `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`,
+        updatedData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        alert('Vendor details updated successfully!');
+        // Fetch updated data to refresh UI
+        const updatedResponse = await axios.get(
+          `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`
+        );
+        setProfileImage(updatedResponse.data.profile_photo);
+        setEmail(updatedResponse.data.email);
+        setName(updatedResponse.data.name);
+        setPhone(updatedResponse.data.phone);
+        setOxiImage1(updatedResponse.data.oxi_image1);
+        setOxiImage2(updatedResponse.data.oxi_image2);
+        setAvailableslots(JSON.parse(updatedResponse.data.available_slots || '[]'));
+        setIsEditing(false); // Exit edit mode
+      } else {
+        alert('Failed to update vendor details.');
+      }
+    } catch (error) {
+      console.log('Error updating vendor details:', error);
+      alert('An error occurred while updating vendor details.');
+    }
   };
-
+  
   const handleEditAvailableSlots = () => {
     const profileData = {
       profile_photo: profileImage,
@@ -107,9 +186,8 @@ const Profile: React.FC = () => {
       oxi_image2: oxiImage2,
     };
     localStorage.setItem('profileData', JSON.stringify(profileData));
-    router.push('/VendorManagementService/ClinicVendor/Availableslots');
+    router.push('/VendorManagementService/WheelVendor/Availableslots');
   };
-
 
 
   return (
@@ -251,17 +329,28 @@ const Profile: React.FC = () => {
   </div>
 
   <div className="time-slots-grid1">
-  {(availableslots || '').split(',').map((slot, index) => (
-      <button
-        key={index}
-        className="time-slot1"
-        disabled={!isEditing} // Enable editing only when in edit mode
-      >
-        {slot.trim()} {/* Trim extra spaces if any */}
-      </button>
-    ))}
-  </div>
+  {(Array.isArray(availableslots) 
+    ? availableslots 
+    : (availableslots || '').split(',')
+  ).map((slot: string, index: React.Key | null | undefined) => (
+    <button key={index} className="time-slot1">
+      {slot.trim().replace(/["[\]]/g, '')} {/* Clean unwanted characters */}
+    </button>
+  ))}
 </div>
+
+  
+</div>
+{/* Save Button */}
+<div className="save-button-container">
+        <button
+          className="save-button"
+          onClick={handleSaveProfile}
+        >
+          Save
+        </button>
+      </div>
+      
 
 
       </div>
