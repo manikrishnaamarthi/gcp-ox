@@ -25,16 +25,28 @@ const Location: React.FC = () => {
 
   useEffect(() => {
     if (oxiId) {
-      // Fetch the user name from the backend using the oxi_id
+      // Fetch user details from the backend using the oxi_id
       axios.get(`http://127.0.0.1:8000/usmapp/get_user_name/${oxiId}/`)
         .then((response) => {
-          setUserName(response.data.name);  // Assuming response contains the name field
+          const { name, phone_number, email } = response.data;
+          setUserName(name);  // Assuming response contains the name field
+
+          // Store phone number and email in localStorage (without displaying them)
+          const selectedData = {
+            serviceType: activeTab,
+            address: currentAddress,
+            name: userName,
+            phone_number: phone_number,
+            email: email,
+            oxiId: oxiId,
+          };
+          localStorage.setItem('selectedData', JSON.stringify(selectedData));
         })
         .catch((error) => {
-          console.error('Error fetching user name:', error);
+          console.error('Error fetching user details:', error);
         });
     }
-  }, [oxiId]);
+  }, [oxiId, activeTab, currentAddress, userName]);
 
 
   useEffect(() => {
@@ -81,13 +93,7 @@ const Location: React.FC = () => {
   };
 
   const handleContinue = () => {
-    const selectedData = {
-      serviceType: activeTab,
-      address: currentAddress,
-      name:  userName,
-      oxiId: oxiId,
-    };
-    localStorage.setItem('selectedData', JSON.stringify(selectedData));
+    // You already stored the data in localStorage within the useEffect
     window.location.href = '/DashBoard/AppointmentPage';
   };
 

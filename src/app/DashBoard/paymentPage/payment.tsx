@@ -12,15 +12,14 @@ interface appointmentData {
   appointmentDate: string;
   appointmentTime: string;
   serviceType: string;
+  email :string;
+  phone_number :string;
   oxiId :string;
 }
 
 const PaymentPage: React.FC = () => {
     const router = useRouter();
     const [appointmentData, setappointmentData] = useState<appointmentData | null>(null);
-    const [randomPhoneNumber, setRandomPhoneNumber] = useState<string>("");
-    const fixedPhoneNumber = "6303872390";
-    const fixedEmail = "satyasaiseshagiri1919@gmail.com";  // Set fixed email here
 
     useEffect(() => {
       // Retrieve booking data from local storage on component mount
@@ -29,9 +28,7 @@ const PaymentPage: React.FC = () => {
         setappointmentData(JSON.parse(data));
       }
 
-        // Generate a random Indian phone number
-      const randomPhone = `9${Math.floor(100000000 + Math.random() * 900000000)}`;
-      setRandomPhoneNumber(randomPhone);
+        
 
     }, []);
     
@@ -62,9 +59,9 @@ const PaymentPage: React.FC = () => {
               payment_id: response.razorpay_payment_id,
               booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
               booking_status: 'completed',
-              phone_number: fixedPhoneNumber,
-              email: fixedEmail, 
-              user_id: appointmentData?.oxiId, 
+              phone_number: appointmentData?.phone_number,  // Use phone number from appointment data
+              email: appointmentData?.email,  // Use email from appointment data
+              user: appointmentData?.oxiId, 
             };
     
             try {
