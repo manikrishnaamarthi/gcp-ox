@@ -2,7 +2,8 @@
 import React from 'react';
 import { FaHome, FaCartPlus, FaChartArea, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
-import { MdNoteAdd } from "react-icons/md";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { CgRemove } from "react-icons/cg";
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { CiSquareRemove } from 'react-icons/ci';
@@ -12,13 +13,13 @@ const Manageservice = () => {
   return (
     <div className="manage-service">
       <aside className="manage-sidebar">
-        <div className="logo">
-          <img src="/images/shot(1).png" alt="Logo" />
-          <p>Oxivive</p>
+        <div className="logo-container">
+          <img src="/images/oxivive_logo.png" alt="Logo" className="logo-img" />
+          <p className="logo-text">Super Admin</p>
         </div>
 
         <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Dashboard">
+          <div className="sidebar-icon" data-name="Admin">
             <FaHome />
           </div>
           <div className="sidebar-icon" data-name="Invoice">
@@ -27,17 +28,20 @@ const Manageservice = () => {
           <div className="sidebar-icon" data-name="Booking">
             <BiSolidBookAdd />
           </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
           <div className="sidebar-icon" data-name="Vendor Approval">
             <FaPeopleGroup />
+          </div>
+          <div className="sidebar-icon" data-name="Revenue">
+            <FaChartArea />
+          </div>
+          <div className="sidebar-icon" data-name="Manage Service">
+            <MdManageAccounts />
           </div>
           <div className="sidebar-icon" data-name="Inventory">
             <MdOutlineInventory />
           </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
+          <div className="sidebar-icon" data-name="Vendor">
+            <MdOutlinePeopleAlt />
           </div>
           <div className="sidebar-icon logout-icon" data-name="Logout">
             <FaSignOutAlt />
@@ -56,10 +60,9 @@ const Manageservice = () => {
         </header>
 
         <div className="actions">
-        <button className="add-service-btn">
-  <MdNoteAdd className="add-icon" /> Add Service
-</button>
-
+          <button className="add-service-btn">
+            <IoMdAddCircleOutline className="add-icon" /> Add Service
+          </button>
         </div>
 
         <section className="service-cards">
@@ -76,7 +79,7 @@ const Manageservice = () => {
               </p>
               <p><strong>Price:</strong> 2,000 Rs.</p>
               <button className="remove-btn">
-                <CiSquareRemove className="remove-icon" /> Remove
+                <CgRemove className="remove-icon" /> Remove
               </button>
             </div>
           </div>

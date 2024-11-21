@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f6f3f3;
+    background-color: #ffffff;
   }
   
   .manage-service {
@@ -31,8 +31,8 @@ body {
     height: 80px;
   }
   
-  .logo p {
-    font-size: 25px;
+  .logo {
+    font-size: 18px;
     color: red;
     font-weight: bold;
   }
@@ -177,4 +177,8 @@ body {
     font-size: 20px;
   }
   
+  
+
+
+
   

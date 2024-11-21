@@ -83,14 +83,14 @@ const PanCard: React.FC = () => {
         />
       </div>
 
-      <div className="uploadContainer">
-        <div className="uploadBox">
+      <div className="uploadContainer3">
+        <div className="uploadBox3">
           <label htmlFor="upload-front" className="uploadLabel">
             {frontPreview ? (
               <img src={frontPreview} alt="Front side preview" className="previewImage" />
             ) : (
               <>
-                <FiUpload className="uploadIcon" />
+                <FiUpload className="uploadIcon3" />
                 <span>Upload front side</span>
               </>
             )}
@@ -103,13 +103,13 @@ const PanCard: React.FC = () => {
             className="inputFile"
           />
         </div>
-        <div className="uploadBox">
+        <div className="uploadBox3">
           <label htmlFor="upload-back" className="uploadLabel">
             {backPreview ? (
               <img src={backPreview} alt="Back side preview" className="previewImage" />
             ) : (
               <>
-                <FiUpload className="uploadIcon" />
+                <FiUpload className="uploadIcon3" />
                 <span>Upload back side</span>
               </>
             )}
@@ -124,7 +124,7 @@ const PanCard: React.FC = () => {
         </div>
       </div>
 
-      <button className="submitButton" onClick={handleSubmit}>
+      <button className="submitButton3" onClick={handleSubmit}>
         Done
       </button>
     </div>

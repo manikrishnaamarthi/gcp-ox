@@ -75,14 +75,14 @@ const Aadhar: React.FC = () => {
                 />
             </div>
 
-      <div className="uploadContainer">
-        <div className="uploadBox">
+      <div className="uploadContainer1">
+        <div className="uploadBox1">
           <label htmlFor="upload-front" className="uploadLabel">
             {frontPreview ? (
               <img src={frontPreview} alt="Front Preview" className="previewImage" />
             ) : (
               <>
-                <FiUpload className="uploadIcon" />
+                <FiUpload className="uploadIcon1" />
                 <span>Upload front side</span>
               </>
             )}
@@ -95,13 +95,13 @@ const Aadhar: React.FC = () => {
             className="inputFile"
           />
         </div>
-        <div className="uploadBox">
+        <div className="uploadBox1">
           <label htmlFor="upload-back" className="uploadLabel">
             {backPreview ? (
               <img src={backPreview} alt="Back Preview" className="previewImage" />
             ) : (
               <>
-                <FiUpload className="uploadIcon" />
+                <FiUpload className="uploadIcon1" />
                 <span>Upload back side</span>
               </>
             )}
@@ -116,7 +116,7 @@ const Aadhar: React.FC = () => {
         </div>
       </div>
 
-      <button className="submitButton" onClick={handleSubmit}>
+      <button className="submitButton5" onClick={handleSubmit}>
         Done
       </button>
     </div>
