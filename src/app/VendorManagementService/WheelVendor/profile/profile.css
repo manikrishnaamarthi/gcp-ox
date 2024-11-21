@@ -24,7 +24,14 @@ background-color: white;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
+overflow-y: auto;
 }
+
+.profile-container::-webkit-scrollbar {
+  width: 0px; /* Remove the vertical scrollbar */
+  height: 0px; /* Remove the horizontal scrollbar */
+}
+
 .edit-icon {
   position: absolute;
   top: 15px;
@@ -275,7 +282,18 @@ color: black;
     height: 40px;
 }
 
-
+.save-button {
+  display: block;
+  margin: 0 auto;
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 30px;
+}
 
 
 .footer4 {
