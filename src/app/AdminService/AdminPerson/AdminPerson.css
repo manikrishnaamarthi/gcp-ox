@@ -221,13 +221,21 @@ body {
   .form-group input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #f00c0c;
     border-radius: 5px;
+    color: #e60000;
+  }
+  .form-group input:focus {
+    outline: none; /* Removes the default blue outline */
+    border-color: #f00c0c; /* Ensures the border remains red */
+  }
+  .form-group input::placeholder {
+    color: #f00c0c;
   }
   
   .form-actions {
     display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
+    justify-content: center;
     gap: 10px; /* Add space between buttons */
   }
   
