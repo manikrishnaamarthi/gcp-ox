@@ -319,18 +319,22 @@ const Document: React.FC = () => {
                         </div>
                         <IoIosArrowForward className="arrow-icon3" />
                     </div>
+
+
                     
                     )}
-                </div>
-                
 
-                <button
+<button
                         onClick={handleSubmit}
                         disabled={!isSubmitEnabled}
                         className={`submit-btn ${isSubmitEnabled ? 'enabled' : 'disabled'}`}
                     >
                         Submit
                     </button>
+                </div>
+                
+
+                
             </div>
         </div>
     );

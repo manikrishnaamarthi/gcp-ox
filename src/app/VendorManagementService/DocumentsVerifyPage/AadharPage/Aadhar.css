@@ -14,6 +14,8 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  width: 100%;
+  margin: auto;
   background-color: #f9f9f9;
   height: 100vh;
 
@@ -61,7 +63,7 @@ body {
 }
 
 /* Container for upload buttons */
-.uploadContainer {
+.uploadContainer1 {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -72,7 +74,7 @@ body {
 }
 
 /* Styling for the upload boxes */
-.uploadBox {
+.uploadBox1 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,7 +100,7 @@ background-color: #c9d0ff;
 }
 
 /* Icon inside upload box */
-.uploadIcon {
+.uploadIcon1 {
   font-size: 24px;
   color: #2641f7;
   margin-bottom: 10px;
@@ -122,7 +124,7 @@ background-color: #c9d0ff;
 }
 
 /* Submit (Done) button */
-.submitButton {
+.submitButton5 {
   background-color: #FC000E;
   color: #fff;
   padding: 12px 20px;
