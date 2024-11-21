@@ -14,7 +14,7 @@ const Manageservice = () => {
     <div className="manage-service">
       <aside className="manage-sidebar">
         <div className="logo-container">
-          <img src="/images/oxivive_logo.png" alt="Logo" className="logo-img" />
+          <img src="/images/shot.png" alt="Logo" className="logo-img" />
           <p className="logo-text">Super Admin</p>
         </div>
 
