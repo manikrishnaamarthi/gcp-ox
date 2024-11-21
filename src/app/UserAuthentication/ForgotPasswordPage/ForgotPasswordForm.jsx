@@ -237,7 +237,7 @@ const handleResetPassword = async (e) => {
                         </div>
                         <button type="submit" className="button-verify">Submit</button>
                     </form>
-                    <p className="resend-text">Didn't receive the code? <a href="#" className='resend-link'>Resend</a></p>
+                    <p className="resend-text">Didn't receive the code? <a className='resend-link' onClick={handleSubmitEmail}>Resend</a></p>
                     {verificationErrorMessage && <p className="alert-error-verify">{verificationErrorMessage}</p>}
                 </div>
                 </>
