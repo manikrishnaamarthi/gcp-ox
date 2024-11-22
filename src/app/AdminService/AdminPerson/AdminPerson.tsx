@@ -18,6 +18,8 @@ const AdminPerson = () => {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [editAdminId, setEditAdminId] = useState(null); // To track the admin being edited
 
   useEffect(() => {
     const fetchAdminData = async () => {
@@ -41,6 +43,23 @@ const AdminPerson = () => {
 
   const handleAddAdminClick = () => {
     setShowAddAdminForm(true);
+    setEditMode(false); // Reset edit mode
+    setFormValues({
+      name: '',
+      contact: '',
+      email: '',
+      address: '',
+      state: '',
+      district: '',
+      pincode: '',
+    });
+  };
+
+  const handleEditClick = (admin) => {
+    setShowAddAdminForm(true);
+    setEditMode(true);
+    setEditAdminId(admin.admin_id);
+    setFormValues(admin); // Pre-fill form with the selected admin's data
   };
 
   const handleInputChange = (e) => {
@@ -70,8 +89,13 @@ const AdminPerson = () => {
       setFormErrors(errors);
     } else {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/superadmins/', {
-          method: 'POST',
+        const url = editMode
+          ? `http://127.0.0.1:8000/api/superadmins/${editAdminId}/` // PUT URL for updating
+          : 'http://127.0.0.1:8000/api/superadmins/'; // POST URL for creating
+        const method = editMode ? 'PUT' : 'POST';
+
+        const response = await fetch(url, {
+          method,
           headers: {
             'Content-Type': 'application/json',
           },
@@ -79,9 +103,21 @@ const AdminPerson = () => {
         });
 
         if (response.ok) {
-          const newAdmin = await response.json();
-          setAdmins([...admins, newAdmin]);
+          const updatedAdmin = await response.json();
+
+          if (editMode) {
+            // Update the admin list with the edited admin data
+            setAdmins(
+              admins.map((admin) =>
+                admin.admin_id === editAdminId ? updatedAdmin : admin
+              )
+            );
+          } else {
+            setAdmins([...admins, updatedAdmin]); // Add new admin to the list
+          }
+
           setShowAddAdminForm(false);
+          setEditMode(false);
           setFormValues({
             name: '',
             contact: '',
@@ -92,12 +128,10 @@ const AdminPerson = () => {
             pincode: '',
           });
           setFormErrors({});
-
-          // Display success message
           alert('Data has been submitted successfully!');
         } else {
           const errorData = await response.json();
-          alert(`Failed to add admin: ${JSON.stringify(errorData)}`);
+          alert(`Failed to save admin: ${JSON.stringify(errorData)}`);
         }
       } catch (error) {
         alert('An error occurred while saving the admin details.');
@@ -115,10 +149,10 @@ const AdminPerson = () => {
         <header>
           <div className="header-content">
             <div className="header-text">
-              <h2>{showAddAdminForm ? 'Add Details of Admin' : 'Admin Persons'}</h2>
+              <h2>{showAddAdminForm ? 'Add/Edit Admin Details' : 'Admin Persons'}</h2>
               <p>
                 {showAddAdminForm
-                  ? 'Fill the following details to add person'
+                  ? 'Fill the following details to add or edit person'
                   : 'The following table consists of Admins details'}
               </p>
             </div>
@@ -149,14 +183,18 @@ const AdminPerson = () => {
             </thead>
             <tbody>
               {admins.map((admin, index) => (
-                <tr key={admin.id || index}>
+                <tr key={admin.admin_id}>
                   <td>{index + 1}</td>
                   <td>{admin.name}</td>
                   <td>{admin.contact}</td>
-                  <td>{admin.location || `${admin.address}, ${admin.state}`}</td>
+                  <td>{`${admin.address}, ${admin.state}`}</td>
                   <td>
-                    <button className="edit-btn">Edit</button>
-                    <button className="delete-btn">Delete</button>
+                    <button className="edit-btn" onClick={() => handleEditClick(admin)}>
+                      Edit
+                    </button>
+                    <button className="delete-btn" >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -166,7 +204,7 @@ const AdminPerson = () => {
 
         {showAddAdminForm && (
           <div className="add-admin-form">
-            <h3>Add New Admin</h3>
+            <h3>{editMode ? 'Edit Admin' : 'Add New Admin'}</h3>
             <form onSubmit={handleSubmit}>
               {['name', 'contact', 'email', 'address', 'state', 'district', 'pincode'].map(
                 (field) => (
@@ -184,11 +222,8 @@ const AdminPerson = () => {
                 )
               )}
               <div className="form-actions">
-                <button  className="edit1-btn">
-                  Edit
-                </button>
                 <button type="submit" className="save1-btn">
-                  Save
+                  {editMode ? 'Update' : 'Save'}
                 </button>
               </div>
             </form>
