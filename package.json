@@ -11,7 +11,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.7.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-google-maps/api": "^2.20.3",
     "@react-oauth/google": "^0.12.1",
@@ -26,16 +26,14 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/node": "20.17.6",
+    "@types/react": "18.3.12",
     "@types/react-dom": "^18",
     "@types/react-slick": "^0.23.13",
-    "css-loader": "^7.1.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "postcss": "^8",
-    "style-loader": "^4.0.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "5.6.3"
   }
 }
