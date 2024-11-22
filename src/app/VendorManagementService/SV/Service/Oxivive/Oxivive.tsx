@@ -5,14 +5,14 @@ import { BiArrowBack } from "react-icons/bi";
 import { useRouter } from 'next/navigation';
 
 const Oxivive: React.FC = () => {
-    const [selectedService, setSelectedService] = useState<string | null>(null);
+    const [selected_service, setSelected_Service] = useState<string | null>(null);
     const [isProceedEnabled, setIsProceedEnabled] = useState<boolean>(false);
     const [isServiceClicked, setIsServiceClicked] = useState<boolean>(false);
     const router = useRouter();
 
     useEffect(() => {
-        const serviceName = localStorage.getItem('selectedService');
-        setSelectedService(serviceName);
+        const serviceName = localStorage.getItem('selected_service');
+        setSelected_Service(serviceName);
     }, []);
 
     const handleBackClick = () => {
@@ -38,10 +38,10 @@ const Oxivive: React.FC = () => {
             <div className="oxivive-content">
                 <img src="/images/check.jpg" alt="OxiWheel" className="oxivive-image" />
                 <h2 className="oxivive-title">
-                    To continue {selectedService} Vendor with OXIVIVE, please select an option
+                    To continue {selected_service} Vendor with OXIVIVE, please select an option
                 </h2>
                 <p className="oxivive-subtitle">
-                    If you have multiple vehicles, proceed as {selectedService}.
+                    If you have multiple vehicles, proceed as {selected_service}.
                 </p>
                 <p className="oxivive-question">
                     What would you like to register as?
@@ -50,7 +50,7 @@ const Oxivive: React.FC = () => {
                     className={`oxivive-option ${isServiceClicked ? 'service-clicked' : ''}`}
                     onClick={handleServiceClick}
                 >
-                    {selectedService}
+                    {selected_service}
                 </button>
             </div>
             <button className="oxivive-proceed" disabled={!isProceedEnabled} onClick={handleProceedClick}>

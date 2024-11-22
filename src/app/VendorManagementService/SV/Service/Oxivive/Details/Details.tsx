@@ -6,11 +6,11 @@ import './Details.css';
 
 const Details = () => {
   const router = useRouter();
-  const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [selected_service, setSelected_Service] = useState<string | null>(null);
 
   useEffect(() => {
-    const serviceName = localStorage.getItem('selectedService');
-    setSelectedService(serviceName);
+    const serviceName = localStorage.getItem('selected_service');
+    setSelected_Service(serviceName);
   }, []);
 
   const [formData, setFormData] = useState({
@@ -21,8 +21,8 @@ const Details = () => {
     district: '',
     pincode: '',
     address: '',
-    wheelName: '',
-    clinicName: ''
+    wheel_name: '',
+    clinic_name: ''
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -31,16 +31,16 @@ const Details = () => {
     const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
     const allFieldsFilled = Object.entries(formData).every(([field, value]) => {
       if (
-        (selectedService === 'Oxi Wheel' && field === 'wheelName') ||
-        (selectedService === 'Oxi Clinic' && field === 'clinicName') ||
-        !['wheelName', 'clinicName'].includes(field)
+        (selected_service === 'Oxi Wheel' && field === 'wheel_name') ||
+        (selected_service === 'Oxi Clinic' && field === 'clinic_name') ||
+        !['wheel_name', 'clinic_name'].includes(field)
       ) {
         return value.trim() !== '';
       }
       return true;
     });
     setIsFormValid(allFieldsFilled && emailIsValid);
-  }, [formData, selectedService]);
+  }, [formData, selected_service]);
 
   const handleBackClick = () => {
     router.back();
@@ -52,7 +52,7 @@ const Details = () => {
     // Validation rules
     let validatedValue = value;
 
-    if (name === 'name' || name === 'state' || name === 'district' || name === 'address' || name === 'wheelName' || name === 'clinicName') {
+    if (name === 'name' || name === 'state' || name === 'district' || name === 'address' || name === 'wheel_name' || name === 'clinicName') {
       validatedValue = value.replace(/[^a-zA-Z\s]/g, ''); // Only letters and spaces
     } else if (name === 'phone') {
       validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10); // Only digits, max 10 characters
@@ -83,15 +83,15 @@ const Details = () => {
         </button>
       </div>
 
-      <h2 className="heading1">Add your {selectedService} details</h2>
+      <h2 className="heading1">Add your {selected_service} details</h2>
       <p className="subtext1">Fill all the details properly</p>
 
       <form className="form" onSubmit={(e) => e.preventDefault()}>
         {Object.entries(formData).map(([field, value]) => {
           if (
-            (selectedService === 'Oxi Wheel' && field === 'wheelName') ||
-            (selectedService === 'Oxi Clinic' && field === 'clinicName') ||
-            (!['wheelName', 'clinicName'].includes(field))
+            (selected_service === 'Oxi Wheel' && field === 'wheel_name') ||
+            (selected_service === 'Oxi Clinic' && field === 'clinic_name') ||
+            (!['wheel_name', 'clinic_name'].includes(field))
           ) {
             return (
               <div className="form-group" key={field}>
