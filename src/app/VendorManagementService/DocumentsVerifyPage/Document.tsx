@@ -17,7 +17,7 @@ const Document: React.FC = () => {
     const [isProfilePhotoUploaded, setIsProfilePhotoUploaded] = useState(false);
     const [isDrivingLicenceUploaded, setIsDrivingLicenceUploaded] = useState(false);
     const [isVehicleRCUploaded, setIsVehicleRCUploaded] = useState(false);
-    const [selectedService, setSelectedService] = useState<string | null>(null);
+    const [selected_service, setSelected_Service] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -27,8 +27,8 @@ const Document: React.FC = () => {
         district: '',
         pincode: '',
         address: '',
-        wheelName: '',
-        clinicName: ''
+        wheel_name: '',
+        clinic_name: ''
     });
     const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
@@ -40,9 +40,9 @@ const Document: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const serviceName = localStorage.getItem('selectedService');
+        const serviceName = localStorage.getItem('selected_service');
         if (serviceName) {
-            setSelectedService(serviceName);
+            setSelected_Service(serviceName);
         }
     }, []);
 
@@ -72,15 +72,15 @@ const Document: React.FC = () => {
             isPancardUploaded &&
             isProfilePhotoUploaded &&
             (
-                (selectedService === 'Oxi Clinic' && isMedicalUploaded && isBuildingLicenceUploaded) || 
-                (selectedService === 'Oxi Wheel' && isDrivingLicenceUploaded && isVehicleRCUploaded)
+                (selected_service === 'Oxi Clinic' && isMedicalUploaded && isBuildingLicenceUploaded) || 
+                (selected_service === 'Oxi Wheel' && isDrivingLicenceUploaded && isVehicleRCUploaded)
             )
         ) {
             setIsSubmitEnabled(true);
         } else {
             setIsSubmitEnabled(false);
         }
-    }, [isMedicalUploaded, isBuildingLicenceUploaded, isAadharUploaded, isPancardUploaded, isProfilePhotoUploaded, isDrivingLicenceUploaded, isVehicleRCUploaded, selectedService]);
+    }, [isMedicalUploaded, isBuildingLicenceUploaded, isAadharUploaded, isPancardUploaded, isProfilePhotoUploaded, isDrivingLicenceUploaded, isVehicleRCUploaded, selected_service]);
 
     const handleMedicalClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/MedicalLicence');
     const handleBuildingClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/BuildingLicence');
@@ -115,8 +115,8 @@ const Document: React.FC = () => {
         formDataToSend.append("district", formData.district);
         formDataToSend.append("pincode", formData.pincode);
         formDataToSend.append("address", formData.address);
-        formDataToSend.append("wheelName", formData.wheelName || "");
-        formDataToSend.append("clinicName", formData.clinicName || "");
+        formDataToSend.append("wheel_name", formData.wheel_name || "");
+        formDataToSend.append("clinic_name", formData.clinic_name || "");
 
         const imageFields = [
             { key: "medical_front_side", localStorageKey: "medicalFrontFile" },
@@ -159,8 +159,8 @@ const Document: React.FC = () => {
             formDataToSend.append("date_of_birth", formattedDob);
         }
 
-        if (selectedService) {
-            formDataToSend.append("selectedService", selectedService);
+        if (selected_service) {
+            formDataToSend.append("selected_service", selected_service);
         } else {
             console.error("Selected service is missing");
             return;
@@ -193,7 +193,7 @@ const Document: React.FC = () => {
             <div className="content-container">
                 <div className="document-cards">
                     {/* Medical Practitioner License */}
-                    {selectedService === 'Oxi Clinic' && (
+                    {selected_service === 'Oxi Clinic' && (
                         <div
                         className={`document-card ${isMedicalUploaded ? 'uploaded' : ''}`}
                         onClick={handleMedicalClick}
@@ -212,7 +212,7 @@ const Document: React.FC = () => {
                     )}
 
                     {/* Building Permit & Licence */}
-                    {selectedService === 'Oxi Clinic' && (
+                    {selected_service === 'Oxi Clinic' && (
                         <div
                         className={`document-card ${isBuildingLicenceUploaded ? 'uploaded' : ''}`}
                         onClick={handleBuildingClick}
@@ -231,7 +231,7 @@ const Document: React.FC = () => {
                     )}
 
                     {/* Aadhar Card */}
-                    {selectedService && (
+                    {selected_service && (
                         <div className={`document-card ${isAadharUploaded ? 'uploaded' : ''}`} onClick={handleAadharClick}>
                         <FaIdCard className="document-icon" />
                         <div className="document-info">
@@ -247,7 +247,7 @@ const Document: React.FC = () => {
                     )}
 
                     {/* Pancard */}
-                    {selectedService && (
+                    {selected_service && (
     <div
         className={`document-card ${isPancardUploaded ? 'uploaded' : ''}`}
         onClick={handlePancardClick}
@@ -266,7 +266,7 @@ const Document: React.FC = () => {
 
 
                     {/* Profile Photo */}
-                    {selectedService && (
+                    {selected_service && (
                         <div
                         className={`document-card ${isProfilePhotoUploaded ? 'uploaded' : ''}`}
                         onClick={handleProfileClick}
@@ -285,7 +285,7 @@ const Document: React.FC = () => {
                     )}
 
                     {/* Driving Licence */}
-                    {selectedService === 'Oxi Wheel' && (
+                    {selected_service === 'Oxi Wheel' && (
                         <div
                         className={`document-card ${isDrivingLicenceUploaded ? 'uploaded' : ''}`}
                         onClick={handleDrivingLicenceClick}
@@ -304,7 +304,7 @@ const Document: React.FC = () => {
                     )}
 
                     {/* Vehicle Registration Certificate */}
-                    {selectedService === 'Oxi Wheel' && (
+                    {selected_service === 'Oxi Wheel' && (
                         <div
                         className={`document-card ${isVehicleRCUploaded ? 'uploaded' : ''}`}
                         onClick={handleVehicleRCClick}

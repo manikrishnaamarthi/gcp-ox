@@ -1,4 +1,4 @@
-'use client';
+"use client"
 import React, { useState } from 'react';
 import { FaHome, FaCartPlus, FaChartArea, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
@@ -11,10 +11,19 @@ import './Vendordocument.css';
 const Vendordocument: React.FC = () => {
   const [selectedService, setSelectedService] = useState<'Oxivive Clinic' | 'Oxivive Wheel'>('Oxivive Clinic');
 
-  // Document mapping for each service
   const documents = {
-    'Oxivive Clinic': ['Aadhar Card', 'PAN Card', 'Medical Licence', 'Building Licence'],
-    'Oxivive Wheel': ['Aadhar Card', 'PAN Card', 'Driving Licence', 'Vehicle RC'],
+    'Oxivive Clinic': [
+      { title: 'Aadhar Card', type: ['Front', 'Back'] },
+      { title: 'PAN Card', type: ['Front', 'Back'] },
+      { title: 'Medical Licence', type: ['Front', 'Back'] },
+      { title: 'Building Permit', type: ['Front'] },
+    ],
+    'Oxivive Wheel': [
+      { title: 'Aadhar Card', type: ['Front', 'Back'] },
+      { title: 'PAN Card', type: ['Front', 'Back'] },
+      { title: 'Driving Licence', type: ['Front', 'Back'] },
+      { title: 'Vehicle RC', type: ['Front', 'Back'] },
+    ],
   };
 
   return (
@@ -90,28 +99,60 @@ const Vendordocument: React.FC = () => {
               <div className="profile-details">
                 <label htmlFor="name">Name</label>
                 <input id="name" type="text" placeholder="Name" />
+
                 <label htmlFor="phone">Phone Number</label>
                 <input id="phone" type="text" placeholder="Phone Number" />
+
+                <label htmlFor="email">Email</label>
+                <input id="email" type="text" placeholder="Email" />
+
+                <label htmlFor="state">State</label>
+                <input id="state" type="text" placeholder="State" />
+
+                <label htmlFor="district">District</label>
+                <input id="district" type="text" placeholder="District" />
+
+                <label htmlFor="pincode">Pincode</label>
+                <input id="pincode" type="text" placeholder="Pincode" />
+
                 <label htmlFor="address">Address</label>
                 <input id="address" type="text" placeholder="Address" />
+
+                {selectedService === 'Oxivive Wheel' && (
+                  <>
+                    <label htmlFor="wheelName">Wheel Name</label>
+                    <input id="wheelName" type="text" placeholder="Wheel Name" />
+                  </>
+                )}
+                {selectedService === 'Oxivive Clinic' && (
+                  <>
+                    <label htmlFor="clinicName">Clinic Name</label>
+                    <input id="clinicName" type="text" placeholder="Clinic Name" />
+                  </>
+                )}
               </div>
             </div>
-            <h2>Upload the Documents</h2>
-            <div className="document-cards">
-              {documents[selectedService].map((title) => (
-                <div key={title} className="document-card">
-                  <p>{title}</p>
-                  <div className="upload-area">
-                    <p>Drop your file here, or browse</p>
-                    <p>Files must be less than 2MB</p>
-                    <p>Only one file can be uploaded</p>
-                    <button className="upload-btn">
 
-                    </button>
-                  </div>
+            <h2 className="head5">Upload The Documents</h2>
+            <div className="document-cards">
+            {documents[selectedService].map(({ title, type }) => (
+              <div key={title} className="document-row">
+                <p className="document-title">{title}</p>
+                <div className="document-card-group">
+                  {type.map((side) => (
+                    <div key={`${title}-${side}`} className="document-card">
+                      <div className="upload-area">
+                        <p>Drop your file here, or browse</p>
+                        <p>Files must be less than 2MB</p>
+                        <p>Only one file can be uploaded</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
+
           </form>
         </section>
       </main>

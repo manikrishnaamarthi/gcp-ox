@@ -9,7 +9,7 @@ const Service: React.FC = () => {
 
   const handleServiceClick = (serviceName: string) => {
     // Store the service name in localStorage
-    localStorage.setItem('selectedService', serviceName);
+    localStorage.setItem('selected_service', serviceName);
     
     // Navigate to Oxivive page
     router.push(`/VendorManagementService/SV/Service/Oxivive`);
