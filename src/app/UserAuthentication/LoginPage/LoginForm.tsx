@@ -10,6 +10,9 @@ interface LoginFormData {
 }
 
 interface ResponseData {
+  driver_id: string;
+  vendor_id: string;
+  selectedService :string;
   oxi_id: string;
   user_type: string;
   message?: string;
@@ -67,26 +70,34 @@ function LoginForm() {
 
       const data: ResponseData = await response.json();
 
-      if (response.ok) {
-        // Store the user's name in local storage
-        
-
-        if (data.user_type === 'customer') {
-          localStorage.setItem('oxi_id', data.oxi_id);
-          alert('Login successful! Redirecting to the dashboard...');
-          router.push('/DashBoard/HomePage');
-        } else if (data.user_type === 'driver') {
-          router.push('/DriverManagementService/VendorDriverBooking/DriverDashBoard');
-        } else if (data.user_type === 'Vendor') {
+    if (response.ok) {
+      if (data.user_type === 'customer') {
+        localStorage.setItem('oxi_id', data.oxi_id);
+        alert('Login successful! Redirecting to the dashboard...');
+        router.push('/DashBoard/HomePage');
+      } else if (data.user_type === 'Vendor') {
+        // Redirect based on service_type
+        if (data.selectedService === 'Oxi Wheel') {
+          localStorage.setItem('vendor_id', data.vendor_id);
           router.push('/VendorManagementService/Vendors/WheelVendor/Wheel');
+        } else if (data.selectedService === 'Oxi Clinic') {
+          localStorage.setItem('vendor_id', data.vendor_id);
+          router.push('/VendorManagementService/Vendors/WheelVendor/Clinic');
         }
-      } else {
-        setErrorMessage(data.message || 'Login failed. Please check your credentials.');
+      } else if (data.user_type === 'driver') {
+        localStorage.setItem('driver_id', data.driver_id);
+        router.push('/DriverManagementService/VendorDriverBooking/DriverDashBoard');
       }
-    } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
+    } else {
+      setErrorMessage(data.message || 'Login failed. Please check your credentials.');
     }
-  };
+  } catch (error) {
+    setErrorMessage('An error occurred. Please try again.');
+  }
+};
+
+
+
 
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
