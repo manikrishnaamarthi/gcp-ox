@@ -117,13 +117,13 @@ const Bookings: React.FC = () => {
               className={selectedClinic === 'OxiviveClinic' ? 'active' : ''}
               onClick={() => setSelectedClinic('OxiviveClinic')}
             >
-              OxiviveClinic
+              Oxi Clinic
             </button>
             <button
               className={selectedClinic === 'OxiWheel' ? 'active' : ''}
               onClick={() => setSelectedClinic('OxiWheel')}
             >
-              OxiWheel
+              Oxi Wheel
             </button>
           </div>
         </div>
