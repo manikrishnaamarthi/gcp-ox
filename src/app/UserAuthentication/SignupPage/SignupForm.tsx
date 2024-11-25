@@ -239,17 +239,20 @@ const SignupForm: React.FC = () => {
             <label htmlFor="profile-photo">
               <span className="camera-plus-icon">
                 <i className="fas fa-camera"></i>
-              </span> Upload Profile Photo
+              </span> {profilePhotoName ? profilePhotoName : "Upload Profile Photo"}
             </label>
             <input
               type="file"
               id="profile-photo"
               onChange={handleProfilePhotoChange}
+              style={{ display: 'none' }} // Hide the default input
             />
-            <span>{profilePhotoName}</span> {/* Display the file name */}
+           
             {errors.profilePhoto && <span className="error">{errors.profilePhoto}</span>}
           </div>
           {errors.apiError && <span className="error">{errors.apiError}</span>}
+
+
           <button type="submit">Sign Up</button>
           <p className="sign-in-link">
             Already have an account?{' '}

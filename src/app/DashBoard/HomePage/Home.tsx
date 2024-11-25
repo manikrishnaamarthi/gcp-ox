@@ -45,28 +45,57 @@ const Home: React.FC = () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log("response", data);
   
-      if (data.status === 'OK') {
-        const addressComponents = data.results[0]?.address_components;
-        if (addressComponents) {
-          const city = addressComponents.find((comp: any) =>
-            comp.types.includes("locality")
-          )?.long_name || '';
-          const state = addressComponents.find((comp: any) =>
-            comp.types.includes("administrative_area_level_1")
-          )?.long_name || '';
-          const country = "India";
-          const postalCode = addressComponents.find((comp: any) =>
-            comp.types.includes("postal_code")
-          )?.long_name || '';
+      if (data.status === 'OK' && data.results.length > 0) {
+        const addressComponents = data.results[0].address_components;
   
-          // Construct the location string with only city, state, country, and postal code
-          const formattedLocation = `${city}, ${state}, ${country} - ${postalCode}`;
-          setLocation(formattedLocation);
-        } else {
-          setLocation('Address not found');
+        // Extracting various address components
+        const streetNumber = addressComponents.find((comp: any) => comp.types.includes("street_number"))?.long_name || '';
+        const streetName = addressComponents.find((comp: any) => comp.types.includes("route"))?.long_name || '';
+        const neighborhood = addressComponents.find((comp: any) => comp.types.includes("neighborhood"))?.long_name || '';
+        const locality = addressComponents.find((comp: any) => comp.types.includes("locality"))?.long_name || '';
+        const sublocality = addressComponents.find((comp: any) => comp.types.includes("sublocality_level_1"))?.long_name || '';
+        const city = addressComponents.find((comp: any) => comp.types.includes("locality"))?.long_name || '';
+        const state = addressComponents.find((comp: any) => comp.types.includes("administrative_area_level_1"))?.long_name || '';
+        const country = addressComponents.find((comp: any) => comp.types.includes("country"))?.long_name || '';
+        const postalCode = addressComponents.find((comp: any) => comp.types.includes("postal_code"))?.long_name || '';
+  
+        // Constructing the full address
+        let fullAddress = '';
+  
+        // Include street information if available
+        if (streetNumber && streetName) {
+          fullAddress += `${streetNumber} ${streetName}, `;
+        } else if (streetName) {
+          fullAddress += `${streetName}, `;
         }
+  
+        if (neighborhood) {
+          fullAddress += `${neighborhood}, `;
+        }
+  
+        if (sublocality) {
+          fullAddress += `${sublocality}, `;
+        }
+  
+        if (city) {
+          fullAddress += `${city}, `;
+        }
+  
+        if (state) {
+          fullAddress += `${state}, `;
+        }
+  
+        if (country) {
+          fullAddress += `${country} - `;
+        }
+  
+        if (postalCode) {
+          fullAddress += `${postalCode}`;
+        }
+  
+        // Set the location state with the full address
+        setLocation(fullAddress || 'Unable to fetch address');
       } else {
         console.error('Geocoding API error:', data);
         setLocation('Unable to fetch address');
@@ -76,6 +105,7 @@ const Home: React.FC = () => {
       setLocation('Unable to fetch address');
     }
   };
+  
   
 
   useEffect(() => {
