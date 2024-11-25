@@ -84,10 +84,14 @@ const Booking = () => {
         color: activeFooterIcon === icon ? '#FC000E' : 'rgb(151, 147, 147)',
     });
 
+    const handleBackClick = () => {
+        router.back();
+      };
+
     return (
         <div className='container'>
             <header className='header'>
-                <IoIosArrowBack className="back-button" />
+                <IoIosArrowBack className="back-button" onClick={handleBackClick}/>
                 <h1 className="title">My Bookings</h1>
             </header>
             <div className='container-header'>
