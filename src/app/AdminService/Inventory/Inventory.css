@@ -1,0 +1,215 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+  }
+  
+  .inventory-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  
+
+  .main-content {
+    flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  margin-left: 150px;
+  height: 100vh;
+  overflow-y: auto;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers the content horizontally */
+    /* padding: 20px; */
+    position: relative; /* Enables positioning for children */
+  }
+  
+  .header h1 {
+    font-size: 30px;
+    color: red;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the `h1` element */
+    margin: 0; /* Removes default margin */
+    font-weight: bold;
+  }
+  
+  .search-bar {
+    padding: 8px;
+    width: 200px;
+    border-radius: 10px;
+    border: 1px solid red;
+    font-size: 14px;
+    color: red;
+    margin-left: auto;
+  }
+  
+  .search-bar:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+  }
+  
+  .search-bar::placeholder {
+    color: red;
+  }
+  
+  
+  /* Summary Cards */
+  .summary-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    color: #333;
+    width: 700px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* .card.highlighted {
+    border-color: red;
+  } */
+  
+  .card .count {
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+  }
+  
+  /* Content Section */
+  .content-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  /* Inventory Table */
+  .inventory-table {
+    width: 70%;
+  }
+  
+  .inventory-table table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    color: #333;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inventory-table th,
+  .inventory-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  /* Side Panel (Categories and Stock Numbers) */
+  .side-panel {
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Categories */
+  .categories {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    color: #333;
+    border: 1px solid #ddd;
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .categories h2 {
+    margin: 0;
+    font-size: 18px;
+    display: inline-block; /* Ensures it aligns next to the button */
+  }
+  
+  .view-all {
+    background: none;
+    border: none;
+    color: rgb(242, 9, 9);
+    cursor: pointer;
+    position: absolute;
+    top: 20px; /* Aligns with the padding of .categories */
+    right: 20px; /* Positions it on the right edge */
+  }
+  
+  .icons-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .icon {
+    width: 90px;
+    height: 50px;
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+  }
+  
+  .add-items {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px auto 0; /* Centers the button horizontally */
+    display: block; /* Ensures it occupies the full width for centering */
+    text-align: center;
+    border-radius: 20px;
+  }
+  
+  
+  /* Stock Numbers */
+  .stock-numbers {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    color: #333;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stock-numbers h2 {
+    margin-bottom: 15px; /* Adds space below the heading */
+    font-size: 22px;
+  }
+  
+  .stock-numbers p {
+    margin: 10px 0; /* Adds space between each line of text */
+    display: flex;
+    justify-content: space-between; /* Aligns text and numbers with space in between */
+  }
+  
+  .stock-numbers .highlight {
+    font-weight: bold; /* Highlights the numbers */
+    color: #555; /* Optional: Different color for the numbers */
+  }
+  
+  
+  
