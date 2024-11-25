@@ -41,7 +41,7 @@ const Staff: React.FC = () => {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/staff/list_cstaff/');
+      const response = await fetch('http://127.0.0.1:8001/api/staff/list_cstaff/');
       if (response.ok) {
         const data = await response.json();
         const formattedStaff = data.map((staff: any) => ({
@@ -111,7 +111,7 @@ const Staff: React.FC = () => {
         profile_photo: imageUrl,
       };
 
-      const response = await fetch('http://127.0.0.1:8000/api/staff/add_staff/', {
+      const response = await fetch('http://127.0.0.1:8001/api/staff/add_staff/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
