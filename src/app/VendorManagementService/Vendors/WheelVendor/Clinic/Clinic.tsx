@@ -11,6 +11,7 @@ import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid
 const Clinic = () => {
   const [selectedFooter, setSelectedFooter] = useState<string>('home'); // Declare state for selected footer
   const router = useRouter();
+  
 
   const handleFooterClick = (section: string) => {
     setSelectedFooter(section); // Update the selected footer section
@@ -19,6 +20,13 @@ const Clinic = () => {
     document.body.classList.add('clinic');
     return () => document.body.classList.remove('clinic');
   }, []);
+
+  const vendorId = localStorage.getItem('vendor_id'); // Retrieve vendor_id from local storage
+
+  const handleDoctorCardClick = () => {
+      console.log('Navigating with Vendor ID:', vendorId);
+      router.push(`/VendorManagementService/ClinicVendor/MyDoctors?vendor_id=${vendorId}`);
+  };
   
 
   return (
@@ -52,7 +60,7 @@ const Clinic = () => {
             <FaFileInvoiceDollar className="cardIcon" />
             <p className="label">Invoice</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/ClinicVendor/MyDoctors')}>
+          <div className="card" onClick={handleDoctorCardClick}>
             <FaUserMd className="cardIcon" />
             <p className="label">Doctor's</p>
           </div>

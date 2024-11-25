@@ -4,31 +4,52 @@ import { FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './doctors.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
 
 interface Doctor {
   id: number;
   name: string;
+  email: string;
   phone: string;
   imageUrl: string;
+  vendor: '';
 }
 
 const Doctors: React.FC = () => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const searchParams=useSearchParams();
+  const vendorId = searchParams.get('vendorId');
+  
+  const [setVendorId] = useState<string | null>(null);
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newDoctor, setNewDoctor] = useState({ name: '', phone: '', imageUrl: '' });
+  const [newDoctor, setNewDoctor] = useState({ name: '', phone: '', imageUrl: '',email:'',vendor: vendorId || '' });
   const router = useRouter();
 
   useEffect(() => {
     fetchDoctors();
   }, []);
 
+  useEffect(() => {
+    // Try to get vendorId from URL first
+    const urlVendorId = searchParams.get('vendorId');
+    if (urlVendorId) {
+      setNewDoctor((prev) => ({ ...prev, vendor: urlVendorId })); // Set vendorId from URL
+    } else {
+      // Fallback to localStorage
+      const storedVendorId = localStorage.getItem('vendor_id');
+      if (storedVendorId) {
+        setNewDoctor((prev) => ({ ...prev, vendor: storedVendorId })); // Set vendorId from localStorage
+      }
+    }
+  }, [searchParams]);
+  
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    setNewDoctor({ name: '', phone: '', imageUrl: '' });
+    setNewDoctor({ name: '', phone: '', imageUrl: '',email:'',vendor: vendorId || '' });
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +63,7 @@ const Doctors: React.FC = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/doctors/list_doctors/');
+      const response = await fetch('http://127.0.0.1:8001/api/doctors/list_doctors/');
       if (response.ok) {
         const data = await response.json();
         const formattedDoctors = data.map((doctor: any) => ({
@@ -65,74 +86,81 @@ const Doctors: React.FC = () => {
   const validatePhone = (phone: string) => /^\d{10}$/.test(phone);
   const validateName = (name: string) => name.trim() !== '';
 
-const handleSave = async () => {
+  const handleSave = async () => {
+    
+    
     if (!validateName(newDoctor.name)) {
-      alert("Please enter a valid name.");
-      return;
+        alert("Please enter a valid name.");
+        return;
     }
     if (!validateEmail(newDoctor.email)) {
-      alert("Please enter a valid email address.");
-      return;
+        alert("Please enter a valid email address.");
+        return;
     }
     if (!validatePhone(newDoctor.phone)) {
-      alert("Please enter a valid 10-digit phone number.");
-      return;
+        alert("Please enter a valid 10-digit phone number.");
+        return;
     }
 
     try {
-      let imageUrl = '';
+        let imageUrl = '';
 
-      const fileInput = document.getElementById('file-input') as HTMLInputElement;
-      if (fileInput && fileInput.files && fileInput.files[0]) {
-        const formData = new FormData();
-        formData.append('file', fileInput.files[0]);
-        formData.append('upload_preset', 'driver_images'); // Cloudinary upload preset
+        const fileInput = document.getElementById('file-input') as HTMLInputElement;
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('upload_preset', 'driver_images'); // Cloudinary preset
 
-        const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dvxscrjk0/image/upload', {
-          method: 'POST',
-          body: formData,
+            const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dvxscrjk0/image/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (cloudinaryResponse.ok) {
+                const cloudinaryData = await cloudinaryResponse.json();
+                imageUrl = cloudinaryData.secure_url;
+            } else {
+                alert("Failed to upload image. Please try again.");
+                return;
+            }
+        }
+
+        const doctorData = {
+            name: newDoctor.name,
+            email: newDoctor.email,
+            phone: newDoctor.phone,
+            profile_photo: imageUrl,
+            vendor: newDoctor.vendor, // Include vendor_id
+        };
+
+        console.log('Payload to API:', doctorData);
+
+        const response = await fetch('http://127.0.0.1:8001/api/doctors/add_doctor/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(doctorData),
         });
 
-        if (cloudinaryResponse.ok) {
-          const cloudinaryData = await cloudinaryResponse.json();
-          imageUrl = cloudinaryData.secure_url;
+        if (response.ok) {
+            closeModal();
+            fetchDoctors(); // Update the doctor list
+            alert("Doctor saved successfully!");
         } else {
-          console.log('Failed to upload image to Cloudinary');
-          alert("Failed to upload image. Please try again.");
-          return;
+            const errorData = await response.json();
+            alert(`Failed to save doctor: ${errorData.message || 'Please try again.'}`);
         }
-      }
-
-      const doctorData = {
-        name: newDoctor.name,
-        email: newDoctor.email,
-        phone: newDoctor.phone,
-        profile_photo: imageUrl,
-      };
-
-      const response = await fetch('http://127.0.0.1:8000/api/doctors/add_doctor/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(doctorData),
-      });
-
-      if (response.ok) {
-        console.log('Doctor saved successfully');
-        closeModal();
-        fetchDoctors(); // Re-fetch doctors to update the list
-        alert("Doctor saved successfully!");
-      } else {
-        const errorData = await response.json();
-        console.log('Failed to save doctor:', errorData);
-        alert(`Failed to save doctor: ${errorData.message || 'Please check the details and try again.'}`);
-      }
     } catch (error) {
-      console.log('Error occurred while saving doctor:', error);
-      alert('An error occurred while saving the doctor. Please try again.');
+        console.log('Error occurred while saving doctor:', error);
+        alert('An error occurred while saving the doctor. Please try again.');
     }
-  };
+};
+
+
+  function handleFooterClick(arg0: string): void {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <div className="doctors-container">
