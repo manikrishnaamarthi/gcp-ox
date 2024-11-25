@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IoChevronBackSharp } from 'react-icons/io5';
 import './TickPage.css';
 import { useRouter } from 'next/navigation';
@@ -7,6 +7,16 @@ import { useRouter } from 'next/navigation';
 
 const TickPage: React.FC = () => {
     const router = useRouter();
+
+
+    useEffect(() => {
+        // Force re-apply styles if necessary
+        const backButton = document.querySelector('.back-button') as HTMLElement;
+        if (backButton) {
+            backButton.style.fontSize = '24px';
+            backButton.style.padding = '10px';
+        }
+    }, []); // Empty dependency to run once on component mount
     const handleHomeClick = () => {
         // Navigate to the /DashBoard/HomePage route
         router.push('/DashBoard/HomePage');
@@ -14,7 +24,7 @@ const TickPage: React.FC = () => {
 
     return (
         <div className="tick-container">
-                <button className="back-button" onClick={() => router.back()}>
+                <button className="back-button"  key="back-button" onClick={() => router.back()}>
                     <IoChevronBackSharp size={20} />
                 </button>
 

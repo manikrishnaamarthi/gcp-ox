@@ -29,13 +29,12 @@ interface Error {
 const MyBooking: React.FC = () => {
   const router = useRouter();
   const currentDate = new Date();
-  const formattedDate = `${currentDate.getDate()}-${currentDate.toLocaleString('default', { month: 'short' }).toLowerCase()}-${currentDate.getFullYear()}`;
-
+  
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'bookings' | 'cancelled' | 'history'>('bookings');
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
-  
+  const [mostRecentBooking, setMostRecentBooking] = useState<Booking | null>(null);
 
   useEffect(() => {
   const fetchData = async () => {
@@ -58,6 +57,26 @@ const MyBooking: React.FC = () => {
         });
 
         setBookings(sortedBookings);
+
+        
+        // Determine the most recent booking that is within the allowed range
+        const now = new Date();
+        const timeThreshold = 30 * 60 * 1000; // 30 minutes in milliseconds
+        const recentBooking = sortedBookings.find((booking) => {
+          const bookingTime = new Date(`${booking.appointment_date}T${booking.appointment_time}`).getTime();
+          return (
+            booking.booking_status === 'pending' &&
+            bookingTime >= now.getTime() - timeThreshold && // Appointment is not too far in the past
+            bookingTime <= now.getTime() + timeThreshold // Appointment is near or upcoming
+          );
+        });
+
+        setMostRecentBooking(recentBooking || null);
+        
+        
+
+
+
       } else {
         setBookings([]);
       }
@@ -103,13 +122,35 @@ const MyBooking: React.FC = () => {
     }
   };
 
+
+  const cancelBooking = (booking: Booking) => {
+    const updatedBookings = bookings.map((b) =>
+      b === booking ? { ...b, booking_status: 'cancelled' } : b
+    );
+    setBookings(updatedBookings);
+    setActiveTab('cancelled'); // Switch to the Cancelled tab
+  };
+
   // Filter bookings based on the active tab
   const filteredBookings = bookings.filter((booking) => {
-    if (activeTab === 'bookings') return booking.booking_status === 'completed'; // show only completed bookings
-    if (activeTab === 'cancelled') return booking.booking_status === 'cancelled'; // show only cancelled bookings
-    if (activeTab === 'history') return booking.booking_status === 'completed' || booking.booking_status === 'cancelled'; // show both completed and cancelled
+    const appointmentDate = new Date(`${booking.appointment_date}T${booking.appointment_time}`);
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+  
+    // Reset time for date-only comparison
+    today.setHours(0, 0, 0, 0);
+    tomorrow.setHours(0, 0, 0, 0);
+  
+    const isTodayOrTomorrow =
+      appointmentDate >= today && appointmentDate < new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000); // End of tomorrow
+  
+    if (activeTab === 'bookings') return isTodayOrTomorrow && booking.booking_status === 'completed';
+    if (activeTab === 'cancelled') return booking.booking_status === 'cancelled';
+    if (activeTab === 'history') return booking.booking_status === 'completed' || booking.booking_status === 'cancelled';
     return false;
   });
+  
 
   return (
     <>
@@ -135,8 +176,15 @@ const MyBooking: React.FC = () => {
                     <p>{booking.phone_number}</p>
                   </div>
                   <div className="bookingActions">
-                    <button className="cancelButton">Cancel</button>
-                    <p className="date">{formattedDate}</p>
+                  {booking.booking_status !== 'cancelled' && (
+                      <button className="cancelButton" onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the booking details modal
+                        cancelBooking(booking);
+                      }}>
+                        Cancel
+                      </button>
+                    )}
+                    <p className="date">{booking.appointment_date}</p>
                     <p className="timeLeft">
                       <MdAccessTime /> {booking.timeLeft}
                     </p>
@@ -169,18 +217,20 @@ const MyBooking: React.FC = () => {
                 
 
                 <div className="modalButtons">
-                  <button
-                    onClick={() => openDriverMap(selectedBooking)}
-                    style={{ backgroundColor: selectedBooking.booking_status === 'completed' ? '#FC000E' : '#CCCCCC' }}
-                    disabled={selectedBooking.booking_status !== 'completed'}
-                  >
+                <button
+                      onClick={() => openDriverMap(selectedBooking)}
+                      style={{ backgroundColor: selectedBooking === mostRecentBooking ? '#FC000E' : '#CCCCCC' }}
+                      disabled={selectedBooking !== mostRecentBooking}
+                    >
                     Start
                   </button>
+
+
                   <button
-                    onClick={completeRide}
-                    style={{ backgroundColor: selectedBooking.booking_status === 'completed' ? '#FC000E' : '#CCCCCC' }}
-                    disabled={selectedBooking.booking_status !== 'completed'}
-                  >
+                  onClick={completeRide}
+                  style={{ backgroundColor: selectedBooking === mostRecentBooking ? '#FC000E' : '#CCCCCC' }}
+                  disabled={selectedBooking !== mostRecentBooking}
+                >
                     OTP
                   </button>
                 </div>
