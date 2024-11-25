@@ -104,32 +104,22 @@ body {
     background-color: #cc0000; /* Darker red on hover */
 }
 
-/* Table Container */
-.table-container {
-    display: flex;
-    justify-content: center; /* Horizontally center the table */
-    align-items: center; /* Vertically center the table */
-    width: 100%; /* Take the full width of the screen */
-    height: calc(100vh - 100px); /* Adjust height to fill screen (minus margins or headers if any) */
-    overflow-x: auto; /* Enable horizontal scrolling if content overflows */
-}
-
 /* Table Styles */
 table {
-    width: 100%; /* Responsive table width */
-    max-width: 1200px; /* Limit the maximum width for better readability */
+    width: 100%;
+    margin: 0 auto 20px; /* Center the table horizontally and add margin below */
     border-collapse: collapse;
-    margin: auto; /* Center table horizontally */
-    text-align: center; /* Center text inside cells */
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
     padding: 12px;
     border: 1px solid #ddd;
-    text-align: center; /* Horizontal center alignment */
-    vertical-align: middle; /* Vertical center alignment */
-    word-wrap: break-word; /* Ensure text wraps within cells */
+    text-align: center;
+    word-wrap: break-word;
 }
 
 th {
