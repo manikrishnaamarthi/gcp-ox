@@ -10,7 +10,7 @@ const AdminDetails = () => {
   const id = searchParams.get('id');
   const name = searchParams.get('name');
   const profile_photo = searchParams.get('profile_photo');
-  const selectedService = searchParams.get('selectedService');
+  const selectedService = searchParams.get('selected_service');
   const address = searchParams.get('address');
   const email = searchParams.get('email');
   const phone = searchParams.get('phone');
@@ -111,8 +111,16 @@ const AdminDetails = () => {
               <>
                 <h3>Medical License</h3>
                 <div className="document-row">
-                  <p><img src={`${medical_front_side}`} alt="Medical Front" />Medical Licence Number: {medical_licence_number}</p>
-                  <p><img src={`${medical_back_side}`} alt="Medical Back" />Medical Licence Exp Date: {licence_end_date}</p>
+                  <p>
+                    <img src={`${medical_front_side}`} alt="Medical Front" />
+                    <span>Medical Licence Number:</span>
+                    <span>{medical_licence_number}</span>
+                  </p>
+                  <p>
+                    <img src={`${medical_back_side}`} alt="Medical Back" />
+                    <span>Medical Licence Exp Date:</span>
+                    <span>{licence_end_date}</span>
+                    </p>
                 </div>
               </>
             )}
