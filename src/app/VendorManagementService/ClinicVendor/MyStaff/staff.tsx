@@ -4,30 +4,48 @@ import { FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './staff.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
 
 interface Staff {
   id: number;
   name: string;
+  email: string;
   phone: string;
   imageUrl: string;
+  vendor: '';
 }
 
 const Staff: React.FC = () => {
   const [staff, setStaff] = useState<Staff[]>([]);
+  const searchParams=useSearchParams();
+  const vendorId = searchParams.get('vendorId');
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newStaff, setNewStaff] = useState({ name: '', phone: '', imageUrl: '' });
+  const [newStaff, setNewStaff] = useState({ name: '', phone: '', imageUrl: '', email:'',vendor: vendorId || '' });
   const router = useRouter();
 
   useEffect(() => {
     fetchStaff();
   }, []);
 
+  useEffect(() => {
+    // Try to get vendorId from URL first
+    const urlVendorId = searchParams.get('vendorId');
+    if (urlVendorId) {
+      setNewStaff((prev) => ({ ...prev, vendor: urlVendorId })); // Set vendorId from URL
+    } else {
+      // Fallback to localStorage
+      const storedVendorId = localStorage.getItem('vendor_id');
+      if (storedVendorId) {
+        setNewStaff((prev) => ({ ...prev, vendor: storedVendorId })); // Set vendorId from localStorage
+      }
+    }
+  }, [searchParams]);
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    setNewStaff({ name: '', phone: '', imageUrl: '' });
+    setNewStaff({ name: '', phone: '', imageUrl: '', email:'', vendor: vendorId || '' });
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,6 +127,7 @@ const Staff: React.FC = () => {
         email: newStaff.email,
         phone: newStaff.phone,
         profile_photo: imageUrl,
+        vendor: newStaff.vendor,
       };
 
       const response = await fetch('http://127.0.0.1:8001/api/staff/add_staff/', {

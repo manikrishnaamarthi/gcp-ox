@@ -4,29 +4,47 @@ import { FaArrowLeft, FaPlus } from 'react-icons/fa';
 import './drivers.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/navigation';
+import { useRouter ,useSearchParams} from 'next/navigation';
 
 interface Driver {
   id: number;
   name: string;
+  email: string;
   phone: string;
   imageUrl: string;
+  vendor: '';
 }
 
 const Drivers: React.FC = () => {
   const [drivers, setDrivers] = useState<Driver[]>([]);
+  const searchParams=useSearchParams();
+  const vendorId = searchParams.get('vendorId');
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newDriver, setNewDriver] = useState({ name: '', email: '', phone: '', imageUrl: '' });
+  const [newDriver, setNewDriver] = useState({ name: '', email: '', phone: '', imageUrl: '',vendor: vendorId || '' });
   const router = useRouter();
 
   useEffect(() => {
     fetchDrivers();
   }, []);
 
+  useEffect(() => {
+    // Try to get vendorId from URL first
+    const urlVendorId = searchParams.get('vendorId');
+    if (urlVendorId) {
+      setNewDriver((prev) => ({ ...prev, vendor: urlVendorId })); // Set vendorId from URL
+    } else {
+      // Fallback to localStorage
+      const storedVendorId = localStorage.getItem('vendor_id');
+      if (storedVendorId) {
+        setNewDriver((prev) => ({ ...prev, vendor: storedVendorId })); // Set vendorId from localStorage
+      }
+    }
+  }, [searchParams]);
+
   const fetchDrivers = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/drivers/');
+      const response = await fetch('http://localhost:8001/api/drivers/');
       if (response.ok) {
         const data = await response.json();
         const formattedDrivers = data.map((driver: any) => ({
@@ -49,7 +67,7 @@ const Drivers: React.FC = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    setNewDriver({ name: '', email: '', phone: '', imageUrl: '' });
+    setNewDriver({ name: '', email: '', phone: '', imageUrl: '' ,vendor: vendorId || ''});
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,10 +129,11 @@ const Drivers: React.FC = () => {
         email: newDriver.email,
         phone: newDriver.phone,
         profile_photo: imageUrl, // Cloudinary image URL
+        vendor: newDriver.vendor,
       };
   
       // Send driver data to the backend
-      const response = await fetch('http://localhost:8000/api/drivers/', {
+      const response = await fetch('http://localhost:8001/api/drivers/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

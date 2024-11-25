@@ -15,6 +15,17 @@ const Wheel = () => {
   const handleFooterClick = (section: string) => {
     setSelectedFooter(section); // Update the selected footer section
   };
+  const vendorId = localStorage.getItem('vendor_id'); // Retrieve vendor_id from local storage
+
+  const handleDriverCardClick = () => {
+    console.log('Navigating with Vendor ID:', vendorId);
+    router.push(`/VendorManagementService/WheelVendor/MyDrivers?vendor_id=${vendorId}`);
+};
+
+const handleStaffCardClick = () => {
+  console.log('Navigating with Vendor ID:', vendorId);
+  router.push(`/VendorManagementService/WheelVendor/MyStaff?vendor_id=${vendorId}`);
+};
 
   return (
     <div className="container5">
@@ -47,11 +58,11 @@ const Wheel = () => {
             <FaFileInvoiceDollar className="cardIcon" />
             <p className="label">Invoice</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/WheelVendor/MyDrivers')}>
+          <div className="card" onClick={handleDriverCardClick}>
             <FaCarAlt className="cardIcon" />
             <p className="label">Driver's</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/WheelVendor/MyStaff')}>
+          <div className="card" onClick={handleStaffCardClick}>
             <FaUsers className="cardIcon" />
             <p className="label">Staff</p>
           </div>
