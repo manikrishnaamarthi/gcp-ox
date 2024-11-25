@@ -7,7 +7,7 @@ import Sidebar from '../Sidebar/page';
 
 interface Vendor {
   name: string;
-  selectedService: string;
+  selected_service: string;
   phone: number;
   address: string;
 }
@@ -16,7 +16,7 @@ const VendorsList: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [vendors, setVendors] = useState<Vendor[]>([]);
   const [filteredVendors, setFilteredVendors] = useState<Vendor[]>([]);
-  const [selectedService, setSelectedService] = useState<string>("Oxi Clinic");
+  const [selected_service, setSelectedService] = useState<string>("Oxi Clinic");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>(""); // Search input state
@@ -37,7 +37,7 @@ const VendorsList: React.FC = () => {
 
   const handleCityClick = (city: string) => {
     setSelectedCity(city);
-    fetchVendors(city, selectedService);
+    fetchVendors(city, selected_service);
   };
 
   const handleServiceClick = (service: string) => {
@@ -47,7 +47,7 @@ const VendorsList: React.FC = () => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
-    filterVendorsByService(selectedService, vendors, event.target.value);
+    filterVendorsByService(selected_service, vendors, event.target.value);
   };
 
   const fetchVendors = async (city: string, service: string) => {
@@ -66,7 +66,7 @@ const VendorsList: React.FC = () => {
   };
 
   const filterVendorsByService = (service: string, vendorData: Vendor[] = vendors, query: string = searchQuery) => {
-    const filteredByService = vendorData.filter(vendor => vendor.selectedService === service);
+    const filteredByService = vendorData.filter(vendor => vendor.selected_service === service);
 
     // Further filter by search query (if any)
     const filtered = filteredByService.filter(vendor =>
@@ -121,13 +121,13 @@ const VendorsList: React.FC = () => {
               <span className="filter"><IoLocationSharp />{selectedCity}</span>
               <div className="center-filters">
                 <span
-                  className={`filter ${selectedService === "Oxi Clinic" ? "active" : ""}`}
+                  className={`filter ${selected_service === "Oxi Clinic" ? "active" : ""}`}
                   onClick={() => handleServiceClick("Oxi Clinic")}
                 >
                   Oxi Clinic
                 </span>
                 <span
-                  className={`filter ${selectedService === "Oxi Wheel" ? "active" : ""}`}
+                  className={`filter ${selected_service === "Oxi Wheel" ? "active" : ""}`}
                   onClick={() => handleServiceClick("Oxi Wheel")}
                 >
                   Oxi Wheel
@@ -164,7 +164,7 @@ const VendorsList: React.FC = () => {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{vendor.name}</td>
-                    <td>{vendor.selectedService}</td>
+                    <td>{vendor.selected_service}</td>
                     <td>{vendor.phone}</td>
                     <td>{vendor.address}</td>
                   </tr>

@@ -185,5 +185,48 @@ body {
   .forgotLink:hover {
     text-decoration: underline;
   }
+  /* Error message styling */
+.errorMessage {
+    color: #ff3b3b;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  /* Styling for the user type selection container */
+.usertypeSelect {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  /* Styling for each label of the radio button */
+  .usertypeSelect label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Styling for the radio buttons */
+  .usertypeSelect input[type="radio"] {
+    margin-right: 8px;
+    accent-color: #ff3b3b; /* Changes the radio button's color */
+    cursor: pointer;
+  }
+  
+  /* Highlight for selected text */
+  .usertypeSelect input[type="radio"]:checked + span {
+    font-weight: bold;
+    color: #ff3b3b;
+  }
+  
+  /* Optional: Add hover effect for labels */
+  .usertypeSelect label:hover {
+    color: #ff3b3b;
+  }
+  
    
   

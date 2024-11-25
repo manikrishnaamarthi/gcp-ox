@@ -7,7 +7,7 @@ import Sidebar from '../Sidebar/page';
 interface Vendor {
   id: number;
   name: string;
-  selectedService: string;
+  selected_service: string;
   address: string;
   profile_photo: string;
   document_status: string;
@@ -61,23 +61,30 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (!isLoading && vendors.length > 0) {
-      const filtered = vendors.filter(vendor => {
-        const matchesCategory = activeCategory === "OxiviveClinic" 
-          ? vendor.selectedService.trim() === "Oxi Clinic" 
-          : vendor.selectedService.trim() === "Oxi Wheel";
-        const matchesSearch = vendor.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const underProcessStatus = vendor.document_status.trim() === "UnderProcess";
+      const filtered = vendors.filter((vendor) => {
+        // Check if `selectedService` is defined before trimming
+        const matchesCategory = activeCategory === "OxiviveClinic"
+          ? vendor.selected_service?.trim() === "Oxi Clinic"
+          : vendor.selected_service?.trim() === "Oxi Wheel";
+  
+        // Check if `name` is defined before calling `.toLowerCase()`
+        const matchesSearch = vendor.name?.toLowerCase().includes(searchQuery.toLowerCase());
+  
+        // Check if `document_status` is defined before trimming
+        const underProcessStatus = vendor.document_status?.trim() === "UnderProcess";
+  
         return matchesCategory && matchesSearch && underProcessStatus;
       });
-
+  
       setFilteredVendors(filtered);
     } else {
       setFilteredVendors([]);
     }
   }, [vendors, activeCategory, searchQuery, isLoading]);
+  
 
   const handleCardClick = (vendor: Vendor) => {
-    router.push(`/AdminService/AdminDashboard/AdminDetails?id=${vendor.id}&name=${vendor.name}&state=${vendor.state}&district=${vendor.district}&pincode=${vendor.pincode}&profile_photo=${vendor.profile_photo}&selectedService=${vendor.selectedService}&address=${vendor.address}&email=${vendor.email}&phone=${vendor.phone}&pan_front_side=${vendor.pan_front_side}&gstNumber=${vendor.gstNumber}&aadhar_front_side=${vendor.aadhar_front_side}&aadhar_back_side=${vendor.aadhar_back_side}&pan_back_side=${vendor.pan_back_side}&medical_front_side=${vendor.medical_front_side}&medical_back_side=${vendor.medical_back_side}&medical_licence_number=${vendor.medical_licence_number}&licence_end_date=${vendor.licence_end_date}&driving_front_side=${vendor.driving_front_side}&driving_back_side=${vendor.driving_back_side}&driving_licence_number=${vendor.driving_licence_number}&vehicle_rc_front_side=${vendor.vehicle_rc_front_side}&vehicle_rc_back_side=${vendor.vehicle_rc_back_side}`);
+    router.push(`/AdminService/AdminDetails?id=${vendor.id}&name=${vendor.name}&state=${vendor.state}&district=${vendor.district}&pincode=${vendor.pincode}&profile_photo=${vendor.profile_photo}&selected_service=${vendor.selected_service}&address=${vendor.address}&email=${vendor.email}&phone=${vendor.phone}&pan_front_side=${vendor.pan_front_side}&gstNumber=${vendor.gstNumber}&aadhar_front_side=${vendor.aadhar_front_side}&aadhar_back_side=${vendor.aadhar_back_side}&pan_back_side=${vendor.pan_back_side}&medical_front_side=${vendor.medical_front_side}&medical_back_side=${vendor.medical_back_side}&medical_licence_number=${vendor.medical_licence_number}&licence_end_date=${vendor.licence_end_date}&driving_front_side=${vendor.driving_front_side}&driving_back_side=${vendor.driving_back_side}&driving_licence_number=${vendor.driving_licence_number}&vehicle_rc_front_side=${vendor.vehicle_rc_front_side}&vehicle_rc_back_side=${vendor.vehicle_rc_back_side}`);
   };
 
   return (
@@ -119,7 +126,7 @@ const AdminDashboard = () => {
               <div key={index} className="card" onClick={() => handleCardClick(vendor)}>
                 <img src={`${vendor.profile_photo}`} alt={vendor.name} className="vendor-image" />
                 <p className="vendor-name">Name: {vendor.name}</p>
-                <p className="vendor-info">Applied: {vendor.selectedService}</p>
+                <p className="vendor-info">Applied: {vendor.selected_service}</p>
                 <p className="vendor-info">Location: {vendor.address}</p>
               </div>
             ))
