@@ -27,6 +27,11 @@ const Clinic = () => {
       console.log('Navigating with Vendor ID:', vendorId);
       router.push(`/VendorManagementService/ClinicVendor/MyDoctors?vendor_id=${vendorId}`);
   };
+
+  const handleStaffCardClick = () => {
+    console.log('Navigating with Vendor ID:', vendorId);
+    router.push(`/VendorManagementService/ClinicVendor/MyStaff?vendor_id=${vendorId}`);
+};
   
 
   return (
@@ -64,7 +69,7 @@ const Clinic = () => {
             <FaUserMd className="cardIcon" />
             <p className="label">Doctor's</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/ClinicVendor/MyStaff')}>
+          <div className="card" onClick={handleStaffCardClick}>
             <FaUsers className="cardIcon" />
             <p className="label">Staff</p>
           </div>
