@@ -1,10 +1,9 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './CancelBooking.css';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
-import { FaDollarSign } from "react-icons/fa";
-import { BsFillTelephoneFill } from "react-icons/bs";
+import { FaRupeeSign } from "react-icons/fa";
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const CancelBooking = () => {
@@ -13,13 +12,36 @@ const CancelBooking = () => {
 
   // Retrieve booking details from URL query parameters
   const id = searchParams.get('id') || '#524587';
-  const bookingid = searchParams.get('booking_id')
-  const status = searchParams.get('status') || 'Accepted';
+  const bookingid = searchParams.get('booking_id');
   const serviceType = searchParams.get('serviceType') || 'oxiwheel';
   const appointmentDate = searchParams.get('appointmentDate') || 'N/A';
   const appointmentTime = searchParams.get('appointmentTime') || 'N/A';
   const name = searchParams.get('name') || 'Tyrone Mitchell';
   const location = searchParams.get('location') || '1534 Single Street, USA';
+
+  const [timeLeft, setTimeLeft] = useState('');
+
+  // Calculate the time left for the appointment
+  useEffect(() => {
+    if (appointmentDate !== 'N/A' && appointmentTime !== 'N/A') {
+      const bookingDateTime = new Date(`${appointmentDate} ${appointmentTime}`);
+      const interval = setInterval(() => {
+        const now = new Date();
+        const timeDiff = bookingDateTime - now;
+
+        if (timeDiff > 0) {
+          const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+          setTimeLeft(`${hours}h ${minutes}m left`);
+        } else {
+          setTimeLeft('Time has passed');
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [appointmentDate, appointmentTime]);
 
   const handleBackClick = () => {
     router.back();
@@ -39,7 +61,7 @@ const CancelBooking = () => {
 
       if (response.ok) {
         alert("Booking status updated to 'Cancelled'");
-        router.push('/Booking/'); 
+        router.push('/Booking/');
       } else {
         alert("Failed to cancel booking. Please try again.");
       }
@@ -58,29 +80,29 @@ const CancelBooking = () => {
       <main className='cancel-booking-main-container'>
         <section className="cancel-booking-item">
           <h2>{serviceType}</h2>
-          <span className="cancel-booking-price">$49</span>
+          <span className="cancel-booking-price"><FaRupeeSign />49</span>
         </section>
 
         <div className="cancel-booking-details">
-          <div className="header">
-            <div className="status">{status}</div>
-          </div>
           <p>{name}</p>
           <p className='location'><IoLocationSharp />{location}</p>
+          <p>Appointment Date: {appointmentDate}</p>
+          <p>Appointment Time: {appointmentTime}</p>
+          <p className="time-left">Time Remaining: {timeLeft}</p>
         </div>
 
         <div className="cancel-booking-cancellation-policy">
           <h3>Cancellation Policy</h3>
-          <p>If you cancel less than 24 hours before your booking, you may be charged a cancellation fee up to the full amount of the services booked.</p>
+          <p>If you cancel less than 2 hours before your booking, you may be charged a cancellation fee up to the full amount of the services booked.</p>
         </div>
 
         <footer className="cancel-booking-footer">
           <h3>Order Summary</h3>
           <div className="cancel-booking-summary">
-            <p>Subtotal<span>$156.00</span></p>
-            <span>Est. Tax<span>$12.00</span></span>
+            <p>Subtotal<span><FaRupeeSign />156.00</span></p>
+            <p>Est. Tax<span><FaRupeeSign />12.00</span></p>
           </div>
-          <p className='cancel-booking-total'>Total<span><FaDollarSign />168.00</span></p>
+          <p className='cancel-booking-total'>Total<span><FaRupeeSign />168.00</span></p>
         </footer>
         <button className="cancel-booking-button" onClick={handleCancelBooking}>Cancel Booking</button>
       </main>
