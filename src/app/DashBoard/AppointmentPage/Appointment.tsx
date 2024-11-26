@@ -15,16 +15,31 @@ const Appointment = () => {
   const [showError, setShowError] = useState<boolean>(false);
   const [selectedData, setSelectedData] = useState<{ serviceType: string; address: string; name: string; oxiId :string;  phone_number :string;    email : string;} | null>(null);
 
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
   
   
   // Load data from local storage
-  useEffect(() => {
-    const savedData = localStorage.getItem('selectedData');
-    if (savedData) {
-      setSelectedData(JSON.parse(savedData));
-    }
-  }, []);
+  // Inside the Appointment component
+
+useEffect(() => {
+  // Load data from local storage
+  const savedData = localStorage.getItem('selectedData');
+  if (savedData) {
+    setSelectedData(JSON.parse(savedData));
+  }
+
+  // Set the default selected day to today
+  const todayIndex = weekDates.findIndex(date => {
+    const todayDate = today.getDate();
+    return date.day === todayDate;  // Match today's day
+  });
+
+  if (todayIndex !== -1) {
+    setSelectedDay(todayIndex);  // Set the current date index as selected
+  }
+}, []);  // Re-run when weekDates changes
+
 
   // Update the current time every minute
   useEffect(() => {
@@ -118,20 +133,38 @@ const Appointment = () => {
     setSelectedSlot(null); // Reset selected time slot when date changes
   };
 
-  const startDrag = (e) => {
+  const startDrag = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     const modalElement = modalRef.current;
-    let initialY = e.clientY || e.touches[0].clientY;
-
-    const onDrag = (event) => {
-      const currentY = event.clientY || event.touches[0].clientY;
+    let initialY: number;
+  
+    // Type guard to differentiate between MouseEvent and TouchEvent
+    if (e instanceof MouseEvent) {
+      initialY = e.clientY;
+    } else if (e instanceof TouchEvent) {
+      initialY = e.touches[0].clientY;
+    } else {
+      return; // Early exit if the event is neither MouseEvent nor TouchEvent
+    }
+  
+    const onDrag = (event: MouseEvent | TouchEvent) => {
+      let currentY: number;
+  
+      if (event instanceof MouseEvent) {
+        currentY = event.clientY;
+      } else if (event instanceof TouchEvent) {
+        currentY = event.touches[0].clientY;
+      } else {
+        return; // Early exit if the event is neither MouseEvent nor TouchEvent
+      }
+  
       const offset = currentY - initialY;
-
+  
       if (modalElement && offset < 0) { // Only allow upward drag
         modalElement.style.transform = `translateY(${offset}px)`;
       }
     };
-
+  
     const endDrag = () => {
       if (modalElement) modalElement.style.transform = `translateY(0)`;
       document.removeEventListener("mousemove", onDrag);
@@ -139,12 +172,13 @@ const Appointment = () => {
       document.removeEventListener("touchmove", onDrag);
       document.removeEventListener("touchend", endDrag);
     };
-
+  
     document.addEventListener("mousemove", onDrag);
     document.addEventListener("mouseup", endDrag);
     document.addEventListener("touchmove", onDrag);
     document.addEventListener("touchend", endDrag);
   };
+  
   
 
   return (

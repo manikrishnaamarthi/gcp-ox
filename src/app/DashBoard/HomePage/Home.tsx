@@ -22,7 +22,7 @@ const Home: React.FC = () => {
   const [showClinicEducate, setShowClinicEducate] = useState<boolean>(false);
   const [showWheelEducate, setShowWheelEducate] = useState<boolean>(false);
   const [activeFooterIcon, setActiveFooterIcon] = useState<string>('home'); // Track the active footer icon
-  const oxiId = localStorage.getItem('oxi_id') || 'Unknown';
+  const [oxiId, setOxiId] = useState<string>('Unknown');
 
   const handleServiceClick = (serviceType: string) => {
     router.push(`/DashBoard/LocationPage?serviceType=${serviceType}&oxi_id=${oxiId}`);
@@ -47,7 +47,15 @@ const Home: React.FC = () => {
       const data = await response.json();
   
       if (data.status === 'OK' && data.results.length > 0) {
-        const addressComponents = data.results[0].address_components;
+        // Find the most accurate result based on location_type
+        const preciseResult = data.results.find((result: any) =>
+          ['ROOFTOP', 'RANGE_INTERPOLATED'].includes(result.geometry.location_type)
+        );
+  
+        const addressComponents = preciseResult
+          ? preciseResult.address_components
+          : data.results[0].address_components; // Fallback to the first result if no precise match
+  
   
         // Extracting various address components
         const streetNumber = addressComponents.find((comp: any) => comp.types.includes("street_number"))?.long_name || '';
@@ -105,18 +113,25 @@ const Home: React.FC = () => {
       setLocation('Unable to fetch address');
     }
   };
+
   
+  useEffect(() => {
+    // Only run this code in the browser
+    if (typeof window !== "undefined") {
+      const storedOxiId = localStorage.getItem('oxi_id') || 'Unknown';
+      setOxiId(storedOxiId);
+    }
   
 
-  useEffect(() => {
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        console.log("Latitude:", latitude, "Longitude:", longitude);
-        fetchAddress(latitude, longitude); // Call the Geocoding API
+        console.log("Latitude:", latitude, "Longitude:", longitude, "Accuracy:", position.coords.accuracy);
+        fetchAddress(latitude, longitude); // Pass precise coordinates to the Geocoding API
       },
       (error) => {
-        console.error('Location error:', error); // Log the exact error
+        console.error('Location error:', error);
         switch (error.code) {
           case error.PERMISSION_DENIED:
             setLocation('Location permission denied.');
@@ -131,8 +146,16 @@ const Home: React.FC = () => {
             setLocation('Unable to fetch location.');
             break;
         }
+      },
+      {
+        enableHighAccuracy: true, // Prioritize high-accuracy location
+        timeout: 15000,           // Timeout after 15 seconds
+        maximumAge: 0,            // Prevent using cached location
       }
     );
+    
+
+
   }, []);
   
   const handleFooterIconClick = (icon: string) => {
