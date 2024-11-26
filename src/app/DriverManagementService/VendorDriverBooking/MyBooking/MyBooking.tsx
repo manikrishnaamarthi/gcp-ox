@@ -39,7 +39,7 @@ const MyBooking: React.FC = () => {
   useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/booking-service/');
+      const response = await fetch('http://127.0.0.1:8001/api/booking-service/');
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -65,7 +65,7 @@ const MyBooking: React.FC = () => {
         const recentBooking = sortedBookings.find((booking) => {
           const bookingTime = new Date(`${booking.appointment_date}T${booking.appointment_time}`).getTime();
           return (
-            booking.booking_status === 'pending' &&
+            booking.booking_status === 'completed' &&
             bookingTime >= now.getTime() - timeThreshold && // Appointment is not too far in the past
             bookingTime <= now.getTime() + timeThreshold // Appointment is near or upcoming
           );

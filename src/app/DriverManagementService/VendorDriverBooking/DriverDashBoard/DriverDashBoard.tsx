@@ -1,6 +1,6 @@
 "use client"
 import "./DriverDashBoard.css";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; 
 import { SlHome } from "react-icons/sl";
 import { FaRegAddressBook } from "react-icons/fa";
@@ -10,6 +10,20 @@ import { LuBookPlus } from "react-icons/lu";
 
 const DriverDashBoard = () => {
   const router = useRouter();
+  const [driverId, setDriverId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if window object is available (i.e., we are on the client-side)
+    if (typeof window !== 'undefined') {
+      const storedDriverId = localStorage.getItem('driver_id');
+      setDriverId(storedDriverId);
+    }
+  }, []); // Empty dependency array to run this only once after component mounts
+
+
+  const handleProfileClick = () => {
+    router.push(`/DriverManagementService/VendorDriverBooking/DriverProfile?driver_id=${driverId}`);
+};
 
   return (
     <div className="container">
@@ -47,7 +61,7 @@ const DriverDashBoard = () => {
           <IoNotificationsOutline className="footerIcon" />
           <p>Notification</p>
         </div>
-        <div className="footerItem">
+        <div className="footerItem" onClick={handleProfileClick}>
           <BsPerson className="footerIcon" />
           <p>Profile</p>
         </div>
