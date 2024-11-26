@@ -293,6 +293,12 @@ body {
 .footer-icon.active .footer-header {
   color:#FC000E;
 }
+.time-remaining {
+  font-size: 14px;
+  color: #FF0000;
+  margin-top: 5px;
+}
+
 
 
 /* Responsive adjustments */
