@@ -27,16 +27,16 @@ const Faq: React.FC = () => {
   };
 
   return (
-    <div className="faq-container">
-      <div className="icon-circle">
-        <IoChevronBackSharp className="back-icon"  onClick={() => Router.back()}/>
+    <div className="faq-container0">
+      <div className="icon-circle3">
+        <IoChevronBackSharp className="back-icon12"  onClick={() => Router.back()}/>
       </div>
-      <h2>Faq's</h2>
+      <h4>Faq's</h4>
       <div className="search-bar">
         <IoIosSearch className="search-icon" />
         <input type="text" placeholder="Search" className="search-input" />
       </div>
-      <div className="faq-list">
+      <div className="faq-list55">
         {faqs.map((faq, index) => (
           <div key={index} className="faq-item">
             <div className="faq-question" onClick={() => toggleAnswer(index)}>

@@ -10,12 +10,11 @@ body {
   align-items: center;
 }
 
-.privacy-container {
+.privacy-container50 {
   background-color: white;
-  border-radius: 10px;
   padding: 40px 20px;
   width: 100%;
-  max-width: 375px;
+  max-width: 350px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
   box-sizing: border-box;
@@ -23,25 +22,22 @@ body {
 }
 
 .back-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: none;
-  border: none;
+  color: rgb(190, 184, 184);
+  font-size: 24px;
   cursor: pointer;
-  margin-left: 5px;
+  margin-right: 300px;
 }
 
-.icon-circle {
-  background-color: #e4e3e3;
-  color: rgb(188, 182, 182);
+.icon-circle90 {
+  position: absolute;
+  top: 10px;
   width: 40px;
   height: 40px;
+  background-color: #e6e6e6;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5em;
 }
 
 h2 {
@@ -49,11 +45,11 @@ h2 {
   font-size: 1.2em;
   color: #FC000E;
   margin-bottom: 20px;
-  margin-right: 100px;
-  margin-top: -12px;
+  margin-right: 80px;
+  margin-top: -50px;
 }
 
-.privacy-content {
+.privacy-content25 {
   color: rgb(171, 159, 159);
   text-align: left;
 }

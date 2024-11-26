@@ -76,11 +76,11 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
-      <div className="back-button" onClick={() => router.push('/DashBoard/HomePage')}>
+      <div className="back-button22" onClick={() => router.push('/DashBoard/HomePage')}>
         <IoChevronBackSharp size={24} />
       </div>
 
-      <div className="profile-header">
+      <div className="profile-header9">
         <img className="profile-image" src={userData.profile_photo} alt="Profile" />
         <h2 className="profile-name">{userData.name}</h2>
         <p className="profile-email">{userData.email}</p>
@@ -88,7 +88,7 @@ const UserProfile = () => {
       </div>
 
       <div className="profile-menu">
-        <p className='profile'>Profile</p>
+        <p className='profile99'>Profile</p>
         <ul>
           <li>
             <div className="icon-container"><LiaHandshakeSolid size={20} /></div> 
@@ -144,7 +144,7 @@ const UserProfile = () => {
         </div>
       )}
 
-      <div className="footer-section">
+      <div className="footer-section79">
         <div 
           className={`footer-icon ${activeFooter === 'home' ? 'active' : ''}`} 
           onClick={() => handleFooterClick('home')}

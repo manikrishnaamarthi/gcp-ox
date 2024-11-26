@@ -11,12 +11,11 @@ body {
   align-items: center;
 }
 
-.faq-container {
+.faq-container0 {
   padding: 80px 90px;
   background-color: white;
-  border-radius: 10px;
   width: 100%;
-  max-width: 375px;
+  max-width: 350px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -25,12 +24,12 @@ body {
   box-sizing: border-box;
 }
 
-.icon-circle {
+.icon-circle3 {
   position: absolute;
   top: 10px;
   left: 600px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #e6e6e6;
   border-radius: 50%;
   display: flex;
@@ -38,7 +37,7 @@ body {
   align-items: center;
 }
 
-.back-icon {
+.back-icon12 {
   color: rgb(190, 184, 184);
   font-size: 24px;
   cursor: pointer;
@@ -46,7 +45,7 @@ body {
   left: 100px;
 }
 
-h2 {
+h4 {
   font-size: 1.2em;
   text-align: center;
   margin-top:-57px;
@@ -80,11 +79,11 @@ h2 {
   color: #666;
 }
 
-.faq-list {
+.faq-list55 {
   display: flex;
   flex-direction: column;
   color: black;
-  width: 160%;
+  width: 190%;
 }
 
 .faq-item {

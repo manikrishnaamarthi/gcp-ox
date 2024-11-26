@@ -7,14 +7,14 @@ import { useRouter } from 'next/navigation';
 const Privacy: React.FC = () => {
   const Router =useRouter()
   return (
-    <div className="privacy-container">
+    <div className="privacy-container50">
       <button className="back-button">
-        <span className="icon-circle">
+        <span className="icon-circle90">
           <IoIosArrowBack  onClick={() => Router.back()}/>
         </span>
       </button>
       <h2>Privacy Policy</h2>
-      <div className="privacy-content">
+      <div className="privacy-content25">
         <h3>Acceptance of the Privacy Policy</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet eleifend purus non mattis. Vestibulum fringilla mi vel risus congue ultricies. Pellentesque at purus vel dolor accumsan ullamcorper. Sed pellentesque, dui non maximus lacinia, velit eros condimentum eros, et lacinia enim justo dignissim sapien. Maecenas elementum a eros eu posuere. Vivamus sed nunc est. Donec ultricies placerat tempor. Praesent ut imperdiet risus, in venenatis mi. Etiam varius velit libero, ac porta metus vulputate at.

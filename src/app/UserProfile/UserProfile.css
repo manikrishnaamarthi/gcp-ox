@@ -30,11 +30,11 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   
 }
-.back-button {
+.back-button22 {
   position: absolute;
   top: 16px;
   margin-right: 270px;
-  background-color: #cecccc;
+  background-color: #dad7d7;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -47,7 +47,7 @@ body {
 
 
 /* Profile Header */
-.profile-header {
+.profile-header9 {
   text-align: center;
   margin-bottom: 20px;
   padding: 20px;
@@ -79,7 +79,7 @@ body {
 
 /* Edit Profile Button */
 .edit-profile-btn {
-  border: 1px solid #FC000E;
+  
   background-color: white;
   color: #FC000E;
   padding: 5px;
@@ -88,17 +88,16 @@ body {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   width: 150px;
+  text-decoration: underline;
   
   
 }
 
-.edit-profile-btn:hover {
-  background-color: #FC000E;
-  color: white;
-}
-.profile{
-  margin-right: 255px;
+
+.profile99{
+  margin-left: 20px;
   margin-bottom: 10px;
+  margin-right: 280px;
 
 }
 
@@ -188,7 +187,6 @@ body {
   align-items: center;
   color: black;
   font-weight: bold;
-  font-size: ;
 }
 .popup-content h1{
   font-size: 23px;
@@ -241,10 +239,10 @@ body {
 }
 
 /* Footer Navigation */
-.footer-section {
+.footer-section79 {
   position: fixed;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     max-width: 350px;
     background-color: #fff;
     padding: 6px;
@@ -252,7 +250,6 @@ body {
     justify-content: space-around;
     margin-bottom: px;
     box-sizing: border-box;
-    margin-right:-23px;
 }
 
 .footer-icon {
