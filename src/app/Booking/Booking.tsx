@@ -2,8 +2,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import './Booking.css';
-import { FaRedoAlt, FaStar } from 'react-icons/fa';
-import { MdOutlineKeyboardBackspace } from 'react-icons/md';
+import { FaRedoAlt } from 'react-icons/fa';
 import { GoHome } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { RxCalendar } from "react-icons/rx";
@@ -21,10 +20,8 @@ interface Booking {
     booking_id: string;
 }
 
-
 const Booking = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
-
     const [activeTab, setActiveTab] = useState('MyBooking'); 
     const router = useRouter();
 
@@ -34,8 +31,13 @@ const Booking = () => {
                 const response = await fetch('http://127.0.0.1:8000/api/bookingapp-bookingservice/');
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('Fetched bookings:', data); // Check the response data here
-                    setBookings(data);
+                    console.log('Fetched bookings:', data);
+                    // Update the booking status from 'cancel' to 'cancelled'
+                    const updatedBookings = data.map((booking: Booking) => ({
+                        ...booking,
+                        booking_status: booking.booking_status.toLowerCase() === 'cancel' ? 'cancelled' : booking.booking_status,
+                    }));
+                    setBookings(updatedBookings);
                 } else {
                     console.error('Failed to fetch bookings:', response.status);
                 }
@@ -48,7 +50,7 @@ const Booking = () => {
     }, []);
 
     const handleCardClick = (booking: Booking) => {
-        if (activeTab === 'Completed') {
+        if (activeTab === 'History') {
             router.push(`/Booking/CompleteBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
         }
     };
@@ -56,25 +58,22 @@ const Booking = () => {
     const handleCancelClick = (booking: Booking) => {
         router.push(`/Booking/CancelBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
     };
-    
 
     const filteredBookings = bookings.filter((booking) => {
         const today = new Date();
         const bookingDate = new Date(booking.appointment_date);
-    
+
         if (activeTab === 'MyBooking') {
-            // Check if the booking date matches today's date
             return (
                 bookingDate.getFullYear() === today.getFullYear() &&
                 bookingDate.getMonth() === today.getMonth() &&
                 bookingDate.getDate() === today.getDate()
             );
         }
-        if (activeTab === 'Cancelled') return booking.booking_status.toLowerCase() === 'cancel';
-        if (activeTab === 'Completed') return booking.booking_status.toLowerCase() === 'completed';
+        if (activeTab === 'Cancelled') return booking.booking_status.toLowerCase() === 'cancelled';
+        if (activeTab === 'History') return ['completed', 'cancelled'].includes(booking.booking_status.toLowerCase());
         return false;
     });
-    
 
     const [activeFooterIcon, setActiveFooterIcon] = useState('booking');
 
@@ -90,29 +89,27 @@ const Booking = () => {
             router.push('/UserProfile');
         }
     };
-  
+
     const footerIconStyle = (icon: string) => ({
         color: activeFooterIcon === icon ? '#FC000E' : 'rgb(151, 147, 147)',
     });
 
     const handleBackClick = () => {
         router.back();
-      };
+    };
 
     const calculateTimeRemaining = (appointmentDate: string, appointmentTime: string) => {
         const now = new Date();
         const bookingDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
-    
         const difference = bookingDateTime.getTime() - now.getTime();
-    
+
         if (difference <= 0) return 'Time passed';
-    
+
         const hours = Math.floor(difference / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    
+
         return `${hours > 0 ? `${hours}h ` : ''}${minutes}m left`;
     };
-      
 
     return (
         <div className='container'>
@@ -123,19 +120,21 @@ const Booking = () => {
             <div className='container-header'>
                 <button className={`tab ${activeTab === 'MyBooking' ? 'active' : ''}`} onClick={() => setActiveTab('MyBooking')}>My Booking</button>
                 <button className={`tab ${activeTab === 'Cancelled' ? 'active' : ''}`} onClick={() => setActiveTab('Cancelled')}>Cancelled</button>
-                <button className={`tab ${activeTab === 'Completed' ? 'active' : ''}`} onClick={() => setActiveTab('Completed')}>Completed</button>
+                <button className={`tab ${activeTab === 'History' ? 'active' : ''}`} onClick={() => setActiveTab('History')}>History</button>
             </div>
             <section className="booking-list">
                 {filteredBookings.length > 0 ? (
                     filteredBookings.map((booking) => (
                         <article key={booking.id} className="booking-card" onClick={() => handleCardClick(booking)}>
-                            <header className="booking-header">
-                                <span className={`status ${booking.booking_status.toLowerCase()}`}>{booking.booking_status}</span>
-                            </header>
+                            {activeTab !== 'MyBooking' && (
+                                <header className="booking-header">
+                                    <span className={`status ${booking.booking_status.toLowerCase()}`}>{booking.booking_status}</span>
+                                </header>
+                            )}
                             <p className="service-name">{booking.service_type}</p>
                             <p className="service-time">
                                 {new Date(booking.appointment_date).toLocaleDateString()} {booking.appointment_time}
-                                <span className="price">$149</span>
+                                <span className="price">₹149</span>
                             </p>
                             <p className="time-remaining">
                                 Time Remaining: {calculateTimeRemaining(booking.appointment_date, booking.appointment_time)}
@@ -147,23 +146,13 @@ const Booking = () => {
                                             e.stopPropagation();
                                             handleCancelClick(booking);
                                         }}>Cancel Booking</button>
-
                                         <button className="reschedule-button">
                                             <FaRedoAlt /> Reschedule
                                         </button>
                                     </>
                                 )}
                             </div>
-                            <footer className="booking-footer">
-                                <div className="service-provider">
-                                    <div className="text-content">
-                                        <h2>{booking.name}</h2>
-                                    </div>
-                                    <img src="/images/doctor.png" alt="Service Provider" className="provider-image" />
-                                </div>
-                            </footer>
                         </article>
-
                     ))
                 ) : (
                     <p>No bookings available</p>

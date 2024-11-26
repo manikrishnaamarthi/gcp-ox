@@ -214,6 +214,24 @@ body {
   margin-left: 20px;
   font-weight: bold;
 }
+.cancel-booking-price,
+.cancel-booking-summary span,
+.cancel-booking-total span {
+  display: inline-flex; /* Ensures content is displayed in a row */
+  align-items: center; /* Aligns the rupee sign and number vertically */
+  gap: 4px; /* Adds some space between the rupee sign and the number */
+  color: #000;
+  font-weight: bold;
+}
+
+.cancel-booking-summary span {
+  justify-content: space-between; /* Keeps the rupee sign and amount aligned properly */
+}
+
+.cancel-booking-total span {
+  justify-content: space-between; /* Ensures proper alignment in total section */
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 400px) {

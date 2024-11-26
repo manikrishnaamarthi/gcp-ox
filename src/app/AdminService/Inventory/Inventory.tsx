@@ -1,18 +1,27 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import "./Inventory.css";
-import Sidebar from '../Sidebar/page';
-import { FaStethoscope } from "react-icons/fa";
-import { FaThermometerFull } from "react-icons/fa";
+import Sidebar from "../Sidebar/page";
+import { FaStethoscope, FaThermometerFull, FaSyringe } from "react-icons/fa";
 import { FaMaskFace } from "react-icons/fa6";
 import { GiGloves } from "react-icons/gi";
-import { FaSyringe } from "react-icons/fa";
 import { IoBandage } from "react-icons/io5";
 
 const Inventory = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleAddItemsClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <div className="inventory-container">
       {/* Sidebar */}
-      <Sidebar/>
+      <Sidebar />
 
       {/* Main Content */}
       <main className="main-content">
@@ -21,7 +30,7 @@ const Inventory = () => {
           <h1>Recent Activity</h1>
           <input
             type="text"
-            placeholder="Search "
+            placeholder="Search"
             className="search-bar"
           />
         </header>
@@ -34,7 +43,6 @@ const Inventory = () => {
             <span>NEW ITEMS</span>
           </div>
           <div className="card highlighted">
-            
             <p className="count">4</p>
             <p>Vendors</p>
             <span>NEW MESSAGE</span>
@@ -60,66 +68,14 @@ const Inventory = () => {
                 </tr>
               </thead>
               <tbody>
+                {/* Example Data */}
                 <tr>
                   <td>1</td>
                   <td>BP Monitor</td>
                   <td>95</td>
                   <td>1,599 Rs</td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Oxygen Chamber</td>
-                  <td>38</td>
-                  <td>6,26,500 Rs</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Oxygen Cylinder</td>
-                  <td>87</td>
-                  <td>2,000 Rs</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Syringe</td>
-                  <td>55</td>
-                  <td>100 Rs</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Surgical Mask</td>
-                  <td>45</td>
-                  <td>20 Rs</td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>Oxi Pulsemeter</td>
-                  <td>25</td>
-                  <td>559 Rs</td>
-                </tr>
-                <tr>
-                  <td>7</td>
-                  <td>Sethascope</td>
-                  <td>105</td>
-                  <td>800 Rs</td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td>Gloves</td>
-                  <td>68</td>
-                  <td>150 Rs</td>
-                </tr>
-                <tr>
-                  <td>9</td>
-                  <td>Thermometer</td>
-                  <td>123</td>
-                  <td>1,000 Rs</td>
-                </tr>
-                <tr>
-                  <td>10</td>
-                  <td>Threadmill</td>
-                  <td>57</td>
-                  <td>58,000 Rs</td>
-                </tr>
+                {/* Add more rows as needed */}
               </tbody>
             </table>
           </section>
@@ -134,12 +90,16 @@ const Inventory = () => {
                 <div className="icon"><FaStethoscope /></div>
                 <div className="icon"><FaSyringe /></div>
                 <div className="icon"><IoBandage /></div>
-                {/* <div className="icon">📟</div> */}
                 <div className="icon"><GiGloves /></div>
                 <div className="icon"><FaMaskFace /></div>
                 <div className="icon"><FaThermometerFull /></div>
               </div>
-              <button className="add-items">+ Add Items</button>
+              <button
+                className="add-items"
+                onClick={handleAddItemsClick}
+              >
+                + Add Items
+              </button>
             </div>
 
             {/* Stock Numbers */}
@@ -152,6 +112,40 @@ const Inventory = () => {
           </div>
         </div>
       </main>
+
+      {/* Popup */}
+      {showPopup && (
+        <div className="popup-overlay" onClick={handleClosePopup}>
+          <div
+            className="popup-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>Add New Item</h2>
+            <form>
+              <label>
+                Product Image:
+                <input type="file" accept="image/*" />
+              </label>
+              <label>
+                Product Name:
+                <input type="text" placeholder="Enter product name" />
+              </label>
+              <label>
+                Stock:
+                <input type="number" placeholder="Enter stock" />
+              </label>
+              <label>
+                Product Price:
+                <input type="text" placeholder="Enter product price" />
+              </label>
+              <button type="submit">Add</button>
+            </form>
+            <button className="close-popup" onClick={handleClosePopup}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
