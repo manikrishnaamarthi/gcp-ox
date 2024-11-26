@@ -1,16 +1,17 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
-import Sidebar from '../Sidebar/page';
+import Sidebar from "../Sidebar/page";
 import "./Driverlist.css";
 
 interface Driver {
-  id: number;
+  driver_id: number;
   name: string;
   phone: string;
-  location: string;
+  email: string; // Added email field
+  wheel: string; // Wheel name field
 }
 
-const Driverlist: React.FC = () => {
+const DriverList: React.FC = () => {
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -35,7 +36,8 @@ const Driverlist: React.FC = () => {
     (driver) =>
       driver.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       driver.phone.includes(searchQuery) ||
-      driver.location.toLowerCase().includes(searchQuery.toLowerCase())
+      driver.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      driver.wheel.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -43,7 +45,7 @@ const Driverlist: React.FC = () => {
       <Sidebar />
       <main className="driverlist-content">
         <h1>Drivers List</h1>
-        <p>The Following table consists of Drivers details</p>
+        <p>The following table consists of drivers' details</p>
         <div className="search-bar">
           <input
             type="text"
@@ -56,19 +58,21 @@ const Driverlist: React.FC = () => {
           <thead>
             <tr>
               <th>Sl.No</th>
+              <th>Wheel Name</th>
               <th>Driver's Name</th>
               <th>Contact No</th>
-              <th>Location</th>
+              <th>Email</th>
               <th>Block this Info</th>
             </tr>
           </thead>
           <tbody>
             {filteredDrivers.map((driver, index) => (
-              <tr key={driver.id}>
+              <tr key={driver.driver_id}>
                 <td>{index + 1}</td>
+                <td>{driver.wheel}</td>
                 <td>{driver.name}</td>
                 <td>{driver.phone}</td>
-                <td>{driver.location}</td>
+                <td>{driver.email}</td>
                 <td>
                   <button className="block-button">
                     <span>🚫 Block</span>
@@ -83,4 +87,4 @@ const Driverlist: React.FC = () => {
   );
 };
 
-export default Driverlist;
+export default DriverList;
