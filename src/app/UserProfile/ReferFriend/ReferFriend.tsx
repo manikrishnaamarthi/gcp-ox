@@ -8,7 +8,7 @@ const ReferFriend: React.FC = () => {
   const Router =useRouter()
   return (
     <div className="refer-friend-container">
-      <button className="back-button">
+      <button className="back-button69">
         <div className="icon-circle"> {/* Circle wrapper for the icon */}
           <IoChevronBackSharp onClick={() => Router.back()} />
         </div>

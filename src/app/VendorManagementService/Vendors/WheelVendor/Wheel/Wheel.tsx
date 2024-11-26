@@ -41,7 +41,7 @@ const handleStaffCardClick = () => {
       </header>
 
       <div className="main">
-        <div className="grid">
+        <div className="grid1">
           <div className="card" onClick={() => router.push('/VendorManagementService/WheelVendor/WheelPerformance')}>
             <BsGraphUpArrow className="cardIcon" />
             <p className="label">Dashboard</p>
