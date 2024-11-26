@@ -59,11 +59,22 @@ const Booking = () => {
     
 
     const filteredBookings = bookings.filter((booking) => {
-        if (activeTab === 'MyBooking') return true;
+        const today = new Date();
+        const bookingDate = new Date(booking.appointment_date);
+    
+        if (activeTab === 'MyBooking') {
+            // Check if the booking date matches today's date
+            return (
+                bookingDate.getFullYear() === today.getFullYear() &&
+                bookingDate.getMonth() === today.getMonth() &&
+                bookingDate.getDate() === today.getDate()
+            );
+        }
         if (activeTab === 'Cancelled') return booking.booking_status.toLowerCase() === 'cancel';
         if (activeTab === 'Completed') return booking.booking_status.toLowerCase() === 'completed';
         return false;
     });
+    
 
     const [activeFooterIcon, setActiveFooterIcon] = useState('booking');
 
@@ -88,6 +99,21 @@ const Booking = () => {
         router.back();
       };
 
+    const calculateTimeRemaining = (appointmentDate: string, appointmentTime: string) => {
+        const now = new Date();
+        const bookingDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
+    
+        const difference = bookingDateTime.getTime() - now.getTime();
+    
+        if (difference <= 0) return 'Time passed';
+    
+        const hours = Math.floor(difference / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    
+        return `${hours > 0 ? `${hours}h ` : ''}${minutes}m left`;
+    };
+      
+
     return (
         <div className='container'>
             <header className='header'>
@@ -110,6 +136,9 @@ const Booking = () => {
                             <p className="service-time">
                                 {new Date(booking.appointment_date).toLocaleDateString()} {booking.appointment_time}
                                 <span className="price">$149</span>
+                            </p>
+                            <p className="time-remaining">
+                                Time Remaining: {calculateTimeRemaining(booking.appointment_date, booking.appointment_time)}
                             </p>
                             <div className="action-buttons">
                                 {activeTab === 'MyBooking' && (
@@ -134,6 +163,7 @@ const Booking = () => {
                                 </div>
                             </footer>
                         </article>
+
                     ))
                 ) : (
                     <p>No bookings available</p>

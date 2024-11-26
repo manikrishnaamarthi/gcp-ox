@@ -1,6 +1,12 @@
 import React from "react";
 import "./Inventory.css";
 import Sidebar from '../Sidebar/page';
+import { FaStethoscope } from "react-icons/fa";
+import { FaThermometerFull } from "react-icons/fa";
+import { FaMaskFace } from "react-icons/fa6";
+import { GiGloves } from "react-icons/gi";
+import { FaSyringe } from "react-icons/fa";
+import { IoBandage } from "react-icons/io5";
 
 const Inventory = () => {
   return (
@@ -125,13 +131,13 @@ const Inventory = () => {
               <h2>Item Categories List</h2>
               <button className="view-all">View All</button>
               <div className="icons-grid">
-                <div className="icon">🩺</div>
-                <div className="icon">💉</div>
-                <div className="icon">🩹</div>
-                <div className="icon">📟</div>
-                <div className="icon">⚕️</div>
-                <div className="icon">👕</div>
-                <div className="icon">🌡️</div>
+                <div className="icon"><FaStethoscope /></div>
+                <div className="icon"><FaSyringe /></div>
+                <div className="icon"><IoBandage /></div>
+                {/* <div className="icon">📟</div> */}
+                <div className="icon"><GiGloves /></div>
+                <div className="icon"><FaMaskFace /></div>
+                <div className="icon"><FaThermometerFull /></div>
               </div>
               <button className="add-items">+ Add Items</button>
             </div>
