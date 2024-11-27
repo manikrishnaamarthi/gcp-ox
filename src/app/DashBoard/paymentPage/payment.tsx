@@ -31,6 +31,28 @@ const PaymentPage: React.FC = () => {
         
 
     }, []);
+
+
+    const formatTimeForAPI = (time: string) => {
+      const [hour, minuteAndAmPm] = time.split(':');
+      let formattedHour = parseInt(hour);
+      let amPm = 'AM';
+  
+      // Check if it's AM or PM
+      if (minuteAndAmPm.includes('PM') || minuteAndAmPm.includes('AM')) {
+          amPm = minuteAndAmPm.split(' ')[1]; // Extract the AM/PM part
+      }
+  
+      // Convert 12-hour format to 24-hour format
+      if (amPm === 'PM' && formattedHour < 12) {
+          formattedHour += 12; // Convert PM to 24-hour time
+      } else if (amPm === 'AM' && formattedHour === 12) {
+          formattedHour = 0; // Convert 12 AM to 00:00
+      }
+  
+      return `${formattedHour}:${minuteAndAmPm.split(' ')[0]}`;
+  };
+  
     
     const handlePayment = () => {
       const appointmentData = JSON.parse(localStorage.getItem("appointmentData") || "{}");
@@ -55,7 +77,7 @@ const PaymentPage: React.FC = () => {
               address: appointmentData?.address,
               name: appointmentData?.name,
               appointment_date: formattedDate,
-              appointment_time: appointmentData?.appointmentTime,
+              appointment_time: formatTimeForAPI(appointmentData?.appointmentTime),
               payment_id: response.razorpay_payment_id,
               booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
               booking_status: 'completed',
@@ -144,6 +166,7 @@ const PaymentPage: React.FC = () => {
     
   
 
+  
     return (
         <div className="payment-container">
             <div className="payment-method">
@@ -160,8 +183,8 @@ const PaymentPage: React.FC = () => {
                     <p><strong>Service Type:</strong> {appointmentData.serviceType}</p>
                     <p><strong>Name:</strong> {appointmentData.name}</p>
                     <p><strong>Address:</strong> {appointmentData.address}</p>
-                    <p><strong>Date:</strong> {appointmentData.appointmentDate}</p>
-                    <p><strong>Time:</strong> {appointmentData.appointmentTime}</p>
+                    <p><strong>Date:</strong> {(appointmentData.appointmentDate)}</p>
+                    <p><strong>Time:</strong> {formatTimeForAPI(appointmentData.appointmentTime)}</p>
                     {/* <p><strong>Phone Number:</strong> {fixedPhoneNumber}</p> */}
                     {/* <p><strong>Email:</strong> {fixedEmail}</p>   */}
                 </div>

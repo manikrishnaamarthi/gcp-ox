@@ -36,6 +36,9 @@ const MyBooking: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [mostRecentBooking, setMostRecentBooking] = useState<Booking | null>(null);
 
+
+  
+
   useEffect(() => {
   const fetchData = async () => {
     try {
@@ -132,26 +135,44 @@ const MyBooking: React.FC = () => {
   };
 
   // Filter bookings based on the active tab
-  const filteredBookings = bookings.filter((booking) => {
-    const appointmentDate = new Date(`${booking.appointment_date}T${booking.appointment_time}`);
-    const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
-  
-    // Reset time for date-only comparison
-    today.setHours(0, 0, 0, 0);
-    tomorrow.setHours(0, 0, 0, 0);
-  
-    const isTodayOrTomorrow =
-      appointmentDate >= today && appointmentDate < new Date(tomorrow.getTime() + 24 * 60 * 60 * 1000); // End of tomorrow
-  
-    if (activeTab === 'bookings') return isTodayOrTomorrow && booking.booking_status === 'completed';
-    if (activeTab === 'cancelled') return booking.booking_status === 'cancelled';
-    if (activeTab === 'history') return booking.booking_status === 'completed' || booking.booking_status === 'cancelled';
-    return false;
-  });
-  
+const filteredBookings = bookings.filter((booking) => {
+  const appointmentDate = new Date(`${booking.appointment_date}T${booking.appointment_time}`);
+  const now = new Date();
 
+  if (activeTab === 'bookings') {
+    const isTodayOrTomorrow = appointmentDate >= new Date().setHours(0, 0, 0, 0) &&
+      appointmentDate < new Date().setDate(new Date().getDate() + 2);
+    return (
+      isTodayOrTomorrow &&
+      booking.booking_status !== 'cancelled' &&
+      appointmentDate >= now // Show only upcoming or current bookings
+    );
+  }
+
+  if (activeTab === 'cancelled') {
+    return booking.booking_status === 'cancelled';
+  }
+
+  if (activeTab === 'history') {
+    return (
+      booking.booking_status === 'completed' ||
+      (appointmentDate < now && booking.booking_status !== 'cancelled') // Past bookings
+    );
+  }
+
+  return false;
+});
+
+// Sort bookings for the bookings tab by appointment date and time
+if (activeTab === 'bookings') {
+  filteredBookings.sort((a, b) => {
+    const dateA = new Date(`${a.appointment_date}T${a.appointment_time}`);
+    const dateB = new Date(`${b.appointment_date}T${b.appointment_time}`);
+    return dateA.getTime() - dateB.getTime();
+  });
+}
+
+const firstEligibleBooking = activeTab === 'bookings' ? filteredBookings[0] : null;
   return (
     <>
       <div className="myBookingContainer">
@@ -176,17 +197,19 @@ const MyBooking: React.FC = () => {
                     <p>{booking.phone_number}</p>
                   </div>
                   <div className="bookingActions">
-                  {booking.booking_status !== 'cancelled' && (
-                      <button className="cancelButton" onClick={(e) => {
-                        e.stopPropagation(); // Prevent triggering the booking details modal
-                        cancelBooking(booking);
-                      }}>
+                  {booking.booking_status !== 'cancelled' && activeTab !== 'history' && (
+  <button
+    className="cancelButton"
+    onClick={(e) => {
+      e.stopPropagation(); // Prevent triggering the booking details modal
+      cancelBooking(booking);
+    }}
+  >
                         Cancel
                       </button>
                     )}
                     <p className="date">{booking.appointment_date}</p>
-                    <p className="timeLeft">
-                      <MdAccessTime /> {booking.timeLeft}
+                    <p className="timeLeft"> {booking.appointment_time}
                     </p>
                   </div>
                 </div>
@@ -217,22 +240,23 @@ const MyBooking: React.FC = () => {
                 
 
                 <div className="modalButtons">
-                <button
-                      onClick={() => openDriverMap(selectedBooking)}
-                      style={{ backgroundColor: selectedBooking === mostRecentBooking ? '#FC000E' : '#CCCCCC' }}
-                      disabled={selectedBooking !== mostRecentBooking}
-                    >
-                    Start
-                  </button>
 
+                 <button
+    onClick={() => openDriverMap(selectedBooking)}
+    style={{ backgroundColor: selectedBooking === firstEligibleBooking ? '#FC000E' : '#CCCCCC' }}
+    disabled={selectedBooking !== firstEligibleBooking}
+  >
+    Start
+  </button>
 
-                  <button
-                  onClick={completeRide}
-                  style={{ backgroundColor: selectedBooking === mostRecentBooking ? '#FC000E' : '#CCCCCC' }}
-                  disabled={selectedBooking !== mostRecentBooking}
-                >
-                    OTP
-                  </button>
+  <button
+    onClick={completeRide}
+    style={{ backgroundColor: selectedBooking === firstEligibleBooking ? '#FC000E' : '#CCCCCC' }}
+    disabled={selectedBooking !== firstEligibleBooking}
+  >
+    OTP
+  </button>
+
                 </div>
               </div>
             </div>

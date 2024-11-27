@@ -5,6 +5,18 @@ body {
     background-color: #d7d2d2;
   }
 
+
+  .container {
+  height: 100vh;
+  width: 100%;
+  max-width: 350px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
 .driver-profile {
     padding: 20px;
     height: 100vh;
@@ -45,7 +57,7 @@ body {
     color: #FC000E;
   }
   
-  input {
+  /* input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -55,7 +67,7 @@ body {
    
 
   }
-  
+   */
   .footer {
     display: flex;
     justify-content: space-around;
