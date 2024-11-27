@@ -160,14 +160,16 @@ const Home: React.FC = () => {
   
   const handleFooterIconClick = (icon: string) => {
     setActiveFooterIcon(icon); // Set active icon based on click
+    const oxiId = localStorage.getItem('oxi_id') || 'Unknown';
+
     if (icon === 'home') {
       router.push('/');
     } else if (icon === 'search') {
       router.push('/DashBoard/SearchPage');
     } else if (icon === 'booking') {
-      router.push('http://localhost:3000/Booking');
+      router.push('/Booking');
     } else if (icon === 'profile') {
-      router.push('http://localhost:3000/UserProfile');
+      router.push(`/UserProfile?oxi_id=${oxiId}`);
     }
   };
 
