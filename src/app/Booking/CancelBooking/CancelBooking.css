@@ -121,6 +121,25 @@ body {
   align-items: center;
   font-size: 14px;
   color: #777;
+  gap: 5px; /* Adds space between the icon and the text */
+}
+
+.cancel-booking-details .location svg {
+  font-size: 25px; /* Adjust the size of the location icon */
+}
+
+
+.cancel-booking-details .date {
+  color: #f10909;
+  font-size: 14px;
+}
+.cancel-booking-details .time {
+  color: #f10909;
+  font-size: 14px;
+}
+.cancel-booking-details .time-left {
+  color: #f10909;
+  font-size: 14px;
 }
 
 .cancel-booking-details .status {

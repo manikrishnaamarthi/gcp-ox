@@ -86,8 +86,8 @@ const CancelBooking = () => {
         <div className="cancel-booking-details">
           <p>{name}</p>
           <p className='location'><IoLocationSharp />{location}</p>
-          <p>Appointment Date: {appointmentDate}</p>
-          <p>Appointment Time: {appointmentTime}</p>
+          <p className='date'>Appointment Date: {appointmentDate}</p>
+          <p className='time'>Appointment Time: {appointmentTime}</p>
           <p className="time-left">Time Remaining: {timeLeft}</p>
         </div>
 

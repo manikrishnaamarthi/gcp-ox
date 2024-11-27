@@ -1,14 +1,29 @@
-'use client'
-import React, { useState } from "react";
+'use client';
+import React, { useState, useEffect } from "react";
 import "./Inventory.css";
 import Sidebar from "../Sidebar/page";
-import { FaStethoscope, FaThermometerFull, FaSyringe } from "react-icons/fa";
-import { FaMaskFace } from "react-icons/fa6";
-import { GiGloves } from "react-icons/gi";
-import { IoBandage } from "react-icons/io5";
 
 const Inventory = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [inventory, setInventory] = useState([]);
+  const [filteredInventory, setFilteredInventory] = useState([]);
+  const [formData, setFormData] = useState({
+    product_name: "",
+    stock: "",
+    product_price: "",
+    product_image: null, // New field for image
+  });
+
+  // Fetch existing inventory data from the backend
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/inventory/")
+      .then((response) => response.json())
+      .then((data) => {
+        setInventory(data);
+        setFilteredInventory(data); // Initialize filtered data
+      })
+      .catch((err) => console.error("Error fetching inventory:", err));
+  }, []);
 
   const handleAddItemsClick = () => {
     setShowPopup(true);
@@ -18,20 +33,100 @@ const Inventory = () => {
     setShowPopup(false);
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, product_image: e.target.files[0] });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let imageUrl = null;
+
+      // Upload the image to Cloudinary if provided
+      if (formData.product_image) {
+        const cloudinaryData = new FormData();
+        cloudinaryData.append("file", formData.product_image);
+        cloudinaryData.append("upload_preset", "Deepanshu Images");
+
+        const cloudinaryResponse = await fetch(
+          "https://api.cloudinary.com/v1_1/dteb8cqso/image/upload",
+          {
+            method: "POST",
+            body: cloudinaryData,
+          }
+        );
+
+        const cloudinaryResult = await cloudinaryResponse.json();
+        imageUrl = cloudinaryResult.secure_url; // Save the secure URL
+      }
+
+      // Send data to your backend
+      const formDataToSend = {
+        product_name: formData.product_name,
+        stock: formData.stock,
+        product_price: formData.product_price,
+        product_image: imageUrl,
+      };
+
+      const response = await fetch("http://127.0.0.1:8000/api/inventory/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formDataToSend),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert(response.status === 200 ? "Product updated successfully!" : "Product added successfully!");
+
+        // Fetch the updated inventory list
+        const updatedInventory = await fetch("http://127.0.0.1:8000/api/inventory/")
+          .then((res) => res.json())
+          .catch((err) => {
+            console.error("Error fetching updated inventory:", err);
+            return inventory; // fallback to current inventory if fetching fails
+          });
+
+        setInventory(updatedInventory);
+        setFilteredInventory(updatedInventory); // Update filtered inventory
+        setFormData({ product_name: "", stock: "", product_price: "", product_image: null });
+        setShowPopup(false);
+      } else {
+        console.error("Failed to add or update item");
+      }
+    } catch (error) {
+      console.error("Error adding or updating item:", error);
+    }
+  };
+
+  const handleSearch = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const filtered = inventory.filter((item) =>
+      item.product_name.toLowerCase().includes(searchTerm)
+    );
+    setFilteredInventory(filtered);
+  };
+
+  // Calculate dynamic numbers for stock section
+  const lowStockItems = inventory.filter((item) => item.stock < 15);
+  const itemCategoriesCount = inventory.length;
+
   return (
     <div className="inventory-container">
-      {/* Sidebar */}
       <Sidebar />
-
-      {/* Main Content */}
       <main className="main-content">
-        {/* Header */}
         <header className="header">
           <h1>Recent Activity</h1>
           <input
             type="text"
             placeholder="Search"
             className="search-bar"
+            onChange={handleSearch}
           />
         </header>
 
@@ -54,9 +149,7 @@ const Inventory = () => {
           </div>
         </div>
 
-        {/* Content Section */}
         <div className="content-section">
-          {/* Inventory Table */}
           <section className="inventory-table">
             <table>
               <thead>
@@ -68,32 +161,32 @@ const Inventory = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* Example Data */}
-                <tr>
-                  <td>1</td>
-                  <td>BP Monitor</td>
-                  <td>95</td>
-                  <td>1,599 Rs</td>
-                </tr>
-                {/* Add more rows as needed */}
+                {filteredInventory.map((item, index) => (
+                  <tr key={item._id}>
+                    <td>{index + 1}</td>
+                    <td>{item.product_name}</td>
+                    <td>{item.stock}</td>
+                    <td>{item.product_price} Rs</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </section>
-
-          {/* Categories and Stock Numbers */}
           <div className="side-panel">
             {/* Item Categories */}
             <div className="categories">
               <h2>Item Categories List</h2>
               <button className="view-all">View All</button>
+              {/* <p>{itemCategoriesCount}</p> */}
               <div className="icons-grid">
-                <div className="icon"><FaStethoscope /></div>
-                <div className="icon"><FaSyringe /></div>
-                <div className="icon"><IoBandage /></div>
-                <div className="icon"><GiGloves /></div>
-                <div className="icon"><FaMaskFace /></div>
-                <div className="icon"><FaThermometerFull /></div>
+                {inventory.map((item) => (
+                  <div key={item.product_id} className="category-item">
+                    <img src={item.product_image} alt={item.product_name} className="category-image" />
+                    <p>{item.product_name}</p>
+                  </div>
+                ))}
               </div>
+
               <button
                 className="add-items"
                 onClick={handleAddItemsClick}
@@ -105,15 +198,25 @@ const Inventory = () => {
             {/* Stock Numbers */}
             <div className="stock-numbers">
               <h2>Stock Numbers</h2>
-              <p>Low Stock Items: <span className="highlight">12</span></p>
-              <p>Item Categories: <span className="highlight">9</span></p>
+              <p>
+                Low Stock Items:{" "}
+                {lowStockItems.length > 0 ? (
+                  lowStockItems.map((item) => (
+                    <span key={item._id}>
+                      {item.product_name}: {item.stock}{" "}
+                    </span>
+                  ))
+                ) : (
+                  <span className="highlight">0</span>
+                )}
+              </p>
+              <p>Item Categories: <span className="highlight">{itemCategoriesCount}</span></p>
               <p>Refunded Items: <span className="highlight">2</span></p>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Popup */}
       {showPopup && (
         <div className="popup-overlay" onClick={handleClosePopup}>
           <div
@@ -121,22 +224,47 @@ const Inventory = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <h2>Add New Item</h2>
-            <form>
-              <label>
-                Product Image:
-                <input type="file" accept="image/*" />
-              </label>
+            <form onSubmit={handleFormSubmit}>
               <label>
                 Product Name:
-                <input type="text" placeholder="Enter product name" />
+                <input
+                  type="text"
+                  name="product_name"
+                  value={formData.product_name}
+                  onChange={handleInputChange}
+                  placeholder="Enter product name"
+                  required
+                />
               </label>
               <label>
                 Stock:
-                <input type="number" placeholder="Enter stock" />
+                <input
+                  type="number"
+                  name="stock"
+                  value={formData.stock}
+                  onChange={handleInputChange}
+                  placeholder="Enter stock"
+                  required
+                />
               </label>
               <label>
                 Product Price:
-                <input type="text" placeholder="Enter product price" />
+                <input
+                  type="text"
+                  name="product_price"
+                  value={formData.product_price}
+                  onChange={handleInputChange}
+                  placeholder="Enter product price"
+                  required
+                />
+              </label>
+              <label>
+                Product Image:
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
               </label>
               <button type="submit">Add</button>
             </form>

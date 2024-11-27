@@ -154,12 +154,53 @@ body {
     right: 20px; /* Positions it on the right edge */
   }
   
-  .icons-grid {
+  /* General styles for the icons grid container */
+.icons-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 10px; /* Space between items */
     margin-top: 10px;
+    /* justify-content: center;  */
+    align-items: flex-start; /* Align items to the top */
   }
+  
+  /* Individual category item styling */
+  .category-item {
+    display: flex;
+    flex-direction: column; /* Stack image and text vertically */
+    align-items: center; /* Center align the content */
+    background-color: #f9f9f9; /* Light background for each item */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    width: 150px; /* Set a fixed width for consistent layout */
+  }
+  
+  /* Add hover effect for category items */
+  .category-item:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  }
+  
+  /* Image styling */
+  .category-image {
+    width: 60px; /* Fixed size for images */
+    height: 60px;
+    /* object-fit: cover;  */
+    border-radius: 50%; 
+    margin-bottom: 10px; /* Space between image and text */
+  }
+  
+  /* Product name styling */
+  .category-item p {
+    font-size: 14px; /* Slightly smaller font */
+    font-weight: bold;
+    color: #333; /* Darker text for readability */
+    text-align: center; /* Center align the text */
+    margin: 0; /* Remove default margins */
+  }
+  
   
   .icon {
     width: 90px;
@@ -237,6 +278,8 @@ body {
   
   .popup-content h2 {
     margin: 0 0 20px;
+    color: red;
+    text-align: center;
   }
   
   .popup-content label {
@@ -251,6 +294,11 @@ body {
     margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    border-color: red;
+  }
+  .popup-content input:focus {
+    border-color: red;
+    outline: none;
   }
   
   .popup-content button {

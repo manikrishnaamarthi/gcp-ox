@@ -18,6 +18,7 @@ interface Booking {
     name: string;
     address: string;
     booking_id: string;
+    phone_number: number;
 }
 
 const Booking = () => {
@@ -61,19 +62,26 @@ const Booking = () => {
 
     const filteredBookings = bookings.filter((booking) => {
         const today = new Date();
+        const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // Start of today
         const bookingDate = new Date(booking.appointment_date);
-
+    
+        // Include only bookings that match today's date
         if (activeTab === 'MyBooking') {
             return (
-                bookingDate.getFullYear() === today.getFullYear() &&
-                bookingDate.getMonth() === today.getMonth() &&
-                bookingDate.getDate() === today.getDate()
+                bookingDate.getFullYear() === todayDateOnly.getFullYear() &&
+                bookingDate.getMonth() === todayDateOnly.getMonth() &&
+                bookingDate.getDate() === todayDateOnly.getDate()
             );
         }
-        if (activeTab === 'Cancelled') return booking.booking_status.toLowerCase() === 'cancelled';
-        if (activeTab === 'History') return ['completed', 'cancelled'].includes(booking.booking_status.toLowerCase());
+        if (activeTab === 'Cancelled') {
+            return booking.booking_status.toLowerCase() === 'cancelled';
+        }
+        if (activeTab === 'History') {
+            return ['completed', 'cancelled'].includes(booking.booking_status.toLowerCase());
+        }
         return false;
     });
+    
 
     const [activeFooterIcon, setActiveFooterIcon] = useState('booking');
 
@@ -132,12 +140,16 @@ const Booking = () => {
                                 </header>
                             )}
                             <p className="service-name">{booking.service_type}</p>
+                            {/* Address */}
+                            <p className="booking-address">Address: {booking.address}</p>
+                            {/* Phone Number */}
+                            <p className="booking-phone">Phone: {booking.phone_number || 'N/A'}</p>
                             <p className="service-time">
                                 {new Date(booking.appointment_date).toLocaleDateString()} {booking.appointment_time}
                                 <span className="price">₹149</span>
                             </p>
                             <p className="time-remaining">
-                                Time Remaining: {calculateTimeRemaining(booking.appointment_date, booking.appointment_time)}
+                                 {calculateTimeRemaining(booking.appointment_date, booking.appointment_time)}
                             </p>
                             <div className="action-buttons">
                                 {activeTab === 'MyBooking' && (
