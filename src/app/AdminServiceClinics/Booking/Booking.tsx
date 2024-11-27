@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import {
   FaHome,
@@ -16,8 +15,11 @@ import {
   MdManageAccounts,
 } from 'react-icons/md';
 import { FaPeopleGroup } from 'react-icons/fa6';
+import { Line } from 'react-chartjs-2';
+import 'chart.js/auto';
 import './Booking.css';
 
+// Interfaces for booking data
 interface Booking {
   address: string;
   name: string;
@@ -30,18 +32,41 @@ interface Booking {
 
 const Bookings: React.FC = () => {
   const [selectedClinic, setSelectedClinic] = useState<string>('OxiviveClinic');
-  const [selectedStatus, setSelectedStatus] = useState<string>('Booking');
+  const [selectedStatus, setSelectedStatus] = useState<string>('Completed');
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
-  // Fetch bookings data from the backend API
+  // Chart data
+  const lineData = {
+    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+    datasets: [
+      {
+        label: 'User Activity',
+        data: [50, 75, 60, 90],
+        borderColor: '#4CAF50',
+        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const lineOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+
+  // Fetch bookings data from the backend API based on the selected clinic
   useEffect(() => {
     const fetchBookings = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          'http://127.0.0.1:8000/api/bookingapp-bookingservice/'
+          `http://127.0.0.1:8000/api/bookingapp-bookingservice/?clinic=${selectedClinic}`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch bookings');
@@ -56,13 +81,20 @@ const Bookings: React.FC = () => {
     };
 
     fetchBookings();
-  }, []);
+  }, [selectedClinic]);
 
   // Filter bookings based on selected status and clinic
-  const filteredBookings = bookings.filter(
-    (booking) =>
+  const filteredBookings = bookings.filter((booking) => {
+    if (selectedStatus === 'History') {
+      return (
+        booking.booking_status.toLowerCase() === 'completed' ||
+        booking.booking_status.toLowerCase() === 'cancel'
+      );
+    }
+    return (
       booking.booking_status.toLowerCase() === selectedStatus.toLowerCase()
-  );
+    );
+  });
 
   return (
     <div className="app">
@@ -114,10 +146,10 @@ const Bookings: React.FC = () => {
         <div className="clinic-toggle-container">
           <div className="clinic-toggle">
             <button
-              className={selectedClinic === 'OxiviveClinic' ? 'active' : ''}
-              onClick={() => setSelectedClinic('OxiviveClinic')}
+              className={selectedClinic === 'OxiClinic' ? 'active' : ''}
+              onClick={() => setSelectedClinic('OxiClinic')}
             >
-              OxiviveClinic
+              OxiClinic
             </button>
             <button
               className={selectedClinic === 'OxiWheel' ? 'active' : ''}
@@ -132,12 +164,6 @@ const Bookings: React.FC = () => {
         <div className="status-toggle-container">
           <div className="status-toggle">
             <button
-              className={selectedStatus === 'Pending' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Pending')}
-            >
-              Booking
-            </button>
-            <button
               className={selectedStatus === 'Completed' ? 'active' : ''}
               onClick={() => setSelectedStatus('Completed')}
             >
@@ -148,6 +174,12 @@ const Bookings: React.FC = () => {
               onClick={() => setSelectedStatus('Cancel')}
             >
               Cancelled
+            </button>
+            <button
+              className={selectedStatus === 'History' ? 'active' : ''}
+              onClick={() => setSelectedStatus('History')}
+            >
+              History
             </button>
           </div>
         </div>
