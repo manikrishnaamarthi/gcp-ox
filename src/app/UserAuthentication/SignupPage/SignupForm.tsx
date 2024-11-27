@@ -171,6 +171,7 @@ const SignupForm: React.FC = () => {
         {successMessage && <p className="alert-success">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="input-field">
+          <label htmlFor="name" style={{ color: '#c1bebe' }}>Name</label>
             <input
               type="text"
               placeholder="Name"
@@ -180,6 +181,7 @@ const SignupForm: React.FC = () => {
             {errors.name && <span className="error">{errors.name}</span>}
           </div>
           <div className="input-field">
+          <label htmlFor="email" style={{ color: '#c1bebe' }}>Email</label>
             <input
               type="email"
               placeholder="Email"
@@ -188,7 +190,9 @@ const SignupForm: React.FC = () => {
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
+          
           <div className="input-field password-field">
+          <label htmlFor="password" style={{ color: '#c1bebe' }}>Password</label>
             <div className="password-wrapper">
               <input
                 type={passwordVisible ? 'text' : 'password'}
@@ -203,6 +207,7 @@ const SignupForm: React.FC = () => {
             {errors.password && <span className="error">{errors.password}</span>}
           </div>
           <div className="input-field">
+          <label htmlFor="phoneNumber" style={{ color: '#c1bebe' }}>Phone Number</label>
             <input
               type="tel"
               name="phoneNumber"
@@ -214,6 +219,7 @@ const SignupForm: React.FC = () => {
             {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
           </div>
           <div className="input-field">
+          <label htmlFor="pincode" style={{ color: '#c1bebe' }}>Pincode</label>
             <input
               type="tel"
               name="pincode"
@@ -225,6 +231,7 @@ const SignupForm: React.FC = () => {
             {errors.pincode && <span className="error">{errors.pincode}</span>}
           </div>
           <div className="input-field">
+          <label htmlFor="panNumber" style={{ color: '#c1bebe' }}>PAN Number</label>
             <input
               type="text"
               placeholder="PAN Number"
@@ -236,7 +243,9 @@ const SignupForm: React.FC = () => {
             {errors.panNumber && <span className="error">{errors.panNumber}</span>}
           </div>
           <div className="input-field upload-field">
-            <label htmlFor="profile-photo">
+          
+            <label htmlFor="profile-photo" >
+              
               <span className="camera-plus-icon">
                 <i className="fas fa-camera"></i>
               </span> {profilePhotoName ? profilePhotoName : "Upload Profile Photo"}
