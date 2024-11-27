@@ -2,6 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation"; // For extracting query params
 import "./DriverProfile.css";
+import { SlHome } from "react-icons/sl";
+import { FaRegAddressBook } from "react-icons/fa";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { BsPerson } from "react-icons/bs";
+import { LuBookPlus } from "react-icons/lu";
 
 const DriverProfile: React.FC = () => {
     const searchParams = useSearchParams();
@@ -16,7 +21,7 @@ const DriverProfile: React.FC = () => {
     useEffect(() => {
         if (driverId) {
           console.log(`Fetching driver details for ID: ${driverId}`);  // Debugging line
-            fetch(`http://127.0.0.1:8001/api/driver-details/?driver_id=${driverId}`) // Use the Django API endpoint
+            fetch(`http://127.0.0.1:8002/api/driver-details/?driver_id=${driverId}`) // Use the Django API endpoint
                 .then((response) => {
                   console.log(`API Response: ${response.status}`);  // Debugging line
                     if (!response.ok) {
@@ -38,24 +43,13 @@ const DriverProfile: React.FC = () => {
         }
     }, [driverId]);
 
-    const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setDriverDetails((prevDetails) => ({
-                ...prevDetails,
-                profile_photo: imageUrl,
-            }));
-        }
-    };
+    
 
     return (
+      <div className="container">
         <div className="driver-profile">
             <h1>Profile</h1>
-            <div
-                className="profile-photo"
-                onClick={() => document.getElementById("photo-upload")?.click()}
-            >
+            <div className="profile-photo" >
                 <img
                     src={driverDetails.profile_photo}
                     alt="Profile"
@@ -66,7 +60,7 @@ const DriverProfile: React.FC = () => {
                     id="photo-upload"
                     accept="image/*"
                     style={{ display: "none" }}
-                    onChange={handlePhotoUpload}
+                    
                 />
             </div>
             <div className="profile-details">
@@ -79,6 +73,27 @@ const DriverProfile: React.FC = () => {
                 <label htmlFor="phone">Phone</label>
                 <input type="tel" id="phone" value={driverDetails.phone} readOnly />
             </div>
+            </div>
+
+            <footer className="footer">
+                <div className="footerItem">
+                    <SlHome className="footerIcon" />
+                    <p>Home</p>
+                </div>
+                <div className="footerItem">
+                    <LuBookPlus className="footerIcon" />
+                    <p>Booking</p>
+                </div>
+                <div className="footerItem">
+                    <IoNotificationsOutline className="footerIcon" />
+                    <p>Notification</p>
+                </div>
+                <div className="footerItem">
+                    <BsPerson className="footerIcon" />
+                    <p>Profile</p>
+                </div>
+            </footer>
+        
         </div>
     );
 };

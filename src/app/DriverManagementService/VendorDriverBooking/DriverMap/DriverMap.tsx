@@ -10,7 +10,7 @@ import { BsPerson } from "react-icons/bs";
 import './DriverMap.css';
 
 const getGeocode = async (address: string) => {
-  const apiKey = 'AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU';  // Replace with your Google API Key
+  const apiKey = 'AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM';  // Replace with your Google API Key
   const encodedAddress = encodeURIComponent(address); // URL encode the address
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${apiKey}`;
 
@@ -71,7 +71,7 @@ const DriverMap: React.FC = () => {
       if (!document.querySelector("#googleMaps")) {
         const script = document.createElement("script");
         script.id = "googleMaps";
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDZTMwnvXJiNqYJHD8JCvpr12-6H-VPfEU`; // Replace with your API key
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM`; // Replace with your API key
         script.async = true;
         script.defer = true;
         script.onload = () => {

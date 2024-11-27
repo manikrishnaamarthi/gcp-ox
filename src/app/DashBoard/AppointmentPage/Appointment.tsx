@@ -104,18 +104,35 @@ useEffect(() => {
   const handleContinue = () => {
     if (selectedDay !== null && selectedSlot !== null) {
       const selectedDate = `${new Date(today.getFullYear(), new Date(`${weekDates[selectedDay].month} 1, 2024`).getMonth(), weekDates[selectedDay].day).toISOString().split('T')[0]}`;
-
-      const selectedTime = selectedSlot.split('-')[1];
+  
+      // Get the selected time from the slot
+      let selectedTime = selectedSlot.split('-')[1];
+      
+      // Determine if it's AM or PM based on the slot
+      const isMorningSlot = selectedSlot.startsWith("morning");
+      const timeParts = selectedTime.split(":");
+      let formattedTime = selectedTime;
+      if (isMorningSlot) {
+        formattedTime = `${timeParts[0]}:${timeParts[1]} AM`;
+      } else {
+        // Convert afternoon times to 12-hour format if needed
+        let hour = parseInt(timeParts[0]);
+        if (hour >= 12) {
+          formattedTime = `${hour}:${timeParts[1]} PM`;
+        } else {
+          formattedTime = `${hour + 12}:${timeParts[1]} PM`;
+        }
+      }
   
       const appointmentData = {
         serviceType: selectedData?.serviceType,
         address: selectedData?.address,
         name: selectedData?.name,
-        oxiId: selectedData?.oxiId,  // Pass oxiId as well
+        oxiId: selectedData?.oxiId,
         appointmentDate: selectedDate,
-        appointmentTime: selectedTime,
-        phone_number: selectedData?.phone_number,  // Added phone number
-        email: selectedData?.email,  // Added email
+        appointmentTime: formattedTime, // Store the formatted time with AM/PM
+        phone_number: selectedData?.phone_number,
+        email: selectedData?.email,
       };
   
       localStorage.setItem('appointmentData', JSON.stringify(appointmentData));
@@ -123,6 +140,9 @@ useEffect(() => {
     }
     setIsModalOpen(false);
   };
+  
+
+
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -278,7 +298,12 @@ useEffect(() => {
                 <p><strong>Address:</strong> {selectedData?.address || "Fetching address..."}</p>
 
                 {/* Display appointment date and time */}
-                <p><strong>Time:</strong> {selectedSlot?.split('-')[1]}</p>
+                <p><strong>Time:</strong> {selectedSlot 
+            ? selectedSlot.includes('morning') 
+              ? selectedSlot.split('-')[1] + " AM" 
+              : selectedSlot.split('-')[1] + " PM"
+            : "N/A"}</p>
+                
                 <p>
                   <strong>Date:</strong> {weekDates[selectedDay!].weekDay}, 
                   {weekDates[selectedDay!].day} 
