@@ -80,7 +80,7 @@ body {
     width: 100%;
   }
   
-  .profile-image-container {
+  .profile-image-containerp {
     position: relative;
     width: 100px; /* Adjust size as needed */
     height: 100px;
@@ -90,21 +90,36 @@ body {
     margin-bottom: 30px;
     margin-top: -30px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: fill;
     background-color: #f0f0f0; /* Background color for placeholder */
   }
-  .person-icon {
-    font-size: 100px; /* Adjust icon size */
-    color: #ccc; /* Adjust color for the icon */
-  }
   
-  .profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 10%;
-    object-fit: cover;
-    margin-top: 2px;
+  .profile-imageb{
+  width: 100px;
+  height: 100px;
+  border-radius: 10%;
+  object-fit: fill;
+  display: block;
+  
+
+  
+    
+  }
+  .plus-icon0 {
+    position: absolute;
+    margin-top: 30px; /* Adjust the position above the image */
+    margin-left: 115px; /* Center horizontally */
+    color: red; /* Red color for the plus icon */
+    border-radius: 50%; /* Circular shape */
+    width: 30px; /* Adjust size */
+    height: 30px; /* Adjust size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px; /* Adjust size */
+    font-weight: bold; /* Bold text for the icon */
+    cursor: pointer;
+    z-index: 1; /* Ensures the plus icon is above the image */
   }
   
   

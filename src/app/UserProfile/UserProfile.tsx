@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
 import axios from 'axios'; // Import axios
 import { FaBox } from 'react-icons/fa';
 import { GoHome, GoShareAndroid } from "react-icons/go";
@@ -19,23 +19,29 @@ import './UserProfile.css';
 
 const UserProfile = () => {
   const router = useRouter();
+  const [setOxiId] = useState('');
+  const searchParams = useSearchParams();
+  const oxiId = searchParams.get('oxi_id') || 'Unknown';
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [activeFooter, setActiveFooter] = useState('');
   const [userData, setUserData] = useState({
     name: '',
     email: '',
-    profile_photo: '/images/profile.jpg',
+    profile_photo: '',
   });
   const [isLoading, setIsLoading] = useState(true); // For loading state
 
   useEffect(() => {
-    fetchUserData();
+    const storedOxiId = localStorage.getItem('oxi_id') || 'Unknown';
+    console.log('oxi_id:', storedOxiId);
+    fetchUserData(storedOxiId); // Fetch user data using the stored oxiId
   }, []);
 
-  const fetchUserData = async () => {
-    const userId = '1009917741782859777';
+  
+
+  const fetchUserData = async (oxiId: string | undefined) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/usmapp/usmapp-oxiusers/1009917741782859777/`, {
+      const response = await axios.get(`http://127.0.0.1:8000/usmapp/usmapp-oxiusers/${oxiId}/`, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true, // Equivalent to credentials: 'include' in fetch
       });
@@ -45,18 +51,20 @@ const UserProfile = () => {
         setUserData({
           name: data.name,
           email: data.email,
-          profile_photo: data.profile_photo || '/images/profile.jpg',
+          profile_photo: data.profile_photo || 'https://via.placeholder.com/50', // Default if no profile photo
         });
       } else {
-        console.error('Failed to fetch user data');
+        console.log('Failed to fetch user data');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.log('Error:', error);
+    } finally {
+      setIsLoading(false); // Stop loading after fetch
     }
   };
-  console.log (userData)
+
   const handleEditProfile = () => {
-    const userDataString = encodeURIComponent(JSON.stringify(userData));
+    const userDataString = JSON.stringify(userData);
     router.push(`/UserProfile/UserInfo`);
   };
 
@@ -81,9 +89,10 @@ const UserProfile = () => {
       </div>
 
       <div className="profile-header9">
-        <img className="profile-image" src={userData.profile_photo} alt="Profile" />
+      <img className="profile-image3" src={userData.profile_photo || 'https://via.placeholder.com/50'} alt="Profile" />
         <h2 className="profile-name">{userData.name}</h2>
         <p className="profile-email">{userData.email}</p>
+        <p className="profile-phone">{userData.phone_number}</p>
         <button className="edit-profile-btn" onClick={handleEditProfile}>Edit Profile</button>
       </div>
 
