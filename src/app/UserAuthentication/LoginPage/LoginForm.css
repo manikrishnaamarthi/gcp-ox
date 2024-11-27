@@ -66,12 +66,15 @@ body, html {
   flex-direction: column;
   justify-content: space-between;
  
+  overflow-y: hidden;
+
+ 
 }
 
 .login-heading {
   text-align: left;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 26px !important;
   color: black;
   font-weight:bolder !important;
 }

@@ -111,6 +111,20 @@ body {
   align-items: center;
 }
 
+
+.input-field {
+  display: flex;
+  flex-direction: column; /* Stack the label above the input */
+  align-items: flex-start; /* Align label and input to the left */
+  margin-bottom: 15px; /* Add spacing between fields */
+}
+
+.input-field label {
+  margin-bottom: 5px; /* Add spacing between the label and the input */
+  font-size: 14px;
+  color: #c1bebe;
+  text-align: left; /* Ensure text is aligned to the left */
+}
 .password-wrapper {
   width: 100%;
   position: relative;
@@ -238,3 +252,10 @@ button:hover {
     font-size: 1.2rem;
   }
 }
+
+
+
+
+
+
+
