@@ -30,7 +30,7 @@ interface Booking {
 
 const Bookings: React.FC = () => {
   const [selectedClinic, setSelectedClinic] = useState<string>('OxiviveClinic');
-  const [selectedStatus, setSelectedStatus] = useState<string>('Booking');
+  const [selectedStatus, setSelectedStatus] = useState<string>('Completed'); // Set default to 'Completed'
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
@@ -41,7 +41,7 @@ const Bookings: React.FC = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          'http://127.0.0.1:8000/api/bookingapp-bookingservice/'
+          `http://127.0.0.1:8000/api/bookingapp-bookingservice/?clinic=${selectedClinic}`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch bookings');
@@ -56,13 +56,19 @@ const Bookings: React.FC = () => {
     };
 
     fetchBookings();
-  }, []);
+  }, [selectedClinic]); // Re-fetch when the selected clinic changes
 
   // Filter bookings based on selected status and clinic
-  const filteredBookings = bookings.filter(
-    (booking) =>
-      booking.booking_status.toLowerCase() === selectedStatus.toLowerCase()
-  );
+  const filteredBookings = bookings.filter((booking) => {
+    if (selectedStatus === 'History') {
+      return (
+        booking.booking_status.toLowerCase() === 'completed' ||
+        booking.booking_status.toLowerCase() === 'cancelled'
+      );
+    } else {
+      return booking.booking_status.toLowerCase() === selectedStatus.toLowerCase();
+    }
+  });
 
   return (
     <div className="app">
@@ -132,12 +138,6 @@ const Bookings: React.FC = () => {
         <div className="status-toggle-container">
           <div className="status-toggle">
             <button
-              className={selectedStatus === 'Pending' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Pending')}
-            >
-              Booking
-            </button>
-            <button
               className={selectedStatus === 'Completed' ? 'active' : ''}
               onClick={() => setSelectedStatus('Completed')}
             >
@@ -148,6 +148,12 @@ const Bookings: React.FC = () => {
               onClick={() => setSelectedStatus('Cancel')}
             >
               Cancelled
+            </button>
+            <button
+              className={selectedStatus === 'History' ? 'active' : ''}
+              onClick={() => setSelectedStatus('History')}
+            >
+              History
             </button>
           </div>
         </div>

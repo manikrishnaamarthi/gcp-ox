@@ -46,34 +46,64 @@
     font-weight: bold;
   }
   
+/* Container for the buttons */
+.actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  /* Common styles for both buttons */
   .actions button {
     padding: 8px 15px;
     margin-left: 10px;
     border: none;
     cursor: pointer;
     border-radius: 4px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow for both buttons */
+    transition: background-color 0.3s, transform 0.2s;
   }
   
+  /* Share button styles */
   .shareButton {
-    background-color: #ff6b6b;
-    color: white;
+    background-color: #ffffff; /* White background */
+    color: #333333; /* Black text */
+    border: 1px solid #ccc; /* Border */
   }
   
+  .shareButton:hover {
+    background-color: #ff6b6b; /* Change to red on hover */
+    color: white; /* Change text color to white */
+    transform: translateY(-2px); /* Slight hover effect */
+  }
+  
+  /* Export button styles */
   .exportButton {
-    background-color: #f3f3f3;
-    color: #333333;
-    border: 1px solid #ccc;
+    background-color: #ffffff; /* White background */
+    color: #333333; /* Black text */
+    border: 1px solid #ccc; /* Border */
   }
   
-  /* Revenue Cards */
-  .revenueCards {
+  .exportButton:hover {
+    background-color: #ff6b6b; /* Light grey background on hover */
+    color: white; /* Keep black text */
+    transform: translateY(-2px); /* Slight hover effect */
+  }
+  
+  
+/* Revenue Cards */
+.revenueCards {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
   }
   
+  /* General Card Styling */
   .card {
-    background-color: #fefefe; /* Light card background */
+    background-color: #ffffff; /* Default background for inactive cards */
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
@@ -81,111 +111,284 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     flex: 1;
     margin: 0 10px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
+    font-weight: bold; /* Bold font for text and numbers */
+    color: #000000; /* Default text color for inactive cards */
   }
   
+  /* Hover Effect */
   .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
   
+  /* Active Card Styling */
+  .activeCard {
+    background-color: #ff0000; /* Red background for active card */
+    color: #ffffff; /* White text color for active card */
+  }
+  
+  /* Total Revenue Card */
+  .totalCard {
+    background-color: #ffffff; /* White background for total revenue card */
+    color: #000000; /* Black text color */
+  }
+  
+  /* Card Title */
   .card h2 {
     margin-top: 10px;
     font-size: 20px;
-    color: #333333;
+    color: inherit; /* Inherits color from parent (active/inactive styling) */
   }
   
+  /* Card Number */
   .card p {
-    color: #ff6b6b;
+    font-size: 18px;
+    color: inherit; /* Inherits color from parent (active/inactive styling) */
   }
   
-  .activeCard {
-    background-color: #ff0000;  /* Red background */
-    color: #000000;             /* White text */
-    font-weight: 600;           /* Semi-bold text */
-  }
   
-  .totalCard {
-    background-color: #f3f3f3;
-    color: #ff6b6b;
-  }
-  
-  /* Performance Section */
-  .performanceSection {
+/* Performance Section */
+.performanceSection {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    width: 1200px;
+    position: relative; /* Keeps labels within the section */
+    gap: 20px; /* Adding a gap between the performance and total services sections */
   }
   
-  .overallPerformance, .totalServices {
-    flex: 1;
-    margin-right: 10px;
+  /* Overall Performance Styling */
+  .overallPerformance {
+    flex: 2; /* Slightly larger than totalServices */
     padding: 20px;
-    background-color: #ffffff; /* Light card background */
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
-  }
-  
-  .performanceChart {
+    position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center; /* Center-align content */
   }
   
-  .performanceChart .bar {
-    width: 10%;
+  /* Title and Revenue Details */
+  .overallPerformance h3 {
+    margin: 0;
+    font-size: 18px; /* Slightly reduced font size */
+    color: #333;
+    text-align: center;
+  }
+  
+  .performanceDetails {
+    position: absolute;
+    top: 10px; /* Moved closer to the top */
+    left: 15px; /* Aligned to the left */
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff6b6b;
+    text-align: left;
+  }
+  
+  .performanceDetails span {
+    display: block;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  /* Performance Chart Styling */
+  .performanceChart {
+    margin-top: 40px; /* Adjust spacing above the chart */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    height: 150px; /* Adjusted height */
+    border-left: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* Vertical Labels Styling */
+  .verticalLabels {
+    position: absolute;
+    left: -40px; /* Moved closer to the chart */
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  
+  .verticalLabels span {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px; /* Reduced margin for better alignment */
+  }
+  
+  /* Horizontal Labels Styling */
+  .horizontalLabels {
+    position: absolute;
+    bottom: -20px; /* Adjusted label position */
+    left: 0;
+    display: flex;
+    justify-content: space-around; /* Matches spacing with bars */
+    width: 100%;
+  }
+  
+  .horizontalLabels span {
+    font-size: 12px;
+    color: #666;
+    text-align: center; /* Centered under corresponding bars */
+  }
+  
+  /* Bars Container */
+  .barsContainer {
+    display: flex;
+    justify-content: space-evenly; /* Matches bar alignment with months */
+    align-items: flex-end;
+    height: 100%;
+    width: 100%; /* Fully utilize the chart width */
+  }
+  
+  /* Individual Bars */
+  .bar {
+    width: 8%; /* Adjusted bar width */
     background-color: #ff6b6b;
     border-radius: 4px;
     transition: height 0.3s ease;
+    margin: 0; /* Removed additional spacing to align with months */
   }
   
-  .totalServices ul {
-    list-style: none;
-    padding: 0;
+  .bar:hover {
+    background-color: #ff4c4c; /* Slightly darker shade on hover */
   }
   
-  .totalServices ul li {
-    margin: 10px 0;
+  /* Oxi Clinic Title and Number Styling */
+  .oxiClinicDetails {
+    position: absolute;
+    top: -20px; /* Positioned above the chart */
+    left: 10px; /* Adjusted to the top-left corner of the chart */
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .oxiClinicDetails span {
+    display: block;
+    font-size: 12px;
+    color: #666;
+  }
+  
+/* Total Services Section */
+.totalServices {
+    flex: 1; /* Adjusts with performance section */
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
     display: flex;
-    justify-content: space-between;
-    font-size: 16px;
+    flex-direction: column;
+    align-items: center; /* Center-align content */
+    justify-content: space-between; /* Maintain spacing */
+    height: 100%; /* Adjusts to the height of performance section */
+    min-height: 260px; /* Increase the minimum height */
+  }
+  
+  /* Title Styling */
+  .totalServices h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000; /* Black color for "Total Services" */
+    margin-bottom: 0px; /* Spacing below the title */
+  }
+  
+  /* List Styling */
+  .totalServices ul {
+    list-style: none; /* Remove bullets */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    width: 100%; /* Take full width of the container */
+  }
+  
+  /* List Item Styling */
+  .totalServices ul li {
+    margin: 10px 0; /* Spacing between items */
+    display: flex;
+    justify-content: space-between; /* Align titles and numbers */
+    font-size: 20px;
+    font-weight: bold;
+    gap: 15px; /* Increased gap between text and number */
+  }
+  
+  /* Titles (Oxi Clinic, Oxi Gym, etc.) */
+  .totalServices ul li:first-child {
+    margin-top: 0; /* Optional: no margin on the first item */
   }
   
   .totalServices ul li span {
     font-weight: bold;
-    color: #333333;
+    color: #000000; /* Numbers in black */
   }
   
-  /* User Activity Section */
+  .totalServices ul li:first-child span,
+  .totalServices ul li:nth-child(2) span,
+  .totalServices ul li:nth-child(3) span,
+  .totalServices ul li:nth-child(4) span {
+    color: #ff0000; /* Red color for titles */
+  }
+  
+  .totalServices ul li:last-child span {
+    color: #000000; /* Total number remains black */
+  }
+  
+  
+  .totalServices ul li:first-child span,
+  .totalServices ul li:nth-child(2) span,
+  .totalServices ul li:nth-child(3) span,
+  .totalServices ul li:nth-child(4) span {
+    color: #ff0000; /* Red color for titles */
+  }
+  
+  .totalServices ul li:last-child span {
+    color: #000000; /* Total number remains black */
+  }
+  
+/* User Activity Section */
+.userActivitySection {
+    width: 100%; /* Full width */
+    max-width: 850px; /* Max width for the section */
+    margin: -25px; /* Remove any centering, position it to the left */
+    padding: 40px;
+    float: left; /* Ensure it floats to the left of the container */
+    box-sizing: border-box; /* Ensure padding doesn't overflow the width */
+  }
+  
+  /* Optional: If you need to add some margin to the right of the section for spacing */
   .userActivitySection {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    margin-right: 20px; /* Adjust as necessary */
+    clear: both; /* Ensure no floating elements affect the layout */
   }
   
-  .userActivityGraph,
-  .userActivityStats {
+  .userActivityGraph {
     background-color: #ffffff; /* Light background */
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
-    flex: 1;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-right: 10px;
     font-size: 14px;
   }
   
-  .userActivityGraph h3,
-  .userActivityStats h3 {
+  .userActivityGraph h3 {
     font-size: 18px;
     color: #333333;
     margin-bottom: 10px;
   }
   
-  .userActivityGraph p,
-  .userActivityStats p {
+  .userActivityGraph p {
     color: #ff6b6b; /* Accent color */
     font-weight: bold;
   }
@@ -199,6 +402,14 @@
     position: relative;
   }
   
+  .graphCurve {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
   .graphLine {
     display: flex;
     justify-content: space-between;
@@ -208,30 +419,10 @@
   }
   
   .graphLine span {
-    font-size: 12px;
-    color: #666;
+    font-size: 14px;
+    color: #4caf50; /* Green color for graph labels */
   }
   
-  .userActivityStats .statsDetails {
-    text-align: center;
-    margin-top: 15px;
-  }
-  
-  .progressBar {
-    background-color: #f3f3f3;
-    border-radius: 10px;
-    height: 8px;
-    margin-top: 10px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .progress {
-    height: 100%;
-    background-color: #4caf50; /* Progress bar color */
-    border-radius: 10px;
-    transition: width 0.3s ease;
-  }
   
   /* Responsiveness */
   @media (max-width: 768px) {
