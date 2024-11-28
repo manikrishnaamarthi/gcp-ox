@@ -51,8 +51,17 @@ const Bookings: React.FC = () => {
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/my-bookings/");
-      setAllBookings(response.data); // Store all bookings
+      const params: any = { service_type: "Oxi wheel" };
+
+      // If there's a selected date, format it as YYYY-MM-DD and pass it to the API
+      if (selectedDate) {
+        const formattedDate = new Date(selectedDate).toISOString().split('T')[0]; // Format to YYYY-MM-DD
+        params.appointment_date = formattedDate;
+        console.log("Fetching bookings for date:", formattedDate); // Debug log
+      }
+
+      const response = await axios.get("http://localhost:8000/api/save-booking/", { params });
+      setAllBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
     } finally {
@@ -61,44 +70,68 @@ const Bookings: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchAllBookings();
-  }, []);
+    fetchAllBookings(); // Fetch bookings whenever activeTab or selectedDate changes
+  }, [activeTab, selectedDate]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
-  const handleDateClick = (date: string) => {
-    setSelectedDate(date);
-  };
+  // const handleDateClick = (date: string) => {
+  //   setSelectedDate(date); // Update the selectedDate when a calendar date is clicked
+  //   console.log("Selected date:", date); // Debug log
+  // };
 
   const handleFooterClick = (footer: string) => {
     setSelectedFooter(footer);
   };
 
-  // Filter bookings based on activeTab
   const filteredBookings = allBookings.filter((booking) => {
-    if (activeTab === "bookings") return booking.status === "pending";
-    if (activeTab === "cancelled") return booking.status === "cancelled";
-    if (activeTab === "completed") return booking.status === "completed";
-    return true; // For "history", return all bookings
+    // Filter by status (activeTab)
+    if (activeTab === "cancelled" && booking.booking_status !== "cancelled") return false;
+    if (activeTab === "completed" && booking.booking_status !== "completed") return false;
+  
+    // Filter by selectedDate
+    if (selectedDate) {
+      const formattedSelectedDate = new Date(selectedDate).toISOString().split("T")[0];
+      return booking.appointment_date === formattedSelectedDate;
+    }
+  
+    return true; // If no date is selected, return all bookings matching the tab
   });
+  
+  const handleDateClick = (date: string) => {
+    const today = new Date();
+    const [day, month, dayNumber] = date.split(" ");
+    const monthIndex = new Date(`${month} 1, ${today.getFullYear()}`).getMonth();
+  
+    // Create the selected date object in the local timezone
+    const selectedFullDate = new Date(today.getFullYear(), monthIndex, parseInt(dayNumber));
+  
+    // Format the selected date as YYYY-MM-DD in the local timezone
+    const formattedDate = `${selectedFullDate.getFullYear()}-${String(selectedFullDate.getMonth() + 1).padStart(2, '0')}-${String(selectedFullDate.getDate()).padStart(2, '0')}`;
+  
+    setSelectedDate(formattedDate);
+    console.log("Selected date:", formattedDate); // Debug log
+  };
+  
 
   return (
     <div className="bookings-container0">
       <header className="header0">
-        <FaArrowLeft className="back-icon"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')}/>
+        <FaArrowLeft className="back-icon" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Wheel')} />
         <h1>My Bookings</h1>
       </header>
 
       <div className="week-selection">
         {weekDates.map((date, index) => {
           const [day, month, dayNumber] = date.split(" ");
+          const isSelected = selectedDate === `${new Date().getFullYear()}-${String(new Date(`${month} 1`).getMonth() + 1).padStart(2, '0')}-${String(dayNumber).padStart(2, '0')}`;
           return (
             <div
               key={index}
-              className={`week-day ${selectedDate === date ? "selected" : ""}`}
-              onClick={() => handleDateClick(date)}
+              className={`week-day ${isSelected ? "selected" : ""}`}
+              onClick={() => handleDateClick(date)} // Trigger date click and update state
             >
               <span className="day">{day}</span>
               <span className="month-date">
@@ -111,7 +144,7 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="tabs8">
-        {["Bookings", "Cancelled", "Completed", "History"].map((tab) => (
+        {["Completed", "Cancelled", "History"].map((tab) => (
           <div
             key={tab}
             className={`tab-item ${activeTab === tab.toLowerCase() ? "active" : ""}`}
@@ -131,11 +164,11 @@ const Bookings: React.FC = () => {
               <h3>{booking.service_type}</h3>
               <p>{booking.address}</p>
               <div className="status-section">
-                <span className="status">{booking.status}</span>
+                <span className="status">{booking.booking_status}</span>
                 <div className="date-time">
-                  <span className="date">{booking.date}</span>
+                  <span className="date">{booking.appointment_date}</span>
                   <span className="time">
-                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.time}
+                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
                   </span>
                 </div>
               </div>
@@ -147,25 +180,23 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="footer0">
-        {[
-          { icon: faHome, label: 'Home', key: 'home' },
+        {[{ icon: faHome, label: 'Home', key: 'home' },
           { icon: faClipboardList, label: 'Bookings', key: 'bookings' },
           { icon: faBell, label: 'Notifications', key: 'notifications' },
-          { icon: faUser, label: 'Profile', key: 'profile' }
-        ].map(({ icon, label, key }) => (
-          <div
-            key={key}
-            className={`footer-icon ${selectedFooter === key ? 'selected' : ''}`}
-            onClick={() => handleFooterClick(key)}
-          >
-            <FontAwesomeIcon icon={icon} />
-            <span>{label}</span>
-          </div>
-        ))}
+          { icon: faUser, label: 'Profile', key: 'profile' }]
+          .map(({ icon, label, key }) => (
+            <div
+              key={key}
+              className={`footer-icon ${selectedFooter === key ? 'selected' : ''}`}
+              onClick={() => handleFooterClick(key)}
+            >
+              <FontAwesomeIcon icon={icon} />
+              <span>{label}</span>
+            </div>
+          ))}
       </div>
     </div>
   );
 };
 
 export default Bookings;
-

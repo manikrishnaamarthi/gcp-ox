@@ -27,7 +27,13 @@ height: 100vh;
   justify-content: space-between;
   overflow: hidden;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
 }
+
+.bookings-container0::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
 .header0 {
     display: flex;
     align-items: center;
@@ -83,6 +89,12 @@ h1 {
 
 .week-day.selected {
     background-color: red;
+    color: white;
+}
+
+.week-day.selected .day, 
+.week-day.selected .month, 
+.week-day.selected .day-number {
     color: white;
 }
 
@@ -142,7 +154,7 @@ p{
 .booking-card h3 {
     color: red; /* Red text for Oxi Clinic and Oxi Wheel */
     margin: 0;
-    font-size: 20px;
+    font-size: 15px;
     text-align: left;
     font-weight: bold;
     margin-bottom: px;
@@ -166,7 +178,9 @@ p{
     border-radius: 20px;
     font-size: 10px;
     margin-bottom: 0.5rem;
-    border: 2px solid #1dc143
+    border: 2px solid #1dc143;
+    margin-bottom: 20px;
+    
 }
 .date-time {
     display: flex;
