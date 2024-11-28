@@ -61,6 +61,7 @@ body {
     justify-content: space-around;
     margin: 20px;
     color: red;
+    text-decoration: underline;
   }
   
   .tab1 {
@@ -179,6 +180,128 @@ body {
     margin-bottom: px;
     margin-top: 220px;
   }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .modal-content h2 {
+    color: red;
+    text-align: center;
+  }
+  
+  .items-container {
+    margin-top: 20px;
+    max-height: 200px; /* To handle overflow */
+    overflow-y: auto;
+  }
+  
+  .item-row {
+    display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Adds spacing between inputs */
+  margin-bottom: 10px;
+  }
+  
+  .item-row input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px; /* Adjust font size */
+  color: black; /* Text color changed to black */
+  width: calc(50% - 10px); /* Adjust width to fit neatly */
+  box-sizing: border-box;
+  }
+  
+  .add-item-button {
+    background-color: #ff0004;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .raise-claim-button {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 30%;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-left: 15src/app/VendorManagementService/WheelVendorprofile/page.tsx0px;
+  }
+  
+
+  .save-button {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 25%;
+    font-size: 16px;
+  }
+  .saved-items {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+  }
+  
+  .saved-items h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: black;
+    text-align: left;
+  }
+  
+  .saved-items .item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .saved-items .item-row p {
+    margin: 0;
+    font-size: 14px;
+    color: black;
+  }
+  
+  .close-modal {
+    background-color: #ccc;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
   
   .footerd {
     position: fixed;

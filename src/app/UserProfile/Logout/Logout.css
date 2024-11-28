@@ -16,7 +16,7 @@ body {
   background-color: white;
   border-radius: 10px;
   width: 100%;
-  max-width: 375px; /* Mobile responsive width */
+  max-width: 350px; /* Mobile responsive width */
   padding: 40px 20px; /* More compact padding */
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@ p {
 }
 
 .logout-modal-content {
-  width: 375px;
+  width: 350px;
   background-color: rgb(196, 77, 77);
   padding: 20px;
   border-radius: 12px 12px 0 0; /* Rounded top corners */

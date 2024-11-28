@@ -26,7 +26,11 @@ height: 100vh;
   justify-content: space-between;
   overflow: hidden;
   box-sizing: border-box;
+  overflow-y: scroll;
 }
+.bookings-containers::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
 .headerb {
     display: flex;
     align-items: center;
@@ -84,6 +88,12 @@ h1 {
 
 .week-day.selected {
     background-color: red;
+    color: white;
+}
+
+.week-day.selected .day, 
+.week-day.selected .month, 
+.week-day.selected .day-number {
     color: white;
 }
 

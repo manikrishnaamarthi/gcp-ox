@@ -1,4 +1,4 @@
-'use client';
+'use client'; 
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -51,8 +51,17 @@ const Bookings: React.FC = () => {
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:8000/api/bookings/");
-      setAllBookings(response.data); // Store all bookings
+      const params: any = { service_type: "Oxi clinic" };
+
+      // If there's a selected date, format it as YYYY-MM-DD and pass it to the API
+      if (selectedDate) {
+        const formattedDate = new Date(selectedDate).toISOString().split('T')[0]; // Format to YYYY-MM-DD
+        params.appointment_date = formattedDate;
+        console.log("Fetching bookings for date:", formattedDate); // Debug log
+      }
+
+      const response = await axios.get("http://localhost:8000/api/save-booking/", { params });
+      setAllBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
     } finally {
@@ -62,42 +71,64 @@ const Bookings: React.FC = () => {
 
   useEffect(() => {
     fetchAllBookings();
-  }, []);
+  }, [activeTab, selectedDate]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
-  const handleDateClick = (date: string) => {
-    setSelectedDate(date);
-  };
+  // const handleDateClick = (date: string) => {
+  //   setSelectedDate(date);
+  // };
 
   const handleFooterClick = (footer: string) => {
     setSelectedFooter(footer);
   };
 
-  // Filter bookings based on activeTab
   const filteredBookings = allBookings.filter((booking) => {
-    if (activeTab === "bookings") return booking.status === "pending";
-    if (activeTab === "cancelled") return booking.status === "cancelled";
-    if (activeTab === "completed") return booking.status === "completed";
-    return true; // For "history", return all bookings
+    // Filter by status (activeTab)
+    if (activeTab === "cancelled" && booking.booking_status !== "cancelled") return false;
+    if (activeTab === "completed" && booking.booking_status !== "completed") return false;
+  
+    // Filter by selectedDate
+    if (selectedDate) {
+      const formattedSelectedDate = new Date(selectedDate).toISOString().split("T")[0];
+      return booking.appointment_date === formattedSelectedDate;
+    }
+  
+    return true; // If no date is selected, return all bookings matching the tab
   });
+
+  const handleDateClick = (date: string) => {
+    const today = new Date();
+    const [day, month, dayNumber] = date.split(" ");
+    const monthIndex = new Date(`${month} 1, ${today.getFullYear()}`).getMonth();
+  
+    // Create the selected date object in the local timezone
+    const selectedFullDate = new Date(today.getFullYear(), monthIndex, parseInt(dayNumber));
+  
+    // Format the selected date as YYYY-MM-DD in the local timezone
+    const formattedDate = `${selectedFullDate.getFullYear()}-${String(selectedFullDate.getMonth() + 1).padStart(2, '0')}-${String(selectedFullDate.getDate()).padStart(2, '0')}`;
+  
+    setSelectedDate(formattedDate);
+    console.log("Selected date:", formattedDate); // Debug log
+  };
 
   return (
     <div className="bookings-containers">
       <header className="headerb">
-        <FaArrowLeft className="back-icona"  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')}/>
+        <FaArrowLeft className="back-icona" onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')} />
         <h1>My Bookings</h1>
       </header>
 
       <div className="week-selectionq">
         {weekDates.map((date, index) => {
           const [day, month, dayNumber] = date.split(" ");
+          const isSelected = selectedDate === `${new Date().getFullYear()}-${String(new Date(`${month} 1`).getMonth() + 1).padStart(2, '0')}-${String(dayNumber).padStart(2, '0')}`;
           return (
             <div
               key={index}
-              className={`week-day ${selectedDate === date ? "selected" : ""}`}
+              className={`week-day ${isSelected ? "selected" : ""}`}
               onClick={() => handleDateClick(date)}
             >
               <span className="day">{day}</span>
@@ -111,7 +142,7 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="tabs3">
-        {["Bookings", "Cancelled", "Completed", "History"].map((tab) => (
+        {["Completed", "Cancelled", "History"].map((tab) => (
           <div
             key={tab}
             className={`tab-item ${activeTab === tab.toLowerCase() ? "active" : ""}`}
@@ -131,11 +162,11 @@ const Bookings: React.FC = () => {
               <h3>{booking.service_type}</h3>
               <p>{booking.address}</p>
               <div className="status-section">
-                <span className="status">{booking.status}</span>
+                <span className="status">{booking.booking_status}</span>
                 <div className="date-time">
-                  <span className="date">{booking.date}</span>
+                  <span className="date">{booking.appointment_date}</span>
                   <span className="time">
-                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.time}
+                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
                   </span>
                 </div>
               </div>
@@ -147,8 +178,7 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="footer">
-        {[
-          { icon: faHome, label: 'Home', key: 'home' },
+        {[{ icon: faHome, label: 'Home', key: 'home' },
           { icon: faClipboardList, label: 'Bookings', key: 'bookings' },
           { icon: faBell, label: 'Notifications', key: 'notifications' },
           { icon: faUser, label: 'Profile', key: 'profile' }
@@ -168,4 +198,3 @@ const Bookings: React.FC = () => {
 };
 
 export default Bookings;
-

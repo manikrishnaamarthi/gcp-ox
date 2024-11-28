@@ -9,6 +9,11 @@ const InvoicePage: React.FC = () => {
   // State to track the selected footer icon
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [selectedTab, setSelectedTab] = useState('invoice'); // State to track selected tab
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [items, setItems] = useState<{ id: number; name: string; price: string }[]>([]);
+  const [savedItems, setSavedItems] = useState<{ id: number; name: string; price: string }[]>([]);
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
   const router = useRouter();
 
   // Function to handle footer icon click
@@ -20,6 +25,25 @@ const InvoicePage: React.FC = () => {
   const handleTabClick = (tab: string) => {
     setSelectedTab(tab);
   };
+
+
+  const handleAddItem = () => {
+    setItems([...items, { id: items.length, name: '', price: '' }]);
+  };
+
+  const handleItemChange = (id: number, field: string, value: string) => {
+    const updatedItems = items.map(item =>
+      item.id === id ? { ...item, [field]: value } : item
+    );
+    setItems(updatedItems);
+  };
+
+  const handleSave = () => {
+    // Save current items and reset input fields
+    setSavedItems([...savedItems, ...items]);
+    setItems([]);
+  };
+
 
   return (
     <div className="invoice-container6">
@@ -83,8 +107,69 @@ const InvoicePage: React.FC = () => {
         </div>
 
         {/* New Invoice Button */}
-        <button className="new-invoice-buttons">New Invoice</button>
+        <button className="new-invoice-buttons" onClick={toggleModal}>New Invoice</button>
       </div>
+
+      {isModalOpen && (
+  <div className="modal">
+    <div className="modal-content">
+      <h2>Create New Invoice</h2>
+
+      {/* Add Item Button */}
+      <button className="add-item-button" onClick={handleAddItem}>
+        Add Item
+      </button>
+
+      {/* Raise Claim Button */}
+      <button className="raise-claim-button" onClick={() => alert("Claim raised!")}>
+       Raise Claim
+      </button>
+
+      {/* Dynamic Input Fields */}
+      <div className="items-container">
+        {items.map(item => (
+          <div key={item.id} className="item-row">
+            <input
+              type="text"
+              placeholder="Item Name"
+              value={item.name}
+              onChange={e => handleItemChange(item.id, 'name', e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Item Price"
+              value={item.price}
+              onChange={e => handleItemChange(item.id, 'price', e.target.value)}
+            />
+          </div>
+        ))}
+      </div>
+      {/* Saved Items Section */}
+      {savedItems.length > 0 && (
+              <div className="saved-items">
+                <h3>Saved Items</h3>
+                {savedItems.map(item => (
+                  <div key={item.id} className="item-row">
+                    <p>{item.name}</p>
+                    <p>{item.price}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+      {/* Save Button */}
+      <button className="save-button" onClick={handleSave}>
+        Save
+      </button>
+
+      {/* Close Modal */}
+      <button className="close-modal" onClick={toggleModal}>
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
 
       {/* Footer */}
       <div className="footerd">
