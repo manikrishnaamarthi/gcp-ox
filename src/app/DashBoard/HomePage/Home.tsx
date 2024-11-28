@@ -149,7 +149,7 @@ const Home: React.FC = () => {
       },
       {
         enableHighAccuracy: true, // Prioritize high-accuracy location
-        timeout: 15000,           // Timeout after 15 seconds
+        timeout: 5000,           // Timeout after 15 seconds
         maximumAge: 0,            // Prevent using cached location
       }
     );
