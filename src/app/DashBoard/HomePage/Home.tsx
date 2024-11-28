@@ -33,6 +33,131 @@ const Home: React.FC = () => {
     router.push(`/DashBoard/LocationPage?serviceType=${serviceType}&oxi_id=${oxiId}`);
   };
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  const fetchAddress = async (latitude: number, longitude: number) => {
+    const apiKey = 'AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM'; // Replace with your API key
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+  
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+  
+      if (data.status === 'OK' && data.results.length > 0) {
+        const addressComponents = data.results[0].address_components;
+  
+        // Extracting various address components
+        const streetNumber = addressComponents.find((comp: any) => comp.types.includes("street_number"))?.long_name || '';
+        const streetName = addressComponents.find((comp: any) => comp.types.includes("route"))?.long_name || '';
+        const neighborhood = addressComponents.find((comp: any) => comp.types.includes("neighborhood"))?.long_name || '';
+        const locality = addressComponents.find((comp: any) => comp.types.includes("locality"))?.long_name || '';
+        const sublocality = addressComponents.find((comp: any) => comp.types.includes("sublocality_level_1"))?.long_name || '';
+        const city = addressComponents.find((comp: any) => comp.types.includes("locality"))?.long_name || '';
+        const state = addressComponents.find((comp: any) => comp.types.includes("administrative_area_level_1"))?.long_name || '';
+        const country = addressComponents.find((comp: any) => comp.types.includes("country"))?.long_name || '';
+        const postalCode = addressComponents.find((comp: any) => comp.types.includes("postal_code"))?.long_name || '';
+  
+        // Constructing the full address
+        let fullAddress = '';
+  
+        // Include street information if available
+        if (streetNumber && streetName) {
+          fullAddress += `${streetNumber} ${streetName}, `;
+        } else if (streetName) {
+          fullAddress += `${streetName}, `;
+        }
+  
+        if (neighborhood) {
+          fullAddress += `${neighborhood}, `;
+        }
+  
+        if (sublocality) {
+          fullAddress += `${sublocality}, `;
+        }
+  
+        if (city) {
+          fullAddress += `${city}, `;
+        }
+  
+        if (state) {
+          fullAddress += `${state}, `;
+        }
+  
+        if (country) {
+          fullAddress += `${country} - `;
+        }
+  
+        if (postalCode) {
+          fullAddress += `${postalCode}`;
+        }
+  
+        // Set the location state with the full address
+        setLocation(fullAddress || 'Unable to fetch address');
+      } else {
+        console.error('Geocoding API error:', data);
+        setLocation('Unable to fetch address');
+      }
+    } catch (error) {
+      console.error('Error fetching address:', error);
+      setLocation('Unable to fetch address');
+    }
+  };
+  
+  
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        console.log("Latitude:", latitude, "Longitude:", longitude);
+        fetchAddress(latitude, longitude); // Call the Geocoding API
+      },
+      (error) => {
+        console.error('Location error:', error); // Log the exact error
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setLocation('Location permission denied.');
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setLocation('Location information is unavailable.');
+            break;
+          case error.TIMEOUT:
+            setLocation('Location request timed out.');
+            break;
+          default:
+            setLocation('Unable to fetch location.');
+            break;
+        }
+      }
+    );
+  }, []);
+  
+  const handleFooterIconClick = (icon: string) => {
+    setActiveFooterIcon(icon); // Set active icon based on click
+    if (icon === 'home') {
+      router.push('/');
+    } else if (icon === 'search') {
+      router.push('/DashBoard/SearchPage');
+    } else if (icon === 'booking') {
+      router.push('http://localhost:3000/Booking?oxi_id=${oxiId}');
+    } else if (icon === 'profile') {
+      router.push('http://localhost:3000/UserProfile');
+    }
+  };
+
+  // Adjusted footerIconStyle function
+  const footerIconStyle = (icon: string) => ({
+    color: activeFooterIcon === icon ? '#FC000E' : 'rgb(151, 147, 147)',
+  });
+
 
   const handleClinicClick = () => {
     setShowClinicEducate(true);

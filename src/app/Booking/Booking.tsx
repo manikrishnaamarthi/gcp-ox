@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import './Booking.css';
 import { FaRedoAlt } from 'react-icons/fa';
@@ -10,7 +10,7 @@ import { BsPerson } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 
 interface Booking {
-    id: number;
+    
     booking_status: string;
     service_type: string;
     appointment_date: string;
@@ -25,11 +25,13 @@ const Booking = () => {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [activeTab, setActiveTab] = useState('MyBooking'); 
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const user_id = searchParams.get('oxi_id')
 
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/bookingapp-bookingservice/');
+                const response = await fetch(`http://127.0.0.1:8000/api/bookingapp-bookingservice/${user_id}/`);
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Fetched bookings:', data);
@@ -52,13 +54,18 @@ const Booking = () => {
 
     const handleCardClick = (booking: Booking) => {
         if (activeTab === 'History') {
-            router.push(`/Booking/CompleteBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
+            router.push(`/Booking/CompleteBooking?status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
         }
     };
 
     const handleCancelClick = (booking: Booking) => {
-        router.push(`/Booking/CancelBooking?id=${booking.id}&status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
+        router.push(`/Booking/CancelBooking?status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
     };
+
+    const handleRescheduleClick = (booking: Booking) => {
+        router.push(`/Booking/ReschedulePage?booking_id=${booking.booking_id}&date=${booking.appointment_date}&time=${booking.appointment_time}}&name=${booking.name}&location=${booking.address}`);
+    };
+    
 
     const filteredBookings = bookings.filter((booking) => {
         const today = new Date();
@@ -133,7 +140,7 @@ const Booking = () => {
             <section className="booking-list">
                 {filteredBookings.length > 0 ? (
                     filteredBookings.map((booking) => (
-                        <article key={booking.id} className="booking-card" onClick={() => handleCardClick(booking)}>
+                        <article key={booking.booking_id} className="booking-card" onClick={() => handleCardClick(booking)}>
                             {activeTab !== 'MyBooking' && (
                                 <header className="booking-header">
                                     <span className={`status ${booking.booking_status.toLowerCase()}`}>{booking.booking_status}</span>
@@ -158,9 +165,16 @@ const Booking = () => {
                                             e.stopPropagation();
                                             handleCancelClick(booking);
                                         }}>Cancel Booking</button>
-                                        <button className="reschedule-button">
+                                        <button
+                                            className="reschedule-button"
+                                            onClick={(e) => {
+                                                e.stopPropagation(); // Prevent the card's click event
+                                                handleRescheduleClick(booking);
+                                            }}
+                                        >
                                             <FaRedoAlt /> Reschedule
                                         </button>
+
                                     </>
                                 )}
                             </div>

@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import "./Inventory.css";
 import Sidebar from "../Sidebar/page";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const Inventory = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -119,7 +121,7 @@ const Inventory = () => {
   return (
     <div className="inventory-container">
       <Sidebar />
-      <main className="main-content">
+      <main className="main-content1">
         <header className="header">
           <h1>Recent Activity</h1>
           <input
@@ -132,17 +134,17 @@ const Inventory = () => {
 
         {/* Summary Cards */}
         <div className="summary-cards">
-          <div className="card">
+          <div className="card1">
             <p className="count">700</p>
             <p>Total</p>
             <span>NEW ITEMS</span>
           </div>
-          <div className="card highlighted">
+          <div className="card1 highlighted">
             <p className="count">4</p>
             <p>Vendors</p>
             <span>NEW MESSAGE</span>
           </div>
-          <div className="card">
+          <div className="card1">
             <p className="count">1</p>
             <p>Vendor</p>
             <span>REFUNDS</span>
@@ -260,17 +262,33 @@ const Inventory = () => {
               </label>
               <label>
                 Product Image:
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                />
-              </label>
+                </label>
+                <div
+  className={`input-field upload-field ${
+    formData.product_image ? "has-image" : ""
+  }`}
+>
+  <label htmlFor="product-image">
+    <span className="camera-plus-icon">
+      <i className="fas fa-camera"></i>
+    </span>
+    {formData.product_image ? formData.product_image.name : "Upload Product Image"}
+  </label>
+  <input
+    type="file"
+    id="product-image"
+    accept="image/*"
+    onChange={handleImageChange}
+    style={{ display: 'none' }} // Hide the default input
+  />
+</div>
+
+
               <button type="submit">Add</button>
             </form>
-            <button className="close-popup" onClick={handleClosePopup}>
+            {/* <button className="close-popup" onClick={handleClosePopup}>
               Close
-            </button>
+            </button> */}
           </div>
         </div>
       )}
