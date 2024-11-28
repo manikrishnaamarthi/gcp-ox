@@ -73,6 +73,7 @@ function LoginForm() {
     if (response.ok) {
       if (data.user_type === 'customer') {
         localStorage.setItem('oxi_id', data.oxi_id);
+        router.prefetch('/DashBoard/HomePage'); // Prefetch HomePage
         alert('Login successful! Redirecting to the dashboard...');
         router.push('/DashBoard/HomePage');
       } else if (data.user_type === 'Vendor') {
