@@ -4,10 +4,6 @@ body {
     background-color: #ffffff;
   }
   
-  /* .manage-service {
-    display: flex;
-  } */
-  
   .manage-sidebar {
     width: 240px;
     background-color: #fff;
@@ -81,7 +77,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 450px;
+    margin-left: 400px;
     font-weight: bold;
   }
   
@@ -117,6 +113,8 @@ body {
   .service-cards {
     display: flex;
     flex-direction: column;
+    /* max-width: 100%;
+    max-height: 100%; */
     gap: 5px;
     margin-top: 10px;
   }
@@ -130,21 +128,24 @@ body {
     align-items: center;
     justify-content: space-between;
   }
+  .card-image {
+    width: 100%; /* Ensures the container takes full width */
+    max-width: 1000px; /* Optional: Sets a maximum width for the container */
+    height: 290px; /* Fixed height for all images */
+    overflow: hidden; /* Hides any part of the image that overflows */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    /* margin:2px; */
+    padding: 20px;
+  }
   
   .card-image img {
-    max-width: 1000px;
-    height: 270px;
-    /* object-fit: cover; */
-  }
-  
-  .card-content {
-    flex: 1;
-  }
-  
-  .card-content h3 {
-    font-size: 18px;
-    color: red;
-    font-weight: bold;
+    width: 100%; /* Makes the image fill the container width */
+    height: 100%; /* Fills the container height */
+    object-fit: cover; /* Crops the image to fit without distortion */
   }
   
   .card-content p {
@@ -164,41 +165,116 @@ body {
     border-radius: 6px;
     margin-left: 600px;
     cursor: pointer;
-    margin-top: 170px;
+    margin-top: 90px;
     font-size: 14px; /* Adjust text size */
   }
   
   .remove-icon {
-    font-size: 20px; /* Adjust icon size */
+    font-size: 18px;
+    position: relative;
   }
 
   .head1{
     align-items: center;
     color: red;
     font-weight: bold;
+    margin-top: 10px;
     text-align: center;
-    font-size: 20px;
+    font-size: 22px;
   }
   
 
-
-
-
-  
-/* CSS for card paragraphs inside .card-content */
 .card-content {
-    padding: 15px; /* Space around the content */
-    color: #555; /* Neutral color for readability */
+    /* padding: 5px;  */
+    color: #939191; /* Neutral color for readability */
   }
   
   .card-content p {
     margin: 10px 0; /* Spacing between paragraphs */
-    font-size: 14px; /* Optimal text size for cards */
+    font-size: 20px; /* Optimal text size for cards */
     line-height: 1.6; /* Improves readability with proper line spacing */
   }
   
   .card-content strong {
-    font-weight: bold; /* Bold for highlighted text like labels */
-    color: #333; /* Darker text for emphasis */
+    font-weight: bold; 
+    color:black; 
+    margin-left: 30px;
   }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  .heading5{
+    color:red;
+    font-weight: bold;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  
+  .modal-content form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-content label {
+    margin: 10px 0 5px;
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .modal-content input:focus,
+.modal-content textarea:focus {
+  border: 2px solid red;
+  outline: none; 
+}
+  .modal-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .save-btn,
+  .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .save-btn {
+    background-color: red;
+    color: white;
+  }
+  
+  .cancel-btn {
+    background-color: red;
+    color: white;
+  }
+  
+
+
   
