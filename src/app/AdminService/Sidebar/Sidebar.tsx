@@ -35,7 +35,7 @@ const Sidebar = () => {
         <div className="sidebar-icon" data-name="Manage Service" onClick={() => router.push('http://localhost:3000/AdminService/AdminDashboard/ManageService/')}>
           <MdManageAccounts />
         </div>
-        <div className="sidebar-icon" data-name="Inventory">
+        <div className="sidebar-icon" data-name="Inventory" onClick={() => router.push('http://localhost:3000/AdminService/Inventory/')}>
           <MdOutlineInventory />
         </div>
         <div className="sidebar-icon" data-name="Vendor"onClick={() => router.push('http://localhost:3000/AdminService/VendorsList/')}>

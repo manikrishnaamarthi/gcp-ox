@@ -27,8 +27,8 @@ const AccountPage: React.FC = () => {
 
       if (response.data.success) {
         const navigateTo = response.data.usertype === 'SuperAdmin'
-          ? '/AdminService/AdminDashboard/'
-          : '/AdminService/AdminPerson/';
+          ? '/AdminService/AdminDashboard/Dashboard/'
+          : '/AdminServiceClinics/Dashboard/';
         router.push(navigateTo);
       } else {
         setError(response.data.message);

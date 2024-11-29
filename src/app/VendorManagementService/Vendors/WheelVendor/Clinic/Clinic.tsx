@@ -12,6 +12,8 @@ const Clinic = () => {
   const [selectedFooter, setSelectedFooter] = useState<string>('home'); // Declare state for selected footer
   const router = useRouter();
   
+  const vendor_id = localStorage.getItem('vendor_id') || 'Unknown';
+  console.log('vendor_id',vendor_id);
 
   const handleFooterClick = (section: string) => {
     setSelectedFooter(section); // Update the selected footer section
@@ -57,7 +59,7 @@ const Clinic = () => {
             <FaRegAddressBook className="cardIcon" />
             <p className="label">Bookings</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/ClinicVendor/Inventory')}>
+          <div className="card" onClick={() => router.push(`/VendorManagementService/ClinicVendor/Inventory?vendor_id=${vendorId}`)}>
             <MdInventory className="cardIcon" />
             <p className="label">Inventory</p>
           </div>
