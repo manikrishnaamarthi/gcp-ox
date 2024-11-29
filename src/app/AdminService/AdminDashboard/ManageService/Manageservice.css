@@ -129,23 +129,23 @@ body {
     justify-content: space-between;
   }
   .card-image {
-    width: 100%; /* Ensures the container takes full width */
-    max-width: 1000px; /* Optional: Sets a maximum width for the container */
-    height: 290px; /* Fixed height for all images */
-    overflow: hidden; /* Hides any part of the image that overflows */
+    width: 100%;
+    max-width: 1000px; 
+    height: 290px; 
+    overflow: hidden; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
-    /* margin:2px; */
+   
     padding: 20px;
   }
   
   .card-image img {
-    width: 100%; /* Makes the image fill the container width */
-    height: 100%; /* Fills the container height */
-    object-fit: cover; /* Crops the image to fit without distortion */
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
   }
   
   .card-content p {
@@ -156,8 +156,8 @@ body {
   
   .remove-btn {
     display: flex;
-    align-items: center; /* Align icon and text vertically */
-    gap: 3px; /* Space between icon and text */
+    align-items: center; 
+    gap: 3px;
     background-color: red;
     color: white;
     padding: 8px 16px;
@@ -166,7 +166,7 @@ body {
     margin-left: 600px;
     cursor: pointer;
     margin-top: 90px;
-    font-size: 14px; /* Adjust text size */
+    font-size: 14px; 
   }
   
   .remove-icon {
@@ -186,19 +186,19 @@ body {
 
 .card-content {
     /* padding: 5px;  */
-    color: #939191; /* Neutral color for readability */
+    color: #939191; 
   }
   
   .card-content p {
-    margin: 10px 0; /* Spacing between paragraphs */
-    font-size: 20px; /* Optimal text size for cards */
-    line-height: 1.6; /* Improves readability with proper line spacing */
+    margin: 10px 0;
+    font-size: 20px; 
+    line-height: 1.6; 
   }
   
   .card-content strong {
     font-weight: bold; 
     color:black; 
-    margin-left: 30px;
+    margin-left: 0px;
   }
   
   .modal {
@@ -216,6 +216,7 @@ body {
   }
   .heading5{
     color:red;
+    font-size: 20px;
     font-weight: bold;
   }
   
@@ -275,6 +276,44 @@ body {
     color: white;
   }
   
-
-
+  .upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   
+  .upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #f1f1f1;
+    color: black;
+    padding: 10px 20px; /* Adjusted padding */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    min-width: 360px; 
+  }
+  
+  .upload-btn:hover {
+    background-color: #eee;
+  }
+  
+  .camera-icon {
+    font-size: 20px;
+  }
+  .place{
+    margin-right: 190px;
+  }
+  
+  .file-name {
+    font-size: 14px;
+    color: #252424;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    flex: 1; 
+    text-align: left; 
+  }

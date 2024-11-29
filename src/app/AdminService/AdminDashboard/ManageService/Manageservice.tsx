@@ -120,6 +120,7 @@ import { BiSolidBookAdd } from 'react-icons/bi';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
 import { FaPeopleGroup } from 'react-icons/fa6';
+import { IoCameraOutline } from "react-icons/io5";
 import { CgRemove } from "react-icons/cg";
 import './Manageservice.css';
 
@@ -176,7 +177,7 @@ const Manageservice: React.FC = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/manage-service/${service_id}/`, {
+      const response = await fetch(`http://localhost:8000/api/manage-service/$SI-16971/`, {
         method: 'DELETE',
       });
 
@@ -199,10 +200,13 @@ const Manageservice: React.FC = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const [selectedImageName, setSelectedImageName] = useState<string | null>(null);
+
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
+      setSelectedImageName(e.target.files[0].name); // Store the selected file name
     }
   };
 
@@ -380,12 +384,31 @@ const Manageservice: React.FC = () => {
                   onChange={handleInputChange}
                   placeholder="Enter service type"
                 />
-                <label>Upload Image:</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
+               <label>Upload Image:</label>
+          
+<div className="upload-container">
+  <button
+    type="button"
+    className="upload-btn"
+    onClick={() => document.getElementById('fileInput')?.click()}
+  >
+    <IoCameraOutline className="camera-icon" />
+    {formData.image ? (
+      <span className="file-name">{formData.image.name}</span>
+    ) : (
+      <span className='place'>Upload Image</span>
+    )}
+  </button>
+  <input
+    type="file"
+    id="fileInput"
+    accept="image/*"
+    style={{ display: 'none' }}
+    onChange={handleImageUpload}
+  />
+</div>
+
+                <div className="modal-actions">
                 <button
                   type="button"
                   className="save-btn"
@@ -400,6 +423,7 @@ const Manageservice: React.FC = () => {
                 >
                   Cancel
                 </button>
+                </div>
               </form>
             </div>
           </div>
