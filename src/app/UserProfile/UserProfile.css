@@ -6,7 +6,6 @@ body {
   font-style: normal;
   background-color: rgb(226, 222, 222);
   height: 100vh;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;

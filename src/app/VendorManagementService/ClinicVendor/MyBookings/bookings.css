@@ -143,32 +143,44 @@ p{
 }
 .booking-card {
     background-color: white;
-    padding: 1rem;
+    padding: 1rem; /* Internal padding for spacing inside the card */
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Stack the content vertically */
     border: 1px solid #ddd;
     margin-bottom: 1rem;
+    text-align: left; /* Ensure all text is left-aligned */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 2rem); /* Full width minus padding from container */
+    margin-left: auto;
+    margin-right: auto;
 }
 .booking-card h3 {
-    color: red; /* Red text for Oxi Clinic and Oxi Wheel */
+    color: red; /* Red text for the heading */
     margin: 0;
-    font-size: 20px;
-    text-align: left;
+    font-size: 16px;
     font-weight: bold;
-    margin-bottom: px;
+    margin-bottom: 0.5rem; /* Add spacing below the heading */
 }
 .booking-card p {
-    margin: 0;
-    color: rgb(166, 164, 164);
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove extra padding */
+    color: rgb(166, 164, 164); /* Gray text for address */
     font-size: 13px;
-    margin-bottom: 25px;
+    line-height: 1.2; /* Improve readability for multiline text */
+    text-align: left; /* Ensure left alignment */
+    word-wrap: break-word;
+    max-width: calc(100% - 120px);
 }
 .status-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-end; /* Aligns to the right */
+    margin-left: 1rem; /* Adds some space between the left and right sections */
+    margin-top: -1.5rem; /* Moves the status upwards to align with the first line of the address */
+    flex-shrink: 0; /* Prevents shrinking */
+    min-width: 100px; /* Ensures sufficient space for the status and date */
 }
 
 .status {
