@@ -49,6 +49,18 @@ body {
     cursor: pointer;
     position: relative;
 }
+.sidebar-icon:hover::after {
+    content: attr(data-name);
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+    white-space: nowrap;
+  }
 
 .sidebar-icon.logout-icon {
     margin-top: 40px;
@@ -242,7 +254,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 40px;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
     background-color: #fafafa;
     color: #282828;
     font-size: 14px;

@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+.manage-sidebar {
+    width: 240px;
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    position: fixed;
+}
+
+.logo-img {
+    width: 80px;
+    height: 80px;
+    margin-left: 15px;
+}
+
+.logo-text {
+    font-size: 18px;
+    color: red;
+    margin-right: 70px;
+    font-weight: bold;
+}
+
+.sidebar-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-right: 80px;
+    margin-top: 20px;
+}
+
+.sidebar-icon {
+    font-size: 24px;
+    color: red;
+    cursor: pointer;
+    position: relative;
+}
+
+.sidebar-icon.logout-icon {
+    margin-top: 70px;
+}
+
+.content {
+    margin-left: 260px;
+    padding: 20px;
+    width: calc(100% - 260px);
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: bold;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-left: 420px;
+    color: red;
+}
+
+.actions {
+    margin-top: 10px;
+}
+
+.add-service-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: red;
+    color: white;
+    margin-left: 1050px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.service-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.details-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+}
+
+.service-image {
+    width: 520px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.service-name {
+    font-size: 24px;
+    color: red;
+    margin-top: 5px;
+    margin-left: 210px;
+    font-weight: bold;
+}
+
+.right-section {
+    flex: 1;
+}
+
+.details-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -10px;
+}
+
+.left-section {
+    flex: 1;
+}
+
+.right-section {
+    flex: 1;
+    margin-top: -30px;
+    margin-right: 25px;
+}
+.head6{
+    color:black;
+    font-weight: bold;
+    margin-left: -17px;
+    font-size: 20px;
+}
+.details-content p {
+    margin: 10px 0;
+    color: black;
+    font-size: 18px;
+}
+
+.benefits {
+    list-style: disc;
+    color: black;
+    font-size: 18px;
+    margin-top: 15px;
+    /* margin-left: 20px; */
+}
+
+.benefits h4 {
+    font-size: 20px;
+    color: red;
+}
+
+.benefits li {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.service-price {
+    font-size: 20px;
+    color: black;
+    margin-left: -17px;
+    margin-top: 20px;
+    /* font-weight: bold; */
+}
+.head4{
+    color: black;
+    font-weight: bold;
+}
+.ul2{
+    color: black;
+    margin-left: 190px;
+    font-size: 18px;
+    /* top: 50px;  */
+}
+.price {
+    color: red;
+}
+
+
+
