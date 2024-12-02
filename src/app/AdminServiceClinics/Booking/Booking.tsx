@@ -1,21 +1,10 @@
-'use client';
+"use client"
 import React, { useState, useEffect } from 'react';
+import Sidebar from "../Sidebar/page";
 import {
-  FaHome,
   FaClock,
   FaMapMarkerAlt,
-  FaSignOutAlt,
-  FaCartPlus,
-  FaChartArea,
 } from 'react-icons/fa';
-import { BiSolidBookAdd } from 'react-icons/bi';
-import {
-  MdOutlinePeopleAlt,
-  MdOutlineInventory,
-  MdManageAccounts,
-} from 'react-icons/md';
-import { FaPeopleGroup } from 'react-icons/fa6';
-import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import './Booking.css';
 
@@ -31,34 +20,11 @@ interface Booking {
 }
 
 const Bookings: React.FC = () => {
-  const [selectedClinic, setSelectedClinic] = useState<string>('OxiviveClinic');
-  const [selectedStatus, setSelectedStatus] = useState<string>('Completed');
+  const [selectedClinic, setSelectedClinic] = useState<string>('OxiClinic'); // Set default to 'OxiClinic'
+  const [selectedStatus, setSelectedStatus] = useState<string>('Completed'); // Default status set to 'Completed'
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
-
-  // Chart data
-  const lineData = {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-    datasets: [
-      {
-        label: 'User Activity',
-        data: [50, 75, 60, 90],
-        borderColor: '#4CAF50',
-        backgroundColor: 'rgba(76, 175, 80, 0.2)',
-        tension: 0.4,
-      },
-    ],
-  };
-
-  const lineOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  };
 
   // Fetch bookings data from the backend API based on the selected clinic
   useEffect(() => {
@@ -98,43 +64,7 @@ const Bookings: React.FC = () => {
 
   return (
     <div className="app">
-      {/* Sidebar */}
-      <aside className="admin-sidebar">
-        <div className="logo">
-          <img src="/images/shot(1).png" alt="Logo" />
-          <p>Super Admin</p>
-        </div>
-        <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
-            <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice">
-            <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking">
-            <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory">
-            <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor">
-            <MdOutlinePeopleAlt />
-          </div>
-          <div className="sidebar-icon logout-icon" data-name="Logout">
-            <FaSignOutAlt />
-          </div>
-        </nav>
-      </aside>
-
+      <Sidebar />
       {/* Main Booking List */}
       <main className="booking-list">
         <header>
@@ -164,7 +94,7 @@ const Bookings: React.FC = () => {
         <div className="status-toggle-container">
           <div className="status-toggle">
             <button
-              className={selectedStatus === 'Completed' ? 'active' : ''}
+              className={selectedStatus === 'Completed' ? 'active' : ''} // Set active for "Completed"
               onClick={() => setSelectedStatus('Completed')}
             >
               Completed
