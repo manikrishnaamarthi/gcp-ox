@@ -25,7 +25,11 @@ body {
   justify-content: space-between;
   overflow-y: hidden;
   box-sizing: border-box;
+  overflow-y: scroll;
 
+  }
+  .invoice-container6::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
   }
   
   .header9 {
@@ -201,6 +205,7 @@ body {
     width: 90%;
     max-width: 400px;
     text-align: center;
+    box-sizing: border-box;
   }
 
   .modal-content h2 {
@@ -253,7 +258,7 @@ body {
     width: 30%;
     font-size: 16px;
     box-sizing: border-box;
-    margin-left: 15src/app/VendorManagementService/WheelVendorprofile/page.tsx0px;
+    margin-left: 150px;
   }
   
 
@@ -268,31 +273,33 @@ body {
     width: 25%;
     font-size: 16px;
   }
-  .saved-items {
+  .saved-items-section {
     margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #ccc;
   }
-  
-  .saved-items h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: black;
-    text-align: left;
-  }
-  
-  .saved-items .item-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  
-  .saved-items .item-row p {
-    margin: 0;
-    font-size: 14px;
+  .saved-items-section h3 {
     color: black;
   }
+  
+  .saved-items-list {
+    list-style-type: none; /* Removes bullets */
+    padding: 0;
+  }
+  
+  .saved-item {
+    font-size: 16px; /* Adjust font size as needed */
+    color: black; /* Ensure text color is black */
+    margin-bottom: 8px; /* Space between items */
+  }
+  
+  .item-name {
+    font-weight: bold; /* Highlight item name */
+  }
+  
+  .item-price {
+    margin-left: 10px; /* Space between name and price */
+    color: black; /* Ensure price text color is also black */
+  }
+  
   
   .close-modal {
     background-color: #ccc;
@@ -300,8 +307,31 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    position: absolute !important;
   }
-  
+
+  .close-x-modal {
+    position: absolute; /* Position relative to the modal content */
+    top: px; /* Distance from the top of the modal */
+    right: px; /* Distance from the right of the modal */
+    margin-left: 340px;
+    margin-top: -10px;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1100; /* Ensure it stays on top of modal content */
+  }
+
   
   .footerd {
     position: fixed;
