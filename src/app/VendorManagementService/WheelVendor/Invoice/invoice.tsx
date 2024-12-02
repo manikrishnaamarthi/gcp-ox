@@ -1,49 +1,94 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClipboardList, faBell, faUser, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './invoice.css';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
 const InvoicePage: React.FC = () => {
-  // State to track the selected footer icon
   const [selectedFooter, setSelectedFooter] = useState('home');
-  const [selectedTab, setSelectedTab] = useState('invoice'); // State to track selected tab
+  const [selectedTab, setSelectedTab] = useState('invoice');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [items, setItems] = useState<{ id: number; name: string; price: string }[]>([]);
+  const [invoices, setInvoices] = useState<any[]>([]);
   const [savedItems, setSavedItems] = useState<{ id: number; name: string; price: string }[]>([]);
+  const [vendorId, setVendorId] = useState<string | null>(null);
+
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // Function to handle footer icon click
-  const handleFooterClick = (footer: string) => {
-    setSelectedFooter(footer);
-  };
+  useEffect(() => {
+    // Fetch vendor ID from URL or localStorage
+    const urlVendorId = searchParams.get('vendorId');
+    if (urlVendorId) {
+      setVendorId(urlVendorId);
+    } else {
+      const storedVendorId = localStorage.getItem('vendor_id');
+      if (storedVendorId) {
+        setVendorId(storedVendorId);
+      }
+    }
+  }, [searchParams]);
 
-  // Function to handle tab click
-  const handleTabClick = (tab: string) => {
-    setSelectedTab(tab);
-  };
+  useEffect(() => {
+    const fetchInvoices = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/invoices/');
+        setInvoices(response.data);
+      } catch (error) {
+        console.error('Error fetching invoices:', error);
+      }
+    };
 
+    fetchInvoices();
+  }, []);
 
-  const handleAddItem = () => {
-    setItems([...items, { id: items.length, name: '', price: '' }]);
-  };
+  const handleFooterClick = (footer: string) => setSelectedFooter(footer);
+  const handleTabClick = (tab: string) => setSelectedTab(tab);
 
-  const handleItemChange = (id: number, field: string, value: string) => {
-    const updatedItems = items.map(item =>
-      item.id === id ? { ...item, [field]: value } : item
-    );
-    setItems(updatedItems);
-  };
+  const handleAddItem = () => setItems([...items, { id: items.length, name: '', price: '' }]);
+  const handleItemChange = (id: number, field: string, value: string) =>
+    setItems(items.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
 
   const handleSave = () => {
-    // Save current items and reset input fields
     setSavedItems([...savedItems, ...items]);
     setItems([]);
   };
 
+  const handleRaiseClaim = async () => {
+    if (!vendorId) {
+      alert('Vendor ID is not available. Please ensure it is set.');
+      return;
+    }
+
+    const invoiceDetails = savedItems.map((item) => item.name).join(', ');
+    const totalPrice = savedItems.reduce((sum, item) => sum + parseFloat(item.price), 0);
+
+    const data = {
+      vendor_id: vendorId,
+      invoice_details: invoiceDetails,
+      invoice_price: totalPrice,
+      status: 'Unpaid',
+    };
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/invoices/', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      setInvoices((prevInvoices) => [...prevInvoices, response.data]);
+      setSavedItems([]);
+      toggleModal();
+      alert('Claim raised and data saved successfully!');
+    } catch (error) {
+      console.error('Error raising claim:', error.response ? error.response.data : error);
+      alert('Failed to raise claim.');
+    }
+  };
 
   return (
     <div className="invoice-container6">
@@ -57,147 +102,106 @@ const InvoicePage: React.FC = () => {
 
       {/* Tab Navigation */}
       <div className="tabsp">
-        <div
-          className={`tab1 ${selectedTab === 'invoice' ? 'active' : ''}`}
-          onClick={() => handleTabClick('invoice')}
-        >
+        <div className={`tab1 ${selectedTab === 'invoice' ? 'active' : ''}`} onClick={() => handleTabClick('invoice')}>
           Invoice
         </div>
-        <div
-          className={`tab1 ${selectedTab === 'history' ? 'active' : ''}`}
-          onClick={() => handleTabClick('history')}
-        >
+        <div className={`tab1 ${selectedTab === 'history' ? 'active' : ''}`} onClick={() => handleTabClick('history')}>
           History
         </div>
       </div>
 
-      {/* Card Section - All inside a single gray card */}
+      {/* Invoice Cards */}
       <div className="new-invoice-card1">
         <div className="cards0">
-          <div className="invoice-cards">
-            <div className="invoice-info">
-              <p className="invoice-title">Wheel rent</p>
-              <p className="invoice-date">25 Sept 2024</p>
+          {invoices.map((invoice) => (
+            <div key={invoice.invoice_id} className="invoice-cards">
+              <div className="invoice-info">
+                <p className="invoice-title">{invoice.invoice_details}</p>
+                <p className="invoice-date">{invoice.date}</p>
+              </div>
+              <div className="invoice-price">
+                <p className="price">Rs {invoice.invoice_price}</p>
+                <span className={`status ${invoice.status ? invoice.status.toLowerCase() : ''}`}>{invoice.status}</span>
+              </div>
             </div>
-            <div className="invoice-price">
-              <p className="price">Rs 19955</p>
-              <span className="status paid">Paid</span>
-            </div>
-          </div>
-          <div className="invoice-cards">
-            <div className="invoice-info">
-              <p className="invoice-title">Wheel rent</p>
-              <p className="invoice-date">25 Sept 2024</p>
-            </div>
-            <div className="invoice-price">
-              <p className="price">Rs 1562</p>
-              <span className="status paid">Paid</span>
-            </div>
-          </div>
-          <div className="invoice-cards">
-            <div className="invoice-info">
-              <p className="invoice-title">Wheel maintenance</p>
-              <p className="invoice-date">25 Sept 2024</p>
-            </div>
-            <div className="invoice-price">
-              <p className="price">Rs 39999</p>
-              <span className="status unpaid">UnPaid</span>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* New Invoice Button */}
-        <button className="new-invoice-buttons" onClick={toggleModal}>New Invoice</button>
+        <button className="new-invoice-buttons" onClick={toggleModal}>
+          New Invoice
+        </button>
       </div>
 
       {isModalOpen && (
-  <div className="modal">
-    <div className="modal-content">
-      <h2>Create New Invoice</h2>
+        <div className="modal">
+          <div className="modal-content">
+            <button className="close-x-modal" onClick={toggleModal}>
+              &times;
+            </button>
+            <h2>Create New Invoice</h2>
 
-      {/* Add Item Button */}
-      <button className="add-item-button" onClick={handleAddItem}>
-        Add Item
-      </button>
-
-      {/* Raise Claim Button */}
-      <button className="raise-claim-button" onClick={() => alert("Claim raised!")}>
-       Raise Claim
-      </button>
-
-      {/* Dynamic Input Fields */}
-      <div className="items-container">
-        {items.map(item => (
-          <div key={item.id} className="item-row">
-            <input
-              type="text"
-              placeholder="Item Name"
-              value={item.name}
-              onChange={e => handleItemChange(item.id, 'name', e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Item Price"
-              value={item.price}
-              onChange={e => handleItemChange(item.id, 'price', e.target.value)}
-            />
-          </div>
-        ))}
-      </div>
-      {/* Saved Items Section */}
-      {savedItems.length > 0 && (
-              <div className="saved-items">
+            {savedItems.length > 0 && (
+              <div className="saved-items-section">
                 <h3>Saved Items</h3>
-                {savedItems.map(item => (
-                  <div key={item.id} className="item-row">
-                    <p>{item.name}</p>
-                    <p>{item.price}</p>
-                  </div>
-                ))}
+                <ul className="saved-items-list">
+                  {savedItems.map((item, index) => (
+                    <li key={index} className="saved-item">
+                      <span className="item-name">{item.name}</span> - <span className="item-price"> Rs {item.price}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
 
-      {/* Save Button */}
-      <button className="save-button" onClick={handleSave}>
-        Save
-      </button>
+            <button className="add-item-button" onClick={handleAddItem}>
+              Add Item
+            </button>
 
-      {/* Close Modal */}
-      <button className="close-modal" onClick={toggleModal}>
-        Close
-      </button>
-    </div>
-  </div>
-)}
+            <div className="items-container">
+              {items.map((item) => (
+                <div key={item.id} className="item-row">
+                  <input
+                    type="text"
+                    placeholder="Item Name"
+                    value={item.name}
+                    onChange={(e) => handleItemChange(item.id, 'name', e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Item Price"
+                    value={item.price}
+                    onChange={(e) => handleItemChange(item.id, 'price', e.target.value)}
+                  />
+                </div>
+              ))}
+            </div>
 
+            <div className="modal-buttons">
+              <button className="save-button" onClick={handleSave}>
+                Save
+              </button>
+              <button className="raise-claim-button" onClick={handleRaiseClaim}>
+                Raise Claim
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-      {/* Footer */}
       <div className="footerd">
-        <div
-          className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('home')}
-        >
+        <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => handleFooterClick('home')}>
           <FontAwesomeIcon icon={faHome} />
           <span>Home</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('bookings')}
-        >
+        <div className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`} onClick={() => handleFooterClick('bookings')}>
           <FontAwesomeIcon icon={faClipboardList} />
           <span>Bookings</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('notifications')}
-        >
+        <div className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`} onClick={() => handleFooterClick('notifications')}>
           <FontAwesomeIcon icon={faBell} />
           <span>Notifications</span>
         </div>
-        <div
-          className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`}
-          onClick={() => handleFooterClick('profile')}
-        >
+        <div className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`} onClick={() => handleFooterClick('profile')}>
           <FontAwesomeIcon icon={faUser} />
           <span>Profile</span>
         </div>

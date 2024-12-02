@@ -27,6 +27,11 @@ const handleStaffCardClick = () => {
   router.push(`/VendorManagementService/WheelVendor/MyStaff?vendor_id=${vendorId}`);
 };
 
+const handleInvoiceCardClick = () => {
+  console.log('Navigating with Vendor ID:', vendorId);
+  router.push(`/VendorManagementService/WheelVendor/Invoice?vendor_id=${vendorId}`);
+};
+
   return (
     <div className="container5">
       <header className="header">
@@ -54,7 +59,7 @@ const handleStaffCardClick = () => {
             <MdInventory className="cardIcon" />
             <p className="label">Inventory</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/WheelVendor/Invoice')}>
+          <div className="card" onClick={handleInvoiceCardClick}>
             <FaFileInvoiceDollar className="cardIcon" />
             <p className="label">Invoice</p>
           </div>
