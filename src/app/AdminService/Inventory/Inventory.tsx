@@ -126,7 +126,7 @@ const Inventory = () => {
           <h1>Recent Activity</h1>
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search by product name..."
             className="search-bar"
             onChange={handleSearch}
           />
@@ -262,28 +262,27 @@ const Inventory = () => {
               </label>
               <label>
                 Product Image:
-                </label>
+                
                 <div
-  className={`input-field upload-field ${
-    formData.product_image ? "has-image" : ""
-  }`}
->
-  <label htmlFor="product-image">
-    <span className="camera-plus-icon">
-      <i className="fas fa-camera"></i>
-    </span>
-    {formData.product_image ? formData.product_image.name : "Upload Product Image"}
-  </label>
-  <input
-    type="file"
-    id="product-image"
-    accept="image/*"
-    onChange={handleImageChange}
-    style={{ display: 'none' }} // Hide the default input
-  />
-</div>
-
-
+                  className={`input-field upload-field ${
+                    formData.product_image ? "has-image" : ""
+                  }`}
+                >
+                  <label htmlFor="product-image">
+                    <span className="camera-plus-icon">
+                      <i className="fas fa-camera"></i>
+                    </span>
+                    {formData.product_image ? formData.product_image.name : "Upload Product Image"}
+                  </label>
+                  <input
+                    type="file"
+                    id="product-image"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: 'none' }} 
+                  />
+                </div>
+              </label>
               <button type="submit">Add</button>
             </form>
             {/* <button className="close-popup" onClick={handleClosePopup}>

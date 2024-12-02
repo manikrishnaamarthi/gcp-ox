@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
     } else if (icon === 'search') {
       router.push('/DashBoard/SearchPage');
     } else if (icon === 'appointments') {
-      router.push('/Booking');
+      router.push(`/Booking?oxi_id=${oxiId}`);
     } else if (icon === 'profile') {
       router.push(`/UserProfile?oxi_id=${oxiId}`);
     }

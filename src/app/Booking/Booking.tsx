@@ -19,6 +19,7 @@ interface Booking {
     address: string;
     booking_id: string;
     phone_number: number;
+    user_id: string;
 }
 
 const Booking = () => {
@@ -63,7 +64,8 @@ const Booking = () => {
     };
 
     const handleRescheduleClick = (booking: Booking) => {
-        router.push(`/Booking/ReschedulePage?booking_id=${booking.booking_id}&date=${booking.appointment_date}&time=${booking.appointment_time}}&name=${booking.name}&location=${booking.address}`);
+        localStorage.setItem('bookingData', JSON.stringify(booking));
+        router.push(`/Booking/ReschedulePage?booking_id=${booking.booking_id}&oxi_id=${booking.user_id}&date=${booking.appointment_date}&time=${booking.appointment_time}}&name=${booking.name}&location=${booking.address}`);
     };
     
 
@@ -99,7 +101,7 @@ const Booking = () => {
         } else if (icon === 'search') {
             router.push('/DashBoard/SearchPage');
         } else if (icon === 'booking') {
-            router.push('/Booking');
+            router.push(`/Booking`);
         } else if (icon === 'profile') {
             router.push('/UserProfile');
         }
