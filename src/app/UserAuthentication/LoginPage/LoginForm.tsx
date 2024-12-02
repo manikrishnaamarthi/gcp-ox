@@ -87,7 +87,7 @@ function LoginForm() {
         }
       } else if (data.user_type === 'driver') {
         localStorage.setItem('driver_id', data.driver_id);
-        router.push('/DriverManagementService/VendorDriverBooking/DriverDashBoard');
+        router.push('/DriverManagementService/VendorDriverBooking/MyBooking');
       }
     } else {
       setErrorMessage(data.message || 'Login failed. Please check your credentials.');
