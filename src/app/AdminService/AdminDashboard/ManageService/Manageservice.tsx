@@ -117,11 +117,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaHome, FaCartPlus, FaChartArea, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
-import { IoMdAddCircleOutline } from "react-icons/io";
+import { MdOutlineAddToPhotos } from "react-icons/md";
 import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { IoCameraOutline } from "react-icons/io5";
-import { CgRemove } from "react-icons/cg";
+import { CgRemoveR } from "react-icons/cg";
+import { useRouter } from 'next/navigation'; 
 import './Manageservice.css';
 
 // Define form data type
@@ -152,6 +153,8 @@ const Manageservice: React.FC = () => {
     image: null,
   });
   const [services, setServices] = useState<Service[]>([]);
+  const router = useRouter();
+
 
   // Fetch services from the backend when the component mounts
   const fetchServices = async () => {
@@ -177,7 +180,7 @@ const Manageservice: React.FC = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/manage-service/$SI-16971/`, {
+      const response = await fetch(`http://localhost:8000/api/manage-service/$SI-74163/`, {
         method: 'DELETE',
       });
 
@@ -275,6 +278,10 @@ const Manageservice: React.FC = () => {
     }
   };
 
+  const handleCardClick = () => {
+    router.push('/AdminService/AdminDashboard/ManageService/ManageServiceCard');
+  };
+
   return (
     <div className="manage-service">
       <aside className="manage-sidebar">
@@ -315,20 +322,20 @@ const Manageservice: React.FC = () => {
       </aside>
 
       <main className="content">
-        <header className="header">
+        <header className="header0">
           <h2 className="page-title">Manage Service</h2>
           <input type="text" className="search-bar" placeholder="Search services..." />
         </header>
 
         <div className="actions">
           <button className="add-service-btn" onClick={() => setShowModal(true)}>
-            <IoMdAddCircleOutline className="add-icon" /> Add Service
+            <MdOutlineAddToPhotos className="add-icon" /> Add Service
           </button>
         </div>
 
         <section className="service-cards">
           {services.map((service) => (
-            <div key={service.service_id} className="card">
+            <div key={service.service_id} className="card" onClick={handleCardClick}>
               <div className="card-image">
                 <img src={service.service_image} alt={service.service} />
                 <h3 className="head1">{service.service_type}</h3>
@@ -341,7 +348,7 @@ const Manageservice: React.FC = () => {
                   <strong>Price:</strong> <span style={{ color: 'red' }}>{service.price} Rs.</span>
                 </p>
                 <button className="remove-btn" onClick={() => handleRemove(service.service_id)}>
-                  <CgRemove className="remove-icon" /> Remove
+                  <CgRemoveR className="remove-icon" /> Remove
                 </button>
               </div>
             </div>
