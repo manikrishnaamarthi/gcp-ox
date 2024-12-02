@@ -1,7 +1,10 @@
 'use client';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Clinic.css';
-import { FaHome, FaCalendarAlt, FaBell, FaUser, FaRegBell, FaRegAddressBook, FaFileInvoiceDollar, FaUserMd ,FaUsers} from 'react-icons/fa';
+import { 
+  FaHome, FaCalendarAlt, FaBell, FaUser, FaRegBell, 
+  FaRegAddressBook, FaFileInvoiceDollar, FaUserMd, FaUsers 
+} from 'react-icons/fa';
 import { BsGraphUpArrow } from 'react-icons/bs';
 import { MdInventory } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
@@ -9,32 +12,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Clinic = () => {
-  const [selectedFooter, setSelectedFooter] = useState<string>('home'); // Declare state for selected footer
+  const [selectedFooter, setSelectedFooter] = useState<string>('home');
+  const [vendorId, setVendorId] = useState<string | null>(null); // State to store vendor ID
   const router = useRouter();
-  
-  const vendor_id = localStorage.getItem('vendor_id') || 'Unknown';
-  console.log('vendor_id',vendor_id);
+
+  // Fetch vendor_id only on the client side
+  useEffect(() => {
+    const id = localStorage.getItem('vendor_id') || 'Unknown';
+    setVendorId(id);
+  }, []);
+
+  console.log('vendor_id', vendorId);
 
   const handleFooterClick = (section: string) => {
-    setSelectedFooter(section); // Update the selected footer section
+    setSelectedFooter(section);
   };
+
   useEffect(() => {
     document.body.classList.add('clinic');
     return () => document.body.classList.remove('clinic');
   }, []);
 
-  const vendorId = localStorage.getItem('vendor_id'); // Retrieve vendor_id from local storage
-
   const handleDoctorCardClick = () => {
-      console.log('Navigating with Vendor ID:', vendorId);
-      router.push(`/VendorManagementService/ClinicVendor/MyDoctors?vendor_id=${vendorId}`);
+    console.log('Navigating with Vendor ID:', vendorId);
+    router.push(`/VendorManagementService/ClinicVendor/MyDoctors?vendor_id=${vendorId}`);
   };
 
   const handleStaffCardClick = () => {
     console.log('Navigating with Vendor ID:', vendorId);
     router.push(`/VendorManagementService/ClinicVendor/MyStaff?vendor_id=${vendorId}`);
-};
-  
+  };
 
   return (
     <div className="clinic-containers6">
@@ -96,7 +103,7 @@ const Clinic = () => {
           <FontAwesomeIcon icon={faUser} />
           <span>Profile</span>
         </div>
-        </div>
+      </div>
     </div>
   );
 };

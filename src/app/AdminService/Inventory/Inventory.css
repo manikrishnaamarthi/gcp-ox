@@ -296,7 +296,8 @@ body {
     padding: 8px;
     border-radius: 4px;
     transition: border-color 0.3s ease;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    height: 40px;
   }
   
   .camera-plus-icon {
@@ -309,6 +310,9 @@ body {
     display: flex;
     align-items: center;
     color: #333;
+    font-size: 14px;
+    color: #666;
+    margin-top: 20px;
   }
   
   

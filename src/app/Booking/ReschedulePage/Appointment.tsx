@@ -13,15 +13,16 @@ const Appointment = () => {
   const [currentTime, setCurrentTime] = useState<string>(today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
-  const [selectedData, setSelectedData] = useState<{ serviceType: string; address: string; name: string; oxiId :string;  phone_number :string;    email : string;} | null>(null);
+  const [bookingData, setSelectedData] = useState<{ service_type: string; address: string; name: string; user_id: string; booking_id :string;  phone_number :string;    email : string;} | null>(null);
 
   const modalRef = useRef(null);
   
   
   // Load data from local storage
   useEffect(() => {
-    const savedData = localStorage.getItem('selectedData');
+    const savedData = localStorage.getItem('bookingData');
     if (savedData) {
+      console.log("Selected Data from localStorage:", JSON.parse(savedData)); // Debugging log
       setSelectedData(JSON.parse(savedData));
     }
   }, []);
@@ -86,28 +87,52 @@ const Appointment = () => {
     }
   };
 
-  const handleContinue = () => {
-    if (selectedDay !== null && selectedSlot !== null) {
-      const selectedDate = `${new Date(today.getFullYear(), new Date(`${weekDates[selectedDay].month} 1, 2024`).getMonth(), weekDates[selectedDay].day).toISOString().split('T')[0]}`;
+  const userId = bookingData?.user_id || ""; // Replace with actual user_id if different
 
+  const handleContinue = async () => {
+    if (selectedDay !== null && selectedSlot !== null) {
+      const selectedDateObj = new Date(today); // Clone today's date
+      selectedDateObj.setDate(today.getDate() + selectedDay); // Adjust to selected day
+      const selectedDate = selectedDateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
       const selectedTime = selectedSlot.split('-')[1];
   
-      const appointmentData = {
-        serviceType: selectedData?.serviceType,
-        address: selectedData?.address,
-        name: selectedData?.name,
-        oxiId: selectedData?.oxiId,  // Pass oxiId as well
+      const BookingData = {
+        booking_id: bookingData?.booking_id,
         appointmentDate: selectedDate,
         appointmentTime: selectedTime,
-        phone_number: selectedData?.phone_number,  // Added phone number
-        email: selectedData?.email,  // Added email
       };
   
-      localStorage.setItem('appointmentData', JSON.stringify(appointmentData));
-      window.location.href = '/DashBoard/paymentPage';
+      console.log("Payload sent to API:", BookingData); // Debugging log
+  
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/update-booking/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(BookingData),
+        });
+  
+        const result = await response.json();
+        console.log("API Response:", result); // Debugging log
+  
+        if (response.ok) {
+          // Redirect to the Booking page with user_id as a query parameter
+          
+          router.push(`/Booking?user_id=${userId}`);
+        } else {
+          console.error(result.error);
+        }
+      } catch (error) {
+        console.error('Error updating booking:', error);
+      }
     }
     setIsModalOpen(false);
   };
+  
+
+
+
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -160,15 +185,15 @@ const Appointment = () => {
 
       {/* Conditionally render selected service */}
       <div className="services">
-        {selectedData?.serviceType === 'Oxivive Clinic' && (
+        {bookingData?.service_type === 'Oxi Clinic' && (
           <div className="service">
-            <p>Oxivive Clinic</p>
+            <p>Oxi Clinic</p>
             <p><span className="amount">INR 49</span></p>
           </div>
         )}
-        {selectedData?.serviceType === 'Oxivive Wheel' && (
+        {bookingData?.service_type === 'Oxi wheel' && (
           <div className="service">
-            <p>Oxivive Wheel</p>
+            <p>Oxi Wheel</p>
             <p><span className="amount">$ 29</span></p>
           </div>
         )}
@@ -240,8 +265,8 @@ const Appointment = () => {
             ) : (
               <>
                 {/* Display user details */}
-                <p><strong>Name:</strong> {selectedData?.name || "N/A"}</p>
-                <p><strong>Address:</strong> {selectedData?.address || "Fetching address..."}</p>
+                <p><strong>Name:</strong> {bookingData?.name || "N/A"}</p>
+                <p><strong>Address:</strong> {bookingData?.address || "Fetching address..."}</p>
 
                 {/* Display appointment date and time */}
                 <p><strong>Time:</strong> {selectedSlot?.split('-')[1]}</p>

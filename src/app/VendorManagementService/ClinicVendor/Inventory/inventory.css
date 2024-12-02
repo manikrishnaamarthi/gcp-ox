@@ -53,10 +53,18 @@ body {
   flex-grow: 1;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
+  flex-grow: 1; /* Allows this section to expand inside the popup */
+  overflow-y: auto; /* Enables vertical scrolling */
+  border-radius: 8px; /* Adjusted for uniform border radius */
+  scrollbar-width: none;
+}
+
+.inventory-cards::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
 }
 
 .inventory-card {
-  padding: 16px;
+  /* padding: 16px; */
   display: flex;
   background-color: white;
   border-radius: 8px;
@@ -191,6 +199,9 @@ body {
   width: 80%;
   max-width: 350px;
   text-align: center;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
 }
 
 .popup-item-details {
@@ -216,6 +227,19 @@ body {
   margin-bottom: 20px;
 }
 
+.save-popup {
+  background-color: rgb(233, 11, 15);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+
 .close-popup {
   background-color: rgb(233, 11, 15);
   color: white;
@@ -225,4 +249,5 @@ body {
   font-size: 16px;
   border-radius: 8px;
   width: 100%;
+  margin-top: 10px;
 }
