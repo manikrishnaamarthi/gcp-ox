@@ -80,8 +80,8 @@ const Inventory: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          vendor_id: vendorId, // Send vendor_id separately
-          items: payload,     // Send items array
+          vendor_id: vendorId,
+          items: payload,
         }),
       });
   
@@ -98,6 +98,7 @@ const Inventory: React.FC = () => {
       alert('An error occurred while saving inventory.');
     }
   };
+  
   
 
   return (
