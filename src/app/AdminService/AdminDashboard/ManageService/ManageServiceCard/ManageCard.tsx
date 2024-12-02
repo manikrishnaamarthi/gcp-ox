@@ -48,7 +48,7 @@ const ManageCard: React.FC = () => {
       </aside>
 
       <main className="content">
-        <header className="header">
+        <header className="header2">
           <h2 className="page-title">Manage Service</h2>
         </header>
 

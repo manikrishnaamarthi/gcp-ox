@@ -52,8 +52,10 @@ const Details = () => {
     // Validation rules
     let validatedValue = value;
 
-    if (name === 'name' || name === 'state' || name === 'district' || name === 'address' || name === 'wheel_name' || name === 'clinicName') {
-      validatedValue = value.replace(/[^a-zA-Z\s]/g, ''); // Only letters and spaces
+    if (name === 'name' || name === 'state' || name === 'district' || name === 'wheel_name' || name === 'clinicName') {
+      validatedValue = value.replace(/[^a-zA-Z\s]/g, ''); // Allows only letters and spaces
+    } else if (name === 'address') {
+      validatedValue = value.replace(/[^a-zA-Z\s,]/g, ''); // Allows letters, spaces, and commas
     } else if (name === 'phone') {
       validatedValue = value.replace(/[^0-9]/g, '').slice(0, 10); // Only digits, max 10 characters
     } else if (name === 'pincode') {
