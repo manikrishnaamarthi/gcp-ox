@@ -13,29 +13,33 @@ body {
   overflow: hidden;
   
   }
+
+
+  .map-section {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    width: 100%;
+    max-width: 350px;
+    overflow: hidden;
+    margin: 0 auto; 
+    overflow: hidden; 
+    }
+
+
   .appointment-container {
     padding: 16px;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
     width: 100%; 
     max-width: 350px;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     background-color: white;
     flex-direction: column;
-    transform: translateY(-100%); /* Moves it to overlap from the middle */
-    margin: 0 auto;
+    transform: translateY(-100%); 
     overflow: hidden;
-    
+    z-index: 1;
   }
   
-  .map-section {
-  position: relative;
-  height: 100vh; /* Full viewport height */
-  width: 100%;
-  overflow: hidden;
-    
-  }
+  
   
   
 .map-full-width {

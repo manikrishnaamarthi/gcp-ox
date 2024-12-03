@@ -5,7 +5,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { LuBookPlus } from "react-icons/lu";
 import { SlHome } from "react-icons/sl";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { FaLocationArrow } from "react-icons/fa6";
+import { IoChevronBackSharp } from 'react-icons/io5';
 import { BsPerson } from "react-icons/bs";
 import './DriverMap.css';
 
@@ -197,7 +197,9 @@ const DriverMap: React.FC = () => {
   return (
     <div className="driverMapContainer">
       <div id="map" style={{ width: "100%", height: "80vh" }}></div>
-     
+      <button className="back-button" onClick={() => router.back()}>
+          <IoChevronBackSharp size={20} /> {/* Back icon */}
+        </button>
         <label className="distance">{distance ? `${distance} | ${duration}` : "Calculating route..."}</label>
      
       {isReached ? (

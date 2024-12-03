@@ -305,11 +305,11 @@ useEffect(() => {
             : "N/A"}</p>
                 
                 <p>
-                  <strong>Date:</strong> {weekDates[selectedDay!].weekDay}, 
-                  {weekDates[selectedDay!].day} 
-                  {weekDates[selectedDay!].month} 
-                  {today.getFullYear()}
-                </p>
+              <strong>Date:</strong> {weekDates[selectedDay!].weekDay}{weekDates[selectedDay!].day} 
+              &nbsp;{weekDates[selectedDay!].month}&nbsp; 
+              {today.getFullYear()}
+               </p>
+
               </>
             )}
             <div className="modal-buttons">

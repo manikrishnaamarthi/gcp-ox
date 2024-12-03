@@ -19,13 +19,34 @@ const DriverOtp = () => {
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
-
-      // Focus next input
+  
+      // Focus the next input
       if (element.nextSibling) {
         element.nextSibling.focus();
       }
+    } else if (value === "") {
+      const newOtp = [...otp];
+      newOtp[index] = "";
+      setOtp(newOtp);
     }
   };
+  
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      const newOtp = [...otp];
+      if (otp[index] === "") {
+        // Focus the previous input
+        if (e.target.previousSibling) {
+          e.target.previousSibling.focus();
+        }
+      } else {
+        // Clear the current input
+        newOtp[index] = "";
+        setOtp(newOtp);
+      }
+    }
+  };
+  
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -70,6 +91,7 @@ const DriverOtp = () => {
                 className="otp-input"
                 value={otp[index]}
                 onChange={(e) => handleChange(e.target, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)} // Add this line
                 onFocus={(e) => e.target.select()}
               />
             ))}

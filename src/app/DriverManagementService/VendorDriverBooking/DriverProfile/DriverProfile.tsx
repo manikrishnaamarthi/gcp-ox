@@ -4,11 +4,14 @@ import { useSearchParams } from "next/navigation"; // For extracting query param
 import "./DriverProfile.css";
 import { SlHome } from "react-icons/sl";
 import { FaRegAddressBook } from "react-icons/fa";
-import { IoNotificationsOutline } from "react-icons/io5";
+import { IoNotificationsOutline , IoChevronBackSharp} from "react-icons/io5";
 import { BsPerson } from "react-icons/bs";
 import { LuBookPlus } from "react-icons/lu";
+import { useRouter } from 'next/navigation';
+
 
 const DriverProfile: React.FC = () => {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const driverId = searchParams.get("driver_id"); // Get driver_id from query params
     const [driverDetails, setDriverDetails] = useState({
@@ -17,6 +20,17 @@ const DriverProfile: React.FC = () => {
         phone: "",
         profile_photo: "https://via.placeholder.com/150", // Default image
     });
+
+    const handleBookingClick = () => {
+        router.push(`/DriverManagementService/VendorDriverBooking/MyBooking/`);
+      };
+
+      const handleLogout = () => {
+        // Perform logout logic here (e.g., clearing tokens or session data)
+        console.log("User logged out"); // Debugging line
+        router.push(`/UserAuthentication/LoginPage`);
+    };
+
 
     useEffect(() => {
         if (driverId) {
@@ -43,11 +57,17 @@ const DriverProfile: React.FC = () => {
         }
     }, [driverId]);
 
-    
+    const handleBackClick = () => {
+        router.back(); // Navigate to the previous page
+    };
 
     return (
       <div className="container">
         <div className="driver-profile">
+
+        <button className="back-button" onClick={handleBackClick}>
+                    <IoChevronBackSharp className="back-icon" />
+                </button>
             <h1>Profile</h1>
             <div className="profile-photo" >
                 <img
@@ -72,6 +92,14 @@ const DriverProfile: React.FC = () => {
 
                 <label htmlFor="phone">Phone</label>
                 <input type="tel" id="phone" value={driverDetails.phone} readOnly />
+
+                {/* Logout Button */}
+                <button
+                    className="logout-button"
+                    onClick={handleLogout}
+                >
+                    Logout
+                </button>
             </div>
             </div>
 
@@ -80,7 +108,7 @@ const DriverProfile: React.FC = () => {
                     <SlHome className="footerIcon" />
                     <p>Home</p>
                 </div>
-                <div className="footerItem">
+                <div className="footerItem" onClick={handleBookingClick}>
                     <LuBookPlus className="footerIcon" />
                     <p>Booking</p>
                 </div>
