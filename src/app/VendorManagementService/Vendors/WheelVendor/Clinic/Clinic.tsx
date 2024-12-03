@@ -25,7 +25,16 @@ const Clinic = () => {
   console.log('vendor_id', vendorId);
 
   const handleFooterClick = (section: string) => {
-    setSelectedFooter(section);
+    setSelectedFooter(section); // Update the selected footer section
+    if (section === 'home') {
+      router.push('/VendorManagementService/ClinicVendor/home');
+    } else if (section === 'bookings') {
+      router.push('/VendorManagementService/ClinicVendor/MyBookings');
+    } else if (section === 'notifications') {
+      router.push('/VendorManagementService/ClinicVendor/notifications');
+    } else if (section === 'profile') {
+      router.push('/VendorManagementService/ClinicVendor/profile');
+    }
   };
 
   useEffect(() => {

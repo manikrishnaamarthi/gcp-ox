@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './EditProfile.css';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { IoChevronBackSharp } from 'react-icons/io5';
 
 const EditProfile = () => {
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ const EditProfile = () => {
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [originalData, setOriginalData] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const router = useRouter();
   const oxiId = localStorage.getItem('oxi_id');
@@ -19,7 +21,6 @@ const EditProfile = () => {
    alert('Invalid user session.');
    return;
   }
-
 
   useEffect(() => {
     const oxiId = localStorage.getItem('oxi_id') || 'Unknown';
@@ -50,9 +51,36 @@ const EditProfile = () => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    // Name validation
+    if (!name) {
+      newErrors.name = 'Name is required.';
+    }
+
+    // Email validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || !emailRegex.test(email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+
+    // Phone number validation (exactly 10 digits)
+    const phoneRegex = /^\d{10}$/;
+    if (!mobile || !phoneRegex.test(mobile)) {
+      newErrors.mobile = 'Mobile number must be 10 digits.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
   const handleSave = async () => {
     const oxiId = localStorage.getItem('oxi_id') || 'Unknown';
     if (!oxiId || !originalData) return;
+
+    if (!validateForm()) {
+      return; // Don't proceed if validation fails
+    }
 
     try {
       setIsSaving(true);
@@ -74,22 +102,12 @@ const EditProfile = () => {
         formData.append('profile_photo', cloudinaryResult.secure_url);
       }
 
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-      
-
-      // const response = await axios.patch(
-      //   `http://127.0.0.1:8000/usmapp/usmapp-oxiusers/${oxiId}/`,
-      //   formData,
-      //   { headers: { 'Content-Type': 'multipart/form-data' } }
-      // );
       const response = await fetch(`http://localhost:8000/usmapp/usmapp-oxi/${oxiId}/`, {
         method: 'PATCH',
         credentials: 'include',
         body: formData, // Send FormData instead of JSON
       });
-       console.log (formData);
+
       if (response.status === 200) {
         alert('Profile updated successfully!');
         router.push('/UserProfile');
@@ -116,8 +134,8 @@ const EditProfile = () => {
   return (
     <div className="edit-profile">
       <header className="edit-profile-header">
-        <button className="back-btn" onClick={() => router.push('/UserProfile')}>
-          Back
+        <button className="back-btn-circle" onClick={() => router.push('/UserProfile')}>
+          <IoChevronBackSharp size={24} />
         </button>
         <h2>Edit Profile</h2>
         <button className="save-btn" onClick={handleSave} disabled={isSaving}>
@@ -126,10 +144,9 @@ const EditProfile = () => {
       </header>
 
       <div className="edit-profile-content">
-      <div className="plus-icon0" onClick={() => document.getElementById('profileImageInput').click()}>+</div>
+        <div className="plus-icon0" onClick={() => document.getElementById('profileImageInput').click()}>+</div>
         <div className="profile-image-containerp">
-          <img src={profileImage} alt="Profile" className="profile-imageb"
-           />
+          <img src={profileImage} alt="Profile" className="profile-imageb" />
           <input
             type="file"
             id="profileImageInput"
@@ -151,6 +168,7 @@ const EditProfile = () => {
             placeholder="Enter your name"
             onChange={(e) => setName(e.target.value)}
           />
+          {errors.name && <div className="error">{errors.name}</div>}
         </div>
 
         <div className="form-group">
@@ -162,6 +180,7 @@ const EditProfile = () => {
             placeholder="Enter your email"
             onChange={(e) => setEmail(e.target.value)}
           />
+          {errors.email && <div className="error">{errors.email}</div>}
         </div>
 
         <div className="form-group">
@@ -173,6 +192,7 @@ const EditProfile = () => {
             placeholder="Enter your mobile number"
             onChange={(e) => setMobile(e.target.value)}
           />
+          {errors.mobile && <div className="error">{errors.mobile}</div>}
         </div>
       </div>
     </div>
