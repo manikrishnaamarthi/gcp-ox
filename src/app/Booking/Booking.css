@@ -162,7 +162,7 @@ body {
   font-size: 14px;
 }
 
-.service-name {
+.service-name1 {
   margin: 0px 0;
   font-size: 20px;
   color: #000;
@@ -170,18 +170,18 @@ body {
   margin-top: -5px;
 }
 
-.booking-address,
-.booking-phone {
+.booking-address1,
+.booking-phone1 {
     font-size: 14px;
     color: #555;
     margin: 5px 0;
 }
 
-.booking-address {
+.booking-address1 {
     font-weight: bold;
 }
 
-.booking-phone {
+.booking-phone1 {
     color: #f20303;
 }
 

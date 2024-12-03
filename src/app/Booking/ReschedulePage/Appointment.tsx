@@ -119,7 +119,7 @@ const Appointment = () => {
         if (response.ok) {
           // Redirect to the Booking page with user_id as a query parameter
           
-          router.push(`/Booking?user_id=${userId}`);
+          router.push('http://localhost:3000/Booking?oxi_id=CI09721');
         } else {
           console.error(result.error);
         }
@@ -173,10 +173,10 @@ const Appointment = () => {
   
 
   return (
-    <div className="appointment-container">
-      <div className="header">
+    <div className="appointment-container1">
+      <div className="header2">
         
-        <button className="back-button" onClick={() => router.back()}>
+        <button className="back-button1" onClick={() => router.back()}>
           <IoChevronBackSharp size={20} /> {/* Back icon */}
         </button>
         <h1>Oxivive Services</h1>
@@ -184,22 +184,22 @@ const Appointment = () => {
      
 
       {/* Conditionally render selected service */}
-      <div className="services">
+      <div className="services3">
         {bookingData?.service_type === 'Oxi Clinic' && (
-          <div className="service">
+          <div className="service3">
             <p>Oxi Clinic</p>
             <p><span className="amount">INR 49</span></p>
           </div>
         )}
         {bookingData?.service_type === 'Oxi wheel' && (
-          <div className="service">
+          <div className="service3">
             <p>Oxi Wheel</p>
             <p><span className="amount">$ 29</span></p>
           </div>
         )}
       </div>
 
-      <div className="appointment-dates">
+      <div className="appointment-dates1">
         <h2>Appointment</h2>
         <div className="date-picker-container">
         <div className="date-picker" >
@@ -217,7 +217,7 @@ const Appointment = () => {
         </div>
       </div>
 
-      <div className="time-slots">
+      <div className="time-slots1">
         <h3>Morning</h3>
         <div className="slots">
           {morningSlots.map((slot, index) => (
@@ -248,7 +248,7 @@ const Appointment = () => {
       </div>
 
       <div className="total-payment">
-        <button className="proceed-button" onClick={handleProceed}>Proceed</button>
+        <button className="proceed-button1" onClick={handleProceed}>Proceed</button>
       </div>
 
       {isModalOpen && (
@@ -270,12 +270,8 @@ const Appointment = () => {
 
                 {/* Display appointment date and time */}
                 <p><strong>Time:</strong> {selectedSlot?.split('-')[1]}</p>
-                <p>
-                  <strong>Date:</strong> {weekDates[selectedDay!].weekDay}, 
-                  {weekDates[selectedDay!].day} 
-                  {weekDates[selectedDay!].month} 
-                  {today.getFullYear()}
-                </p>
+                <p><strong>Date:</strong> {weekDates[selectedDay!].weekDay}, {weekDates[selectedDay!].day} {weekDates[selectedDay!].month} {today.getFullYear()}</p>
+
               </>
             )}
             <div className="modal-buttons">

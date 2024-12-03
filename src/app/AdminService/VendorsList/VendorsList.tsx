@@ -19,7 +19,7 @@ const VendorsList: React.FC = () => {
   const [selected_service, setSelectedService] = useState<string>("Oxi Clinic");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState<string>(""); // Search input state
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const cities = [
     { name: "Bengaluru", image: "/images/bang.png" },
@@ -37,12 +37,15 @@ const VendorsList: React.FC = () => {
 
   const handleCityClick = (city: string) => {
     setSelectedCity(city);
-    fetchVendors(city, selected_service);
+    setIsLoading(true); // Set loading to true when changing the city
+    setError(""); // Reset error
+
+    fetchVendors(city); // Fetch vendors for the selected city
   };
 
   const handleServiceClick = (service: string) => {
     setSelectedService(service);
-    filterVendorsByService(service);
+    filterVendorsByService(service); // Filter vendors by service when clicked
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,45 +53,79 @@ const VendorsList: React.FC = () => {
     filterVendorsByService(selected_service, vendors, event.target.value);
   };
 
-  const fetchVendors = async (city: string, service: string) => {
-    setIsLoading(true);
-    setError("");
-
-    try {
-      const response = await axios.get<Vendor[]>(`http://127.0.0.1:8000/api/vendorapp-vendordetails/?city=${city}`);
-      setVendors(response.data);
-      filterVendorsByService(service, response.data);
-    } catch (err) {
-      setError("Failed to fetch vendors. Please try again later.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const filterVendorsByService = (service: string, vendorData: Vendor[] = vendors, query: string = searchQuery) => {
-    const filteredByService = vendorData.filter(vendor => vendor.selected_service === service);
-
-    // Further filter by search query (if any)
-    const filtered = filteredByService.filter(vendor =>
-      vendor.name.toLowerCase().includes(query.toLowerCase())
+  const filterVendorsByService = (
+    service: string,
+    vendorData: Vendor[] = vendors,
+    query: string = searchQuery
+  ) => {
+    // Filter vendors by city and service
+    const filteredByServiceAndCity = vendorData.filter(
+      (vendor) =>
+        vendor.selected_service === service &&
+        vendor.address.toLowerCase().includes(selectedCity.toLowerCase()) // Filter by city
     );
 
-    setFilteredVendors(filtered);
+    // Further filter by the search query (vendor name)
+    const filtered = filteredByServiceAndCity.filter((vendor) =>
+      vendor.name.toLowerCase().startsWith(query.toLowerCase()) // Filter by search query
+    );
+
+    setFilteredVendors(filtered); // Update filtered vendors list
+  };
+
+  const fetchVendors = async (city: string) => {
+    try {
+      const response = await axios.get<Vendor[]>(
+        `http://127.0.0.1:8000/api/vendorapp-vendordetails/?city=${city}`
+      );
+      const vendorsData = response.data;
+
+      if (vendorsData.length === 0) {
+        setError("No vendors found for the selected city.");
+        setFilteredVendors([]); // Reset filtered vendors if no data
+      } else {
+        // Filter vendors based on the selected city
+        const filteredByCity = vendorsData.filter((vendor) =>
+          vendor.address.toLowerCase().includes(city.toLowerCase()) // Filter by city
+        );
+
+        setVendors(vendorsData); // Set the full vendors list
+        setFilteredVendors(filteredByCity); // Set the filtered vendors list by city initially
+
+        // Filter the vendors further by the selected service
+        filterVendorsByService(selected_service, filteredByCity); // Apply the service filter
+      }
+    } catch (err) {
+      setError("Failed to fetch vendors. Please try again later.");
+      setFilteredVendors([]); // Ensure the filtered vendors are reset
+    } finally {
+      setIsLoading(false); // Stop loading after the fetch is complete
+    }
   };
 
   useEffect(() => {
-    // Reset state when city is not selected
-    if (!selectedCity) {
-      setFilteredVendors([]);
+    if (selectedCity) {
+      filterVendorsByService(selected_service); // Apply service filter when city changes
     }
-  }, [selectedCity]);
+  }, [selectedCity, selected_service]); // Apply the filters when city or service changes
 
   return (
     <div className="container">
-      <Sidebar/>
+      <Sidebar />
       <main className="main">
-        <header className="header">
-          <h2 className="header-title">Vendors List</h2>
+        <header className="header2">
+          <div className="header-content">
+            <h2 className="header-title">Vendors List</h2>
+            {selectedCity && (
+              <input
+                type="text"
+                placeholder="Search Vendor"
+                className="header-search"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            )}
+          </div>
         </header>
 
         <section className="popular-cities">
@@ -133,13 +170,6 @@ const VendorsList: React.FC = () => {
                   Oxi Wheel
                 </span>
               </div>
-              <input
-                type="text"
-                placeholder="Search Vendor"
-                className="filter-search"
-                value={searchQuery}
-                onChange={handleSearchChange}
-              />
             </div>
 
             <table className="vendors-table">

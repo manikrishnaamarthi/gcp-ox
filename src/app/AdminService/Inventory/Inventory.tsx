@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import "./Inventory.css";
 import Sidebar from "../Sidebar/page";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useRouter } from "next/navigation"; // For navigation
 
 
 const Inventory = () => {
+  const router = useRouter();
   const [showPopup, setShowPopup] = useState(false);
   const [inventory, setInventory] = useState([]);
   const [filteredInventory, setFilteredInventory] = useState([]);
@@ -109,9 +111,25 @@ const Inventory = () => {
   const handleSearch = (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const filtered = inventory.filter((item) =>
-      item.product_name.toLowerCase().includes(searchTerm)
+      item.product_name.toLowerCase().startsWith(searchTerm)
     );
     setFilteredInventory(filtered);
+  };
+
+  const handleCardClick = (cardType) => {
+    switch (cardType) {
+      case "vendorsNewMessage":
+        router.push("http://localhost:3000/AdminService/Inventorys");
+        break;
+      case "newItems":
+        router.push("/NewItems");
+        break;
+      case "vendorRefunds":
+        router.push("/VendorRefunds");
+        break;
+      default:
+        break;
+    }
   };
 
   // Calculate dynamic numbers for stock section
@@ -135,11 +153,14 @@ const Inventory = () => {
         {/* Summary Cards */}
         <div className="summary-cards">
           <div className="card1">
-            <p className="count">700</p>
+            <p className="count">{itemCategoriesCount}</p>
             <p>Total</p>
             <span>NEW ITEMS</span>
           </div>
-          <div className="card1 highlighted">
+          <div
+            className="card1"
+            onClick={() => handleCardClick("vendorsNewMessage")}
+          >
             <p className="count">4</p>
             <p>Vendors</p>
             <span>NEW MESSAGE</span>
