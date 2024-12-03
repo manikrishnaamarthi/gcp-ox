@@ -1,10 +1,11 @@
 'use client'
 import React from 'react';
-import { FaHome, FaCartPlus, FaChartArea, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaCartPlus, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
 import { MdManageAccounts, MdOutlineInventory, MdOutlinePeopleAlt } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import { FaPeopleGroup } from "react-icons/fa6";
+import { IoMdPersonAdd } from "react-icons/io";
 import './Sidebar.css';
 
 const Sidebar = () => {
@@ -23,14 +24,14 @@ const Sidebar = () => {
         <div className="sidebar-icon" data-name="Invoice">
           <FaCartPlus />
         </div>
-        <div className="sidebar-icon" data-name="Booking" onClick={() => router.push('http://localhost:3000/AdminService/AdminDashboard/Booking/')}>
+        <div className="sidebar-icon" data-name="Booking" onClick={() => router.push('http://localhost:3000/AdminService/Booking/')}>
           <BiSolidBookAdd />
         </div>
         <div className="sidebar-icon" data-name="Vendor Approval" onClick={() => router.push('http://localhost:3000/AdminService/AdminDashboard/')}>
           <FaPeopleGroup />
         </div>
-        <div className="sidebar-icon" data-name="Revenue">
-          <FaChartArea />
+        <div className="sidebar-icon" data-name="Add Admin" onClick={() => router.push('http://localhost:3000/AdminService/AdminPerson/')}>
+          <IoMdPersonAdd />
         </div>
         <div className="sidebar-icon" data-name="Manage Service" onClick={() => router.push('http://localhost:3000/AdminService/AdminDashboard/ManageService/')}>
           <MdManageAccounts />

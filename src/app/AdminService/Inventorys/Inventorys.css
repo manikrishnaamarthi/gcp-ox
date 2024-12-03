@@ -1,0 +1,219 @@
+/* General Layout */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ensure full viewport height */
+    background-color: #fff; /* Uniform background color */
+    font-family: Arial, sans-serif; /* Optional: Set a default font */
+}
+
+.inventory-container {
+    display: flex;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  margin-left: 150px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.header1 {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers the content horizontally */
+    position: relative; /* Enables positioning for children */
+}
+
+.header1 h1 {
+    font-size: 30px;
+    color: red;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the h1 element */
+    margin: 0; /* Removes default margin */
+    font-weight: bold;
+}
+
+.search-bar1 {
+    padding: 8px;
+    width: 200px;
+    border-radius: 10px;
+    border: 1px solid red;
+    font-size: 14px;
+    color: red;
+    margin-left: 1100px;
+}
+
+.search-bar1:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+}
+
+.search-bar1::placeholder {
+    color: red;
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 600px;
+    gap: 20px;
+    padding: 20px;
+    color: #333;
+    width: 700px;
+}
+
+.card1 {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card1 .count {
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+}
+
+/* Table Container */
+.table-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Table Header */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.filter-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    color: red;
+}
+
+/* Request Table */
+.request-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-top: 20px;
+    font-size: 18px; /* Updated table text size */
+}
+
+.request-table th,
+.request-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    color: #333;
+}
+
+.request-table th {
+    background: #f7f7f7;
+    font-weight: 600; /* Semi-bold */
+    color: #000;
+}
+
+.requests {
+    color: red;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.category {
+    background: #d32f2f;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.approved {
+    color: green; /* Updated to green */
+    font-weight: bold;
+}
+
+.pending {
+    color: orange; /* Updated to orange */
+    font-weight: bold;
+}
+
+/* Action Buttons */
+.button-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically if needed */
+}
+
+.action-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px; /* Add some space between buttons */
+}
+
+.action-button.send {
+    background: #d32f2f;
+    color: #fff;
+    font-weight: bold;
+}
+
+.action-button.sent {
+    background: green;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0; /* Sidebar is not fixed for small screens */
+        width: 100%; /* Full width for small screens */
+        padding: 10px;
+    }
+
+    .sidebar {
+        position: relative; /* Sidebar becomes static */
+        width: 100%; /* Full width for small screens */
+        height: auto;
+        box-shadow: none;
+    }
+
+    .summary-cards {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

@@ -16,10 +16,12 @@ const AdminPerson = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [admins, setAdmins] = useState([]);
+  const [filteredAdmins, setFilteredAdmins] = useState([]); // New state for filtered admins
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editAdminId, setEditAdminId] = useState(null); // To track the admin being edited
+  const [searchTerm, setSearchTerm] = useState(''); // New state for search term
 
   useEffect(() => {
     const fetchAdminData = async () => {
@@ -28,6 +30,7 @@ const AdminPerson = () => {
         if (response.ok) {
           const data = await response.json();
           setAdmins(data);
+          setFilteredAdmins(data); // Set filteredAdmins with all admins initially
         } else {
           setError('Failed to fetch data');
         }
@@ -40,6 +43,21 @@ const AdminPerson = () => {
 
     fetchAdminData();
   }, []);
+
+  // Update the filteredAdmins when search term changes
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    
+    if (value.trim() === '') {
+      setFilteredAdmins(admins); // If search term is empty, show all admins
+    } else {
+      const filtered = admins.filter((admin) =>
+        admin.name.toLowerCase().startsWith(value.toLowerCase()) // Case-insensitive search
+      );
+      setFilteredAdmins(filtered);
+    }
+  };
 
   const handleAddAdminClick = () => {
     setShowAddAdminForm(true);
@@ -112,8 +130,14 @@ const AdminPerson = () => {
                 admin.admin_id === editAdminId ? updatedAdmin : admin
               )
             );
+            setFilteredAdmins(
+              filteredAdmins.map((admin) =>
+                admin.admin_id === editAdminId ? updatedAdmin : admin
+              )
+            );
           } else {
             setAdmins([...admins, updatedAdmin]); // Add new admin to the list
+            setFilteredAdmins([...filteredAdmins, updatedAdmin]); // Add new admin to filtered list
           }
 
           setShowAddAdminForm(false);
@@ -157,7 +181,13 @@ const AdminPerson = () => {
               </p>
             </div>
             {!showAddAdminForm && (
-              <input type="text" placeholder="Search Admin" className="search-input" />
+              <input
+                type="text"
+                placeholder="Search Admin"
+                className="search-input"
+                value={searchTerm}
+                onChange={handleSearchChange} // Update search on input change
+              />
             )}
           </div>
         </header>
@@ -182,7 +212,7 @@ const AdminPerson = () => {
               </tr>
             </thead>
             <tbody>
-              {admins.map((admin, index) => (
+              {filteredAdmins.map((admin, index) => (
                 <tr key={admin.admin_id}>
                   <td>{index + 1}</td>
                   <td>{admin.name}</td>
@@ -223,7 +253,10 @@ const AdminPerson = () => {
               )}
               <div className="form-actions">
                 <button type="submit" className="save1-btn">
-                  {editMode ? 'Update' : 'Save'}
+                  {editMode ? 'Update Admin' : 'Save Admin'}
+                </button>
+                <button type="button" className="cancel-btn" onClick={() => setShowAddAdminForm(false)}>
+                  Cancel
                 </button>
               </div>
             </form>

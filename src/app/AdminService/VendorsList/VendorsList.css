@@ -91,18 +91,32 @@
   }
   
   /* Header */
-  .header {
+  .header-content {
     display: flex;
-    justify-content: center;
-    /* border-bottom: 1px solid #ddd; */
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-search {
+    padding: 5px;
+    border: 1px solid #e80808;
+    border-radius: 15px;
+    color: #eb0909;
+  }
+  .header-search:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+  }
+  .header-search::placeholder{
+    color: #ff0000;
   }
   
   .header-title {
     font-size: 24px;
     color: red;
     font-weight: bold;
+    margin-left: 550px;
   }
   
   /* Popular Cities Section */
@@ -113,18 +127,19 @@
   
   .section-title {
     font-size: 20px;
-    color: #333;
+    color: red;
     margin-bottom: 10px;
     text-transform: uppercase;
     font-weight: bold;
   }
 
   .select-city-message {
-    font-size: 18px;
+    font-size: 25px;
     color: red;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 80px;
     font-weight: bold;
+    margin-right: 100px;
   }
   
   .city:hover {
@@ -198,18 +213,12 @@
   .filters {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    justify-content: space-between; /* Ensure proper spacing between location and filters */
     margin-bottom: 20px;
-  }
-  
-  .center-filters {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .filter {
+    position: relative; /* Allows better control of centering */
+}
+
+.filter {
     display: flex;
     align-items: center; /* Ensures icon and text align vertically */
     gap: 5px; /* Adds spacing between the icon and text */
@@ -219,30 +228,26 @@
     font-size: 14px;
     background-color: #faf5f5;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .filter.active {
+}
+
+.filter.active {
     background-color: red;
     color: white;
     font-weight: bold;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
+}
+
+.center-filters {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Center the filters horizontally */
+    display: flex;
+    gap: 20px;
+}
+
   
   
-  .filter-search {
-    padding: 5px;
-    border: 1px solid #e80808;
-    border-radius: 15px;
-    color: #eb0909;
-  }
-  .filter-search:focus {
-    border-color: red;
-    color: red;
-    outline: none;
-  }
-  .filter-search::placeholder{
-    color: #ff0000;
-  }
+  
   
   /* Vendors Table */
   .vendors-table {

@@ -148,11 +148,11 @@ const Booking = () => {
                                     <span className={`status ${booking.booking_status.toLowerCase()}`}>{booking.booking_status}</span>
                                 </header>
                             )}
-                            <p className="service-name">{booking.service_type}</p>
+                            <p className="service-name1">{booking.service_type}</p>
                             {/* Address */}
-                            <p className="booking-address">Address: {booking.address}</p>
+                            <p className="booking-address1">Address: {booking.address}</p>
                             {/* Phone Number */}
-                            <p className="booking-phone">Phone: {booking.phone_number || 'N/A'}</p>
+                            <p className="booking-phone1">Phone: {booking.phone_number || 'N/A'}</p>
                             <p className="service-time">
                                 {new Date(booking.appointment_date).toLocaleDateString()} {booking.appointment_time}
                                 <span className="price">₹149</span>
