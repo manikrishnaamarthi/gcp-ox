@@ -180,7 +180,7 @@ body {
   border-radius: 10px 10px 0 0;
   animation: slideUp 0.3s ease-in-out;
   z-index: 1000;
-  width: 366px;
+  width: 350px;
   height: 35%;
   margin-bottom: 2px;
 }
@@ -202,8 +202,14 @@ body {
   font-size: 15px;
   text-align: center;
   font-weight: bold;
-  margin-bottom: -10px;
+  margin-bottom: 40px;
 
+}
+.popup-buttons {
+  display: flex;
+  justify-content: space-between; /* Space between the buttons */
+  width: 100%; /* Ensure the container spans the popup width */
+  margin-top: 20px; /* Add some spacing from the text above */
 }
 
 
@@ -213,23 +219,24 @@ body {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  width: 130%;
-  margin-bottom:50px;
+  text-align: center;
+  flex: 1; /* Make both buttons take equal width */
+  margin: 0 5px; /* Add a small space between buttons */
 
 }
 
 .logout-btn {
   background-color: #FC000E;
   color: white;
-  margin-bottom: -10px;
-  margin-top: 40px;
+  margin-right: 200px;
+  margin-bottom: -45px;
 }
 
 .cancel-btn {
   background-color: #888;
   color: white;
-  margin-top: 35px;
-  margin-bottom: px;
+  margin-left: 200px;
+  
 }
 
 /* Slide up animation for the popup */
@@ -242,45 +249,48 @@ body {
   }
 }
 
-/* Footer Navigation */
-.footer-section79 {
+.footer-section1{
   position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 350px;
-    background-color: #fff;
-    padding: 6px;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: px;
-    box-sizing: border-box;
+  margin-left:13px;
+  bottom: 0;
+  transform: translateX(-2%);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  align-items: center;
+  /* gap: 24px;  */
 }
 
 .footer-icon {
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 22px;
-    cursor: pointer;
-    color: gray;
-    margin-right: 10px;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  color: rgb(151, 147, 147);
+  margin: 0 12px;
 
 }
+
+.footer-header{
+  font-size:12px;
+  margin-top:2px;
+  color:rgb(146, 127, 127);
+
+}
+
 .footer-icon.active {
-  color: red;
+  color:#FC000E;
 }
 
 .footer-icon.active .footer-header {
-  color: red;
+  color:#FC000E;
 }
 
-
-
-.footer-header {
-  font-size: 12px;
-  margin-bottom:-10px;
-  color: rgb(173, 171, 171);
-}
 
 /* Responsive Styling */
 @media (max-width: 768px) {

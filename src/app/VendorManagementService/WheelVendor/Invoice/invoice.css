@@ -115,13 +115,11 @@ body {
     box-sizing: border-box;
   }
   .invoice-cards {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding: 15px;
-    margin: 3px 0;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9; /* Light gray background for better contrast */
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .invoice-info {
@@ -162,6 +160,7 @@ body {
     color: white;
     text-align: center;
     margin-top: 5px;
+    float: right;
   }
   
   .paid {
@@ -183,6 +182,7 @@ body {
     width: 100%;
     margin-bottom: px;
     margin-top: 220px;
+    font-weight: bold;
   }
 
   .modal {
@@ -211,6 +211,7 @@ body {
   .modal-content h2 {
     color: red;
     text-align: center;
+    font-weight: bold;
   }
   
   .items-container {
@@ -222,9 +223,18 @@ body {
   .item-row {
     display: flex;
   justify-content: space-between;
-  gap: 10px; /* Adds spacing between inputs */
-  margin-bottom: 10px;
+  margin: 5px 0;
   }
+
+  .item-row {
+    margin: 5px 0;
+  }
+  
+  .total {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
   
   .item-row input {
   flex: 1;
@@ -245,6 +255,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 20px;
+    font-weight: bold;
   }
 
   .raise-claim-button {
@@ -256,9 +267,10 @@ body {
     cursor: pointer;
     margin-top: 10px;
     width: 30%;
-    font-size: 16px;
+    font-size: 14px;
     box-sizing: border-box;
     margin-left: 150px;
+    font-weight: bold;
   }
   
 
@@ -271,7 +283,8 @@ body {
     cursor: pointer;
     margin-top: 20px;
     width: 25%;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: bold;
   }
   .saved-items-section {
     margin-top: 20px;
@@ -292,13 +305,49 @@ body {
   }
   
   .item-name {
-    font-weight: bold; /* Highlight item name */
+    color: black; /* Set item name color */
+  font-size: 16px;
+  font-weight: 500;
   }
   
   .item-price {
-    margin-left: 10px; /* Space between name and price */
-    color: black; /* Ensure price text color is also black */
+    color: black; /* Set price color */
+  font-size: 16px;
+  font-weight: 500;
+  text-align: right;
   }
+
+  .total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.total-label {
+  color: black;
+  font-size: 16px;
+}
+
+.total-price {
+  color: black;
+  font-size: 16px;
+}
+
+.status {
+  font-size: 12px; /* Small font size */
+  padding: 5px 15px; /* Small padding for button */
+  border-radius: 15px; /* Rounded corners */
+  text-align: center; /* Center text */
+  background-color: red; /* Button color */
+  color: white; /* Text color */
+  font-weight: bold; /* Bold text */
+  text-transform: uppercase; /* Uppercase text */
+  display: inline-block; /* Prevent stretching */
+  margin: 10px auto 0; /* Add spacing and center align */
+  margin-left: 210px;
+}
+
   
   
   .close-modal {

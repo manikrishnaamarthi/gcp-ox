@@ -48,7 +48,7 @@ const Logout = () => {
       <p>Are you sure you want to log out?</p>
       <div className="logout-buttons">
         <button className="confirm-button" onClick={handleConfirmLogout}>
-          Yes, Logout
+           Logout
         </button>
         <button className="cancel-button" onClick={handleCancelLogout}>
           Cancel

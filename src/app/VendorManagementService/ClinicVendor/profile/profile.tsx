@@ -193,7 +193,10 @@ const Profile: React.FC = () => {
   return (
     <div className="profile-container1">
       <div className="profile-header0">
-        <FaArrowLeft className="arrow-icon5" />
+      <FaArrowLeft 
+  className="arrow-icon5" 
+  onClick={() => router.push('/VendorManagementService/Vendors/WheelVendor/Clinic')} 
+/>
         <h2 className="profile-title">Profile</h2>
         <FaEdit
           className="edit-icon0"

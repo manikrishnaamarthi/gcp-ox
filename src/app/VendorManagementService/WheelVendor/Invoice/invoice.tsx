@@ -62,24 +62,26 @@ const InvoicePage: React.FC = () => {
       alert('Vendor ID is not available. Please ensure it is set.');
       return;
     }
-
-    const invoiceDetails = savedItems.map((item) => item.name).join(', ');
+  
+    const invoiceDetails = savedItems.map((item) => item.name).join(','); // Comma-separated names
+    const invoicePrices = savedItems.map((item) => item.price).join(','); // Comma-separated prices
     const totalPrice = savedItems.reduce((sum, item) => sum + parseFloat(item.price), 0);
-
+  
     const data = {
       vendor_id: vendorId,
       invoice_details: invoiceDetails,
-      invoice_price: totalPrice,
+      invoice_price: invoicePrices,
+      total: totalPrice, // New total field
       status: 'Unpaid',
     };
-
+  
     try {
       const response = await axios.post('http://localhost:8000/api/invoices/', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
+  
       setInvoices((prevInvoices) => [...prevInvoices, response.data]);
       setSavedItems([]);
       toggleModal();
@@ -89,6 +91,7 @@ const InvoicePage: React.FC = () => {
       alert('Failed to raise claim.');
     }
   };
+  
 
   return (
     <div className="invoice-container6">
@@ -112,20 +115,33 @@ const InvoicePage: React.FC = () => {
 
       {/* Invoice Cards */}
       <div className="new-invoice-card1">
-        <div className="cards0">
-          {invoices.map((invoice) => (
-            <div key={invoice.invoice_id} className="invoice-cards">
-              <div className="invoice-info">
-                <p className="invoice-title">{invoice.invoice_details}</p>
-                <p className="invoice-date">{invoice.date}</p>
-              </div>
-              <div className="invoice-price">
-                <p className="price">Rs {invoice.invoice_price}</p>
-                <span className={`status ${invoice.status ? invoice.status.toLowerCase() : ''}`}>{invoice.status}</span>
-              </div>
+      <div className="cards0">
+  {invoices.map((invoice) => {
+    const items = invoice.invoice_details.split(',');
+    const prices = invoice.invoice_price.split(',');
+    return (
+      <div key={invoice.invoice_id} className="invoice-cards">
+        <div className="invoice-info">
+          {items.map((item, index) => (
+            <div key={index} className="item-row">
+              <span className="item-name">{item}</span>
+              <span className="item-price">Rs {prices[index]}</span>
             </div>
           ))}
+          <div className="total-row">
+            <span className="total-label">Total:</span>
+            <span className="total-price">Rs {invoice.total}</span>
+          </div>
+          <div className={`status ${invoice.status ? invoice.status.toLowerCase() : ''}`}>
+            {invoice.status}
+          </div>
         </div>
+      </div>
+    );
+  })}
+</div>
+
+
 
         <button className="new-invoice-buttons" onClick={toggleModal}>
           New Invoice
@@ -181,7 +197,7 @@ const InvoicePage: React.FC = () => {
                 Save
               </button>
               <button className="raise-claim-button" onClick={handleRaiseClaim}>
-                Raise Claim
+                Raise Invoice
               </button>
             </div>
           </div>

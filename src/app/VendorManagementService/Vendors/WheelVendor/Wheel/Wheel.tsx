@@ -14,7 +14,19 @@ const Wheel = () => {
 
   const handleFooterClick = (section: string) => {
     setSelectedFooter(section); // Update the selected footer section
+    if (section === 'home') {
+      router.push('/VendorManagementService/Vendors/WheelVendor/Wheel');
+    } else if (section === 'bookings') {
+      router.push('/VendorManagementService/WheelVendor/MyBookings');
+    } else if (section === 'notifications') {
+      router.push('/VendorManagementService/WheelVendor/notifications');
+    } else if (section === 'profile') {
+      router.push('/VendorManagementService/WheelVendor/profile');
+    }
   };
+
+  
+
   const vendorId = localStorage.getItem('vendor_id'); // Retrieve vendor_id from local storage
 
   const handleDriverCardClick = () => {

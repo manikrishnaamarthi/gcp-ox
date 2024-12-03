@@ -16,6 +16,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { IoPersonOutline, IoChevronBackSharp } from "react-icons/io5";
 import { LiaHandshakeSolid } from "react-icons/lia";
 import './UserProfile.css';
+import Footer from './Footer';
 
 const UserProfile = () => {
   const router = useRouter();
@@ -147,42 +148,14 @@ const UserProfile = () => {
           <div className="popup-content">
             <h1>Log out</h1>
             <p>Are you sure you want to logout?</p>
-            <button className="logout-btn" onClick={handleConfirmLogout}>Yes, Logout</button>
+            <button className="logout-btn" onClick={handleConfirmLogout}>Logout</button>
             <button className="cancel-btn" onClick={handleCancelLogout}>Cancel</button>
           </div>
         </div>
       )}
 
-      <div className="footer-section79">
-        <div 
-          className={`footer-icon ${activeFooter === 'home' ? 'active' : ''}`} 
-          onClick={() => handleFooterClick('home')}
-        >
-          <GoHome size={28} />
-          <span className="footer-header">Home</span>
-        </div>
-        <div 
-          className={`footer-icon ${activeFooter === 'search' ? 'active' : ''}`} 
-          onClick={() => handleFooterClick('search')}
-        >
-          <CiSearch size={24} />
-          <span className="footer-header">Search</span>
-        </div>
-        <div 
-          className={`footer-icon ${activeFooter === 'booking' ? 'active' : ''}`} 
-          onClick={() => handleFooterClick('booking')}
-        >
-          <RxCalendar size={24} />
-          <span className="footer-header">Booking</span>
-        </div>
-        <div 
-          className={`footer-icon ${activeFooter === 'profile' ? 'active' : ''}`} 
-          onClick={() => handleFooterClick('profile')}
-        >
-          <IoPersonOutline size={24} />
-          <span className="footer-header">Profile</span>
-        </div>
-      </div>
+      {/* Footer Section */}
+      <Footer />
     </div>
   );
 };

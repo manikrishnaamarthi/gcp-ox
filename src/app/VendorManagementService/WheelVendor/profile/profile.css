@@ -85,6 +85,7 @@ margin-bottom:px;
   border-radius: 20%;
   object-fit: cover;
   background-color: #ebe8e8;
+  
 }
 
 .camera-icon {
@@ -97,6 +98,7 @@ border: 1px solid #ccc;
 margin-left: 40px;
 top: 85px;
 margin-bottom: 20px;
+cursor: pointer;
 }
 
 .profile-info {

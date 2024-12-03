@@ -164,6 +164,12 @@ body.clinic {
 .footer-icon span {
   font-size: 12px;
 }
+
+.card, 
+.footer-icon, 
+.notificationIcon {
+  cursor: pointer;
+}
   /* Responsive for small screens */
   @media (max-width: 480px) {
     .header {
