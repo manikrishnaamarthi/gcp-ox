@@ -20,13 +20,13 @@ const Footer: React.FC = () => {
     const oxiId = localStorage.getItem('oxi_id') || 'Unknown';
 
     if (icon === 'home') {
-      router.push('/');
+      router.push('/DashBoard/HomePage');
     } else if (icon === 'search') {
       router.push('/DashBoard/SearchPage');
     } else if (icon === 'appointments') {
-      router.push(`/Booking?oxi_id=${oxiId}`);
+      router.push('/Booking');
     } else if (icon === 'profile') {
-      router.push(`/UserProfile?oxi_id=${oxiId}`);
+      router.push(`/UserProfile`);
     }
   };
 
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="footer-icon" style={footerIconStyle('appointments')} onClick={() => handleFooterIconClick('appointments')}>
         <RxCalendar size={24} />
-        <span className="footer-header" style={{ color: footerIconStyle('appointments').color }}>Booking</span>
+        <span className="footer-header" style={{ color: footerIconStyle('appointments').color }}>Appointments</span>
       </div>
       <div className="footer-icon" style={footerIconStyle('profile')} onClick={() => handleFooterIconClick('profile')}>
         <BsPerson size={24} />

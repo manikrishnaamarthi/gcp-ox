@@ -96,8 +96,8 @@ const PaymentPage: React.FC = () => {
           },
           prefill: {
             name: appointmentData.name,
-            email: "fixedEmail",
-            contact: "fixedPhoneNumber,",
+            email: appointmentData.email,
+            contact: appointmentData.phone_number,
           },
           theme: { color: "#3399cc" },
         };
@@ -105,21 +105,31 @@ const PaymentPage: React.FC = () => {
         const razorpay = new (window as any).Razorpay(razorpayOptions);
     
         razorpay.on('payment.failed', async (response: any) => {
+          console.error("Payment Failed:", response);
+          const appointmentDate = new Date(appointmentData?.appointmentDate);
+          const formattedDate = appointmentDate.toISOString().split("T")[0]; // YYYY-MM-DD format
           const failedData = {
-            ...appointmentData,
-            payment_id: response.error.metadata.payment_id,
-            booking_id: `BI${Math.floor(10000 + Math.random() * 90000)}`,
+            service_type: appointmentData?.serviceType === "Oxi Clinic" ? "Oxi clinic" : "Oxi wheel", 
+            address: appointmentData?.address,
+            name: appointmentData?.name,
+            appointment_date: formattedDate,
+            appointment_time: formatTimeForAPI(appointmentData?.appointmentTime),
+            booking_id: `BI${Math.floor(10000 + Math.random() * 90000)}`, // Generate random ID
             booking_status: 'cancelled',
-            phone_number: fixedPhoneNumber,
-            email: fixedEmail,  
-          };
+            phone_number: appointmentData?.phone_number,
+            email: appointmentData?.email,
+            user: appointmentData?.oxiId, // Assuming `oxiId` represents the user
+                  };
     
-          try {
-            await axios.post("http://localhost:8000/api/save-booking/", failedData);
-          } catch (error) {
-            console.error("Error saving failed booking:", error);
-          }
-        });
+                  try {
+                    // Save the failed booking data to the database
+                    await axios.post("http://localhost:8001/api/save-booking/", failedData);
+                    // Redirect to CancelPage
+                    router.push('/DashBoard/CancelPage');
+                  } catch (error) {
+                    console.error("Error saving failed booking:", error);
+                  }
+                });
     
         razorpay.open();
     

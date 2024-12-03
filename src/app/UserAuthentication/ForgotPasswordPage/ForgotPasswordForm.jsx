@@ -219,22 +219,46 @@ const handleResetPassword = async (e) => {
                     <h2 className="header-verify">Verify Your Email</h2>
                     <p className="instruction-text">Enter the OTP Code sent to your E-mail id</p>
                     <form onSubmit={handleVerification}>
-                        <div className="verification-inputs">
-                            {[...Array(4)].map((_, i) => (
-                                <input
-                                    key={i}
-                                    type="text"
-                                    maxLength="1"
-                                    className="verification-input"
-                                    value={verificationCode[i] || ''}
-                                    onChange={(e) => {
-                                        let code = verificationCode.split('');
-                                        code[i] = e.target.value;
-                                        setVerificationCode(code.join(''));
-                                    }}
-                                />
-                            ))}
-                        </div>
+                    <div className="verification-inputs">
+    {[...Array(4)].map((_, index) => (
+        <input
+            key={index}
+            type="text"
+            maxLength="1"
+            className="otp-input"
+            value={verificationCode[index] || ''}
+            onChange={(e) => {
+                const code = verificationCode.split('');
+                code[index] = e.target.value;
+                setVerificationCode(code.join(''));
+
+                // Automatically move to the next input
+                if (e.target.value && index < 3) {
+                    const nextSibling = document.querySelector(
+                        `.otp-input:nth-child(${index + 2})`
+                    );
+                    if (nextSibling) {
+                        nextSibling.focus();
+                    }
+                }
+            }}
+            onKeyDown={(e) => {
+                // Handle backspace to move to the previous input
+                if (e.key === 'Backspace' && !verificationCode[index] && index > 0) {
+                    const prevSibling = document.querySelector(
+                        `.otp-input:nth-child(${index})`
+                    );
+                    if (prevSibling) {
+                        prevSibling.focus();
+                    }
+                }
+            }}
+            onFocus={(e) => e.target.select()} // Select the text when focused
+        />
+    ))}
+</div>
+
+
                         <button type="submit" className="button-verify">Submit</button>
                     </form>
                     <p className="resend-text">Didn't receive the code? <a className='resend-link' onClick={handleSubmitEmail}>Resend</a></p>
@@ -247,22 +271,46 @@ const handleResetPassword = async (e) => {
                     <h2 className="header-verify">Verify Your Mobile</h2>
                     <p className="instruction-text">Please enter the 4-digit code sent to your mobile number.</p>
                     <form onSubmit={handleVerification}>
-                        <div className="verification-inputs">
-                            {[...Array(4)].map((_, i) => (
-                                <input
-                                    key={i}
-                                    type="text"
-                                    maxLength="1"
-                                    className="verification-input"
-                                    value={verificationCode[i] || ''}
-                                    onChange={(e) => {
-                                        let code = verificationCode.split('');
-                                        code[i] = e.target.value;
-                                        setVerificationCode(code.join(''));
-                                    }}
-                                />
-                            ))}
-                        </div>
+                    <div className="verification-inputs">
+    {[...Array(4)].map((_, index) => (
+        <input
+            key={index}
+            type="text"
+            maxLength="1"
+            className="otp-input"
+            value={verificationCode[index] || ''}
+            onChange={(e) => {
+                const code = verificationCode.split('');
+                code[index] = e.target.value;
+                setVerificationCode(code.join(''));
+
+                // Automatically move to the next input
+                if (e.target.value && index < 3) {
+                    const nextSibling = document.querySelector(
+                        `.otp-input:nth-child(${index + 2})`
+                    );
+                    if (nextSibling) {
+                        nextSibling.focus();
+                    }
+                }
+            }}
+            onKeyDown={(e) => {
+                // Handle backspace to move to the previous input
+                if (e.key === 'Backspace' && !verificationCode[index] && index > 0) {
+                    const prevSibling = document.querySelector(
+                        `.otp-input:nth-child(${index})`
+                    );
+                    if (prevSibling) {
+                        prevSibling.focus();
+                    }
+                }
+            }}
+            onFocus={(e) => e.target.select()} // Select the text when focused
+        />
+    ))}
+</div>
+
+
                         <button type="submit" className="button-verify">Verify</button>
                     </form>
                     <p className="resend-text">Didn't receive the code? <a href="#" className='resend-link'>Resend</a></p>
