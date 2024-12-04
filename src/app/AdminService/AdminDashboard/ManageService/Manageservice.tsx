@@ -48,6 +48,7 @@ const Manageservice: React.FC = () => {
       }
       const data = await response.json();
       setServices(data);
+      console.log('Data',data.service_id)
     } catch (error) {
       console.error('Error fetching services:', error);
     }
@@ -59,6 +60,7 @@ const Manageservice: React.FC = () => {
 
   // Handle remove button click
   const handleRemove = async (service_id: string) => {
+    console.log('Service-id',service_id)
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this service?"
     );
@@ -69,6 +71,7 @@ const Manageservice: React.FC = () => {
       const matchingService = services.find(
         (service) => service.service_id === service_id
       );
+      console.log('match',matchingService)
   
       if (!matchingService) {
         alert("Service not found!");
@@ -77,7 +80,7 @@ const Manageservice: React.FC = () => {
   
       // Make DELETE request to the backend using the matched service ID
       const response = await fetch(
-        `http://localhost:8000/api/manage-service/$SI-74163/`,
+        `http://localhost:8000/api/manage-service/${service_id}/`,
         {
           method: "DELETE",
         }
