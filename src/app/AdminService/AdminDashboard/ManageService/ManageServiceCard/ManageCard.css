@@ -4,49 +4,6 @@ body {
     background-color: #ffffff;
 }
 
-.manage-sidebar {
-    width: 240px;
-    background-color: #fff;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    position: fixed;
-}
-
-.logo-img {
-    width: 80px;
-    height: 80px;
-    margin-left: 15px;
-}
-
-.logo-text {
-    font-size: 18px;
-    color: red;
-    margin-right: 70px;
-    font-weight: bold;
-}
-
-.sidebar-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-right: 80px;
-    margin-top: 20px;
-}
-
-.sidebar-icon {
-    font-size: 24px;
-    color: red;
-    cursor: pointer;
-    position: relative;
-}
-
-.sidebar-icon.logout-icon {
-    margin-top: 70px;
-}
-
 .content {
     margin-left: 260px;
     padding: 20px;
@@ -62,7 +19,7 @@ body {
 
 .page-title {
     font-size: 24px;
-    margin-left: 420px;
+    /* margin-left: 420px; */
     color: red;
 }
 
@@ -70,13 +27,13 @@ body {
     margin-top: 10px;
 }
 
-.add-service-btn {
+.add-service-btn2 {
     display: flex;
     align-items: center;
     gap: 8px;
     background-color: red;
     color: white;
-    margin-left: 1050px;
+    margin-left: 1000px;
     padding: 8px 20px;
     border: none;
     border-radius: 4px;
