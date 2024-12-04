@@ -1,0 +1,154 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ece3e3;
+    
+  }
+
+.clinic-search-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  width: 350px;
+  margin: auto;
+  color:black;
+  height: auto;
+  position: relative;
+  flex-direction: column;
+    
+  }
+  
+  .search-bar {
+    
+    display: flex;
+    background-color: #f5f2f2;
+    border-radius: 18px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border:1px solid #dcd9d9;
+    
+    
+  }
+  
+  .search-icon {
+    font-size: 20px;
+    margin-right: 8px;
+    color: #888;
+  }
+  
+  .search-input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    background-color: transparent;
+  }
+  
+  
+  
+  .clinic-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    
+    
+  }
+  
+  .clinic-cards-container {
+    display: flex;
+    flex-direction: column; 
+    gap: 16px; 
+    flex-grow: 1;
+    overflow-y: auto; 
+    padding-right: 8px; 
+    scrollbar-width: none; 
+  }
+  
+  .clinic-cards-container::-webkit-scrollbar {
+    display: none; /* Customize scrollbar width for WebKit browsers */
+  }
+  
+  .clinic-cards-container::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Round scrollbar thumb */
+  }
+  
+  
+  .clinic-image {
+    width: 100%;
+    height: 200px;
+    
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+  
+  .clinic-info {
+    text-align: center;
+  }
+  
+  .clinic-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-right: 258px;
+    color: #f00000;
+  }
+  
+  .clinic-address {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+    margin-left: 68px;
+  }
+  
+  .clinic-distance {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .footer-section {
+    position: fixed;
+    margin-left:-12px;
+    bottom: 0;
+    transform: translateX(-2%);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    z-index: 1000;
+    align-items: center;
+    /* gap: 24px;  */
+  }
+  
+  .footer-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    color: rgb(151, 147, 147);
+    margin: 0 12px;
+  
+  }
+  
+  .footer-header{
+    font-size:12px;
+    margin-top:2px;
+    color:rgb(146, 127, 127);
+  
+  }
+  
+  .footer-icon.active {
+    color:#FC000E;
+  }
+  
+  .footer-icon.active .footer-header {
+    color:#FC000E;
+  }

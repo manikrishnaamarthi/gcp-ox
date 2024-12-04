@@ -1,0 +1,300 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: rgb(212, 207, 207);
+}
+
+.appointment-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 350px;
+    margin: auto;
+    color: black;
+    height: 100vh;
+    align-items: center;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+.back-button {
+    position: absolute;
+    left: -50px;
+    border: none;
+    font-size: 20px;
+    color: rgb(78, 74, 74);
+    position: relative;
+    background-color: #eae8e8ea; /* Light grey background */
+    border-radius: 50%;       
+    padding: 13px;
+}
+
+
+
+h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.services {
+    margin: 10px 0;
+}
+
+.service {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.service p {
+    font-weight: bold; 
+}
+
+.appointment-dates {
+    margin: 25px 0;
+}
+
+
+.date-picker-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 0 5px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+  }
+  
+  .date-picker-container::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar */
+  }
+
+
+.date-picker {
+    display: flex;
+    justify-content: space-around;
+    margin-top:10px;
+}
+
+.date-button {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 50px;
+    cursor: pointer;
+   
+}
+
+
+.date-number {
+    font-size: 28px !important;
+    font-weight: 800;
+    color: black;
+    text-align: center;
+}
+
+.date-weekday {
+    font-size: 14px !important;
+    color: black;
+}
+
+.date-button.selected {
+    background: radial-gradient(at top left, white, #FC000E);
+    color: white;
+   
+}
+
+.bold-text {
+    font-weight: 900; 
+    color: rgb(251, 82, 82);
+    
+}
+
+
+.time-slots {
+    margin-top: 25px;
+    
+}
+
+.slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    color: black;
+    margin-top:10px;
+}
+
+.slot-button {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 15px;
+    cursor: pointer;
+    color: black;
+
+    
+}
+
+.slot-button.selected {
+    background-color: rgb(251, 210, 210);
+    color: rgb(7, 7, 7);
+    border-color: #FC000E;
+}
+
+.slot-button:disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.total-payment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    color: rgb(6, 251, 59);
+    font-weight: bold;
+}
+
+.payment-details {
+    flex-grow: 1;
+}
+
+.proceed-button {
+    background-color: #FC000E;
+    color: white;
+    border: none;
+    padding: 13px 60px;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 350px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: left;
+    margin-top:60vh;
+    width:350px;
+    position: relative;
+    transition: transform 0.2s ease;
+
+}
+
+.modal-header{
+    text-align: center;
+}
+.modal-content p {
+    text-align: left;
+    margin: 10px 0; /* Add spacing between lines */
+}
+
+.modal-content p strong {
+    font-weight: bold;
+}
+
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around; /* Distribute buttons evenly */
+    margin-top: 10px;
+    gap:10px;
+    
+}
+
+.modal-button {
+    padding: 10px 30px; 
+    border-radius: 5px; 
+    padding: 15px 50px;
+    border-radius: 10px;
+    background-color: #FC000E;
+    color: white;
+    margin: 20px 0; 
+    width: 50%; 
+    
+}
+
+.modal-button.cancel {
+    background-color: gray;
+    
+}
+
+.date-picker {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; 
+  }
+  
+  .date-button {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    width: 60px; 
+    cursor: pointer;
+    min-width: 50px;
+    
+  }
+  
+  .date-button.selected {
+    background-color: rgb(248, 85, 85);
+    color: white;
+  }
+  
+  .date-number {
+    font-size: 24px; 
+    font-weight:800;
+    color: black;
+    text-align: center;
+  }
+  
+  .date-weekday {
+    font-size: 12px; 
+    color: black;
+    
+  }
+  .date-button.selected .date-number,
+.date-button.selected .date-weekday {
+  color: white; /* Text color changes to white when selected */
+}
+
+
+.amount {
+    color: green;
+    font-weight: bold; 
+  }
+  
+  .light-text {
+    color: rgb(150, 150, 150); 
+  }
+  
+  

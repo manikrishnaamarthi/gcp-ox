@@ -1,0 +1,176 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #f9f9f9;
+    
+}
+
+.payment-method-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 350px;
+    height: 100vh;
+    margin: auto;
+    color: black;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+  }
+  
+  .heading {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 15px;
+    position: fixed; /* Fix the heading */
+    top: 0;
+    left: 0;
+    width: 100%; /* Take full width */
+    z-index: 10; /* Ensure it stays above other content */
+    overflow: hidden;
+  }
+
+  .scrollable-content {
+    margin-top: 60px; /* Offset for the fixed heading */
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100vh - 60px); /* Adjust for the heading height */
+    padding: 20px;
+}
+  
+.scrollable-content::-webkit-scrollbar {
+  display: none;
+}
+  .clinic-details{
+    margin-left:20px;
+  }
+
+  .clinic-info{
+    margin-right:30px !important;;
+  }
+  .clinic-details h2,
+  .appointment-details h2,
+  .bill-details h2,
+  .total-payable h2,
+  .safety-measures h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+
+.clinic-details h2,
+.appointment-details h2,
+.bill-details h2 {
+    color: #FC000E;
+    font-weight: bold;
+}
+
+  .clinic-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .clinic-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .clinic-text p {
+    margin: 5px 0;
+  }
+  
+  .appointment-details {
+    margin: 20px 0;
+    width: 350px !important; 
+    border-top: 4px solid #ccc; /* Horizontal line above */
+    border-bottom: 4px solid #ccc; /* Horizontal line below */
+    padding: 10px 0;
+    
+  }
+  .appointment-time-container {
+    display: flex;
+    flex-direction: column; /* Align vertically */
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+
+  .appointment-time {
+    font-weight: bold;
+   
+  }
+  
+  .appointment-countdown {
+    color: red;
+    margin-left: 10px;
+    font-size:14px;
+    
+  }
+  
+  .bill-details .bill-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  
+  .free-tag {
+    color: green;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+  
+  .free-booking {
+    font-size: 14px;
+    color: rgb(4, 125, 4);
+    font-weight: 600;
+    
+    padding: 8px;
+  }
+  
+  .total-payable {
+    margin: 20px 0;
+    width: 325px !important; 
+    border-top: 4px solid #ccc; /* Horizontal line above */
+    border-bottom: 4px solid #ccc; /* Horizontal line below */
+    padding: 18px 0;
+  }
+  
+  .saved-amount {
+    background-color: #a4fdac;
+    color: green;
+    padding: 10px;
+    border-radius: 5px;
+    font-size:14px;
+  }
+  
+
+  .safety-measures-heading{
+    font-size:17px !important;
+    font-weight: bold;
+  }
+  .safety-measures ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .safety-measures li {
+    margin: 8px 0;
+    color:grey;
+    font-size:15px;
+  }
+  
+  .pay-now-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
