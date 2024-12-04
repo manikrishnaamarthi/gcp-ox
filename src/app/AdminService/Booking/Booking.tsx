@@ -1,21 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Sidebar from "../Sidebar/page";
 import {
-  FaHome,
   FaClock,
-  FaMapMarkerAlt,
-  FaSignOutAlt,
-  FaCartPlus,
-  FaChartArea,
+  FaMapMarkerAlt
 } from 'react-icons/fa';
-import { BiSolidBookAdd } from 'react-icons/bi';
-import {
-  MdOutlinePeopleAlt,
-  MdOutlineInventory,
-  MdManageAccounts,
-} from 'react-icons/md';
-import { FaPeopleGroup } from 'react-icons/fa6';
 import './Booking.css';
 
 interface Booking {
@@ -29,7 +19,7 @@ interface Booking {
 }
 
 const Bookings: React.FC = () => {
-  const [selectedClinic, setSelectedClinic] = useState<string>('OxiviveClinic');
+  const [selectedClinic, setSelectedClinic] = useState<string>('Oxi Clinic');
   const [selectedStatus, setSelectedStatus] = useState<string>('Completed'); // Set default to 'Completed'
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -73,41 +63,7 @@ const Bookings: React.FC = () => {
   return (
     <div className="app">
       {/* Sidebar */}
-      <aside className="admin-sidebar">
-        <div className="logo">
-          <img src="/images/shot(1).png" alt="Logo" />
-          <p>Super Admin</p>
-        </div>
-        <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
-            <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice">
-            <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking">
-            <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory">
-            <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor">
-            <MdOutlinePeopleAlt />
-          </div>
-          <div className="sidebar-icon logout-icon" data-name="Logout">
-            <FaSignOutAlt />
-          </div>
-        </nav>
-      </aside>
+      <Sidebar />
 
       {/* Main Booking List */}
       <main className="booking-list">
@@ -120,14 +76,14 @@ const Bookings: React.FC = () => {
         <div className="clinic-toggle-container">
           <div className="clinic-toggle">
             <button
-              className={selectedClinic === 'OxiviveClinic' ? 'active' : ''}
-              onClick={() => setSelectedClinic('OxiviveClinic')}
+              className={selectedClinic === 'Oxi Clinic' ? 'active' : ''}
+              onClick={() => setSelectedClinic('Oxi Clinic')}
             >
               Oxi Clinic
             </button>
             <button
-              className={selectedClinic === 'OxiWheel' ? 'active' : ''}
-              onClick={() => setSelectedClinic('OxiWheel')}
+              className={selectedClinic === 'Oxi Wheel' ? 'active' : ''}
+              onClick={() => setSelectedClinic('Oxi Wheel')}
             >
               Oxi Wheel
             </button>
@@ -144,8 +100,8 @@ const Bookings: React.FC = () => {
               Completed
             </button>
             <button
-              className={selectedStatus === 'Cancel' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Cancel')}
+              className={selectedStatus === 'Cancelled' ? 'active' : ''}
+              onClick={() => setSelectedStatus('Cancelled')}
             >
               Cancelled
             </button>
@@ -204,7 +160,7 @@ const Bookings: React.FC = () => {
             ))}
           </div>
         ) : (
-          <p>No bookings found for the selected filters.</p>
+          <p className='No-Bookings'>No bookings found for the selected filters.</p>
         )}
       </main>
     </div>

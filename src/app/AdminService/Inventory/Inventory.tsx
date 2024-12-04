@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // For navigation
 import "./Inventory.css";
 import Sidebar from "../Sidebar/page";
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -116,22 +117,6 @@ const Inventory = () => {
     setFilteredInventory(filtered);
   };
 
-  const handleCardClick = (cardType) => {
-    switch (cardType) {
-      case "vendorsNewMessage":
-        router.push("http://localhost:3000/AdminService/Inventorys");
-        break;
-      case "newItems":
-        router.push("/NewItems");
-        break;
-      case "vendorRefunds":
-        router.push("/VendorRefunds");
-        break;
-      default:
-        break;
-    }
-  };
-
   // Calculate dynamic numbers for stock section
   const lowStockItems = inventory.filter((item) => item.stock < 15);
   const itemCategoriesCount = inventory.length;
@@ -152,20 +137,17 @@ const Inventory = () => {
 
         {/* Summary Cards */}
         <div className="summary-cards">
-          <div className="card1">
-            <p className="count">{itemCategoriesCount}</p>
+          <div className="card">
+            <p className="count">700</p>
             <p>Total</p>
             <span>NEW ITEMS</span>
           </div>
-          <div
-            className="card1"
-            onClick={() => handleCardClick("vendorsNewMessage")}
-          >
+          <div className="card highlighted">
             <p className="count">4</p>
             <p>Vendors</p>
             <span>NEW MESSAGE</span>
           </div>
-          <div className="card1">
+          <div className="card">
             <p className="count">1</p>
             <p>Vendor</p>
             <span>REFUNDS</span>

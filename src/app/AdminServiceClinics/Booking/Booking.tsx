@@ -1,14 +1,13 @@
-"use client"
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import Sidebar from "../Sidebar/page";
 import {
   FaClock,
-  FaMapMarkerAlt,
+  FaMapMarkerAlt
 } from 'react-icons/fa';
-import 'chart.js/auto';
 import './Booking.css';
 
-// Interfaces for booking data
 interface Booking {
   address: string;
   name: string;
@@ -20,13 +19,13 @@ interface Booking {
 }
 
 const Bookings: React.FC = () => {
-  const [selectedClinic, setSelectedClinic] = useState<string>('OxiClinic'); // Set default to 'OxiClinic'
-  const [selectedStatus, setSelectedStatus] = useState<string>('Completed'); // Default status set to 'Completed'
+  const [selectedClinic, setSelectedClinic] = useState<string>('Oxi Clinic');
+  const [selectedStatus, setSelectedStatus] = useState<string>('Completed'); // Set default to 'Completed'
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
-  // Fetch bookings data from the backend API based on the selected clinic
+  // Fetch bookings data from the backend API
   useEffect(() => {
     const fetchBookings = async () => {
       setLoading(true);
@@ -47,24 +46,25 @@ const Bookings: React.FC = () => {
     };
 
     fetchBookings();
-  }, [selectedClinic]);
+  }, [selectedClinic]); // Re-fetch when the selected clinic changes
 
   // Filter bookings based on selected status and clinic
   const filteredBookings = bookings.filter((booking) => {
     if (selectedStatus === 'History') {
       return (
         booking.booking_status.toLowerCase() === 'completed' ||
-        booking.booking_status.toLowerCase() === 'cancel'
+        booking.booking_status.toLowerCase() === 'cancelled'
       );
+    } else {
+      return booking.booking_status.toLowerCase() === selectedStatus.toLowerCase();
     }
-    return (
-      booking.booking_status.toLowerCase() === selectedStatus.toLowerCase()
-    );
   });
 
   return (
     <div className="app">
+      {/* Sidebar */}
       <Sidebar />
+
       {/* Main Booking List */}
       <main className="booking-list">
         <header>
@@ -76,16 +76,16 @@ const Bookings: React.FC = () => {
         <div className="clinic-toggle-container">
           <div className="clinic-toggle">
             <button
-              className={selectedClinic === 'OxiClinic' ? 'active' : ''}
-              onClick={() => setSelectedClinic('OxiClinic')}
+              className={selectedClinic === 'Oxi Clinic' ? 'active' : ''}
+              onClick={() => setSelectedClinic('Oxi Clinic')}
             >
-              OxiClinic
+              Oxi Clinic
             </button>
             <button
-              className={selectedClinic === 'OxiWheel' ? 'active' : ''}
-              onClick={() => setSelectedClinic('OxiWheel')}
+              className={selectedClinic === 'Oxi Wheel' ? 'active' : ''}
+              onClick={() => setSelectedClinic('Oxi Wheel')}
             >
-              OxiWheel
+              Oxi Wheel
             </button>
           </div>
         </div>
@@ -94,14 +94,14 @@ const Bookings: React.FC = () => {
         <div className="status-toggle-container">
           <div className="status-toggle">
             <button
-              className={selectedStatus === 'Completed' ? 'active' : ''} // Set active for "Completed"
+              className={selectedStatus === 'Completed' ? 'active' : ''}
               onClick={() => setSelectedStatus('Completed')}
             >
               Completed
             </button>
             <button
-              className={selectedStatus === 'Cancel' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Cancel')}
+              className={selectedStatus === 'Cancelled' ? 'active' : ''}
+              onClick={() => setSelectedStatus('Cancelled')}
             >
               Cancelled
             </button>
@@ -160,7 +160,7 @@ const Bookings: React.FC = () => {
             ))}
           </div>
         ) : (
-          <p>No bookings found for the selected filters.</p>
+          <p className='No-Bookings'>No bookings found for the selected filters.</p>
         )}
       </main>
     </div>
