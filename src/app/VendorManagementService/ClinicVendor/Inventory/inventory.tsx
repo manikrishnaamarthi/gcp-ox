@@ -7,15 +7,36 @@ import { useRouter } from 'next/navigation';
 const Inventory: React.FC = () => {
   const [selectedFooter, setSelectedFooter] = useState<string>('home');
   const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [approvedItems, setApprovedItems] = useState<any[]>([]);
   const [inventoryItems, setInventoryItems] = useState<any[]>([]);
   const router = useRouter();
 
   // Fetch vendor_id from local storage
   const vendorId = typeof window !== 'undefined' ? localStorage.getItem('vendor_id') : null;
 
-  // Fetch inventory data when the component mounts
+  // Fetch approved inventory data
   useEffect(() => {
-    const getInventoryItems = async () => {
+    const fetchApprovedItems = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/approved_inventorydetails/');
+        if (response.ok) {
+          const data = await response.json();
+          const filteredData = data.filter((item: any) => item.request_status === 'Approved');
+          setApprovedItems(filteredData);
+        } else {
+          console.error('Error fetching approved items:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching approved items:', error);
+      }
+    };
+
+    fetchApprovedItems();
+  }, []);
+
+  // Fetch inventory data when the popup is triggered
+  useEffect(() => {
+    const fetchInventoryItems = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/api/inventory1/');
         if (response.ok) {
@@ -28,8 +49,9 @@ const Inventory: React.FC = () => {
         console.error('Error fetching inventory items:', error);
       }
     };
-    getInventoryItems();
-  }, []);
+
+    if (showPopup) fetchInventoryItems();
+  }, [showPopup]);
 
   const handleFooterClick = (footer: string) => {
     setSelectedFooter(footer);
@@ -58,21 +80,21 @@ const Inventory: React.FC = () => {
       alert('Vendor ID not found. Please try again.');
       return;
     }
-  
+
     const payload = inventoryItems
-      .filter(item => item.quantity > 0)
-      .map(item => ({
+      .filter((item) => item.quantity > 0)
+      .map((item) => ({
         product_name: item.product_name,
         stock: item.stock,
         product_image: item.product_image,
         request_quantity: item.quantity,
       }));
-  
+
     if (payload.length === 0) {
       alert('No items with increased quantity to save.');
       return;
     }
-  
+
     try {
       const response = await fetch('http://127.0.0.1:8000/api/inventory/save/', {
         method: 'POST',
@@ -84,7 +106,7 @@ const Inventory: React.FC = () => {
           items: payload,
         }),
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         alert(result.message);
@@ -98,8 +120,6 @@ const Inventory: React.FC = () => {
       alert('An error occurred while saving inventory.');
     }
   };
-  
-  
 
   return (
     <div className="inventory-page">
@@ -111,14 +131,34 @@ const Inventory: React.FC = () => {
         <h1>Inventory</h1>
       </header>
 
+      {/* Approved Items Section */}
       {!showPopup && (
-        <div className="inventory-cards">
+        <div className="approved-items-section">
+          <h2>Approved Items</h2>
+          <div className="approved-items">
+            {approvedItems.map((item, index) => (
+              <div className="approved-item-card" key={index}>
+                <img
+                  src={item.product_image || '/images/default.png'}
+                  alt={item.product_name}
+                  className="approved-item-image"
+                />
+                <div className="approved-item-details">
+                  <h3>{item.product_name}</h3>
+                  <p>
+                    Stock: <span className="in-stock">{item.stock}</span>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
           <button className="add-items-button" onClick={handleAddItemClick}>
             Add items
           </button>
         </div>
       )}
 
+      {/* Popup for Inventory Items */}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup">

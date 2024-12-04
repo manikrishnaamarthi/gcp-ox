@@ -7,44 +7,77 @@ import { LuFilter } from "react-icons/lu";
 
 const Inventorys = () => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [requests, setRequests] = useState([]); // Define state to hold request data
+    const [groupedRequests, setGroupedRequests] = useState({});
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
-        // Add search functionality if required
     };
 
-    const handleSendButton = async (vendorId, productId) => {
+    const handleApproveButton = async (vendorId, productId) => {
         try {
-            // Update the request status in the backend
             const response = await axios.post("http://127.0.0.1:8000/api/inventoryapp_inventorydetails/", {
                 vendor_id: vendorId,
-                product_id: productId, // Send the unique identifier
+                product_id: productId,
+                action: "approve",
             });
-    
+
             if (response.data.message === "Request status updated successfully") {
-                // Update the status in the local state
-                setRequests((prevRequests) =>
-                    prevRequests.map((request) =>
-                        request.vendor_identifier === vendorId && request.product_id === productId
-                            ? { ...request, request_status: "Approved" }
-                            : request
-                    )
-                );
+                setGroupedRequests((prevGroupedRequests) => {
+                    const updatedGroupedRequests = { ...prevGroupedRequests };
+                    Object.keys(updatedGroupedRequests).forEach((date) => {
+                        updatedGroupedRequests[date] = updatedGroupedRequests[date].map((request) =>
+                            request.vendor_identifier === vendorId && request.product_id === productId
+                                ? { ...request, request_status: "Approved" }
+                                : request
+                        );
+                    });
+                    return updatedGroupedRequests;
+                });
             }
         } catch (error) {
-            console.error("Error updating request status:", error);
+            console.error("Error approving request status:", error);
         }
     };
-    
-    
+
+    const handleRejectButton = async (vendorId, productId) => {
+        try {
+            const response = await axios.post("http://127.0.0.1:8000/api/inventoryapp_inventorydetails/", {
+                vendor_id: vendorId,
+                product_id: productId,
+                action: "reject",
+            });
+
+            if (response.data.message === "Request status updated successfully") {
+                setGroupedRequests((prevGroupedRequests) => {
+                    const updatedGroupedRequests = { ...prevGroupedRequests };
+                    Object.keys(updatedGroupedRequests).forEach((date) => {
+                        updatedGroupedRequests[date] = updatedGroupedRequests[date].map((request) =>
+                            request.vendor_identifier === vendorId && request.product_id === productId
+                                ? { ...request, request_status: "Rejected" }
+                                : request
+                        );
+                    });
+                    return updatedGroupedRequests;
+                });
+            }
+        } catch (error) {
+            console.error("Error rejecting request status:", error);
+        }
+    };
 
     useEffect(() => {
-        // Fetch data from the backend API
         const fetchInventoryData = async () => {
             try {
                 const response = await axios.get("http://127.0.0.1:8000/api/inventoryapp_inventorydetails/");
-                setRequests(response.data);
+                const groupedData = response.data.reduce((acc, curr) => {
+                    const date = curr.req_date;
+                    if (!acc[date]) {
+                        acc[date] = [];
+                    }
+                    acc[date].push(curr);
+                    return acc;
+                }, {});
+                setGroupedRequests(groupedData);
             } catch (error) {
                 console.error("Error fetching inventory data:", error);
             }
@@ -84,8 +117,8 @@ const Inventorys = () => {
                         <span>REFUNDS</span>
                     </div>
                 </div>
-                <div className="table-container">
-                    <div className="table-header">
+                <div className="card-container">
+                <div className="cards-header">
                         <div className="requests">
                             <span>Requests</span>
                         </div>
@@ -94,48 +127,76 @@ const Inventorys = () => {
                             <span>Filters</span>
                         </div>
                     </div>
-                    <table className="request-table">
-                        <thead>
-                            <tr>
-                                <th>Items and Category</th>
-                                <th>Vendors</th>
-                                <th>Status</th>
-                                <th>Req Date with time</th>
-                                <th>Send items to vendor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div className="request-card card-header">
+                        <div className="card-column">
+                            <span className="card-label">Items and Category</span>
+                        </div>
+                        <div className="card-column">
+                            <span className="card-label">Vendors</span>
+                        </div>
+                        <div className="card-column">
+                            <span className="card-label">Status</span>
+                        </div>
+                        <div className="card-column">
+                            <span className="card-label">Req Date with time</span>
+                        </div>
+                        <div className="card-column">
+                            <span className="card-label">Send items to vendor</span>
+                        </div>
+                    </div>
+
+
+                    {Object.entries(groupedRequests).map(([date, requests]) => (
+                        <div key={date} className="date-group">
+                            <h3 className="date-header">{date}</h3>
                             {requests.map((request, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        {request.product_name}{" "}
-                                        <span className="category">{request.request_quantity}</span>
-                                    </td>
-                                    <td>
-                                        {request.vendor || "N/A"} <br />
-                                        <small>{request.location || "Unknown Location"}</small>
-                                    </td>
-                                    <td className={request.request_status ? request.request_status.toLowerCase() : ""}>
-                                        {request.request_status || "No Status"}
-                                    </td>
-                                    <td>
-                                        {request.req_date} at {request.request_time}
-                                    </td>
-                                    <td>
-                                    <div className="button-container">
-                                        <button
-                                            className={`action-button ${request.request_status === "Pending" ? "send" : "sent"}`}
-                                            onClick={() => handleSendButton(request.vendor_identifier, request.product_id)}
-                                            disabled={request.request_status !== "Pending"}
-                                        >
-                                            {request.request_status === "Pending" ? "Send" : "Sent"}
-                                        </button>
+                                <div className="request-card" key={index}>
+                                    <div className="card-column">
+                                        <div className="product-info">
+                                            <span>{request.product_name}</span>
+                                            <span className="category">{request.request_quantity}</span>
+                                        </div>
                                     </div>
-                                    </td>
-                                </tr>
+                                    <div className="card-column">
+                                        <span>{request.vendor || "N/A"}</span>
+                                        <small>{request.location || "Unknown Location"}</small>
+                                    </div>
+                                    <div className="card-column">
+                                        <span className={`status ${request.request_status?.toLowerCase()}`}>
+                                            {request.request_status || "No Status"}
+                                        </span>
+                                    </div>
+                                    <div className="card-column">
+                                        <span>
+                                            {request.req_date} at {request.request_time}
+                                        </span>
+                                    </div>
+                                    <div className="card-column">
+                                        <div className="button-container">
+                                            <button
+                                                className="action-button approve"
+                                                onClick={() =>
+                                                    handleApproveButton(request.vendor_identifier, request.product_id)
+                                                }
+                                                disabled={request.request_status === "Approved"}
+                                            >
+                                                Approve
+                                            </button>
+                                            <button
+                                                className="action-button reject"
+                                                onClick={() =>
+                                                    handleRejectButton(request.vendor_identifier, request.product_id)
+                                                }
+                                                disabled={request.request_status === "Rejected"}
+                                            >
+                                                Reject
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             ))}
-                        </tbody>
-                    </table>
+                        </div>
+                    ))}
                 </div>
             </main>
         </div>
