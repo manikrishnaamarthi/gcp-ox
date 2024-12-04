@@ -1,51 +1,13 @@
 'use client';
 import React from 'react';
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { FaHome, FaCartPlus, FaChartArea, FaSignOutAlt } from 'react-icons/fa';
-import { BiSolidBookAdd } from 'react-icons/bi';
-import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from 'react-icons/md';
-import { FaPeopleGroup } from 'react-icons/fa6';
+import { MdOutlineAddToPhotos } from "react-icons/md";
+import Sidebar from "../../../Sidebar/Sidebar";
 import './ManageCard.css';
 
 const ManageCard: React.FC = () => {
   return (
     <div className="manage-service">
-      <aside className="manage-sidebar">
-        <div className="logo-container">
-          <img src="/images/shot.png" alt="Logo" className="logo-img" />
-          <p className="logo-text">Super Admin</p>
-        </div>
-
-        <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
-            <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice">
-            <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking">
-            <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory">
-            <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor">
-            <MdOutlinePeopleAlt />
-          </div>
-          <div className="sidebar-icon logout-icon" data-name="Logout">
-            <FaSignOutAlt />
-          </div>
-        </nav>
-      </aside>
+    <Sidebar />
 
       <main className="content">
         <header className="header2">
@@ -53,8 +15,8 @@ const ManageCard: React.FC = () => {
         </header>
 
         <div className="actions">
-          <button className="add-service-btn">
-            <IoMdAddCircleOutline className="add-icon" /> Add Service
+          <button className="add-service-btn2">
+            <MdOutlineAddToPhotos className="add-icon" /> Add Service
           </button>
         </div>
 

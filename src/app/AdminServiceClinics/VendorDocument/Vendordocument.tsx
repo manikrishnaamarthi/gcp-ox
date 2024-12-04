@@ -1,13 +1,9 @@
 "use client"
 import React, { useState } from "react";
-import { FiUploadCloud } from "react-icons/fi"; // Import the FiUploadCloud icon
-import { FaHome, FaCartPlus, FaChartArea, FaSignOutAlt } from "react-icons/fa";
-import { BiSolidBookAdd } from "react-icons/bi";
+import { FiUploadCloud } from "react-icons/fi";
 import { BsPersonCircle } from "react-icons/bs";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { MdOutlinePeopleAlt, MdOutlineInventory, MdManageAccounts } from "react-icons/md";
-import { FaPeopleGroup } from "react-icons/fa6";
 import axios from "axios";
+import Sidebar from "../Sidebar/Sidebar";
 import "./Vendordocument.css";
 
 const Vendordocument: React.FC = () => {
@@ -129,67 +125,35 @@ const Vendordocument: React.FC = () => {
   return (
     <div className="manage-service">
       {/* Sidebar */}
-      <aside className="manage-sidebar">
-        <div className="logo-container">
-          <img src="/images/shot.png" alt="Logo" className="logo-img" />
-          <p className="logo-text">Admin</p>
-        </div>
-        <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
-            <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice">
-            <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking">
-            <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval">
-            <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Revenue">
-            <FaChartArea />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service">
-            <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory">
-            <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor">
-            <MdOutlinePeopleAlt />
-          </div>
-          <div className="sidebar-icon logout-icon" data-name="Logout">
-            <FaSignOutAlt />
-          </div>
-        </nav>
-      </aside>
+      <Sidebar />
 
       {/* Main Content */}
       <main className="content">
-        <header className="header">
-          <div className="header-wrapper">
-            <h1 className="heading">Vendor Documents</h1>
-            <div className="tabs-buttons">
-              <button
-                className={`service-toggle ${selectedService === 'Oxivive Clinic' ? 'active' : ''}`}
-                onClick={() => setSelectedService('Oxivive Clinic')}
-              >
-                Oxivive Clinic
-              </button>
-              <button
-                className={`service-toggle ${selectedService === 'Oxivive Wheel' ? 'active' : ''}`}
-                onClick={() => setSelectedService('Oxivive Wheel')}
-              >
-                Oxivive Wheel
-              </button>
-              <button className="upload-main-btn" onClick={handleSubmit}>
-                Upload
-              </button>
-            </div>
-          </div>
-          <p className="sub-heading">Fill the following details to add person</p>
-        </header>
+      <header className="header">
+  <div className="header-wrapper">
+    <div className="header-text">
+      <h1 className="heading">Vendor Documents</h1>
+      <p className="sub-heading">Fill the following details to add person</p>
+    </div>
+    <div className="tabs-buttons">
+      <button
+        className={`service-toggle ${selectedService === 'Oxivive Clinic' ? 'active' : ''}`}
+        onClick={() => setSelectedService('Oxivive Clinic')}
+      >
+        Oxivive Clinic
+      </button>
+      <button
+        className={`service-toggle ${selectedService === 'Oxivive Wheel' ? 'active' : ''}`}
+        onClick={() => setSelectedService('Oxivive Wheel')}
+      >
+        Oxivive Wheel
+      </button>
+      <button className="upload-main-btn" onClick={handleSubmit}>
+        Upload
+      </button>
+    </div>
+  </div>
+</header>
         <section className="form-section">
           <form className="vendor-form">
             <div className="profile-section">
@@ -251,48 +215,46 @@ const Vendordocument: React.FC = () => {
             <h2 className="head5">Upload The Documents</h2>
 
             <div className="grid-container">
-              {documents[selectedService].map(({ title, type }) => (
-                <div key={title} className="document-card">
-                  <p className="document-title">{title}</p>
-                  <div className="document-card-group">
-                    {type.map((side) => (
-                      <div key={`${title}-${side}`} className="document-card-item">
-                        <div
-                          className="upload-area"
-                          onClick={() => document.getElementById(`${title}-${side}-upload`)?.click()}
-                        >
-                          {!documentImages[`${title}-${side}`] && (
-                            <>
-                              <div className="upload-icon-container">
-                                <FiUploadCloud size={30} />
-                              </div>
-                              <p className="para">Drop your file here, or browse</p>
-                              <p className="para1">Files must be less than 2MB</p>
-                              <p className="para1">Only one file can be uploaded</p>
-                            </>
-                          )}
-                          {documentImages[`${title}-${side}`] && (
-                            <img
-                              src={documentImages[`${title}-${side}`] as string}
-                              alt={`${title} ${side}`}
-                              className="preview-image"
-                            />
-                          )}
-                        </div>
+    {documents[selectedService].map(({ title, type }) => (
+      <div key={title} className="document-card">
+        <p className="document-title">{title}</p>
+        <div className="document-card-group">
+          {type.map((side) => (
+            <div key={`${title}-${side}`} className="document-card-item">
+              <div
+                className="upload-area"
+                onClick={() => document.getElementById(`${title}-${side}-upload`)?.click()}
+              >
+                {!documentImages[`${title}-${side}`] && (
+                  <>
+                    <div className="upload-icon-container">
+                      <FiUploadCloud size={30} />
+                    </div>
+                    <p className="para">Upload {side} Side</p>
+                  </>
+                )}
+                {documentImages[`${title}-${side}`] && (
+                  <img
+                    src={documentImages[`${title}-${side}`] as string}
+                    alt={`${title} ${side}`}
+                    className="preview-image"
+                  />
+                )}
+              </div>
 
-                        <input
-                          id={`${title}-${side}-upload`}
-                          type="file"
-                          accept="image/*"
-                          style={{ display: 'none' }}
-                          onChange={(e) => handleDocumentUpload(title, side, e)}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <input
+                id={`${title}-${side}-upload`}
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={(e) => handleDocumentUpload(title, side, e)}
+              />
             </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
           </form>
         </section>
       </main>
