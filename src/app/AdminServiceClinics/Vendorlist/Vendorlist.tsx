@@ -2,49 +2,54 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from "../Sidebar/page";
 import './Vendorlist.css';
-import axios from 'axios';  // Import axios for API calls
+import axios from 'axios';
 
 const Vendorlist = () => {
-  const [vendors, setVendors] = useState([]);  // State to hold all vendor data
-  const [filteredVendors, setFilteredVendors] = useState([]);  // State for filtered vendors based on service
-  const [loading, setLoading] = useState(true);  // State for loading status
-  const [error, setError] = useState(null);  // State for error handling
-  const [selectedService, setSelectedService] = useState('Oxi Clinic');  // State for selected service
+  const [vendors, setVendors] = useState([]);
+  const [filteredVendors, setFilteredVendors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedService, setSelectedService] = useState('Oxi Clinic');
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
-  // Fetch vendor data from API when component mounts
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/adminservice-vendordetails/') // Replace with your backend endpoint
+    axios.get('http://127.0.0.1:8000/api/adminservice-vendordetails/')
       .then(response => {
-        const approvedVendors = response.data.filter(vendor => vendor.document_status === "approved"); // Filter approved vendors
-        setVendors(approvedVendors);  // Set all approved vendors
-        setFilteredVendors(approvedVendors.filter(vendor => vendor.selectedService === 'Oxi Clinic')); // Filter initial data for Oxi Clinic
-        setLoading(false);  // Set loading to false when data is fetched
+        const approvedVendors = response.data.filter(vendor => vendor.document_status === "Approved");
+        setVendors(approvedVendors);
+        setFilteredVendors(approvedVendors.filter(vendor => vendor.selected_service === 'Oxi Clinic'));
+        setLoading(false);
       })
       .catch(err => {
-        setError(err.message);  // Handle any error
-        setLoading(false);  // Set loading to false in case of error
+        setError(err.message);
+        setLoading(false);
       });
-  }, []); // Empty array means this will run once when the component mounts
+  }, []);
+
+  useEffect(() => {
+    // Filter vendors based on selected service and search query
+    const filteredData = vendors.filter(vendor =>
+      vendor.selected_service === selectedService &&
+      vendor.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredVendors(filteredData);
+  }, [vendors, selectedService, searchQuery]); // Re-run filtering when these change
 
   const handleServiceChange = (service) => {
-    setSelectedService(service);  // Update the selected service
-    const filteredData = vendors.filter(vendor => vendor.selectedService === service);  // Filter vendors based on the selected service
-    setFilteredVendors(filteredData);  // Set filtered vendors based on the selected service
+    setSelectedService(service);
   };
 
   if (loading) {
-    return <div>Loading...</div>;  // Show loading text while data is being fetched
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;  // Show error message if there's an issue
+    return <div>Error: {error}</div>;
   }
 
   return (
     <div className="vendorlist-container">
       <Sidebar />
-
-      {/* Main Content */}
       <div className="content">
         <div className="header">
           <button className="location-btn">
@@ -54,17 +59,19 @@ const Vendorlist = () => {
             type="text"
             placeholder="Search"
             className="search-input"
+            value={searchQuery} // Bind input value to searchQuery state
+            onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on input change
           />
         </div>
         <h2 className="title">Vendors List</h2>
         <div className="tabs">
-          <button 
+          <button
             className={`tab ${selectedService === 'Oxi Clinic' ? 'active' : ''}`}
             onClick={() => handleServiceChange('Oxi Clinic')}
           >
             Oxi Clinic
           </button>
-          <button 
+          <button
             className={`tab ${selectedService === 'Oxi Wheel' ? 'active' : ''}`}
             onClick={() => handleServiceChange('Oxi Wheel')}
           >

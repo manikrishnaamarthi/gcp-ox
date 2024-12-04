@@ -1,75 +1,132 @@
-/* Sidebar Styling */
 .admin-sidebar {
-    height: 100vh;
-    width: 150px;
-    font-weight: bold;
-    font-size: 18px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    position: fixed;
-  }
-  
-  .logo {
-    text-align: center;
-    margin-bottom: 2px;
-    margin-top: -30px;
-  }
-  
-  .logo img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 5px;
-  }
-  
-  .logo p {
-    font-size: 20px;
-    color: red;
-    font-weight: bold;
-    margin-bottom: 2px;
-  }
-  
-  .sidebar-icons {
-    display: flex;
-    flex-direction: column;
-    right: 30px;
-    gap: 5px;
-    margin-left: -20px;
-  }
-  
-  .sidebar-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    color: #ff0000;
-    cursor: pointer;
-    position: relative;
-    left: 10px; /* This moves each icon further to the right */
-    width: 50px;
-    height: 50px;
-    transition: color 0.3s ease;
-  }
-  
-  .sidebar-icon:hover::after {
-    content: attr(data-name);
-    position: absolute;
-    left: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: red;
-    font-size: 18px;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-  
-  /* Logout Icon Styling */
-  .sidebar-icon.logout-icon {
-    margin-top: 45px;
-  }
-  
-  .sidebar-icon.logout-icon:hover {
-    color: #eb0f0f;
-  }
+  height: 100vh;
+  width: 150px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  position: fixed;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: -25px;
+}
+
+.logo img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.logo p {
+  font-size: 20px;
+  color: red;
+  font-weight: bold;
+}
+
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-left: -20px;
+}
+
+/* Icon styling with hover animation */
+.sidebar-icon {
+  font-size: 24px;
+  color: #ff0000;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-icon:hover {
+  transform: scale(1.2);
+  color: #ff5555;
+}
+
+.sidebar-icon:hover::after {
+  content: attr(data-name);
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  white-space: nowrap;
+}
+
+/* Logout Icon Styling */
+.sidebar-icon.logout-icon {
+  margin-top: 48px;
+} 
+
+/* Popup styles */
+.logout-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+}
+
+.popup-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+}
+
+.confirm-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: darkred;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #bbb;
+}
