@@ -52,6 +52,11 @@ const Clinic = () => {
     router.push(`/VendorManagementService/ClinicVendor/MyStaff?vendor_id=${vendorId}`);
   };
 
+  const handleInvoiceCardClick = () => {
+    console.log('Navigating with Vendor ID:', vendorId);
+    router.push(`/VendorManagementService/ClinicVendor/Invoice?vendor_id=${vendorId}`);
+  };
+
   return (
     <div className="clinic-containers6">
       <header className="headera">
@@ -79,7 +84,7 @@ const Clinic = () => {
             <MdInventory className="cardIcon" />
             <p className="label">Inventory</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/ClinicVendor/Invoice')}>
+          <div className="card" onClick={handleInvoiceCardClick}>
             <FaFileInvoiceDollar className="cardIcon" />
             <p className="label">Invoice</p>
           </div>
