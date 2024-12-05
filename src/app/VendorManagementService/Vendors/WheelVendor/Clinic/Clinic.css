@@ -11,129 +11,125 @@ body.clinic {
   padding: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: hidden;
-  
-  }
-  
-  .clinic-containers6 {
-    height: 100vh;
-    width: 110%;
-    max-width: 350px;
-    margin: auto;
-    background-color: #ff0000;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .headera{
-    background-color: #ff0000;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    height: 170px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .logoContainer {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-  }
-  
-  .logo {
-    width: 140px; /* Adjust to desired size */
-    height: 140px; /* Adjust to desired size */
-  }
-  
-  .titlea {
-    display: flex;
-    flex-direction: column; /* Stack the text vertically */
-    align-items: center; /* Center the text horizontally */
-    margin: 0;
-    position: relative; /* Positioning adjustments */
-    top: 20px; /* Adjust for vertical spacing */
-  }
-  
-  .welcome {
-    font-size: 14px; /* Font size for 'Welcome to' */
-    margin: 0; /* No margin */
-    margin-left: 30px;
-    margin-top: 20px;
-    color: white;
-  }
-  
-  .oxiClinics {
-    font-size: 40px; /* Font size for 'OxiWheel' */
-    margin: 0; /* No margin */
-    margin-left: 130px;
-    color: white;
-    /* margin-top: 10px; */
-  }
-  
-  .notificationIcon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px; /* Size of the notification icon */
-    height: 30px; /* Size of the notification icon */
-  }
-  
-  
-  .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    padding: 20px;
-    height: 100px;
-    background-color: #ffffff;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-  }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 40px;
-    margin-bottom: 200px;
-  }
-  
-  .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid #ff0000;
-    /* border-radius: 10px; */
-    padding: 0px;
-    width: 90px; 
-    height: 90px; 
-    color: #ff0000;
-    position: relative; /* To position label correctly */
-    
-  }
-  
-  .cardIcon {
-    width: 70px;
-    height: 70px;
-    margin-top: 10px;
-    
-  }
-  
-  .label {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    position: relative;
-    top: 25px; /* Moves text outside of the card */
-  }
-  
-  .card p {
-    margin: 0;
-  }
-  
-  /* Footer Styles */
+}
+
+.clinic-containers6 {
+  height: 100vh;
+  width: 110%;
+  max-width: 350px;
+  margin: auto;
+  background-color: #ff0000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.headera {
+  background-color: #ff0000;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  height: 170px;
+  font-family: Arial, sans-serif;
+}
+
+.logoContainer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.logo {
+  width: 140px; /* Adjust to desired size */
+  height: 140px; /* Adjust to desired size */
+}
+
+.titlea {
+  display: flex;
+  flex-direction: column; /* Stack the text vertically */
+  align-items: center; /* Center the text horizontally */
+  margin: 0;
+  position: relative; /* Positioning adjustments */
+  top: 20px; /* Adjust for vertical spacing */
+}
+
+.welcome {
+  font-size: 14px; /* Font size for 'Welcome to' */
+  margin: 0; /* No margin */
+  margin-left: 30px;
+  margin-top: 20px;
+  color: white;
+}
+
+.oxiClinics {
+  font-size: 40px; /* Font size for 'OxiWheel' */
+  margin: 0; /* No margin */
+  margin-left: 130px;
+  color: white;
+  /* margin-top: 10px; */
+}
+
+.notificationIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px; /* Size of the notification icon */
+  height: 30px; /* Size of the notification icon */
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 20px;
+  height: 100px;
+  background-color: #ffffff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 40px;
+  margin-bottom: 200px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ff0000;
+  /* border-radius: 10px; */
+  padding: 0px;
+  width: 90px; 
+  height: 90px; 
+  color: #ff0000;
+  position: relative; /* To position label correctly */
+}
+
+.cardIcon {
+  width: 70px;
+  height: 70px;
+  margin-top: 10px;
+}
+
+.label {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 25px; /* Moves text outside of the card */
+}
+
+.card p {
+  margin: 0;
+}
+
+/* Footer Styles */
 .clinic-footer {
   position: fixed;
   bottom: 0;
@@ -170,73 +166,227 @@ body.clinic {
 .notificationIcon {
   cursor: pointer;
 }
-  /* Responsive for small screens */
-  @media (max-width: 480px) {
-    .header {
-      height: 150px;
-    }
-  
-    .logo {
-      width: 120px;
-      height: 120px;
-    }
-  
-    .oxiClinic{
-      font-size: 40px;
-      margin-left: 100px;
-      
-    }
-  
-    .welcome {
-      font-size: 14px; /* Font size for 'Welcome to' */
-      margin: 0; /* No margin */
-      margin-left: -15px;
-      margin-top: 20px;
-    }
-  
-    
-  
-    .footer {
-      padding: 5px 0;
-    }
-  
-    .footerIcon {
-      font-size: 22px;
-    }
+
+/* Responsive styles for mobile screens */
+@media (max-width: 600px) {
+  .clinic-containers6 {
+    max-width: 100%;
   }
-  
-  /* Responsive for medium screens (tablets, small desktops) */
-  @media (min-width: 481px) and (max-width: 1024px) {
-    .container {
-      max-width: 768px; /* Set to tablet width */
-    }
-  
-    .logo {
-      width: 120px;
-      height: 120px;
-    }
-  
-    .oxiClinic {
-      font-size: 40px;
-      margin-left: 130px;
-    }
-  
-    .grid {
-      grid-gap: 100px;
-    }
-  
-    .card {
-      width: 80px;
-      height: 80px;
-    }
-  
-    .cardIcon {
-      width: 60px;
-      height: 60px;
-    }
-  
-    .footerIcon {
-      font-size: 28px;
-    }
+
+  .headera {
+    height: auto;
+    padding: 10px;
   }
-  
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .oxiClinics {
+    font-size: 24px;
+  }
+
+  .welcome {
+    font-size: 10px;
+  }
+
+  .grid {
+    grid-gap: 20px;
+    margin-bottom: 100px;
+  }
+
+  .card {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cardIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+
+  .clinic-footer {
+    padding: 4px;
+  }
+
+  .footer-icon {
+    font-size: 18px;
+  }
+
+  .footer-icon span {
+    font-size: 8px;
+  }
+}
+
+/* Responsive styles for tablets (600px to 900px) */
+@media (min-width: 600px) and (max-width: 900px) {
+  .clinic-containers6 {
+    max-width: 100%;
+  }
+
+  .headera {
+    height: auto;
+    padding: 15px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .oxiClinics {
+    font-size: 30px;
+  }
+
+  .welcome {
+    font-size: 12px;
+  }
+
+  .grid {
+    grid-gap: 30px;
+    margin-bottom: 150px;
+  }
+
+  .card {
+    width: 80px;
+    height: 80px;
+  }
+
+  .cardIcon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+
+  .clinic-footer {
+    padding: 6px;
+  }
+
+  .footer-icon {
+    font-size: 20px;
+  }
+
+  .footer-icon span {
+    font-size: 10px;
+  }
+}
+
+/* Responsive styles for iPads and larger tablets (900px to 1200px) */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .clinic-containers6 {
+    max-width: 100%;
+  }
+
+  .headera {
+    height: auto;
+    padding: 20px;
+  }
+
+  .logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .oxiClinics {
+    font-size: 36px;
+  }
+
+  .welcome {
+    font-size: 14px;
+  }
+
+  .grid {
+    grid-gap: 35px;
+    margin-bottom: 200px;
+  }
+
+  .card {
+    width: 85px;
+    height: 85px;
+  }
+
+  .cardIcon {
+    width: 65px;
+    height: 65px;
+  }
+
+  .label {
+    font-size: 13px;
+  }
+
+  .clinic-footer {
+    padding: 8px;
+  }
+
+  .footer-icon {
+    font-size: 22px;
+  }
+
+  .footer-icon span {
+    font-size: 11px;
+  }
+}
+
+/* Responsive styles for large screens (1200px to 1500px) */
+@media (min-width: 1200px) and (max-width: 1500px) {
+  .clinic-containers6 {
+    max-width: 100%;
+  }
+
+  .headera {
+    height: auto;
+    padding: 25px;
+  }
+
+  .logo {
+    width: 140px;
+    height: 140px;
+  }
+
+  .oxiClinics {
+    font-size: 40px;
+  }
+
+  .welcome {
+    font-size: 16px;
+  }
+
+  .grid {
+    grid-gap: 40px;
+    margin-bottom: 250px;
+  }
+
+  .card {
+    width: 90px;
+    height: 90px;
+  }
+
+  .cardIcon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .clinic-footer {
+    padding: 10px;
+  }
+
+  .footer-icon {
+    font-size: 24px;
+  }
+
+  .footer-icon span {
+    font-size: 12px;
+  }
+}

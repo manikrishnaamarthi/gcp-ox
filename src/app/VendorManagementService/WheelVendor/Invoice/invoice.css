@@ -25,18 +25,20 @@ body {
   justify-content: space-between;
   overflow-y: hidden;
   box-sizing: border-box;
-  overflow-y: scroll;
 
   }
-  .invoice-container6::-webkit-scrollbar {
-    display: none; /* For Webkit browsers (Chrome, Safari) */
-  }
   
+
+.header9,
+.tabsp,
+.footerd {
+  position: relative;
+  z-index: 10;  /* Ensure they stay on top of the content */
+}
   .header9 {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    position: relative;
   }
   
   .back-button1 {
@@ -77,7 +79,9 @@ body {
   font-weight: bold;
   }
   .tab.active {
-    text-decoration: underline;
+  font-weight: bold; /* Make the active tab text bold */
+  color: red; /* Adjust the color for active tab (optional) */
+  text-decoration: underline;
   }
   
   .tab.active::after {
@@ -102,6 +106,11 @@ body {
   border-radius: 10px;
   margin-bottom: px;
   margin-top: -220px;
+  overflow-y: scroll;
+  }
+
+  .new-invoice-card1::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
   }
   .new-invoice-buttons {
     background-color: #ff0004;
@@ -181,7 +190,7 @@ body {
     cursor: pointer;
     width: 100%;
     margin-bottom: px;
-    margin-top: 220px;
+    margin-top: 200px;
     font-weight: bold;
   }
 
@@ -415,22 +424,157 @@ body {
     font-size: 10px;
   }
   
-  /* Media Queries for smaller screens */
-@media only screen and (max-width: 425px) {
-    .title {
-        font-size: 22px;
-    }
+ 
+/* General Responsive Styles */
+@media (max-width: 599px) {
+  .invoice-container6 {
+      width: 100%;
+      padding: 10px;
+      max-width: none;
+  }
 
-    .tab {
-        font-size: 16px;
-    }
+  .header9 .title {
+      font-size: 20px;
+  }
 
-    .new-invoice-button {
-        font-size: 14px;
-        padding: 10px;
-    }
+  .tab1 {
+      font-size: 16px;
+      margin-bottom: 150px;
+  }
 
-    .footer-icon {
-        font-size: 20px;
-    }
+  .new-invoice-card1 {
+      margin-top: -150px;
+      margin-bottom: 150px;
+  }
+
+  .new-invoice-buttons {
+      font-size: 14px;
+      padding: 10px;
+      margin-top: 150px;
+  }
+
+  .modal-content {
+      width: 90%;
+      max-width: 300px;
+  }
+
+  .raise-claim-button, .save-button {
+      width: 80%;
+      margin: 10px auto;
+      font-size: 14px;
+  }
+  
+  .footer-icon {
+      font-size: 18px;
+  }
+}
+
+/* Responsive styles for tablets */
+@media (min-width: 600px) and (max-width: 900px) {
+  .invoice-container6 {
+      width: 100%;
+      max-width: 850px;
+  }
+
+  .header9 .title {
+      font-size: 24px;
+  }
+
+  .tab1 {
+      font-size: 18px;
+  }
+
+  .new-invoice-buttons {
+      font-size: 16px;
+  }
+
+  .modal-content {
+      width: 80%;
+      max-width: 400px;
+  }
+
+  .raise-claim-button, .save-button {
+      width: 50%;
+      font-size: 14px;
+  }
+
+  .footerd {
+    flex-direction: row; /* Ensure items are in a row for larger devices */
+    padding: 10px; /* Reduce padding slightly */
+}
+
+.footer-icon {
+    font-size: 22px; /* Slightly increase icon size */
+}
+}
+
+/* Responsive styles for iPads and larger tablets */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .invoice-container6 {
+      width: 100%;
+      max-width: 1100px;
+  }
+
+  .header9 .title {
+      font-size: 26px;
+  }
+
+  .tab1 {
+      font-size: 20px;
+  }
+
+  .new-invoice-buttons {
+      font-size: 18px;
+  }
+
+  .modal-content {
+      width: 70%;
+      max-width: 500px;
+  }
+
+  .footerd {
+    padding: 10px 8%; /* Add more horizontal padding for wider screens */
+}
+
+.footer-icon {
+    font-size: 24px; /* Increase icon size for better visibility */
+}
+}
+
+/* Responsive styles for large screens (1200px to 1500px) */
+@media (min-width: 1200px) and (max-width: 1500px) {
+  .invoice-container6 {
+      width: 100%;
+      max-width: 1300px;
+  }
+
+  .header9 .title {
+      font-size: 28px;
+  }
+
+  .tab1 {
+      font-size: 22px;
+  }
+
+  .new-invoice-buttons {
+      font-size: 20px;
+  }
+
+  .modal-content {
+      width: 60%;
+      max-width: 600px;
+  }
+
+  .modal-content {
+      width: 60%;
+      max-width: 600px;
+  }
+
+  .footerd {
+    padding: 10px 10%; /* Add padding for large screens */
+}
+
+.footer-icon {
+    font-size: 26px; /* Larger icons for desktop */
+}
 }

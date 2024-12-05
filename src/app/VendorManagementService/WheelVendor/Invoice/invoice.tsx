@@ -35,15 +35,30 @@ const InvoicePage: React.FC = () => {
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/invoices/');
-        setInvoices(response.data);
+        const serviceTypeParam = 'Oxi Wheel'; // Always fetch "Oxi Wheel"
+        const today = new Date();
+        const todayString = today.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+
+        // Conditionally fetch based on the selected tab
+        let response;
+        if (selectedTab === 'invoice') {
+          response = await axios.get('http://localhost:8000/api/invoices/', {
+            params: { service_type: serviceTypeParam, date: todayString }, // Add date filter for today
+          });
+        } else if (selectedTab === 'history') {
+          response = await axios.get('http://localhost:8000/api/invoices/', {
+            params: { service_type: serviceTypeParam },
+          });
+        }
+
+        setInvoices(response?.data || []);
       } catch (error) {
         console.error('Error fetching invoices:', error);
       }
     };
 
     fetchInvoices();
-  }, []);
+  }, [selectedTab]); // Trigger this effect whenever the selected tab changes
 
   const handleFooterClick = (footer: string) => setSelectedFooter(footer);
   const handleTabClick = (tab: string) => setSelectedTab(tab);
@@ -62,36 +77,38 @@ const InvoicePage: React.FC = () => {
       alert('Vendor ID is not available. Please ensure it is set.');
       return;
     }
-  
+
     const invoiceDetails = savedItems.map((item) => item.name).join(','); // Comma-separated names
     const invoicePrices = savedItems.map((item) => item.price).join(','); // Comma-separated prices
     const totalPrice = savedItems.reduce((sum, item) => sum + parseFloat(item.price), 0);
-  
+
+    const serviceType = "Oxi Wheel";
+
     const data = {
       vendor_id: vendorId,
       invoice_details: invoiceDetails,
       invoice_price: invoicePrices,
-      total: totalPrice, // New total field
+      total: totalPrice,
       status: 'Unpaid',
+      service_type: serviceType,
     };
-  
+
     try {
       const response = await axios.post('http://localhost:8000/api/invoices/', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       setInvoices((prevInvoices) => [...prevInvoices, response.data]);
       setSavedItems([]);
       toggleModal();
       alert('Claim raised and data saved successfully!');
     } catch (error) {
-      console.error('Error raising claim:', error.response ? error.response.data : error);
+      console.log('Error raising claim:', error.response ? error.response.data : error);
       alert('Failed to raise claim.');
     }
   };
-  
 
   return (
     <div className="invoice-container6">
@@ -115,33 +132,33 @@ const InvoicePage: React.FC = () => {
 
       {/* Invoice Cards */}
       <div className="new-invoice-card1">
-      <div className="cards0">
-  {invoices.map((invoice) => {
-    const items = invoice.invoice_details.split(',');
-    const prices = invoice.invoice_price.split(',');
-    return (
-      <div key={invoice.invoice_id} className="invoice-cards">
-        <div className="invoice-info">
-          {items.map((item, index) => (
-            <div key={index} className="item-row">
-              <span className="item-name">{item}</span>
-              <span className="item-price">Rs {prices[index]}</span>
-            </div>
-          ))}
-          <div className="total-row">
-            <span className="total-label">Total:</span>
-            <span className="total-price">Rs {invoice.total}</span>
-          </div>
-          <div className={`status ${invoice.status ? invoice.status.toLowerCase() : ''}`}>
-            {invoice.status}
-          </div>
+        <div className="cards0">
+          {invoices.map((invoice) => {
+            const items = invoice.invoice_details ? invoice.invoice_details.split(',') : [];
+            const prices = invoice.invoice_price ? invoice.invoice_price.split(',') : [];
+            return (
+              <div key={invoice.invoice_id} className="invoice-cards">
+                <div className="invoice-info">
+                  {items.map((item, index) => (
+                    <div key={index} className="item-row">
+                      <span className="item-name">{item}</span>
+                      <span className="item-price">
+                        Rs {prices[index] ? prices[index] : '0'}
+                      </span>
+                    </div>
+                  ))}
+                  <div className="total-row">
+                    <span className="total-label">Total:</span>
+                    <span className="total-price">Rs {invoice.total || '0'}</span>
+                  </div>
+                  <div className={`status ${invoice.status ? invoice.status.toLowerCase() : ''}`}>
+                    {invoice.status || 'Unknown'}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </div>
-    );
-  })}
-</div>
-
-
 
         <button className="new-invoice-buttons" onClick={toggleModal}>
           New Invoice
