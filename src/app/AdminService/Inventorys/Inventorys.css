@@ -59,32 +59,46 @@ html, body {
     color: red;
 }
 
-/* Summary Cards */
-.summary-cards {
+.filters-container {
     display: flex;
-    justify-content: space-between;
-    margin-right: 600px;
-    gap: 20px;
-    padding: 20px;
-    color: #333;
-    width: 700px;
+    justify-content: center;
+    gap: 45px; /* Space between buttons */
+    margin-bottom: 25px;
+    width: auto;
+    margin-top: 50px;
 }
 
-.card1 {
+.filter-button {
+    padding: 8px 25px 8px 18px; /* Increased right padding for alignment */
+    border: 2px solid red; /* Default red border for inactive buttons */
+    cursor: pointer;
     background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    flex: 1;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    position: relative;
+    color: red; /* Default text color for inactive buttons */
+    transition: all 0.3s ease;
 }
 
-.card1 .count {
-    font-size: 24px;
-    font-weight: bold;
-    color: red;
+.filter-button.active {
+    background-color: #e60000; /* Active background color */
+    color: #fff; /* Active text color */
+    border: none; /* Remove border for active button */
 }
+
+.filter-button.active::after {
+    content: "";
+    position: absolute;
+    right: 10px; /* Distance for the dot */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: #00cc00; /* Green dot for active state */
+    border-radius: 50%;
+}
+
 
 /* Card Container */
 
@@ -98,18 +112,39 @@ html, body {
 .date-group {
     margin-bottom: 20px;
     padding: 15px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .date-header {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
     padding-bottom: 5px;
+    line-height: 1.5;
+}
+
+.date-header span {
+    margin: 0 5px; /* Spacing between individual elements */
+}
+
+.date-header .vendor {
+    font-weight: bold; /* Bold text for emphasis */
+    color: red; 
+}
+
+.date-header .location {
+    font-weight: bold;
+    color: red; 
+}
+
+.date-header .date {
+    font-weight: bold;
+    color: red; 
 }
 
 .requests {
@@ -126,15 +161,41 @@ html, body {
     padding: 0 10px;
 }
 
-.filters {
+.filters1 {
     display: flex;
     align-items: center;
     color: #000;
     font-size: 18px;
     font-weight: bold;
+    position: relative; /* Make it the reference point for absolute positioning */
+    cursor: pointer;
+}
+.dropdown {
+    position: absolute;
+    top: 10%; /* Position the dropdown directly below the filter icon */
+    right: 50px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 200px;
+    border-radius: 5px;
+    margin-top: 5px; /* Add a slight gap between the filter and the dropdown */
+    display: block; /* Ensure it's visible */
 }
 
-.filter-icon {
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #000;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+
+.filter-icon1 {
     margin-right: 10px;
     cursor: pointer;
     color: red;
@@ -149,12 +210,14 @@ html, body {
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card-header .card-column {
     flex: 1;
     text-align: center;
     color: #333;
+    font-size: 20px;
 }
 
 /* Request Cards */
@@ -165,16 +228,16 @@ html, body {
     padding: 15px;
     border-radius: 8px;
     border: 1px solid #ddd;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card-column {
+.card-column1 {
     flex: 1; /* Equal width for all columns */
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 5px;
     color: #000;
+    font-size: 19px;
 }
 
 /* Product Info */
