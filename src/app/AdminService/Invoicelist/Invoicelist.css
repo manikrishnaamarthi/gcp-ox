@@ -1,0 +1,175 @@
+/* General Layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+.invoice-page {
+    display: flex;
+  }
+  
+  .invoice-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 230px;
+    background-color: #ffffff;
+  }
+  
+  /* Header */
+  .invoice-header {
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .invoice-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+  }
+
+  
+  /* Tabs */
+  .invoice-tabs {
+    display: flex;
+    padding:8px;
+    margin-top: 20px;
+  }
+  .invoice-tab1 {
+  
+  align-items: center;
+  border: 2px solid rgb(171, 171, 171); /* Outer blue border */
+  border-radius: 25px; /* Rounded container */
+  background-color: #f8f9fa; /* Light background color */
+  width: fit-content;
+  margin: auto; /* Center the toggle group */
+}
+
+.tab-button {
+  flex: 1;
+  padding: 10px 45px;
+  border: none;
+  background-color: transparent; /* Transparent background for inactive buttons */
+  font-size: 14px;
+  font-weight: bold;
+  color: red; /* Text color for inactive buttons */
+  position: relative;
+  cursor: pointer;
+  border-radius: 20px; /* Ensures smooth transitions */
+}
+
+.tab-button:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60%; /* Vertical line height */
+  width: 1px;
+  background-color: #ccc; /* Light gray vertical line */
+}
+
+  .invoice-filters {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  
+  .search-input {
+    padding: 8px;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  /* Table */
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+  }
+  
+  .invoice-table th,
+  .invoice-table td {
+    text-align: left;
+    padding: 10px;
+    color: #d72531;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .invoice-table th {
+    background-color: #f7f7f7;
+    color: black;
+  }
+  
+  .invoice-number a {
+    color: #d72531;
+    text-decoration: none;
+  }
+  
+  /* Status Colors */
+  .status-paid {
+    color: rgb(2, 149, 2);
+  }
+  
+  .status-unpaid {
+    color: red;
+  }
+  
+  
+  /* Load More */
+  .load-more {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .load-more button {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+
+
+  /* Table */
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.invoice-table th {
+    text-align: center;
+    /* gap:10px; */
+    /* margin-bottom: 10px; */
+    border-radius: 20px;
+    padding: 12px; /* Increased padding for better spacing */
+    color: #000; /* Changed to black for better visibility */
+    border: 2px solid #ccc; /* Added borders to cells */
+}
+
+.invoice-table th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 10px;
+    color: #d72531; /* Matching the heading color */
+}
+
+.invoice-number a {
+    color: #d72531;
+    text-decoration: none;
+}
+
+
+
+
+
+  
+  

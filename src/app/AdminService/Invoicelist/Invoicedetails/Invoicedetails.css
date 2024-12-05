@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+.invoice-page {
+    display: flex;
+    background-color: #ffffff;
+  }
+  
+  .invoice-content {
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    margin-left: 230px;
+  }
+  
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header-left h1 {
+    font-size: 24px;
+    color: red; /* Headings remain black */
+    margin: 0;
+  }
+  
+  .header-left p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: rgb(94, 92, 92); /* Subheadings remain black */
+  }
+  
+  .header-left span {
+    color: red; /* Numbers in red */
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .status-box, .action-box {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  }
+  
+  
+  .status-box.paid {
+    background-color: #ffffff;
+    margin-right: 980px;
+    color: green;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow */
+    border-radius: 15px; /* Optional: Slight rounding for better aesthetics */
+  }
+  
+  .action-box {
+    background-color: white;
+    margin-right: 25px;
+    /* gap:8px; */
+    color: black;
+  }
+  
+  .divider {
+    border: 0;
+    border-top: 1px solid #ccc; /* Retain divider */
+    margin: 10px 0;
+  }
+  
+  .payment-details {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: black;
+  }
+
+  .payment-details3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: black;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* color: rgb(102, 101, 101); */
+    gap: 120px; /* Adjust this to reduce spacing */
+  }
+  .details-grid p {
+    margin: 5px 0;
+    color: black; /* Text remains black */
+  }
+  
+  .details-grid span {
+    color: red; /* Numbers in red */
+  }
+  
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* font-weight: bold; */
+    margin-bottom: 20px;
+  }
+  
+  .invoice-table th,
+  .invoice-table td {
+    padding: 12px;
+    color: red;
+    font-size: 18px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .invoice-table th {
+    background-color: white; /* Keep table headers consistent */
+    font-weight: bold;
+    color: rgb(95, 95, 95); /* Headings in black */
+  }
+  
+  .invoice-table tfoot td {
+    /* font-weight: bold; */
+    color: black; /* Footer text in black */
+  }
+  
+  
+
+  
