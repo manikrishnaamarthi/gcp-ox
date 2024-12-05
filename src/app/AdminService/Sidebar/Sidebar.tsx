@@ -28,7 +28,7 @@ const Sidebar = () => {
           <div className="sidebar-icon" data-name="Admin">
             <FaHome />
           </div>
-          <div className="sidebar-icon" data-name="Invoice">
+          <div className="sidebar-icon" data-name="Invoice" onClick={() => router.push('http://localhost:3000/AdminService/Invoicelist')}>
             <FaCartPlus />
           </div>
           <div className="sidebar-icon" data-name="Booking" onClick={() => router.push('http://localhost:3000/AdminService/Booking/')}>

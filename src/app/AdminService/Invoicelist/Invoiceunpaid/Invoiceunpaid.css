@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+.invoice-page {
+    display: flex;
+    background-color: #ffffff;
+}
+
+.invoice-content {
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    margin-left: 230px;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-left h1 {
+    font-size: 24px;
+    color: red;
+    margin: 0;
+}
+
+.header-left p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: rgb(94, 92, 92);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-box {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.status-box.unpaid {
+    background-color: #ffffff;
+    margin-right: 950px;
+    color: red;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+.payment-details {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: black;
+}
+
+.payment-details3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: black;
+    border-bottom: 1px solid #ccc;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 120px;
+}
+
+.details-grid p {
+    margin: 5px 0;
+    color: black;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.invoice-table th,
+.invoice-table td {
+    padding: 12px;
+    font-size: 18px;
+    color: red;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.invoice-table th {
+    background-color: white;
+    font-weight: bold;
+    color: rgb(95, 95, 95);
+}
+
+.invoice-table tfoot td {
+    color: black;
+}
+
+.pay-now-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pay-now-button {
+    background-color: red;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.pay-now-button:hover {
+    background-color: red;
+}
