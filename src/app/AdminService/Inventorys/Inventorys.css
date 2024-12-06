@@ -180,8 +180,11 @@ html, body {
     z-index: 1000;
     width: 200px;
     border-radius: 5px;
-    margin-top: 5px; /* Add a slight gap between the filter and the dropdown */
+    margin-top: 150px; /* Add a slight gap between the filter and the dropdown */
     display: block; /* Ensure it's visible */
+    height: 200px;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .dropdown-item {

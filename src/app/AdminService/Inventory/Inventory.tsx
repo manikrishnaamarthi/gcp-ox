@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation"; // For navigation
 import "./Inventory.css";
 import Sidebar from "../Sidebar/page";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useRouter } from "next/navigation"; // For navigation
 
 
 const Inventory = () => {
@@ -137,17 +136,21 @@ const Inventory = () => {
 
         {/* Summary Cards */}
         <div className="summary-cards">
-          <div className="card">
-            <p className="count">700</p>
+          <div className="card1">
+            <p className="count">{itemCategoriesCount}</p>
             <p>Total</p>
             <span>NEW ITEMS</span>
           </div>
-          <div className="card highlighted">
+          <div
+            className="card1"
+            onClick={() => router.push('http://localhost:3000/AdminService/Inventorys')} // Navigate to the inventorys page
+            style={{ cursor: 'pointer' }} // Makes the card look clickable
+          >
             <p className="count">4</p>
             <p>Vendors</p>
             <span>NEW MESSAGE</span>
           </div>
-          <div className="card">
+          <div className="card1">
             <p className="count">1</p>
             <p>Vendor</p>
             <span>REFUNDS</span>
@@ -181,7 +184,6 @@ const Inventory = () => {
             {/* Item Categories */}
             <div className="categories">
               <h2>Item Categories List</h2>
-              <button className="view-all">View All</button>
               {/* <p>{itemCategoriesCount}</p> */}
               <div className="icons-grid">
                 {inventory.map((item) => (

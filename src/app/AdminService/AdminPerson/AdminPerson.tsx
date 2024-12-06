@@ -80,6 +80,31 @@ const AdminPerson = () => {
     setFormValues(admin); // Pre-fill form with the selected admin's data
   };
 
+  const handleDeleteClick = async (adminId) => {
+    if (!window.confirm('Are you sure you want to delete this admin?')) {
+      return; // Exit if the user cancels the confirmation dialog
+    }
+  
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/superadmins/${adminId}/`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        // Remove the deleted admin from the state
+        const updatedAdmins = admins.filter((admin) => admin.admin_id !== adminId);
+        setAdmins(updatedAdmins);
+        setFilteredAdmins(updatedAdmins);
+        alert('Admin deleted successfully!');
+      } else {
+        alert('Failed to delete admin. Please try again.');
+      }
+    } catch (error) {
+      alert('An error occurred while deleting the admin.');
+    }
+  };
+  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -222,7 +247,7 @@ const AdminPerson = () => {
                     <button className="edit-btn" onClick={() => handleEditClick(admin)}>
                       Edit
                     </button>
-                    <button className="delete-btn" >
+                    <button className="delete-btn" onClick={() => handleDeleteClick(admin.admin_id)}>
                       Delete
                     </button>
                   </td>
