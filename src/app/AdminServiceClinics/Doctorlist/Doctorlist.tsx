@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Sidebar from '../Sidebar/page';
+import Sidebar from "../Sidebar/page";
 import "./Doctorlist.css";
 
 interface Doctor {
   id: number;
   name: string;
   phone: string;
-  email: string;
-  clinic: string; // Clinic name is fetched from the backend
+  email: string | null; // Allow null values
+  clinic: string | null; // Allow null values
 }
 
 const Doctorlist: React.FC = () => {
@@ -32,13 +32,20 @@ const Doctorlist: React.FC = () => {
     fetchDoctors();
   }, []);
 
-  const filteredDoctors = doctors.filter(
-    (doctor) =>
-      doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      doctor.phone.includes(searchQuery) ||
-      doctor.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      doctor.clinic.toLowerCase().includes(searchQuery.toLowerCase()) // Search by clinic
-  );
+  const filteredDoctors = doctors.filter((doctor) => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const normalizedName = doctor.name?.toLowerCase() || ""; // Ensure safety
+    const normalizedPhone = doctor.phone || ""; // No transformation needed
+    const normalizedEmail = doctor.email?.toLowerCase() || ""; // Ensure safety
+    const normalizedClinic = doctor.clinic?.toLowerCase() || ""; // Ensure safety
+
+    return (
+      normalizedName.includes(normalizedQuery) ||
+      normalizedPhone.includes(normalizedQuery) ||
+      normalizedEmail.includes(normalizedQuery) ||
+      normalizedClinic.includes(normalizedQuery)
+    );
+  });
 
   return (
     <div className="doctorlist-container">
@@ -69,13 +76,13 @@ const Doctorlist: React.FC = () => {
             {filteredDoctors.map((doctor, index) => (
               <tr key={doctor.id}>
                 <td>{index + 1}</td>
-                <td>{doctor.clinic}</td>
+                <td>{doctor.clinic || "N/A"}</td> {/* Display "N/A" if null */}
                 <td>{doctor.name}</td>
                 <td>{doctor.phone}</td>
-                <td>{doctor.email}</td>
+                <td>{doctor.email || "N/A"}</td> {/* Display "N/A" if null */}
                 <td>
                   <button className="block-button">
-                    <span>🚫 Block</span>
+                    <span>Block</span>
                   </button>
                 </td>
               </tr>
