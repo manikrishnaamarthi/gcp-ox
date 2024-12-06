@@ -12,7 +12,7 @@ body {
 
 /* Search.css */
 
-.home-container {
+.home-container2 {
   padding: 20px;
   background-color: #f9f9f9;
   width: 350px !important;
@@ -24,7 +24,7 @@ body {
  
 }
 
-.search-container {
+.search-container2 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +32,7 @@ body {
   margin-left: 36px;
 }
 
-.search-bar {
+.search-bar2 {
   display: flex;
   align-items: center;
   border: 1px solid #ddd;
@@ -63,7 +63,7 @@ body {
 
 }
  
-.footer-section {
+.footer-section2 {
   position: fixed;
   margin-left:-12px;
   bottom: 0;

@@ -6,19 +6,22 @@ body {
     
   }
 
-.clinic-search-container {
-  padding: 20px;
-  background-color: #f9f9f9;
-  width: 350px;
-  margin: auto;
-  color:black;
-  height: auto;
-  position: relative;
-  flex-direction: column;
-    
+  .home-container3 {
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 350px !important;
+    margin: auto;
+    color: black;
+    height: auto;
+    align-items: center;
+    position: relative;
+   
   }
   
-  .search-bar {
+
+
+  
+  .search-bar3 {
     
     display: flex;
     background-color: #f5f2f2;
@@ -36,7 +39,7 @@ body {
     color: #888;
   }
   
-  .search-input {
+  .search-input3 {
     border: none;
     outline: none;
     width: 100%;
@@ -44,7 +47,7 @@ body {
     background-color: transparent;
   }
   
-  .back-button {
+  .back-button3 {
     position: absolute;
     left: 10px;
     top: 25px;
@@ -64,7 +67,9 @@ body {
     padding: 16px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px;
+    margin-bottom: -10px;
+    max-width: 350px !important;
+    width: 100%;
     
     
   }
@@ -72,11 +77,13 @@ body {
   .clinic-cards-container {
     display: flex;
     flex-direction: column; 
-    gap: 16px; 
-    flex-grow: 1;
+    gap: 16px;
+    width: 100%; 
+    height: calc(100vh - 140px);
     overflow-y: auto; 
     padding-right: 8px; 
     scrollbar-width: none; 
+    max-width: 350px !important;
   }
   
   .clinic-cards-container::-webkit-scrollbar {
@@ -116,37 +123,44 @@ body {
   }
 
   .clinic-info {
-    text-align: center;
+    display: flex;
+    flex-direction: column;  /* Stack elements vertically for the name and distance */
+    align-items: flex-start; /* Align left */
+    text-align: left; /* Align text to the left */
+    width: 100%;
+    gap: 4px; /* Space between clinic name, distance, and address */
   }
   
-  .clinic-name {
+  .clinic-name3 {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 8px;
-    margin-right: 258px;
+    margin-bottom: 4px;
     color: #f00000;
+  }
+  
+  .clinic-distance {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 4px; /* Space between distance and address */
+  }
+  
+  .clinic-address-container {
+    display: flex; /* Align the address to the right of distance */
+    justify-content: flex-start; /* Start aligned to left */
+    align-items: center; /* Align items vertically */
+    width: 100%;
   }
   
   .clinic-address {
     font-size: 14px;
     color: #555;
-    margin-bottom: 4px;
-    margin-left: 68px;
-  }
-
-  .clinic-distance {
-    font-size: 14px;
-    color: #888; /* Gray color for subtle appearance */
-    margin: 4px 0; /* Space between clinic name and distance */
+    margin-left: 10px; /* Margin for space between address and distance */
+    flex-grow: 1; /* Allow the address to take the remaining space */
   }
   
   
-  .clinic-distance {
-    font-size: 14px;
-    color: #777;
-  }
   
-  .footer-section {
+  .footer-section3 {
     position: fixed;
     margin-left:-12px;
     bottom: 0;
@@ -188,3 +202,13 @@ body {
   .footer-icon.active .footer-header {
     color:#FC000E;
   }
+
+  .no-clinics-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+    color: #888;
+  }
+  

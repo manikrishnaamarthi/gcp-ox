@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <div className="footer-section">
+    <div className="footer-section2">
       <div className="footer-icon" style={footerIconStyle('home')} onClick={() => handleFooterIconClick('home')}>
         <GoHome size={24} />
         <span className="footer-header" style={{ color: footerIconStyle('home').color }}>Home</span>

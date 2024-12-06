@@ -1,15 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
     background-color: #f9f9f9;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
     
 }
 
 .payment-method-container {
     padding: 20px;
     background-color: #f9f9f9;
-    width: 350px;
+    width: 100%; 
+    max-width: 350px;
     height: 100vh;
     margin: auto;
     color: black;
@@ -19,17 +27,17 @@ body {
     background-color: white;
   }
 
-  .back-button {
+  .back-button4 {
     position: absolute;
-    left: -10px;
+    left: 10px;
+    top: 25px;
+    background: rgb(224, 222, 222);
     border: none;
-    font-size: 20px;
-    color: rgb(78, 74, 74);
-    position: relative;
-    background-color: #eae8e8ea; /* Light grey background */
-    border-radius: 50%;       
-    padding: 13px;
-}
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 12px;
+  
+  }
 
   
   .heading {
@@ -42,21 +50,26 @@ body {
     width: 100%; /* Take full width */
     z-index: 10; /* Ensure it stays above other content */
     overflow: hidden;
+    padding: 15px 0; /* Add padding for spacing instead of margin */
   }
 
   .scrollable-content {
-    margin-top: 60px; /* Offset for the fixed heading */
+    margin-top: 45px; /* Offset for the fixed heading */
     overflow-y: auto; /* Enable vertical scrolling */
-    height: calc(100vh - 60px); /* Adjust for the heading height */
+    height: calc(100vh - 90px); /* Adjust for the heading height */
     padding: 20px;
+    width: 350px; /* Ensure it takes up the full width of its container */
+  box-sizing: border-box; /* Include padding in the element's width */
 }
   
+
+
 .scrollable-content::-webkit-scrollbar {
   display: none;
 }
-  .clinic-details{
-    margin-left:20px;
-  }
+.clinic-details {
+  padding: 10px;
+}
 
   .clinic-info{
     margin-right:30px !important;;
@@ -81,46 +94,70 @@ body {
   .clinic-info {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
   }
   
   .clinic-image {
     width: 100px;
     height: 100px;
-    border-radius: 8px;
-    object-fit: cover;
+    border-radius: 100%; /* Make image round */
+    object-fit: cover; /* Crop and fit image */
+   
   }
   
+  .clinic-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Spacing between lines */
+    text-align: left;
+  }
+
   .clinic-text p {
-    margin: 5px 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: black;
   }
-  
   .appointment-details {
-    margin: 20px 0;
     width: 350px !important; 
     border-top: 4px solid #ccc; /* Horizontal line above */
     border-bottom: 4px solid #ccc; /* Horizontal line below */
     padding: 10px 0;
     
+    
+  }
+
+
+
+  .appoint-head{
+    font-size: 17px !important;
   }
   .appointment-time-container {
     display: flex;
-    flex-direction: column; /* Align vertically */
-    justify-content: center;
-    align-items: flex-start;
+    align-items: center; /* Aligns items (time, line, countdown) vertically */
+    gap: 20px; /* Space between time, separator, and countdown */
   }
 
 
   .appointment-time {
+    font-size: 16px;
     font-weight: bold;
+    color: black;
+    text-align: left;
    
   }
   
+  .vertical-separator {
+    width: 4px; /* Thin vertical line */
+    height: 45px; /* Adjust height as needed */
+    background-color: #ddd; /* Light gray color for the line */
+  }
+
   .appointment-countdown {
     color: red;
-    margin-left: 10px;
-    font-size:14px;
-    
+    font-size: 12px;
+    text-align: left;
+    margin-right:20px;
   }
   
   .bill-details .bill-item {
@@ -192,14 +229,41 @@ body {
     cursor: pointer;
     z-index: 10; /* Ensure it stays above the scrollable content */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+
+    z-index: 10; /* Ensure it stays above the scrollable content */
+    box-sizing: border-box; /* Include padding in the element's width */
 }
 
-  /* Adjust Razorpay modal container to ensure it's responsive */
-.razorpay-checkout-container {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  margin: auto;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for aesthetics */
+  
+.clinic-details2 {
+  margin-top: 2px;
+}
+
+.clinic-info {
+  margin-bottom: 10px; /* Space between each info row */
+  display: flex; /* Align label and value inline */
+  gap: 8px; /* Space between label and value */
+}
+
+.clinic-name,
+.clinic-phone {
+  font-weight: normal; /* Ensure values have a standard weight */
+  color: #333; /* Optional: Customize text color */
+}
+
+.clinic-info {
+  display: flex;
+  align-items: center; /* Aligns items vertically in the center */
+  margin-bottom: 8px; /* Adds some space between rows */
+}
+
+.clinic-info strong {
+  width: 120px; /* Set a fixed width for labels for consistent alignment */
+  text-align: left;
+  vertical-align: middle; /* Ensures text aligns properly with the adjacent content */
+}
+
+.clinic-info span {
+  flex-grow: 1; /* Ensures the span takes up the remaining space */
+  vertical-align: middle;
 }
