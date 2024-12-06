@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Inventorys.css";
 import Sidebar from "../Sidebar/page";
@@ -10,6 +10,8 @@ const Inventorys = () => {
     const [groupedRequests, setGroupedRequests] = useState({});
     const [filter, setFilter] = useState("Pending");
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+    const dropdownRef = useRef(null); // Reference for the dropdown container
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
@@ -86,6 +88,19 @@ const Inventorys = () => {
         };
 
         fetchInventoryData();
+    }, []);
+
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownVisible(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleOutsideClick);
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
     }, []);
 
     const filteredRequests = Object.entries(groupedRequests)
@@ -175,7 +190,7 @@ const Inventorys = () => {
                     
                     {/* Dropdown for months */}
                     {isDropdownVisible && (
-                        <div className="dropdown">
+                        <div className="dropdown" ref={dropdownRef}>
                             {months.map((month, index) => (
                                 <div key={index} className="dropdown-item">
                                     {month}

@@ -144,15 +144,7 @@ body {
     display: inline-block; /* Ensures it aligns next to the button */
   }
   
-  .view-all {
-    background: none;
-    border: none;
-    color: rgb(242, 9, 9);
-    cursor: pointer;
-    position: absolute;
-    top: 20px; /* Aligns with the padding of .categories */
-    right: 20px; /* Positions it on the right edge */
-  }
+  
   
   .icons-grid {
     display: grid;

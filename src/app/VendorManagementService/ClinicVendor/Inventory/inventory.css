@@ -257,6 +257,10 @@ body {
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure it takes full height */
+  overflow: hidden; /* Prevent unwanted scrolls on the section */
 }
 
 .approved-items-section h2 {
@@ -272,7 +276,13 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 10px;
+  overflow-y: auto; /* Make this section scrollable */
+  height: calc(100% - 60px); /* Adjust to leave space for the button */
+  padding-right: 5px; /* Optional for space between scrollbar and content */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ccc transparent;
 }
+
 
 .approved-item-card {
   background-color: white;
@@ -323,8 +333,116 @@ body {
   cursor: pointer;
   width: 100%;
   margin-top: 20px;
+  position: relative;
 }
 
 .add-items-button:hover {
   background-color: #c00; /* Slightly darker red on hover */
+}
+
+/* Responsive Adjustments */
+
+/* For smaller devices (mobile) */
+@media (max-width: 400px) {
+  .inventory-page {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+  }
+
+  .inventory-header {
+    font-size: 20px;
+  }
+
+  .inventory-cards {
+    padding: 10px;
+  }
+
+  .item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .item-details h2,
+  .item-details p {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .add-items-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .footer {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+}
+
+/* For tablets and iPads */
+@media (min-width: 401px) and (max-width: 800px) {
+  .inventory-page {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .inventory-header {
+    font-size: 22px;
+  }
+
+  .item-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .item-details h2,
+  .item-details p {
+    font-size: 16px;
+  }
+
+  .add-items-button {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .footer {
+    width: 100%;
+    max-width: 900px;
+  }
+}
+
+/* For larger devices */
+@media (min-width: 801px) and (max-width: 1026px) {
+  .inventory-page {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .inventory-header {
+    font-size: 24px;
+  }
+
+  .item-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .item-details h2,
+  .item-details p {
+    font-size: 18px;
+  }
+
+  .add-items-button {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .footer {
+    width: 100%;
+    max-width: 1300px;
+  }
 }
