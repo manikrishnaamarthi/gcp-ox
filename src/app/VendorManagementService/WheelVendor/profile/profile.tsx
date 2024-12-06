@@ -18,6 +18,7 @@ const Profile: React.FC = () => {
   const [oxiImage2, setOxiImage2] = useState('');
   const [availableslots, setAvailableslots] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false); // For logout popup
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null);
@@ -34,8 +35,6 @@ const Profile: React.FC = () => {
         setPhone(response.data.phone);
         setOxiImage1(response.data.oxi_image1);
         setOxiImage2(response.data.oxi_image2);
-        
-
 
         // Load selected slots from localStorage or API
         const savedSlots = localStorage.getItem('selectedSlots');
@@ -57,7 +56,7 @@ const Profile: React.FC = () => {
     formData.append('file', file);
     formData.append('upload_preset', 'documents_all'); // Ensure this is correct
     formData.append('cloud_name', 'dpysjcjbf'); // Ensure this is correct
-  
+
     try {
       const response = await axios.post(
         'https://api.cloudinary.com/v1_1/dpysjcjbf/image/upload',
@@ -69,8 +68,6 @@ const Profile: React.FC = () => {
       throw new Error('Cloudinary upload failed');
     }
   };
-  
-  
 
   const handleFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -94,10 +91,10 @@ const Profile: React.FC = () => {
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
+
   const handleOxiUploadClick = (fileInputRef: React.RefObject<HTMLInputElement>) => {
     fileInputRef.current?.click();
   };
-  
 
   const handleCameraClick = () => {
     fileInputRef.current?.click();
@@ -107,43 +104,37 @@ const Profile: React.FC = () => {
     const vendorId = 'SP-28407'; // Vendor ID
     let uploadedOxiImage1 = oxiImage1;
     let uploadedOxiImage2 = oxiImage2;
-  
+
     try {
-      // Upload profile photo if it's changed
       if (fileInputRef.current?.files?.[0]) {
         const profileFile = fileInputRef.current.files[0];
         const profileImageUrl = await uploadToCloudinary(profileFile);
         setProfileImage(profileImageUrl);
       }
-  
-      // Upload oxi_image1 to Cloudinary if changed
+
       if (oxiFileInputRef1.current?.files?.[0]) {
         const oxiFile1 = oxiFileInputRef1.current.files[0];
         uploadedOxiImage1 = await uploadToCloudinary(oxiFile1);
       }
-  
-      // Upload oxi_image2 to Cloudinary if changed
+
       if (oxiFileInputRef2.current?.files?.[0]) {
         const oxiFile2 = oxiFileInputRef2.current.files[0];
         uploadedOxiImage2 = await uploadToCloudinary(oxiFile2);
       }
-  
-      // Load selected slots from localStorage
+
       const savedSlots = JSON.parse(localStorage.getItem('selectedSlots') || '[]');
       const formattedSlots = JSON.stringify(savedSlots);
-  
-      // Prepare updated data payload
+
       const updatedData = {
-        profile_photo: profileImage, // Updated URL
+        profile_photo: profileImage,
         name,
         email,
         phone,
-        oxi_image1: uploadedOxiImage1, // Updated URL
-        oxi_image2: uploadedOxiImage2, // Updated URL
-        available_slots: formattedSlots, // Slots in JSON string format
+        oxi_image1: uploadedOxiImage1,
+        oxi_image2: uploadedOxiImage2,
+        available_slots: formattedSlots,
       };
-  
-      // Save updated data to backend
+
       const response = await axios.patch(
         `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`,
         updatedData,
@@ -153,10 +144,9 @@ const Profile: React.FC = () => {
           },
         }
       );
-  
+
       if (response.status === 200) {
         alert('Vendor details updated successfully!');
-        // Fetch updated data to refresh UI
         const updatedResponse = await axios.get(
           `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`
         );
@@ -167,7 +157,7 @@ const Profile: React.FC = () => {
         setOxiImage1(updatedResponse.data.oxi_image1);
         setOxiImage2(updatedResponse.data.oxi_image2);
         setAvailableslots(JSON.parse(updatedResponse.data.available_slots || '[]'));
-        setIsEditing(false); // Exit edit mode
+        setIsEditing(false);
       } else {
         alert('Failed to update vendor details.');
       }
@@ -176,7 +166,7 @@ const Profile: React.FC = () => {
       alert('An error occurred while updating vendor details.');
     }
   };
-  
+
   const handleEditAvailableSlots = () => {
     const profileData = {
       profile_photo: profileImage,
@@ -188,6 +178,16 @@ const Profile: React.FC = () => {
     };
     localStorage.setItem('profileData', JSON.stringify(profileData));
     router.push('/VendorManagementService/WheelVendor/Availableslots');
+  };
+
+  const handleConfirmLogout = () => {
+    localStorage.removeItem('oxi_id'); // Clear oxi_id from storage
+    sessionStorage.clear(); // Clear session storage
+    router.push('/UserAuthentication/LoginPage'); // Redirect to login page
+  };
+
+  const handleCancelLogout = () => {
+    setShowLogoutPopup(false); // Close the logout popup
   };
 
   return (
@@ -349,13 +349,31 @@ const Profile: React.FC = () => {
 {/* Save Button */}
 <div className="save-button-container">
         <button
-          className="save-button"
+          className="save-button3"
           onClick={handleSaveProfile}
         >
           Save
         </button>
+        <button className="logout-button2" onClick={() => setShowLogoutPopup(true)}>
+          Logout
+        </button>
       </div>
       </div>
+
+      {showLogoutPopup && (
+        <div className="logout-popup">
+          <div className="popup-content">
+            <h1>Log out</h1>
+            <p>Are you sure you want to logout?</p>
+            <button className="logout-btn" onClick={handleConfirmLogout}>
+              Logout
+            </button>
+            <button className="cancel-btn" onClick={handleCancelLogout}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
       
       {/* Footer with icons */}
       <div className="footer4">

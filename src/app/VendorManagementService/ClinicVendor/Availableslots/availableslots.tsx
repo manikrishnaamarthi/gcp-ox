@@ -34,7 +34,7 @@ const AvailableSlots: React.FC = () => {
   // Save updated data
   const handleSave = () => {
     localStorage.setItem('selectedSlots', JSON.stringify(selectedSlots));
-    router.push('/VendorManagementService/WheelVendor/profile'); // Go back to profile
+    router.push('/VendorManagementService/ClinicVendor/profile'); // Go back to profile
   };
 
   

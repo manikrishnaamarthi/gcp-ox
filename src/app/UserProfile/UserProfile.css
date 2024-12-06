@@ -27,8 +27,6 @@ body {
   box-sizing: border-box;
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow-y: scroll;
-  
 }
 
 .user-profile::-webkit-scrollbar {
@@ -115,6 +113,12 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   padding: px;
   width: 113%;
+  overflow-y: scroll;
+  
+}
+
+.profile-menu::-webkit-scrollbar {
+  display: none; /* For Webkit browsers (Chrome, Safari) */
 }
 
 .profile-menu ul {
@@ -291,27 +295,41 @@ body {
   color:#FC000E;
 }
 
-
-/* Responsive Styling */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .profile-header {
+  .user-profile {
     padding: 15px;
+    max-width: 95%;
+  }
+
+  .profile-header9 {
+    padding: 10px;
   }
 
   .profile-name {
-    font-size: 18px;
+    font-size: 1.2rem;
+  }
+
+  .footer-icon {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-name {
+    font-size: 1rem;
   }
 
   .profile-email {
-    font-size: 14px;
+    font-size: 0.8rem;
   }
 
   .edit-profile-btn {
-    font-size: 14px;
-    padding: 8px 16px;
+    font-size: 0.9rem;
+    width: 120px;
   }
 
-  .footer-icon span {
-    font-size: 10px;
+  .footer-icon {
+    font-size: 18px;
   }
 }
