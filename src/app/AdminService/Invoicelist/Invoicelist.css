@@ -70,6 +70,12 @@ body {
   width: 1px;
   background-color: #ccc; /* Light gray vertical line */
 }
+.tab-button.active {
+  background-color: #f1f1f1;
+  color: #000;
+  font-weight: bold;
+}
+
 
   .invoice-filters {
     display: flex;
