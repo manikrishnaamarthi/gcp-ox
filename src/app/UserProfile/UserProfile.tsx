@@ -74,7 +74,6 @@ const UserProfile = () => {
   const handlePrivacy = () => router.push('/UserProfile/Privacy');
   const handleLogoutClick = () => setShowLogoutPopup(true);
   const handleCancelLogout = () => setShowLogoutPopup(false);
-  const handleConfirmLogout = () => router.push('/logout');
   const handleBack = () => router.push('/Dashboard');
 
   const handleFooterClick = (iconName) => setActiveFooter(iconName);
@@ -82,6 +81,16 @@ const UserProfile = () => {
   const handleProfileUpdate = async () => {
     await fetchUserData();
   };
+
+  const handleConfirmLogout = () => {
+    // Clear session data
+    localStorage.removeItem('oxi_id'); // Remove the stored oxi_id
+    sessionStorage.clear(); // Clear any session storage data (if used)
+  
+    // Redirect to the login page
+    router.push('/UserAuthentication/LoginPage');
+  };
+  
 
   return (
     <div className="user-profile">

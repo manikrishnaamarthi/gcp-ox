@@ -131,7 +131,7 @@ margin-left: 10px;
   margin-bottom: 30px;
   margin-top: 10px;
 }
-.edit-time-button {
+.edit-time-button2 {
   color: red;
   background: transparent;
   border: none;
@@ -295,7 +295,84 @@ color: black;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 15px;
+}
+
+.logout-button0{
+  color: red;
+  font-weight: bold;
+  align-items: center;
+ 
+}
+
+/* Popup for Logout Confirmation */
+.logout-popup {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  padding: 50px;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  animation: slideUp 0.3s ease-in-out;
+  z-index: 1000;
+  width: 350px;
+  height: 35%;
+  margin-bottom: 2px;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  font-weight: bold;
+}
+.popup-content h1{
+  font-size: 23px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom:20px ;
+}
+.popup-content p{
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 40px;
+
+}
+.popup-buttons {
+  display: flex;
+  justify-content: space-between; /* Space between the buttons */
+  width: 100%; /* Ensure the container spans the popup width */
+  margin-top: 20px; /* Add some spacing from the text above */
+}
+
+
+.logout-btn,
+.cancel-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  flex: 1; /* Make both buttons take equal width */
+  margin: 0 5px; /* Add a small space between buttons */
+
+}
+
+.logout-btn {
+  background-color: #FC000E;
+  color: white;
+  margin-right: 200px;
+  margin-bottom: -45px;
+}
+
+.cancel-btn {
+  background-color: #888;
+  color: white;
+  margin-left: 200px;
+  
 }
 
 

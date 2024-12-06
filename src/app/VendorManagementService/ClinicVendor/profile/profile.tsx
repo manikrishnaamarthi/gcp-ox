@@ -16,6 +16,7 @@ const Profile: React.FC = () => {
   const [profileImage, setProfileImage] = useState('');
   const [oxiImage1, setOxiImage1] = useState('');
   const [oxiImage2, setOxiImage2] = useState('');
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [availableslots, setAvailableslots] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -186,8 +187,19 @@ const Profile: React.FC = () => {
       oxi_image2: oxiImage2,
     };
     localStorage.setItem('profileData', JSON.stringify(profileData));
-    router.push('/VendorManagementService/WheelVendor/Availableslots');
+    router.push('/VendorManagementService/ClinicVendor/Availableslots');
   };
+
+  const handleConfirmLogout = () => {
+    localStorage.removeItem('oxi_id'); // Clear oxi_id from storage
+    sessionStorage.clear(); // Clear session storage
+    router.push('/UserAuthentication/LoginPage'); // Redirect to login page
+  };
+
+  const handleCancelLogout = () => {
+    setShowLogoutPopup(false); // Close the logout popup
+  };
+
 
 
   return (
@@ -324,7 +336,7 @@ const Profile: React.FC = () => {
   <div className="time-label-container">
     <label htmlFor="availableslots">Time</label>
     <button
-      className="edit-time-button"
+      className="edit-time-button2"
       onClick={handleEditAvailableSlots}
     >
       Edit
@@ -352,11 +364,26 @@ const Profile: React.FC = () => {
         >
           Save
         </button>
+        <button className="logout-button0" onClick={() => setShowLogoutPopup(true)}>
+          Logout
+        </button>
       </div>
-      
-
-
       </div>
+
+      {showLogoutPopup && (
+        <div className="logout-popup">
+          <div className="popup-content">
+            <h1>Log out</h1>
+            <p>Are you sure you want to logout?</p>
+            <button className="logout-btn" onClick={handleConfirmLogout}>
+              Logout
+            </button>
+            <button className="cancel-btn" onClick={handleCancelLogout}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Footer with icons */}
       <div className="footer8">
