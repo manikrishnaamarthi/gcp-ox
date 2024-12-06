@@ -87,7 +87,7 @@ const PaymentPage: React.FC = () => {
             };
     
             try {
-              await axios.post("http://localhost:8001/api/save-booking/", paymentData);
+              await axios.post("http://localhost:8006/api/save-booking/", paymentData);
               console.log('payment', paymentData)
               router.push('/DashBoard/TickPage')
             } catch (error) {
@@ -120,10 +120,10 @@ const PaymentPage: React.FC = () => {
             email: appointmentData?.email,
             user: appointmentData?.oxiId, // Assuming `oxiId` represents the user
                   };
-    
+    console.log('faileddata', failedData)
                   try {
                     // Save the failed booking data to the database
-                    await axios.post("http://localhost:8001/api/save-booking/", failedData);
+                    await axios.post("http://localhost:8006/api/save-booking/", failedData);
                     // Redirect to CancelPage
                     router.push('/DashBoard/CancelPage');
                   } catch (error) {

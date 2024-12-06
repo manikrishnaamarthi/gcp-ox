@@ -18,6 +18,19 @@ body {
     overflow: hidden;
     background-color: white;
   }
+
+  .back-button {
+    position: absolute;
+    left: -10px;
+    border: none;
+    font-size: 20px;
+    color: rgb(78, 74, 74);
+    position: relative;
+    background-color: #eae8e8ea; /* Light grey background */
+    border-radius: 50%;       
+    padding: 13px;
+}
+
   
   .heading {
     text-align: center;
@@ -163,14 +176,30 @@ body {
   }
   
   .pay-now-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
+    position: fixed; /* Fixed at the bottom */
+    bottom: 1px; /* Add some spacing from the bottom of the page */
+    left: 50%; /* Start at the middle of the page */
+    transform: translateX(-50%); /* Center horizontally */
+    width: 100%; /* Adjust width to content or specific max-width */
+    max-width: 340px !important; /* Set a maximum width */
+    padding: 10px 20px; /* Add padding for a better button size */
     background-color: red;
     color: white;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center;
     cursor: pointer;
-  }
-  
+    z-index: 10; /* Ensure it stays above the scrollable content */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+  /* Adjust Razorpay modal container to ensure it's responsive */
+.razorpay-checkout-container {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for aesthetics */
+}

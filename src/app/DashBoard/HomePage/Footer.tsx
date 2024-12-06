@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
     if (icon === 'home') {
       router.push('/');
     } else if (icon === 'search') {
-      router.push('/DashBoard/SearchPage');
+      router.push(`/DashBoard/SearchPage?oxi_id=${oxiId}`);
     } else if (icon === 'appointments') {
       router.push(`/Booking?oxi_id=${oxiId}`);
     } else if (icon === 'profile') {

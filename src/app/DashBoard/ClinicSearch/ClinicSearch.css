@@ -22,11 +22,11 @@ body {
     
     display: flex;
     background-color: #f5f2f2;
-    border-radius: 18px;
+    border-radius: 15px;
     padding: 12px;
     margin-bottom: 20px;
     border:1px solid #dcd9d9;
-    
+    margin-left: 40px;
     
   }
   
@@ -44,7 +44,18 @@ body {
     background-color: transparent;
   }
   
+  .back-button {
+    position: absolute;
+    left: 10px;
+    top: 25px;
+    background: rgb(212, 207, 207);
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 12px;
   
+  }
+   
   
   .clinic-card {
     background-color: #fff;
@@ -81,11 +92,29 @@ body {
   .clinic-image {
     width: 100%;
     height: 200px;
-    
     object-fit: cover;
     margin-bottom: 12px;
   }
   
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .white-card {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+
   .clinic-info {
     text-align: center;
   }
@@ -104,6 +133,13 @@ body {
     margin-bottom: 4px;
     margin-left: 68px;
   }
+
+  .clinic-distance {
+    font-size: 14px;
+    color: #888; /* Gray color for subtle appearance */
+    margin: 4px 0; /* Space between clinic name and distance */
+  }
+  
   
   .clinic-distance {
     font-size: 14px;

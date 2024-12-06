@@ -1,32 +1,206 @@
+"use client"
+import { useEffect, useState } from "react";
 import React from "react";
 import "./PaymentMethod.css";
-import { IoChevronBackOutline } from "react-icons/io5";
+import { useRouter} from 'next/navigation';
+import {IoChevronBackSharp } from "react-icons/io5";
+
+interface appointmentData {
+  name: string;
+  address: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  serviceType: string;
+  email :string;
+  phone_number :string;
+  oxiId :string;
+}
+
+// Razorpay configuration keys
+const RAZORPAY_KEY_ID = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_41ch2lqayiGZ9X";
 
 const PaymentMethod: React.FC = () => {
+  const [vendorDetails, setVendorDetails] = useState<any | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter(); 
+  // Fetch vendor details when the component mounts
+  useEffect(() => {
+    
+    const vendorId = localStorage.getItem("vendor_id");
+    const storedAppointmentData = localStorage.getItem("appointmentData");
+    
+    if (storedAppointmentData) {
+      const appointmentData = JSON.parse(storedAppointmentData);
+      setVendorDetails(appointmentData);
+    }
+  
+    if (vendorId) {
+      // Fetch vendor details based on vendor_id
+      const fetchVendorDetails = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:8005/api/vendor-details-service/${vendorId}/`);
+          if (!response.ok) throw new Error("Failed to fetch vendor details");
+          const data = await response.json();
+          setVendorDetails(data[0] || null);
+        } catch (err) {
+          setError("Failed to load vendor details");
+        }
+      };
+  
+      fetchVendorDetails();
+    }
+  }, []);
+  console.log('VendorDetails', vendorDetails);
+  
+  const parseAppointmentTime = (time: string): string | null => {
+    // Check if time exists
+    if (!time) return null;
+
+    // Use a regular expression to match and parse `hh:mm AM/PM` format
+    const timeRegex = /^([0-9]{1,2}):([0-9]{2})\s?(AM|PM)$/i;
+    const match = time.match(timeRegex);
+
+    if (!match) return null;
+
+    let [_, hours, minutes, meridian] = match;
+    hours = parseInt(hours);
+    minutes = parseInt(minutes);
+
+    // Convert to 24-hour time
+    if (meridian.toUpperCase() === "PM" && hours < 12) {
+      hours += 12;
+    }
+    if (meridian.toUpperCase() === "AM" && hours === 12) {
+      hours = 0;
+    }
+
+    // Construct ISO string
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
+  };
+  
+  const handlePayment = async () => {
+    // Load Razorpay's script
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+  
+    script.onload = () => {
+      // Initialize Razorpay
+      const options = {
+        key: RAZORPAY_KEY_ID, // Razorpay Key ID
+        amount: 100, // Amount in smallest currency unit (paise for INR)
+        currency: "INR",
+        name: "Oxivive Services",
+        description: "Consultation Fee",
+        image: "/images/shot(1).png",
+        handler: (response: any) => {
+          const paymentId = response.razorpay_payment_id;
+  
+          // Fetch data from localStorage (appointment details, user details, etc.)
+          const storedAppointmentData = localStorage.getItem("appointmentData");
+          if (!storedAppointmentData) return;
+  
+          const appointmentData = JSON.parse(storedAppointmentData);
+          console.log(appointmentData.appointmentTime, 'appointmentData')
+          // Collect all the necessary data
+          const appointmentTime = parseAppointmentTime(appointmentData?.appointmentTime);
+          if (!appointmentTime) {
+            alert("Invalid appointment time format. Please check your input.");
+            return;
+          }
+
+          const bookingData = {
+            name : vendorDetails?.name,
+            clinic_name: appointmentData?.clinic_name ,
+            address:appointmentData?.address ,
+            service_type: appointmentData ?.serviceType, // Add selected_service here
+            user:appointmentData?.oxiId ,
+            appointment_date:appointmentData?.appointmentDate,
+            appointment_time: appointmentTime, // Use parsed appointment time
+            payment_id: paymentId,
+            booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`,  // Generate random booking ID
+            booking_status: "completed",
+            phone_number: vendorDetails?.phone,  // Include phone number
+            email :vendorDetails?.email,
+          };
+  
+          // Send booking data to backend API to save it in the database
+          const saveBooking = async () => {
+            try {
+              const response = await fetch("http://127.0.0.1:8006/api/save-booking/", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(bookingData),
+              });
+              const data = await response.json();
+  
+              if (response.ok) {
+                alert("Booking saved successfully!");
+                // Redirect to TickPage on successful booking
+                router.push("/DashBoard/TickPage");
+              } else {
+                alert("Failed to save booking: " + data.message || "Error");
+              }
+            } catch (error) {
+              alert("Error while saving the booking: " + error.message);
+            }
+          };
+  
+          saveBooking();
+        },
+        prefill: {
+          name: "User Name", // Replace with user details
+          email: "user@example.com",
+          contact: "8978458745",
+        },
+        notes: {
+          address: "Unnamed rd, veerampalem, Andhra Pradesh 560078, India",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+  
+      const rzp = new (window as any).Razorpay(options);
+  
+      rzp.on("payment.failed", function (response: any) {
+        alert(`Payment Failed. Error: ${response.error.description}`);
+      });
+  
+      rzp.open();
+      
+    };
+  };
+  
+  
   return (
     <div className="payment-method-container">
       <h1 className="heading">Payment Method</h1>
-
+      <button className="back-button" onClick={() => router.back()}>
+          <IoChevronBackSharp size={20} />
+        </button>
       <div className="scrollable-content">
       <div className="clinic-details">
         <h2>Clinic Details</h2>
         <div className="clinic-info">
           <img
-            src="/path-to-clinic-image.jpg" // Replace with your image path
+            src={vendorDetails?.oxi_image1 ||  "https://via.placeholder.com/100"}  // Fallback to a default image if not available
             alt="Clinic"
             className="clinic-image"
           />
           <div className="clinic-text">
-            <p>
-              <strong>Clinic name:</strong> Premier Health Center
-            </p>
-            <p>
-              <strong>Phone:</strong> 8978458745
-            </p>
-            <p>
-              <strong>Address:</strong> Unnamed rd, veerampalem, Andhra Pradesh
-              560078, India
-            </p>
+          <p>
+                <strong>Clinic name:</strong> {vendorDetails?.clinic_name || "N/A"}
+              </p>
+              <p>
+                <strong>Phone:</strong> {vendorDetails?.phone || "N/A"}
+              </p>
+              <p>
+                <strong>Address:</strong> {vendorDetails?.address || "N/A"}
+              </p>
           </div>
         </div>
       </div>
@@ -78,7 +252,7 @@ const PaymentMethod: React.FC = () => {
         </ul>
       </div>
 
-      <button className="pay-now-button">Pay Now</button>
+      <button className="pay-now-button" onClick={handlePayment}>Pay Now</button>
     </div>
     </div>
   );

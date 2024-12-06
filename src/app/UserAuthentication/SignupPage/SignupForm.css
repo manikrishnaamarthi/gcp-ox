@@ -3,8 +3,6 @@
 body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
-  margin: 0;
-  padding: 0;
   background-color: rgb(226, 222, 222);
   min-height: 100vh;
   display: flex;
@@ -225,37 +223,4 @@ button:hover {
 .text {
   text-align: center;
 }
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .welcomeText {
-    font-size: 1.8rem;
-  }
-  .service-provider-title {
-    font-size: 1.4rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .signup-container {
-    max-width: 100%;
-    padding: 20px;
-  }
-  .logo {
-    width: 40px;
-    height: 40px;
-  }
-  .welcomeText {
-    font-size: 1.4rem;
-  }
-  .service-provider-title {
-    font-size: 1.2rem;
-  }
-}
-
-
-
-
-
-
 

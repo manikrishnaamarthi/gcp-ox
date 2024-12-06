@@ -8,8 +8,9 @@ const BookAppointment = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const vendorId = searchParams?.get("vendor_id"); // Extract vendor_id from URL params
+  const oxiId = searchParams?.get("oxi_id") || localStorage.getItem("oxi_id"); // Get oxi_id from query params or local storage
   const today = new Date();
-  
+  const [selectedService, setSelectedService] = useState<string | null>(null);
   const [clinicData, setClinicData] = useState<any | null>(null); // Store clinic data
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
@@ -34,6 +35,12 @@ const BookAppointment = () => {
       };
 
       fetchClinicDetails();
+    }
+
+    // Retrieve selected_service from localStorage (set during ClinicSearch)
+    const service = localStorage.getItem("selected_service");
+    if (service) {
+      setSelectedService(service);
     }
 
     const savedData = localStorage.getItem('selectedData');
@@ -87,37 +94,38 @@ const BookAppointment = () => {
 
   const handleContinue = () => {
     if (selectedDay !== null && selectedSlot !== null) {
-      const selectedDate = `${new Date(today.getFullYear(), new Date(`${weekDates[selectedDay].month} 1, 2024`).getMonth(), weekDates[selectedDay].day).toISOString().split('T')[0]}`;
-      let selectedTime = selectedSlot.split('-')[1];
-
-      const isMorningSlot = selectedSlot.startsWith("morning");
-      const timeParts = selectedTime.split(":");
-      let formattedTime = selectedTime;
-      if (isMorningSlot) {
-        formattedTime = `${timeParts[0]}:${timeParts[1]} AM`;
-      } else {
-        let hour = parseInt(timeParts[0]);
-        if (hour >= 12) {
-          formattedTime = `${hour}:${timeParts[1]} PM`;
-        } else {
-          formattedTime = `${hour + 12}:${timeParts[1]} PM`;
-        }
-      }
-
+      // Construct the selected date in ISO format
+      const selectedDate = new Date(
+        today.getFullYear(),
+        new Date(`${weekDates[selectedDay].month} 1, 2024`).getMonth(),
+        weekDates[selectedDay].day
+      ).toISOString().split('T')[0];
+  
       const appointmentData = {
-        serviceType: selectedData?.serviceType,
-        oxiId: selectedData?.oxiId,
+        clinic_name: clinicData?.clinic_name || "N/A",
+        address: clinicData?.address || "N/A",
+        serviceType: selectedService || "N/A", // Add selected_service here
+        oxiId: oxiId || "N/A",
+        vendorId: vendorId || "N/A", // Include vendor_id
         appointmentDate: selectedDate,
-        appointmentTime: formattedTime,
-        phone_number: selectedData?.phone_number,
-        email: selectedData?.email,
+        appointmentTime: selectedSlot,
       };
 
+      if (vendorId) {
+        localStorage.setItem('vendor_id', vendorId);
+      }
+  
+      // Store appointment data in local storage
       localStorage.setItem('appointmentData', JSON.stringify(appointmentData));
-      window.location.href = '/DashBoard/paymentPage';
+  
+      // Redirect to the payment page
+      window.location.href = '/DashBoard/PaymentMethod';
     }
     setIsModalOpen(false);
   };
+  
+
+
 
   const handleDaySelect = (index: number) => {
     setSelectedDay(index);
@@ -162,25 +170,59 @@ const BookAppointment = () => {
       </div>
 
       <div className="time-slots">
-        <h3>Available Slots</h3>
+  <h3>Available Slots</h3>
+  {Array.isArray(clinicData?.available_slots) ? (
+    <>
+      <div className="slot-category">
+        <h4>Morning</h4>
         <div className="slots">
-        {Array.isArray(clinicData?.available_slots) ? (
-    clinicData.available_slots.map((slot, index) => (
-        <button
-            key={index}
-            className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
-            onClick={() => setSelectedSlot(slot)}
-            disabled={selectedDay === null}
-        >
-            {slot}
-        </button>
-    ))
-) : (
-    <p>No available slots found.</p>
-)}
-
+          {clinicData.available_slots
+            .filter((slot) => slot.endsWith("AM"))
+            .map((slot, index) => {
+              const slotTime = new Date(`${today.toDateString()} ${slot}`);
+              const isDisabled = selectedDay === 0 && slotTime <= new Date();
+              return (
+                <button
+                  key={index}
+                  className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                  onClick={() => setSelectedSlot(slot)}
+                  disabled={isDisabled || selectedDay === null}
+                >
+                  {slot}
+                </button>
+              );
+            })}
         </div>
       </div>
+
+      <div className="slot-category">
+        <h4>Afternoon</h4>
+        <div className="slots">
+          {clinicData.available_slots
+            .filter((slot) => slot.endsWith("PM"))
+            .map((slot, index) => {
+              const slotTime = new Date(`${today.toDateString()} ${slot}`);
+              const isDisabled = selectedDay === 0 && slotTime <= new Date();
+              return (
+                <button
+                  key={index}
+                  className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                  onClick={() => setSelectedSlot(slot)}
+                  disabled={isDisabled || selectedDay === null}
+                >
+                  {slot}
+                </button>
+              );
+            })}
+        </div>
+      </div>
+    </>
+  ) : (
+    <p>No available slots found.</p>
+  )}
+</div>
+
+
 
       <div className="total-payment">
         <button className="proceed-button" onClick={handleProceed}>Proceed</button>
@@ -197,8 +239,8 @@ const BookAppointment = () => {
               <p><strong>Please select the date and time.</strong></p>
             ) : (
               <>
-                <p><strong>Name:</strong> {selectedData?.name || "N/A"}</p>
-                <p><strong>Address:</strong> {selectedData?.address || "Fetching address..."}</p>
+               <p><strong>Clinic Name:</strong> {clinicData?.clinic_name || "Fetching clinic name..."}</p>
+               <p><strong>Clinic Address:</strong> {clinicData?.address || "Fetching clinic address..."}</p>
                 <p><strong>Time:</strong> {selectedSlot || "N/A"}</p>
                 <p><strong>Date:</strong> {weekDates[selectedDay!].weekDay}, {weekDates[selectedDay!].day} {weekDates[selectedDay!].month} {today.getFullYear()}</p>
               </>

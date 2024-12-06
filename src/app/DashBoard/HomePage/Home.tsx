@@ -97,7 +97,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="search-container" onClick={() => router.push('/DashBoard/SearchPage')}>
+      <div className="search-container" onClick={() => router.push(`/DashBoard/SearchPage?oxi_id=${oxiId}`)}>
         <CiSearch size={24} className="search-icon" />
         <input
           type="text"
