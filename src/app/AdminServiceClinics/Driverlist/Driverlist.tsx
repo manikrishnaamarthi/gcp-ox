@@ -32,13 +32,18 @@ const DriverList: React.FC = () => {
     fetchDrivers();
   }, []);
 
-  const filteredDrivers = drivers.filter(
-    (driver) =>
-      driver.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      driver.phone.includes(searchQuery) ||
-      driver.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      driver.wheel.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter logic
+  const filteredDrivers = drivers.filter((driver) => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const normalizedName = driver.name?.toLowerCase() || "";
+
+    return (
+      normalizedName.startsWith(normalizedQuery) ||
+      driver.phone.includes(normalizedQuery) ||
+      driver.email?.toLowerCase().includes(normalizedQuery) ||
+      driver.wheel?.toLowerCase().includes(normalizedQuery)
+    );
+  });
 
   return (
     <div className="driverlist-container">
@@ -69,13 +74,13 @@ const DriverList: React.FC = () => {
             {filteredDrivers.map((driver, index) => (
               <tr key={driver.driver_id}>
                 <td>{index + 1}</td>
-                <td>{driver.wheel}</td>
+                <td>{driver.wheel || "N/A"}</td>
                 <td>{driver.name}</td>
                 <td>{driver.phone}</td>
                 <td>{driver.email}</td>
                 <td>
                   <button className="block-button">
-                    <span>🚫 Block</span>
+                    <span>Block</span>
                   </button>
                 </td>
               </tr>

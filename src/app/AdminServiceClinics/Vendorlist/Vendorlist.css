@@ -61,7 +61,7 @@
 
 .title {
   font-size: 24px;
-  color: #e60012;
+  color: red;
   margin-top: 0px; /* Increased margin-bottom */
   margin-bottom: 30px;
   text-align: center;
@@ -126,13 +126,16 @@
 }
 
 .block-btn {
-  background-color: #e60012;
-  color: #fff;
+  background-color: #fcfafa;
+  color: #000000;
   padding: 5px 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  border: 2px solid #ff0000; /* Red border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,7 +147,7 @@
 }
 
 .block-btn:hover {
-  background-color: #b0000d;
+  background-color: #fcfafa;
 }
 
 /* Global Icon Color */
@@ -154,8 +157,8 @@
 
 
 .block-btn {
-  background-color: #e60012;
-  color: #fff;
+  background-color: #fcfafa;
+  color: #000000;
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
@@ -172,7 +175,7 @@
 }
 
 .block-btn:hover {
-  background-color: #b0000d;
+  background-color: #fcfafa;
 }
 
 /* Global Icon Color */
