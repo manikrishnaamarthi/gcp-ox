@@ -22,6 +22,8 @@ const RAZORPAY_KEY_ID = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_41c
 const PaymentMethod: React.FC = () => {
   const [vendorDetails, setVendorDetails] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [appointmentData, setAppointmentData] = useState<any | null>(null); // Add state for appointmentData
+  const [countdown, setCountdown] = useState<string>(""); // State for countdown
   const router = useRouter(); 
   // Fetch vendor details when the component mounts
   useEffect(() => {
@@ -30,27 +32,75 @@ const PaymentMethod: React.FC = () => {
     const storedAppointmentData = localStorage.getItem("appointmentData");
     
     if (storedAppointmentData) {
-      const appointmentData = JSON.parse(storedAppointmentData);
-      setVendorDetails(appointmentData);
+      setAppointmentData(JSON.parse(storedAppointmentData));
     }
   
     if (vendorId) {
-      // Fetch vendor details based on vendor_id
       const fetchVendorDetails = async () => {
         try {
           const response = await fetch(`http://127.0.0.1:8005/api/vendor-details-service/${vendorId}/`);
-          if (!response.ok) throw new Error("Failed to fetch vendor details");
+          if (!response.ok) {
+            throw new Error(`Failed to fetch vendor details: ${response.statusText}`);
+          }
           const data = await response.json();
           setVendorDetails(data[0] || null);
         } catch (err) {
+          console.error("Error fetching vendor details:", err);
           setError("Failed to load vendor details");
         }
       };
   
       fetchVendorDetails();
+    } else {
+      console.warn("Vendor ID not found in localStorage");
+      setError("Vendor ID is missing");
     }
   }, []);
+
+
   console.log('VendorDetails', vendorDetails);
+
+  useEffect(() => {
+    if (appointmentData?.appointmentDate && appointmentData?.appointmentTime) {
+      const interval = setInterval(() => {
+        const now = new Date();
+        const appointmentDateTime = new Date(
+          `${appointmentData.appointmentDate} ${appointmentData.appointmentTime}`
+        );
+        const diffMs = appointmentDateTime.getTime() - now.getTime();
+
+        if (diffMs <= 0) {
+          setCountdown("Appointment time has passed");
+          clearInterval(interval);
+        } else {
+          const hours = Math.floor(diffMs / (1000 * 60 * 60));
+          const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+          setCountdown(`In ${hours} Hours & ${minutes} Minutes`);
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [appointmentData]);
+
+  const formatAppointmentTime = (date: string, time: string): string => {
+    const [hour, minute, period] = time.match(/^(\d{1,2}):(\d{2})\s?(AM|PM)$/i)?.slice(1) || [];
+    const formattedHour = period?.toUpperCase() === "PM" && +hour < 12 ? +hour + 12 : +hour;
+    const isoTime = `${formattedHour.toString().padStart(2, "0")}:${minute}:00`;
+  
+    const appointmentDateTime = new Date(`${date}T${isoTime}`);
+    const formatter = new Intl.DateTimeFormat("en-US", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  
+    return formatter.format(appointmentDateTime);
+  };
+  
   
   const parseAppointmentTime = (time: string): string | null => {
     // Check if time exists
@@ -77,6 +127,9 @@ const PaymentMethod: React.FC = () => {
     // Construct ISO string
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
   };
+
+
+  
   
   const handlePayment = async () => {
     // Load Razorpay's script
@@ -171,17 +224,56 @@ const PaymentMethod: React.FC = () => {
       });
   
       rzp.open();
+
+
+      const customStyles = `
+      .razorpay-checkout-frame {
+width: 350px !important; /* Adjust the width to match the payment container */
+height: 500px !important; /* Adjust the height to match your container's height */
+max-width: 100% !important;
+margin: auto !important;
+position: fixed !important;
+top: 50% !important;
+left: 50% !important;
+transform: translate(-50%, -50%) !important;
+overflow: hidden !important; /* Hide overflow to prevent scrollbars */
+}
+
+.razorpay-checkout-frame iframe {
+width: 100% !important;
+height: 100% !important;
+margin: 0 !important;
+overflow: hidden !important; /* Hide overflow within iframe */
+}
+
+/* Ensure no scrollbars appear on the iframe (for WebKit browsers) */
+.razorpay-checkout-frame iframe::-webkit-scrollbar {
+display: none;
+}
+
+/* Also hide scrollbar on iframe for other browsers */
+.razorpay-checkout-frame iframe {
+scrollbar-width: none; /* Firefox */
+}
+    
+`;
+const styleTag = document.createElement('style');
+        styleTag.innerHTML = customStyles;
+        document.head.appendChild(styleTag);
+      };
+    
+      document.body.appendChild(script);
+    
       
-    };
   };
   
   
   return (
     <div className="payment-method-container">
       <h1 className="heading">Payment Method</h1>
-      <button className="back-button" onClick={() => router.back()}>
-          <IoChevronBackSharp size={20} />
-        </button>
+      <button className="back-button4" onClick={() => router.back()}>
+      <IoChevronBackSharp size={20} />
+    </button>
       <div className="scrollable-content">
       <div className="clinic-details">
         <h2>Clinic Details</h2>
@@ -191,27 +283,32 @@ const PaymentMethod: React.FC = () => {
             alt="Clinic"
             className="clinic-image"
           />
-          <div className="clinic-text">
-          <p>
-                <strong>Clinic name:</strong> {vendorDetails?.clinic_name || "N/A"}
-              </p>
-              <p>
-                <strong>Phone:</strong> {vendorDetails?.phone || "N/A"}
-              </p>
-              <p>
-                <strong>Address:</strong> {vendorDetails?.address || "N/A"}
-              </p>
+          
+                    <div className="clinic-details2">
+            <div className="clinic-info">
+              <strong>Clinic name:</strong> <span className="clinic-name">{vendorDetails?. clinic_name || "N/A"}</span>
+            </div>
+            <div className="clinic-info">
+              <strong>Phone:</strong> <span className="clinic-phone">{vendorDetails?.phone || "N/A"}</span>
+            </div>
+            <div className="clinic-info">
+              <strong >Address:</strong> <span className="clinic-address">{vendorDetails?.address || "N/A"}</span>
+            </div>
           </div>
+
+
+
         </div>
       </div>
 
       <div className="appointment-details">
-        <h2>Appointment Time</h2>
+        <h2 className="appoint-head">Appointment Time</h2>
         <div className="appointment-time-container">
-          <span className="appointment-time">Sun, 10 Nov 09:30 AM</span>
-          <span className="appointment-countdown">
-            In 5 hours & 59 minutes
-          </span>
+          <span className="appointment-time">{appointmentData
+        ? formatAppointmentTime(appointmentData.appointmentDate, appointmentData.appointmentTime)
+        : "N/A"}</span>
+           <div className="vertical-separator"></div>
+           <div className="appointment-countdown">{countdown}</div>
         </div>
       </div>
 

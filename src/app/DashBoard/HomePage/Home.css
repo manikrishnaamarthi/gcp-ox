@@ -32,10 +32,18 @@ body {
     font-style: normal;
     width: 100%; 
     max-width: 350px;
-    min-height: 100vh;
+    height: auto;
     background-color: white;
     flex-direction: column;
    
+  }
+
+  .home-container ::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
+
+  .body ::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
   }
   
 
@@ -446,3 +454,77 @@ body {
 }
 
 
+/* Medium Screens (for tablets and larger phones) */
+@media (max-width: 768px) {
+  .home-container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .promotion-slider img {
+    width: 100%;
+  }
+
+  .oxi-image {
+    width: 48%;
+  }
+
+  .footer-section {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px;
+  }
+
+  .footer-icon {
+    margin: 0 8px;
+  }
+}
+
+/* Large Screens (desktops) */
+@media (min-width: 769px) {
+  .promotion-slider img {
+    width: 100%;
+  }
+
+  .oxi-image {
+    width: 46%;
+  }
+
+  .footer-section {
+    padding: 10px;
+  }
+}
+
+.oxi-educate-section {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 40px 0;
+}
+
+.educate-list {
+  list-style-type: decimal;
+  padding-left: 20px;
+  line-height: 1.6;
+  color: black;
+}
+
+.educate-list li {
+  margin: 10px 0;
+  position: relative;
+}
+
+.educate-list li::marker {
+  font-weight: bold;
+  color: #FC000E;
+}
+
+.educate-list li:hover {
+  background-color: #fae0e0;
+  transition: background-color 0.3s ease;
+}
+
+.how-to-book {
+  color: black;
+}

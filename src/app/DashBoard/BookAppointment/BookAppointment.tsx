@@ -100,6 +100,9 @@ const BookAppointment = () => {
         new Date(`${weekDates[selectedDay].month} 1, 2024`).getMonth(),
         weekDates[selectedDay].day
       ).toISOString().split('T')[0];
+
+      // Store the selected date in localStorage
+    localStorage.setItem('selectedAppointmentDate', selectedDate);
   
       const appointmentData = {
         clinic_name: clinicData?.clinic_name || "N/A",
@@ -135,7 +138,7 @@ const BookAppointment = () => {
   return (
     <div className="appointment-container">
       <div className="header">
-        <button className="back-button" onClick={() => router.back()}>
+        <button className="back-button4" onClick={() => router.back()}>
           <IoChevronBackSharp size={20} />
         </button>
         <h1>Oxivive Services</h1>
@@ -144,8 +147,8 @@ const BookAppointment = () => {
       {clinicData && (
         <div className="services">
           <div className="service">
-            <p>{clinicData.clinic_name}</p>
-            <p>{clinicData.address}</p>
+            <p className='clinic-name4'>{clinicData.clinic_name}</p>
+            <p className='clinic-address4'>{clinicData.address}</p>
             <p><span className="amount">{clinicData.serviceType}</span></p>
           </div>
         </div>

@@ -111,17 +111,18 @@ const ClinicSearch: React.FC = () => {
   
   
   return (
-    <div className="clinic-search-container">
+    <div className="home-container3">
+    <div className="clinic-search-container3">
       {/* Header */}
       
-      <div className="search-bar">
-      <button className="back-button" onClick={() => router.back()}>
+      <div className="search-bar3">
+      <button className="back-button3" onClick={() => router.back()}>
       <IoChevronBackSharp size={20} />
     </button>
         <input
           type="text"
           placeholder="Search for a location"
-          className="search-input"
+          className="search-input3"
           value={location || ""}
           readOnly
         />
@@ -144,22 +145,26 @@ const ClinicSearch: React.FC = () => {
             />
             </div>
             <div className="clinic-info">
-              <p className="clinic-name">{clinic.clinic_name}</p>
+              
+              <p className="clinic-name3">{clinic.clinic_name}</p>
               <p className="clinic-distance">
                   {distances[index] || "Calculating distance..."}
                 </p>
+                <div className="clinic-address-container">
               <p className="clinic-address">{clinic.address}</p>
+            </div>
             </div>
           </div>
         ))
       ) : (
-        <p>No clinics found for the selected location.</p>
+        <p className="no-clinics-message">No clinics found for the selected location.</p>
       )}
 
       {/* Footer Section */}
     <Footer />
     </div>
     
+    </div>
     </div>
   );
 };

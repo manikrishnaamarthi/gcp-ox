@@ -85,14 +85,14 @@ const Search: React.FC = () => {
 
 
   return (
-    <div className="home-container">
-      <div className="search-container">
+    <div className="home-container2">
+      <div className="search-container2">
         {/* Back Button */}
     <button className="back-button" onClick={() => router.back()}>
       <IoChevronBackSharp size={20} />
     </button>
      
-        <div className="search-bar">
+        <div className="search-bar2">
         
           <CiSearch size={24} />
           <input
