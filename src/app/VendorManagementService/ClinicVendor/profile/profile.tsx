@@ -5,6 +5,7 @@ import './profile.css';
 import axios from 'axios';
 import { FaCamera, FaArrowLeft, FaTimes, FaPlusCircle, FaEdit } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSearchParams } from 'next/navigation';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Profile: React.FC = () => {
@@ -12,6 +13,8 @@ const Profile: React.FC = () => {
   const [selectedFooter, setSelectedFooter] = useState('home');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const searchParams = useSearchParams();
+  const vendorId = searchParams.get('vendor_id');
   const [phone, setPhone] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [oxiImage1, setOxiImage1] = useState('');
@@ -22,35 +25,35 @@ const Profile: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null);
-  const vendorId = 'SP-42024';
+  
 
   useEffect(() => {
-    const fetchVendorData = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`);
-        const fetchedSlots = response.data.available_slots;
-        setProfileImage(response.data.profile_photo);
-        setEmail(response.data.email);
-        setName(response.data.name);
-        setPhone(response.data.phone);
-        setOxiImage1(response.data.oxi_image1);
-        setOxiImage2(response.data.oxi_image2);
-        
+    if (vendorId) {
+      const fetchVendorData = async () => {
+        try {
+          const response = await axios.get(`http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`);
+          const fetchedSlots = response.data.available_slots;
+          setProfileImage(response.data.profile_photo);
+          setEmail(response.data.email);
+          setName(response.data.name);
+          setPhone(response.data.phone);
+          setOxiImage1(response.data.oxi_image1);
+          setOxiImage2(response.data.oxi_image2);
 
-
-        // Load selected slots from localStorage or API
-        const savedSlots = localStorage.getItem('selectedSlots');
-        if (savedSlots) {
-          setAvailableslots(JSON.parse(savedSlots)); // Load from localStorage
-        } else {
-          setAvailableslots(fetchedSlots); // Default to API fetched data
+          const savedSlots = localStorage.getItem('selectedSlots');
+          if (savedSlots) {
+            setAvailableslots(JSON.parse(savedSlots));
+          } else {
+            setAvailableslots(fetchedSlots);
+          }
+        } catch (error) {
+          console.error('Error fetching vendor data:', error);
+          setAvailableslots([]);
         }
-      } catch (error) {
-        console.log('Error fetching vendor data:', error);
-      }
-    };
-    fetchVendorData();
-  }, []);
+      };
+      fetchVendorData();
+    }
+  }, [vendorId]);
 
   const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
@@ -87,9 +90,28 @@ const Profile: React.FC = () => {
     }
   };
 
-  const handleFooterClick = (icon: string) => {
-    setSelectedFooter(icon);
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Clinic"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/ClinicVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/ClinicVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
   };
+  
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -104,46 +126,52 @@ const Profile: React.FC = () => {
   };
 
   const handleSaveProfile = async () => {
-    const vendorId = 'SP-42024'; // Vendor ID
+    const vendorId = localStorage.getItem('vendor_id'); // Ensure vendor_id is stored in localStorage
+  
+    if (!vendorId) {
+      alert('Vendor ID is missing! Please try again.');
+      return;
+    }
+  
     let uploadedOxiImage1 = oxiImage1;
     let uploadedOxiImage2 = oxiImage2;
   
     try {
-      // Upload profile photo if it's changed
+      // Upload profile photo if a new file is selected
       if (fileInputRef.current?.files?.[0]) {
         const profileFile = fileInputRef.current.files[0];
         const profileImageUrl = await uploadToCloudinary(profileFile);
-        setProfileImage(profileImageUrl);
+        setProfileImage(profileImageUrl); // Update local state
       }
   
-      // Upload oxi_image1 to Cloudinary if changed
+      // Upload oxi_image1 if a new file is selected
       if (oxiFileInputRef1.current?.files?.[0]) {
         const oxiFile1 = oxiFileInputRef1.current.files[0];
         uploadedOxiImage1 = await uploadToCloudinary(oxiFile1);
       }
   
-      // Upload oxi_image2 to Cloudinary if changed
+      // Upload oxi_image2 if a new file is selected
       if (oxiFileInputRef2.current?.files?.[0]) {
         const oxiFile2 = oxiFileInputRef2.current.files[0];
         uploadedOxiImage2 = await uploadToCloudinary(oxiFile2);
       }
   
-      // Load selected slots from localStorage
+      // Retrieve and format selected slots from localStorage
       const savedSlots = JSON.parse(localStorage.getItem('selectedSlots') || '[]');
       const formattedSlots = JSON.stringify(savedSlots);
   
-      // Prepare updated data payload
+      // Prepare the updated data payload
       const updatedData = {
-        profile_photo: profileImage, // Updated URL
+        profile_photo: profileImage,
         name,
         email,
         phone,
-        oxi_image1: uploadedOxiImage1, // Updated URL
-        oxi_image2: uploadedOxiImage2, // Updated URL
-        available_slots: formattedSlots, // Slots in JSON string format
+        oxi_image1: uploadedOxiImage1,
+        oxi_image2: uploadedOxiImage2,
+        available_slots: formattedSlots,
       };
   
-      // Save updated data to backend
+      // Update vendor details via PATCH request
       const response = await axios.patch(
         `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`,
         updatedData,
@@ -156,10 +184,13 @@ const Profile: React.FC = () => {
   
       if (response.status === 200) {
         alert('Vendor details updated successfully!');
-        // Fetch updated data to refresh UI
+  
+        // Fetch the updated details from the server
         const updatedResponse = await axios.get(
           `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`
         );
+  
+        // Update the local state with the fetched details
         setProfileImage(updatedResponse.data.profile_photo);
         setEmail(updatedResponse.data.email);
         setName(updatedResponse.data.name);
@@ -167,12 +198,13 @@ const Profile: React.FC = () => {
         setOxiImage1(updatedResponse.data.oxi_image1);
         setOxiImage2(updatedResponse.data.oxi_image2);
         setAvailableslots(JSON.parse(updatedResponse.data.available_slots || '[]'));
-        setIsEditing(false); // Exit edit mode
+  
+        setIsEditing(false); // Disable editing mode
       } else {
-        alert('Failed to update vendor details.');
+        alert('Failed to update vendor details. Please try again.');
       }
     } catch (error) {
-      console.log('Error updating vendor details:', error);
+      console.error('Error updating vendor details:', error);
       alert('An error occurred while updating vendor details.');
     }
   };

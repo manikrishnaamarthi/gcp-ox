@@ -28,12 +28,9 @@ height: 100vh;
   overflow: hidden;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  overflow-y: scroll;
 }
 
-.bookings-container0::-webkit-scrollbar {
-    display: none; /* For Webkit browsers (Chrome, Safari) */
-  }
+
 .header0 {
     display: flex;
     align-items: center;
@@ -137,7 +134,14 @@ h1 {
     box-sizing: border-box;
     margin-bottom: -200px;
     height: 100vh;
+    overflow-y: scroll;
 }
+
+.gray-section0::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
+
+
 p{
     color: red;
 }
@@ -146,10 +150,11 @@ p{
     padding: 1rem; /* Internal padding for spacing inside the card */
     border-radius: 10px;
     display: flex;
+    min-height: 20vh;
     justify-content: space-between;
     flex-direction: column; /* Stack the content vertically */
     border: 1px solid #ddd;
-    margin-bottom: 1rem;
+    margin-bottom: 15px;
     text-align: left; /* Ensure all text is left-aligned */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: calc(100% - 2rem); /* Full width minus padding from container */
@@ -163,43 +168,50 @@ p{
     font-weight: bold;
     margin-bottom: 0.5rem; /* Add spacing below the heading */
 }
-.booking-card p {
-    margin: 0; /* Remove default margins */
-    padding: 0; /* Remove extra padding */
-    color: rgb(166, 164, 164); /* Gray text for address */
-    font-size: 13px;
-    line-height: 1.2; /* Improve readability for multiline text */
-    text-align: left; /* Ensure left alignment */
-    word-wrap: break-word;
-    max-width: calc(100% - 120px);
-}
-.status-section {
+
+.booking-card .header-section {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Aligns to the right */
-    margin-left: 1rem; /* Adds some space between the left and right sections */
-    margin-top: -1.5rem; /* Moves the status upwards to align with the first line of the address */
-    flex-shrink: 0; /* Prevents shrinking */
-    min-width: 100px; /* Ensures sufficient space for the status and date */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
 
-.status {
+.booking-card .address-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.status-section {
     background-color: #f7f7f7;
     color: #0a9e2d;
     padding: 0.25rem 0.5rem;
     border-radius: 20px;
     font-size: 10px;
-    margin-bottom: 0.5rem;
+    border: 2px solid #1dc143;
+    white-space: nowrap;
+}
+
+/* .status {
+    background-color: #f7f7f7;
+    color: #0a9e2d;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 10px;
+    margin-bottom: 20px !important; 
     border: 2px solid #1dc143;
     
     
+} */
+
+.booking-address {
+    color: black;
+    margin-bottom: 50px;
 }
 .date-time {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
     font-size: 12px;
-    margin-bottom: 20px;
+    color: gray;
+    white-space: nowrap;
+    margin-bottom: 60px;
 }
 
 .date {

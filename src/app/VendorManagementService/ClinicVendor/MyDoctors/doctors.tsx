@@ -30,19 +30,34 @@ const Doctors: React.FC = () => {
     fetchDoctors();
   }, []);
 
+  // useEffect(() => {
+  //   // Try to get vendorId from URL first
+  //   const urlVendorId = searchParams.get('vendorId');
+  //   if (urlVendorId) {
+  //     setNewDoctor((prev) => ({ ...prev, vendor: urlVendorId })); // Set vendorId from URL
+  //   } else {
+  //     // Fallback to localStorage
+  //     const storedVendorId = localStorage.getItem('vendor_id');
+  //     if (storedVendorId) {
+  //       setNewDoctor((prev) => ({ ...prev, vendor: storedVendorId })); // Set vendorId from localStorage
+  //     }
+  //   }
+  // }, [searchParams]);
+
   useEffect(() => {
-    // Try to get vendorId from URL first
-    const urlVendorId = searchParams.get('vendorId');
-    if (urlVendorId) {
-      setNewDoctor((prev) => ({ ...prev, vendor: urlVendorId })); // Set vendorId from URL
+    const id = searchParams.get('vendorId') || localStorage.getItem('vendor_id');
+    if (!id) {
+        alert("Vendor ID is missing. Please log in again.");
+        router.push('/login');
     } else {
-      // Fallback to localStorage
-      const storedVendorId = localStorage.getItem('vendor_id');
-      if (storedVendorId) {
-        setNewDoctor((prev) => ({ ...prev, vendor: storedVendorId })); // Set vendorId from localStorage
-      }
+        setNewDoctor((prev) => ({ ...prev, vendor: id }));
+        localStorage.setItem('vendor_id', id); // Store it for consistency
     }
-  }, [searchParams]);
+}, [searchParams]);
+
+
+
+  
   
 
 
@@ -62,24 +77,41 @@ const Doctors: React.FC = () => {
   };
 
   const fetchDoctors = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8001/api/doctors/list_doctors/');
-      if (response.ok) {
-        const data = await response.json();
-        const formattedDoctors = data.map((doctor: any) => ({
-          id: doctor.doctor_id, // Make sure doctor_id matches your model's field
-          name: doctor.name,
-          phone: doctor.phone,
-          imageUrl: doctor.profile_photo || 'https://via.placeholder.com/50',
-        }));
-        setDoctors(formattedDoctors);
-      } else {
-        console.log("Failed to fetch doctors");
-      }
-    } catch (error) {
-      console.log("Error fetching doctors:", error);
+    const vendorId = localStorage.getItem('vendor_id'); // Get vendor_id from localStorage
+
+    if (!vendorId) {
+        alert("Vendor ID is missing. Please log in again.");
+        router.push('/login'); // Redirect to login if vendor_id is missing
+        return;
     }
-  };
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/api/doctors/list_doctors/?vendor=${vendorId}`);
+        if (response.ok) {
+            const data = await response.json();
+
+            if (data.length === 0) {
+                // Handle case where no data is found for the vendor
+                alert("No doctors found for this vendor.");
+            }
+
+            const formattedDoctors = data.map((doctor: any) => ({
+                id: doctor.doctor_id,
+                name: doctor.name,
+                phone: doctor.phone,
+                imageUrl: doctor.profile_photo || 'https://via.placeholder.com/50',
+            }));
+            setDoctors(formattedDoctors); // Update state with filtered doctor list
+        } else {
+            console.error("Failed to fetch doctors. Status code:", response.status);
+        }
+    } catch (error) {
+        console.error("Error fetching doctors:", error);
+    }
+};
+
+
+
   
 
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -135,7 +167,7 @@ const Doctors: React.FC = () => {
 
         console.log('Payload to API:', doctorData);
 
-        const response = await fetch('http://127.0.0.1:8001/api/doctors/add_doctor/', {
+        const response = await fetch('http://127.0.0.1:8000/api/doctors/add_doctor/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -158,9 +190,31 @@ const Doctors: React.FC = () => {
 };
 
 
-  function handleFooterClick(arg0: string): void {
-    throw new Error('Function not implemented.');
-  }
+  // function handleFooterClick(arg0: string): void {
+  //   throw new Error('Function not implemented.');
+  // }
+
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Clinic"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/ClinicVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/ClinicVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="doctors-container">
@@ -173,21 +227,26 @@ const Doctors: React.FC = () => {
       </header>
 
       <div className="doctor-list">
-        <div className="doctor-headings1">
-          <p>Name</p>
-          <p>Phone no</p>
-        </div>
-        
-        {doctors.map((doctor) => (
-          <div key={doctor.id} className="doctor-card">
-            <img src={doctor.imageUrl} alt={doctor.name} className="doctor-image" />
-            <div className="doctor-info">
-              <p className="doctor-name">{doctor.name}</p>
-              <p className="doctor-phone">{doctor.phone}</p>
+    <div className="doctor-headings1">
+        <p>Name</p>
+        <p>Phone no</p>
+    </div>
+    
+    {doctors.length === 0 ? (
+        <p className="no-data-message">No doctors available for this vendor.</p> // Show this when no doctors
+    ) : (
+        doctors.map((doctor) => (
+            <div key={doctor.id} className="doctor-card">
+                <img src={doctor.imageUrl} alt={doctor.name} className="doctor-image" />
+                <div className="doctor-info">
+                    <p className="doctor-name">{doctor.name}</p>
+                    <p className="doctor-phone">{doctor.phone}</p>
+                </div>
             </div>
-          </div>
-        ))}
-      </div>
+        ))
+    )}
+</div>
+
 
       <div className="doctors-footer">
         <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => handleFooterClick('home')}>

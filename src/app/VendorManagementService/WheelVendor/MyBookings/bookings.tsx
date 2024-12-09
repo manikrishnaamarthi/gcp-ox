@@ -34,6 +34,11 @@ const Bookings: React.FC = () => {
       setWeekDates(dates);
     };
 
+    // Set today's date as the default selected date
+  const today = new Date();
+  const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  setSelectedDate(formattedToday);
+
     getWeekDates();
 
     const midnight = new Date();
@@ -82,8 +87,27 @@ const Bookings: React.FC = () => {
   //   console.log("Selected date:", date); // Debug log
   // };
 
+
   const handleFooterClick = (footer: string) => {
     setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Wheel"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/WheelVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/WheelVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
   };
 
   const filteredBookings = allBookings.filter((booking) => {
@@ -161,18 +185,26 @@ const Bookings: React.FC = () => {
         ) : filteredBookings.length > 0 ? (
           filteredBookings.map((booking, index) => (
             <div className="booking-card" key={index}>
-              <h3>{booking.service_type}</h3>
-              <p>{booking.address}</p>
-              <div className="status-section">
-                <span className="status">{booking.booking_status}</span>
-                <div className="date-time">
-                  <span className="date">{booking.appointment_date}</span>
-                  <span className="time">
-                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
-                  </span>
-                </div>
-              </div>
-            </div>
+    {/* Header Section: Service Type and Status */}
+    <div className="header-section">
+        <h3 className="booking-service">{booking.service_type}</h3>
+        <div className="status-section">
+            <span className="status">{booking.booking_status}</span>
+        </div>
+    </div>
+
+    {/* Address Section: Address and Date-Time */}
+    <div className="address-section">
+        <p className="booking-address">{booking.address}</p>
+        <div className="date-time">
+            <span className="date">{booking.appointment_date}</span>
+            <span className="time">
+                <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
+            </span>
+        </div>
+    </div>
+</div>
+
           ))
         ) : (
           <p>No bookings found.</p>

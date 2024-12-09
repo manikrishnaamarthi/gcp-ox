@@ -26,11 +26,8 @@ height: 100vh;
   justify-content: space-between;
   overflow: hidden;
   box-sizing: border-box;
-  overflow-y: scroll;
 }
-.bookings-containers::-webkit-scrollbar {
-    display: none; /* For Webkit browsers (Chrome, Safari) */
-  }
+
 .headerb {
     display: flex;
     align-items: center;
@@ -66,9 +63,11 @@ h1 {
     flex-wrap: nowrap;
     padding: 0 10px; /* Add padding to adjust spacing */
 }
+
 .week-selectionq::-webkit-scrollbar {
     display: none; /* For Webkit browsers (Chrome, Safari) */
   }
+
   
 
 .week-day {
@@ -137,7 +136,12 @@ h1 {
     box-sizing: border-box;
     margin-bottom: -200px;
     height: 100vh;
+    overflow-y: scroll;
 }
+
+.gray-section::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
 p{
     color: red;
 }
