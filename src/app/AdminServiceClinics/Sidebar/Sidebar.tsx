@@ -21,7 +21,7 @@ const Sidebar = () => {
 
   const handleConfirmLogout = () => {
     console.log("User logged out"); // Add your logout logic here
-    router.push('http://localhost:3000/AdminService/AdminDashboard/AccountPage');
+    router.push('/AdminService/AdminDashboard/AccountPage');
   };
 
   return (
@@ -33,42 +33,42 @@ const Sidebar = () => {
         </div>
         <nav className="sidebar-icons">
           {/* Dashboard */}
-          <div className="sidebar-icon" data-name="Dashboard" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/Dashboard')}>
+          <div className="sidebar-icon" data-name="Dashboard" onClick={() => router.push('/AdminServiceClinics/Dashboard')}>
             <MdSpaceDashboard />
           </div>
 
           {/* Invoice */}
-          <div className="sidebar-icon" data-name="Invoice" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/Invoice')}>
+          <div className="sidebar-icon" data-name="Invoice" onClick={() => router.push('/AdminServiceClinics/Invoice')}>
             <FaFileInvoice />
           </div>
 
           {/* Booking List */}
-          <div className="sidebar-icon" data-name="Bookinglist" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/Booking')}>
+          <div className="sidebar-icon" data-name="Bookinglist" onClick={() => router.push('/AdminServiceClinics/Booking')}>
             <FaBookOpen />
           </div>
 
           {/* Vendor List */}
-          <div className="sidebar-icon" data-name="Vendorlist" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/Vendorlist')}>
+          <div className="sidebar-icon" data-name="Vendorlist" onClick={() => router.push('/AdminServiceClinics/Vendorlist')}>
             <IoPeople />
           </div>
 
           {/* Inventory */}
-          <div className="sidebar-icon" data-name="Inventory" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/')}>
+          <div className="sidebar-icon" data-name="Inventory" onClick={() => router.push('/AdminServiceClinics/')}>
             <MdOutlineInventory />
           </div>
 
           {/* Driver List */}
-          <div className="sidebar-icon" data-name="Driverlist" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/Driverlist')}>
+          <div className="sidebar-icon" data-name="Driverlist" onClick={() => router.push('/AdminServiceClinics/Driverlist')}>
             <FaAmbulance />
           </div>
 
           {/* Doctor List */}
-          <div className="sidebar-icon" data-name="Doctorlist" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/Doctorlist')}>
+          <div className="sidebar-icon" data-name="Doctorlist" onClick={() => router.push('/AdminServiceClinics/Doctorlist')}>
             <FaUserDoctor />
           </div>
 
           {/* Adding Vendor */}
-          <div className="sidebar-icon" data-name="Adding Vendor" onClick={() => router.push('http://localhost:3000/AdminServiceClinics/VendorDocument')}>
+          <div className="sidebar-icon" data-name="Adding Vendor" onClick={() => router.push('/AdminServiceClinics/VendorDocument')}>
             <FaPersonCirclePlus />
           </div>
 
