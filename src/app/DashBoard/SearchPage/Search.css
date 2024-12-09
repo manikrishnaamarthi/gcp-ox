@@ -47,11 +47,15 @@ body {
   
 }
 
+
+
 .search-bar input {
   border: none;
   outline: none;
   margin-left: 8px;
   width: 100%;
+  background-color: #f9f9f9 !important;
+
 }
 
 .back-button {
