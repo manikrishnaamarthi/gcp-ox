@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="footer-icon" style={footerIconStyle('appointments')} onClick={() => handleFooterIconClick('appointments')}>
         <RxCalendar size={24} />
-        <span className="footer-header" style={{ color: footerIconStyle('appointments').color }}>Appointments</span>
+        <span className="footer-header" style={{ color: footerIconStyle('appointments').color }}>Booking</span>
       </div>
       <div className="footer-icon" style={footerIconStyle('profile')} onClick={() => handleFooterIconClick('profile')}>
         <BsPerson size={24} />

@@ -316,11 +316,11 @@ const styleTag = document.createElement('style');
         <h2>Bill Details</h2>
         <div className="bill-item">
           <span>Consultation Fee</span>
-          <span>₹ 1</span>
+          <span  className="bill-item-p">₹ 1</span>
         </div>
         <div className="bill-item">
           <span>Service Fee & Tax</span>
-          <span>
+          <span className="bill-item-p">
             <span>49</span>
             <span className="free-tag">FREE</span>
           </span>

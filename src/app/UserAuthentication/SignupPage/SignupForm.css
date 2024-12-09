@@ -1,24 +1,26 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
 body {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  background-color: rgb(226, 222, 222);
-  min-height: 100vh;
+  font-family:"Poppins", sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
+  background-color: rgb(226, 222, 222);
+  font-style: normal;
 }
 
 .signup-container {
-  width: 350px;
-  height: 100vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 350px;
+  height: 100vh;
+  background-color: white;
+  background-image: url('/images/background-blur.png');
+  background-size: cover;
+  background-repeat: no-repeat; /* Ensures no repeating background */
+  background-position: center; /* Centers the image */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url('/images/background-blur.png');
-  background-size: cover;
   align-items: center;
   padding-top: 40px;
   
@@ -48,15 +50,19 @@ body {
 }
 
 .signup-card {
-  background-color: #fff; /* White background for the login form */
-   border-radius: 30px 30px 0px 0px;
-  padding: 30px 20px 20px 20px;
- 
+  background-color: #fff;
+  border-radius: 30px 30px 0px 0px; /* Rounded bottom corners */
+  padding: 30px 20px;
   width: 100%;
+  width: 350px;
   box-sizing: border-box;
-  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   position: relative;
-  
+  text-align: center;
+  flex-grow: 1; /* Let this card grow and take available space */
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box; /* Include padding in width */
   overflow-y: auto; /* Scrolling enabled, but hidden */
   
 }
@@ -224,3 +230,250 @@ button:hover {
   text-align: center;
 }
 
+/* Android smartphones */
+@media only screen and (max-width: 600px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+  .signup-container {
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .signup-card {
+    padding: 20px 15px;
+    border-radius: 20px;
+  }
+
+  .welcomeText {
+    font-size: 1.2rem;
+  }
+
+  .input-field input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .service-provider-title {
+    font-size: 22px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* For Small iPhones (iPhone 5, iPhone SE 2016, iPhone 6/7/8) */
+@media only screen and (max-width: 375px) and (-webkit-min-device-pixel-ratio: 2) {
+  
+  .signup-container {
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .signup-card {
+    padding: 15px;
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .welcomeText {
+    font-size: 1rem;
+  }
+
+  .service-provider-title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .sign-in-link,
+  .google-signup {
+    font-size: 12px;
+  }
+}
+
+/* For Medium iPhones (iPhone X, iPhone XR, iPhone 11, iPhone 12 Mini, iPhone 13 Mini) */
+@media only screen and (min-width: 376px) and (max-width: 414px) and (-webkit-min-device-pixel-ratio: 2) {
+  
+  .signup-container {
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .signup-card {
+    padding: 20px;
+    width: 100%;
+    border-radius: 25px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .welcomeText {
+    font-size: 1.2rem;
+  }
+
+  .service-provider-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+
+  .sign-in-link,
+  .google-signup {
+    font-size: 13px;
+  }
+}
+
+/* For Large iPhones (iPhone 11 Pro, iPhone 11 Pro Max, iPhone 12, iPhone 12 Pro, iPhone 12 Pro Max) */
+@media only screen and (min-width: 415px) and (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  
+  .signup-container {
+    width: 100%;
+    height: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .signup-card {
+    padding: 25px;
+    width: 100%;
+    border-radius: 30px;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .welcomeText {
+    font-size: 1.4rem;
+  }
+
+  .service-provider-title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  button {
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  .sign-in-link,
+  .google-signup {
+    font-size: 14px;
+  }
+}
+
+/* For iPhone 13, 14, 15 Series, including Plus and Pro Models */
+@media only screen and (min-width: 481px) and (max-width: 600px) and (-webkit-min-device-pixel-ratio: 3) {
+  
+  .signup-container {
+    width: 100%;
+    height: auto;
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+
+  .signup-card {
+    padding: 30px;
+    width: 100%;
+    border-radius: 35px;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .welcomeText {
+    font-size: 1.5rem;
+  }
+
+  .service-provider-title {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  button {
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 14px;
+  }
+
+  .sign-in-link,
+  .google-signup {
+    font-size: 15px;
+  }
+}
+
+/* For iPhone 16 Series (iPhone 16, 16 Plus, 16 Pro, 16 Pro Max) */
+@media only screen and (min-width: 601px) and (-webkit-min-device-pixel-ratio: 3) {
+  
+  .signup-container {
+    width: 100%;
+    height: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .signup-card {
+    padding: 35px;
+    width: 75%;
+    border-radius: 40px;
+  }
+
+  .logo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .welcomeText {
+    font-size: 1.6rem;
+  }
+
+  .service-provider-title {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  button {
+    padding: 18px;
+    font-size: 20px;
+    border-radius: 16px;
+  }
+
+  .sign-in-link,
+  .google-signup {
+    font-size: 16px;
+  }
+}

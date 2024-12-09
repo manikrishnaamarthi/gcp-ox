@@ -8,6 +8,7 @@ body, html {
 
 .login-container {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  width: 100%;
   width: 350px;
   height: 100vh;
   background-color: white;
@@ -169,72 +170,175 @@ body, html {
   color: #FC000E;
 }
 
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
+
+/* Media Queries */
+
+/* For Apple Smartphones (iPhone) */
+@media only screen and (max-width: 375px) {
   .login-container {
-    padding: 30px 15px;
+    width: 100%;
+    padding-top: 20px;
   }
 
   .logo {
-    width: 50px;
-    height: 50px;
-  }
-
-  .welcomeText {
-    font-size: 1rem;
+    width: 60px;
+    height: 60px;
   }
 
   .login-card {
     padding: 20px;
+    width: 100%;
+    height: auto;
   }
 
   .login-heading {
-    font-size: 1.25rem;
+    font-size: 22px;
+  }
+
+  .inputLabel {
+    font-size: 0.9rem;
   }
 
   .input {
     font-size: 0.9rem;
+    padding: 10px;
   }
 
   .loginButton {
-    padding: 10px;
     font-size: 0.9rem;
+    padding: 10px;
   }
 
   .extra-options {
+    flex-direction: column;
     font-size: 0.8rem;
+  }
+
+  .signup-link {
+    margin-top: 50px;
   }
 }
 
-@media (max-width: 480px) {
+/* For larger Apple Smartphones (iPhone Plus models, iPhone 11, 12) */
+@media only screen and (max-width: 414px) {
   .login-container {
-    padding: 20px 10px;
+    width: 100%;
+    padding-top: 30px;
   }
 
   .logo {
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
   }
 
-  .welcomeText {
-    font-size: 0.9rem;
+  .login-card {
+    padding: 25px;
   }
 
   .login-heading {
+    font-size: 24px;
+  }
+
+  .inputLabel {
     font-size: 1rem;
   }
 
   .input {
-    padding: 10px;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    padding: 12px;
   }
 
   .loginButton {
-    padding: 8px;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    padding: 12px;
   }
 
   .extra-options {
-    font-size: 0.7rem;
+    font-size: 1rem;
+  }
+}
+
+/* For Android Smartphones */
+@media only screen and (max-width: 480px) {
+  .login-container {
+    width: 100%;
+    padding-top: 20px;
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .login-card {
+    padding: 20px;
+    width: 100%;
+    height: auto;
+  }
+
+  .login-heading {
+    font-size: 22px;
+  }
+
+  .inputLabel {
+    font-size: 0.9rem;
+  }
+
+  .input {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .loginButton {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .extra-options {
+    flex-direction: column;
+    font-size: 0.8rem;
+  }
+
+  .signup-link {
+    margin-top: 50px;
+  }
+}
+
+/* For Larger Android Smartphones (Tablets, Large Smartphones) */
+@media only screen and (max-width: 600px) {
+  .login-container {
+    width: 100%;
+    padding-top: 30px;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .login-card {
+    padding: 25px;
+  }
+
+  .login-heading {
+    font-size: 24px;
+  }
+
+  .inputLabel {
+    font-size: 1rem;
+  }
+
+  .input {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .loginButton {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .extra-options {
+    font-size: 1rem;
   }
 }

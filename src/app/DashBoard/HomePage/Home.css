@@ -1,26 +1,18 @@
 /* Home.css */
 
 body {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  margin: 0;
-  background-color: rgb(228, 226, 226);
-  text-align: center;
+  font-family:"Poppins", sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0;  /* Remove padding */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: scroll;
-  scroll-behavior: smooth;
+  justify-content: center;
+  background-color: rgb(226, 222, 222);
+  font-style: normal;
 
   }
   
 
   body, html {
     height: 100%; /* Ensure the body and HTML elements can grow as the content grows */
-    overflow-x: hidden; /* Disable horizontal scrolling */
+    
   }
 
 
@@ -35,16 +27,10 @@ body {
     height: auto;
     background-color: white;
     flex-direction: column;
-   
+    box-sizing: border-box;
   }
 
-  .home-container ::-webkit-scrollbar {
-    display: none; /* For Webkit browsers (Chrome, Safari) */
-  }
-
-  .body ::-webkit-scrollbar {
-    display: none; /* For Webkit browsers (Chrome, Safari) */
-  }
+  
   
 
   .location-container{ 
@@ -159,8 +145,9 @@ body {
   }
   
   .promotion-slider img {
-    width: 120%;
+    width: 100%;
     border-radius: 10px;
+    max-width: 100%;  
     object-fit: cover; 
   }
   
@@ -306,7 +293,7 @@ body {
   font-size:20px;
   color:#FC000E;
   /* margin-top: 30px; */
-  margin-bottom:10px;
+  margin-bottom:0px;
 }
 
   .oxi-images-section {
@@ -344,6 +331,7 @@ body {
     max-width: 350px;
     z-index: 1000;
     align-items: center;
+    box-sizing: border-box;
     /* gap: 24px;  */
   }
   
@@ -387,16 +375,6 @@ body {
   }
   
 
-  @media (max-width: 768px) {
-    .footer-section {
-        width: 550px; /* Full width for mobile */
-        margin-left: -8px; /* Center alignment */
-        padding: 8px;
-        margin-bottom:2px;
-        position: fixed;
-    }
-  }
-
 
 
 .promotion-section,
@@ -404,13 +382,8 @@ body {
 .services-icon-section,
 .oxi-images-section {
   flex-shrink: 0; /* Prevent shrinking of the content */
-  margin-bottom: 20px; /* Adjust spacing for visual consistency */
+  margin-bottom: 30px; /* Adjust spacing for visual consistency */
 }
-
-
-
-
-
 
 
 
@@ -454,46 +427,8 @@ body {
 }
 
 
-/* Medium Screens (for tablets and larger phones) */
-@media (max-width: 768px) {
-  .home-container {
-    max-width: 100%;
-    padding: 10px;
-  }
 
-  .promotion-slider img {
-    width: 100%;
-  }
 
-  .oxi-image {
-    width: 48%;
-  }
-
-  .footer-section {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 12px;
-  }
-
-  .footer-icon {
-    margin: 0 8px;
-  }
-}
-
-/* Large Screens (desktops) */
-@media (min-width: 769px) {
-  .promotion-slider img {
-    width: 100%;
-  }
-
-  .oxi-image {
-    width: 46%;
-  }
-
-  .footer-section {
-    padding: 10px;
-  }
-}
 
 .oxi-educate-section {
   padding: 20px;
@@ -527,4 +462,209 @@ body {
 
 .how-to-book {
   color: black;
+}
+
+/* Smaller Android devices (e.g., 360px width) */
+@media only screen and (max-width: 360px) and (-webkit-device-pixel-ratio: 2) {
+  .home-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 14px;
+    padding: 8px 30px;
+  }
+
+  .promotion-slider img {
+    width: 100%;
+  }
+
+  .service-icon-container {
+    padding: 8px;
+    margin-right: 5px;
+  }
+
+  .oxi-image {
+    width: 100%;
+  }
+
+  .footer-section {
+    padding: 8px;
+  }
+}
+
+/* Medium Android devices (e.g., 390px width) */
+@media only screen and (max-width: 390px) and (-webkit-device-pixel-ratio: 3) {
+  .home-container {
+    padding: 14px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 15px;
+    padding: 10px 35px;
+  }
+
+  .service-icon-container {
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .footer-section {
+    padding: 10px;
+  }
+}
+
+/* Larger Android devices (e.g., 412px width) */
+@media only screen and (max-width: 412px) and (-webkit-device-pixel-ratio: 3) {
+  .home-container {
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 16px;
+    padding: 12px 40px;
+  }
+
+  .promotion-slider img {
+    width: 110%;
+  }
+
+  .footer-section {
+    padding: 12px;
+  }
+}
+
+
+/* iPhone SE (1st and 2nd Gen), iPhone 5, iPhone 6/7/8 */
+@media only screen and (max-width: 375px) and (-webkit-device-pixel-ratio: 2) {
+  .home-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 14px;
+    padding: 8px 30px;
+  }
+
+  .service-icon-container {
+    padding: 10px;
+    margin-right: 5px;
+  }
+
+  .oxi-image {
+    width: 100%;
+  }
+
+  .footer-section {
+    padding: 8px;
+  }
+}
+
+/* iPhone 6/7/8 Plus, iPhone X, iPhone 11, iPhone 12 Mini, iPhone 13 Mini */
+@media only screen and (max-width: 414px) and (-webkit-device-pixel-ratio: 3) {
+  .home-container {
+    padding: 14px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 15px;
+    padding: 10px 35px;
+  }
+
+  .promotion-slider img {
+    width: 100%;
+  }
+
+  .service-icon-container {
+    padding: 12px;
+    margin-right: 10px;
+  }
+
+  .footer-section {
+    padding: 10px;
+  }
+}
+
+/* iPhone 11 Pro Max, iPhone 12/13/14/15, iPhone 14 Plus, iPhone 14/15 Pro Max */
+@media only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 3) {
+  .home-container {
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 16px;
+    padding: 12px 40px;
+  }
+
+  .promotion-slider img {
+    width: 110%;
+  }
+
+  .service-icon-container {
+    padding: 14px;
+    margin-right: 12px;
+  }
+
+  .footer-section {
+    padding: 12px;
+  }
+}
+
+/* Catch-all for larger iPhones and future models */
+@media only screen and (max-width: 480px) and (-webkit-device-pixel-ratio: 3) {
+  .home-container {
+    padding: 18px;
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 16px;
+    padding: 12px 45px;
+  }
+
+  .promotion-slider img {
+    width: 100%;
+  }
+
+  .service-icon-container {
+    padding: 14px;
+  }
+
+  .footer-section {
+    padding: 14px;
+  }
+}
+
+
+/* General Media Query for iPhones (All Sizes) */
+@media only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 2), 
+       only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 3) {
+  
+  .home-container {
+    padding: 12px;
+  }
+
+  .search-input {
+    font-size: 14px;
+    padding: 8px 30px;
+  }
+
+  .promotion-slider img {
+    width: 100%;
+  }
+
+  .footer-section {
+    padding: 8px;
+  }
+
+  .service-icon-container {
+    padding: 10px;
+    margin-right: 8px;
+  }
 }

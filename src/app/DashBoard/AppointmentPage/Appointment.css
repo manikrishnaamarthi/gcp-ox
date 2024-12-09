@@ -297,4 +297,106 @@ h1 {
     color: rgb(150, 150, 150); 
   }
   
+
+
+
+/* For Apple iPhones (iOS devices) */
+@media only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 2), 
+       only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 3) {
+  
+  .appointment-container {
+    width: 100%;
+    padding: 15px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .back-button {
+    left: -50px;
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  .date-picker {
+    gap: 5px;
+  }
+
+  .date-button {
+    width: 55px;
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  .slot-button {
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 15px;
+  }
+
+  .proceed-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .modal-content {
+    width: 90%;
+    margin-top: 50vh;
+  }
+
+  .modal-button {
+    padding: 12px 40px;
+    font-size: 16px;
+  }
+}
+
+
+/* For Android Devices */
+@media only screen and (max-width: 480px) and (orientation: portrait) and (min-resolution: 120dpi) {
+  
+    .appointment-container {
+      width: 100%;
+      padding: 15px;
+      height: auto;
+      min-height: 100vh;
+    }
+  
+    .back-button {
+      left: -50px;
+      padding: 12px;
+      font-size: 18px;
+    }
+  
+    .date-picker {
+      gap: 8px;
+    }
+  
+    .date-button {
+      width: 60px;
+      padding: 10px;
+      border-radius: 14px;
+    }
+  
+    .slot-button {
+      padding: 14px;
+      font-size: 15px;
+      border-radius: 18px;
+    }
+  
+    .proceed-button {
+      width: 100%;
+      padding: 14px;
+      font-size: 17px;
+    }
+  
+    .modal-content {
+      width: 95%;
+      margin-top: 45vh;
+    }
+  
+    .modal-button {
+      padding: 14px 45px;
+      font-size: 17px;
+    }
+  }
   
