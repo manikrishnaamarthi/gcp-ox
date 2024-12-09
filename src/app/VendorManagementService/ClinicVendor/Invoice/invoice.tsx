@@ -48,9 +48,29 @@ const InvoicePage: React.FC = () => {
     fetchInvoices();
   }, []); // Empty dependency array to run this effect once when the component mounts
   
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Clinic"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/ClinicVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/ClinicVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
+  };
   
 
-  const handleFooterClick = (footer: string) => setSelectedFooter(footer);
   const handleTabClick = (tab: string) => setSelectedTab(tab);
 
   const handleAddItem = () => setItems([...items, { id: items.length, name: '', price: '' }]);

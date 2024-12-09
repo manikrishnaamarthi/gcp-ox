@@ -26,6 +26,7 @@ const Clinic = () => {
 
   const handleFooterClick = (section: string) => {
     setSelectedFooter(section); // Update the selected footer section
+    const vendorId = localStorage.getItem('vendor_id');
     if (section === 'home') {
       router.push('/VendorManagementService/ClinicVendor/home');
     } else if (section === 'bookings') {
@@ -33,7 +34,7 @@ const Clinic = () => {
     } else if (section === 'notifications') {
       router.push('/VendorManagementService/ClinicVendor/notifications');
     } else if (section === 'profile') {
-      router.push('/VendorManagementService/ClinicVendor/profile');
+      router.push(`/VendorManagementService/ClinicVendor/profile?vendor_id=${vendorId}`);
     }
   };
 

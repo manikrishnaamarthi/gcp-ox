@@ -60,7 +60,27 @@ const InvoicePage: React.FC = () => {
     fetchInvoices();
   }, [selectedTab]); // Trigger this effect whenever the selected tab changes
 
-  const handleFooterClick = (footer: string) => setSelectedFooter(footer);
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Wheel"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/WheelVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/WheelVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
+  };
   const handleTabClick = (tab: string) => setSelectedTab(tab);
 
   const handleAddItem = () => setItems([...items, { id: items.length, name: '', price: '' }]);

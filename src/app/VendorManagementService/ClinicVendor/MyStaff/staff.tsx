@@ -28,6 +28,28 @@ const Staff: React.FC = () => {
     fetchStaff();
   }, []);
 
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Clinic"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/ClinicVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/ClinicVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     // Try to get vendorId from URL first
     const urlVendorId = searchParams.get('vendorId');
@@ -59,7 +81,7 @@ const Staff: React.FC = () => {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8001/api/staff/list_cstaff/');
+      const response = await fetch(`http://127.0.0.1:8000/api/staff/list_cstaff/?vendor=${vendorId}`);
       if (response.ok) {
         const data = await response.json();
         const formattedStaff = data.map((staff: any) => ({
@@ -130,7 +152,7 @@ const Staff: React.FC = () => {
         vendor: newStaff.vendor,
       };
 
-      const response = await fetch('http://127.0.0.1:8001/api/staff/add_staff/', {
+      const response = await fetch('http://127.0.0.1:8000/api/staff/add_staff/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -182,19 +204,19 @@ const Staff: React.FC = () => {
       </div>
 
       <div className="staff-footer">
-        <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => setSelectedFooter('home')}>
+        <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => handleFooterClick('home')}>
           <FontAwesomeIcon icon={faHome} />
           <span>Home</span>
         </div>
-        <div className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`} onClick={() => setSelectedFooter('bookings')}>
+        <div className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`} onClick={() => handleFooterClick('bookings')}>
           <FontAwesomeIcon icon={faClipboardList} />
           <span>Bookings</span>
         </div>
-        <div className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`} onClick={() => setSelectedFooter('notifications')}>
+        <div className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`} onClick={() => handleFooterClick('notifications')}>
           <FontAwesomeIcon icon={faBell} />
           <span>Notifications</span>
         </div>
-        <div className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`} onClick={() => setSelectedFooter('profile')}>
+        <div className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`} onClick={() => handleFooterClick('profile')}>
           <FontAwesomeIcon icon={faUser} />
           <span>Profile</span>
         </div>

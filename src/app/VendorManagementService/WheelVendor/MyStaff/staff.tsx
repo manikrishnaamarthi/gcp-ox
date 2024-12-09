@@ -59,21 +59,45 @@ const Staff: React.FC = () => {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8001/api/staff/list_wstaff/');
+      const response = await fetch(`http://127.0.0.1:8000/api/staff/list_wstaff/?vendor=${vendorId}`);
       if (response.ok) {
         const data = await response.json();
         const formattedStaff = data.map((staff: any) => ({
           id: staff.staff_id,
           name: staff.name,
+          email: staff.email,
           phone: staff.phone,
           imageUrl: staff.profile_photo || 'https://via.placeholder.com/50',
         }));
         setStaff(formattedStaff);
       } else {
-        console.log('Failed to fetch staff');
+        console.error('Failed to fetch staff');
       }
     } catch (error) {
-      console.log('Error fetching staff:', error);
+      console.error('Error fetching staff:', error);
+    }
+  };
+  
+
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Wheel"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/WheelVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/WheelVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
     }
   };
 
@@ -94,16 +118,15 @@ const Staff: React.FC = () => {
       alert('Please enter a valid 10-digit phone number.');
       return;
     }
-
+  
     try {
       let imageUrl = '';
-
       const fileInput = document.getElementById('file-input') as HTMLInputElement;
       if (fileInput && fileInput.files && fileInput.files[0]) {
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
         formData.append('upload_preset', 'driver_images');
-
+  
         const cloudinaryResponse = await fetch(
           'https://api.cloudinary.com/v1_1/dvxscrjk0/image/upload',
           {
@@ -111,48 +134,46 @@ const Staff: React.FC = () => {
             body: formData,
           }
         );
-
+  
         if (cloudinaryResponse.ok) {
           const cloudinaryData = await cloudinaryResponse.json();
           imageUrl = cloudinaryData.secure_url;
         } else {
-          console.log('Failed to upload image to Cloudinary');
           alert('Failed to upload image. Please try again.');
           return;
         }
       }
-
+  
       const staffData = {
         name: newStaff.name,
         email: newStaff.email,
         phone: newStaff.phone,
         profile_photo: imageUrl,
         vendor: newStaff.vendor,
+        user_type: 'Wheel_staff', // Specify user_type dynamically
       };
-
-      const response = await fetch('http://127.0.0.1:8001/api/staff/add_staff/', {
+  
+      const response = await fetch('http://127.0.0.1:8000/api/staff/add_staff/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(staffData),
       });
-
+  
       if (response.ok) {
-        console.log('Staff saved successfully');
         closeModal();
         fetchStaff();
         alert('Staff saved successfully!');
       } else {
         const errorData = await response.json();
-        console.log('Failed to save staff:', errorData);
-        alert(`Failed to save staff: ${errorData.message || 'Please check the details and try again.'}`);
+        alert(`Failed to save staff: ${errorData.message || 'Please try again.'}`);
       }
     } catch (error) {
-      console.log('Error occurred while saving staff:', error);
       alert('An error occurred while saving the staff. Please try again.');
     }
   };
+  
 
   return (
     <div className="staff-container">
@@ -182,19 +203,19 @@ const Staff: React.FC = () => {
       </div>
 
       <div className="staff-footer">
-        <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => setSelectedFooter('home')}>
+        <div className={`footer-icon ${selectedFooter === 'home' ? 'selected' : ''}`} onClick={() => handleFooterClick('home')}>
           <FontAwesomeIcon icon={faHome} />
           <span>Home</span>
         </div>
-        <div className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`} onClick={() => setSelectedFooter('bookings')}>
+        <div className={`footer-icon ${selectedFooter === 'bookings' ? 'selected' : ''}`} onClick={() => handleFooterClick('bookings')}>
           <FontAwesomeIcon icon={faClipboardList} />
           <span>Bookings</span>
         </div>
-        <div className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`} onClick={() => setSelectedFooter('notifications')}>
+        <div className={`footer-icon ${selectedFooter === 'notifications' ? 'selected' : ''}`} onClick={() => handleFooterClick('notifications')}>
           <FontAwesomeIcon icon={faBell} />
           <span>Notifications</span>
         </div>
-        <div className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`} onClick={() => setSelectedFooter('profile')}>
+        <div className={`footer-icon ${selectedFooter === 'profile' ? 'selected' : ''}`} onClick={() => handleFooterClick('profile')}>
           <FontAwesomeIcon icon={faUser} />
           <span>Profile</span>
         </div>

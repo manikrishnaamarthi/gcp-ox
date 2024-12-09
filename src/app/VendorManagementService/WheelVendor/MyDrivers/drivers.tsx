@@ -29,40 +29,71 @@ const Drivers: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Try to get vendorId from URL first
     const urlVendorId = searchParams.get('vendorId');
     if (urlVendorId) {
-      setNewDriver((prev) => ({ ...prev, vendor: urlVendorId })); // Set vendorId from URL
+      setNewDriver((prev) => ({ ...prev, vendor: urlVendorId }));
     } else {
-      // Fallback to localStorage
       const storedVendorId = localStorage.getItem('vendor_id');
       if (storedVendorId) {
-        setNewDriver((prev) => ({ ...prev, vendor: storedVendorId })); // Set vendorId from localStorage
+        setNewDriver((prev) => ({ ...prev, vendor: storedVendorId }));
       }
     }
   }, [searchParams]);
+  
 
   const fetchDrivers = async () => {
+    const vendorId = newDriver.vendor; // Current vendor_id from state
+    console.log("Vendor ID being used for fetching:", vendorId);
+  
+    if (!vendorId) {
+      console.error("Vendor ID is missing. Cannot fetch drivers.");
+      return;
+    }
+  
     try {
-      const response = await fetch('http://localhost:8001/api/drivers/');
+      const response = await fetch(`http://localhost:8000/api/drivers/?vendor_id=${vendorId}`);
       if (response.ok) {
         const data = await response.json();
-        const formattedDrivers = data.map((driver: any) => ({
+        console.log("Fetched drivers:", data); // Log the fetched data for debugging
+        const formattedDrivers = data.map((driver) => ({
           id: driver.id,
           name: driver.name,
           phone: driver.phone,
-          imageUrl: driver.profile_photo ? `${driver.profile_photo}` : 'https://via.placeholder.com/50',
+          imageUrl: driver.profile_photo || 'https://via.placeholder.com/50',
         }));
         setDrivers(formattedDrivers);
       } else {
-        console.log("Failed to fetch drivers");
+        console.error("Failed to fetch drivers:", response.statusText);
       }
     } catch (error) {
-      console.log("Error fetching drivers:", error);
+      console.error("Error fetching drivers:", error);
     }
   };
+  
+  
+  
 
-  const handleFooterClick = (footer: string) => setSelectedFooter(footer);
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Wheel"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/WheelVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/WheelVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
+  };
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -133,7 +164,7 @@ const Drivers: React.FC = () => {
       };
   
       // Send driver data to the backend
-      const response = await fetch('http://localhost:8001/api/drivers/', {
+      const response = await fetch('http://localhost:8000/api/drivers/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

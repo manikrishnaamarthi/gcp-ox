@@ -14,6 +14,7 @@ const Wheel = () => {
 
   const handleFooterClick = (section: string) => {
     setSelectedFooter(section); // Update the selected footer section
+    const vendorId = localStorage.getItem('vendor_id');
     if (section === 'home') {
       router.push('/VendorManagementService/Vendors/WheelVendor/Wheel');
     } else if (section === 'bookings') {
@@ -21,7 +22,7 @@ const Wheel = () => {
     } else if (section === 'notifications') {
       router.push('/VendorManagementService/WheelVendor/notifications');
     } else if (section === 'profile') {
-      router.push('/VendorManagementService/WheelVendor/profile');
+      router.push(`/VendorManagementService/WheelVendor/profile?vendor_id=${vendorId}`);
     }
   };
 

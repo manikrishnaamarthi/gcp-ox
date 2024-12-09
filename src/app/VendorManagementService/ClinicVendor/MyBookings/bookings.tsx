@@ -34,6 +34,11 @@ const Bookings: React.FC = () => {
       setWeekDates(dates);
     };
 
+    // Set today's date as the default selected date
+  const today = new Date();
+  const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  setSelectedDate(formattedToday);
+
     getWeekDates();
 
     const midnight = new Date();
@@ -47,6 +52,29 @@ const Bookings: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleFooterClick = (footer: string) => {
+    setSelectedFooter(footer);
+  
+    // Redirect to respective pages
+    switch (footer) {
+      case "home":
+        router.push("/VendorManagementService/Vendors/WheelVendor/Clinic"); // Redirect to the home page
+        break;
+      case "bookings":
+        router.push("/VendorManagementService/ClinicVendor/MyBookings"); // Redirect to the bookings page
+        break;
+      case "notifications":
+        router.push("/notifications"); // Redirect to the notifications page
+        break;
+      case "profile":
+        router.push("/VendorManagementService/ClinicVendor/profile"); // Redirect to the profile page
+        break;
+      default:
+        break;
+    }
+  };
+  
 
   const fetchAllBookings = async () => {
     setLoading(true);
@@ -81,9 +109,9 @@ const Bookings: React.FC = () => {
   //   setSelectedDate(date);
   // };
 
-  const handleFooterClick = (footer: string) => {
-    setSelectedFooter(footer);
-  };
+  // const handleFooterClick = (footer: string) => {
+  //   setSelectedFooter(footer);
+  // };
 
   const filteredBookings = allBookings.filter((booking) => {
     // Filter by status (activeTab)

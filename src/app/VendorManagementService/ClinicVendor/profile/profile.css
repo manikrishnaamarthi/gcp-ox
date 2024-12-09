@@ -302,7 +302,7 @@ color: black;
   color: red;
   font-weight: bold;
   align-items: center;
- 
+  margin-top: 10px;
 }
 
 /* Popup for Logout Confirmation */
