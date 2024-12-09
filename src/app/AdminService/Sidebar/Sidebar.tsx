@@ -14,7 +14,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     console.log("User logged out"); // Add your logout logic here
-    router.push('http://localhost:3000/AdminService/AdminDashboard/AccountPage');
+    router.push('/AdminService/AdminDashboard/AccountPage');
   };
 
   return (
@@ -28,25 +28,25 @@ const Sidebar = () => {
           <div className="sidebar-icon" data-name="Admin">
             <FaHome />
           </div>
-          <div className="sidebar-icon" data-name="Invoice" onClick={() => router.push('http://localhost:3000/AdminService/Invoicelist')}>
+          <div className="sidebar-icon" data-name="Invoice" onClick={() => router.push('/AdminService/Invoicelist')}>
             <FaCartPlus />
           </div>
-          <div className="sidebar-icon" data-name="Booking" onClick={() => router.push('http://localhost:3000/AdminService/Booking/')}>
+          <div className="sidebar-icon" data-name="Booking" onClick={() => router.push('/AdminService/Booking/')}>
             <BiSolidBookAdd />
           </div>
-          <div className="sidebar-icon" data-name="Vendor Approval" onClick={() => router.push('http://localhost:3000/AdminService/AdminDashboard/')}>
+          <div className="sidebar-icon" data-name="Vendor Approval" onClick={() => router.push('/AdminService/AdminDashboard/')}>
             <FaPeopleGroup />
           </div>
-          <div className="sidebar-icon" data-name="Add Admin" onClick={() => router.push('http://localhost:3000/AdminService/AdminPerson/')}>
+          <div className="sidebar-icon" data-name="Add Admin" onClick={() => router.push('/AdminService/AdminPerson/')}>
             <IoMdPersonAdd />
           </div>
-          <div className="sidebar-icon" data-name="Manage Service" onClick={() => router.push('http://localhost:3000/AdminService/AdminDashboard/ManageService/')}>
+          <div className="sidebar-icon" data-name="Manage Service" onClick={() => router.push('/AdminService/AdminDashboard/ManageService/')}>
             <MdManageAccounts />
           </div>
-          <div className="sidebar-icon" data-name="Inventory" onClick={() => router.push('http://localhost:3000/AdminService/Inventory/')}>
+          <div className="sidebar-icon" data-name="Inventory" onClick={() => router.push('/AdminService/Inventory/')}>
             <MdOutlineInventory />
           </div>
-          <div className="sidebar-icon" data-name="Vendor" onClick={() => router.push('http://localhost:3000/AdminService/VendorsList/')}>
+          <div className="sidebar-icon" data-name="Vendor" onClick={() => router.push('/AdminService/VendorsList/')}>
             <MdOutlinePeopleAlt />
           </div>
           <div

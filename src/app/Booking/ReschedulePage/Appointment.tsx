@@ -94,12 +94,17 @@ const Appointment = () => {
       const selectedDateObj = new Date(today); // Clone today's date
       selectedDateObj.setDate(today.getDate() + selectedDay); // Adjust to selected day
       const selectedDate = selectedDateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-      const selectedTime = selectedSlot.split('-')[1];
+  
+      // Convert the slot time to 24-hour format
+      const [hour, minutes] = selectedSlot.split('-')[1].split(':');
+      const isPM = Number(hour) >= 12 || selectedSlot.includes('afternoon');
+      const adjustedHour = isPM && Number(hour) < 12 ? Number(hour) + 12 : Number(hour);
+      const formattedTime = `${adjustedHour.toString().padStart(2, '0')}:${minutes}`;
   
       const BookingData = {
         booking_id: bookingData?.booking_id,
         appointmentDate: selectedDate,
-        appointmentTime: selectedTime,
+        appointmentTime: formattedTime, // Send the time in 24-hour format
       };
   
       console.log("Payload sent to API:", BookingData); // Debugging log
@@ -117,9 +122,7 @@ const Appointment = () => {
         console.log("API Response:", result); // Debugging log
   
         if (response.ok) {
-          // Redirect to the Booking page with user_id as a query parameter
-          
-          router.push('http://localhost:3000/Booking?oxi_id=CI09721');
+          router.push('/Booking?oxi_id=CI09721');
         } else {
           console.error(result.error);
         }
@@ -129,6 +132,7 @@ const Appointment = () => {
     }
     setIsModalOpen(false);
   };
+  
   
 
 
