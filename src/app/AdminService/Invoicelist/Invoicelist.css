@@ -75,7 +75,13 @@ body {
   color: #000;
   font-weight: bold;
 }
+.tab-button:hover {
+  border: 2px solid red; /* Red border on hover */
+}
 
+.tab-button.active:hover {
+  border: 2px solid red; /* Red border when active tab is hovered */
+}
 
   .invoice-filters {
     display: flex;
@@ -89,6 +95,10 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
+  }
+  .search-input:focus {
+    border-color:2px red; 
+    outline: none; 
   }
   /* Table */
   .invoice-table {
@@ -110,35 +120,6 @@ body {
     color: black;
   }
   
-  .invoice-number a {
-    color: #d72531;
-    text-decoration: none;
-  }
-  
-  /* Status Colors */
-  .status-paid {
-    color: rgb(2, 149, 2);
-  }
-  
-  .status-unpaid {
-    color: red;
-  }
-  
-  
-  /* Load More */
-  .load-more {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .load-more button {
-    background-color: transparent;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  
 
 
   /* Table */
@@ -146,7 +127,7 @@ body {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-top: 20px;
 }
 
@@ -165,12 +146,7 @@ body {
     font-weight: bold;
     font-size: 14px;
     border-radius: 10px;
-    color: #d72531; /* Matching the heading color */
-}
-
-.invoice-number a {
-    color: #d72531;
-    text-decoration: none;
+    color: black; /* Matching the heading color */
 }
 
 
