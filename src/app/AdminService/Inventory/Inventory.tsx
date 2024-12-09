@@ -143,7 +143,7 @@ const Inventory = () => {
           </div>
           <div
             className="card1"
-            onClick={() => router.push('http://localhost:3000/AdminService/Inventorys')} // Navigate to the inventorys page
+            onClick={() => router.push('/AdminService/Inventorys')} // Navigate to the inventorys page
             style={{ cursor: 'pointer' }} // Makes the card look clickable
           >
             <p className="count">4</p>
