@@ -80,58 +80,57 @@ body {
   
   
 
-  /* Media Queries */
+  /* ------------------ Media Queries ------------------ */
 
-@media (max-width: 768px) {
-  .payment-container {
-      padding: 15px;
-      height: auto;
-  }
-
-  .payment-method {
-      font-size: 1em;
-  }
-
-  .summary-item {
-      font-size: 0.9em;
-  }
-
-  .payment-button {
-      font-size: 0.9em;
-      padding: 10px;
-  }
+/* For Apple Smartphones */
+@media only screen and (max-width: 480px) and (-webkit-device-pixel-ratio: 2), 
+only screen and (max-width: 480px) and (-webkit-device-pixel-ratio: 3) {
+.payment-container {
+ width: 100%;
+ padding: 15px;
 }
 
-@media (max-width: 480px) {
-  .payment-container {
-      padding: 10px;
-      height: auto;
-  }
+.payment-method {
+ font-size: 1em;
+}
 
-  .back-button {
-      top: 5px;
-      left: 5px;
-      font-size: 8px;
-      padding: 10px;
-  }
+.back-button {
+ font-size: 9px;
+ padding: 10px;
+}
 
-  .payment-method {
-      font-size: 0.9em;
-      flex-direction: column;
-      align-items: flex-start;
-  }
+.order-summary {
+ margin-top: 180px;
+}
 
-  .payment-text {
-      margin-right: 0;
-      margin-bottom: 10px;
-  }
+.payment-button {
+ font-size: 0.9em;
+ padding: 10px;
+}
+}
 
-  .summary-item {
-      font-size: 0.8em;
-  }
+/* For Android Smartphones */
+@media only screen and (max-width: 480px) and (min-device-width: 360px) and (orientation: portrait) {
+.payment-container {
+ width: 100%;
+ padding: 18px;
+}
 
-  .payment-button {
-      font-size: 0.8em;
-      padding: 8px;
-  }
+.payment-method {
+ font-size: 1.1em;
+}
+
+.back-button {
+ font-size: 10px;
+ padding: 11px;
+}
+
+.order-summary {
+ margin-top: 200px;
+}
+
+.payment-button {
+ font-size: 1em;
+ padding: 12px;
+}
 }

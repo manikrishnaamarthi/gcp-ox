@@ -173,57 +173,63 @@ const BookAppointment = () => {
       </div>
 
       <div className="time-slots">
-  <h3>Available Slots</h3>
-  {Array.isArray(clinicData?.available_slots) ? (
+  {Array.isArray(clinicData?.available_slots) && clinicData.available_slots.length > 0 ? (
     <>
-      <div className="slot-category">
-        <h4>Morning</h4>
-        <div className="slots">
-          {clinicData.available_slots
-            .filter((slot) => slot.endsWith("AM"))
-            .map((slot, index) => {
-              const slotTime = new Date(`${today.toDateString()} ${slot}`);
-              const isDisabled = selectedDay === 0 && slotTime <= new Date();
-              return (
-                <button
-                  key={index}
-                  className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
-                  onClick={() => setSelectedSlot(slot)}
-                  disabled={isDisabled || selectedDay === null}
-                >
-                  {slot}
-                </button>
-              );
-            })}
+      {/* Render Morning Slot Category only if there are available AM slots */}
+      {clinicData.available_slots.some((slot) => slot.endsWith("AM")) && (
+        <div className="slot-category">
+          <h4>Morning</h4>
+          <div className="slots">
+            {clinicData.available_slots
+              .filter((slot) => slot.endsWith("AM"))
+              .map((slot, index) => {
+                const slotTime = new Date(`${today.toDateString()} ${slot}`);
+                const isDisabled = selectedDay === 0 && slotTime <= new Date();
+                return (
+                  <button
+                    key={index}
+                    className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                    onClick={() => setSelectedSlot(slot)}
+                    disabled={isDisabled || selectedDay === null}
+                  >
+                    {slot}
+                  </button>
+                );
+              })}
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="slot-category">
-        <h4>Afternoon</h4>
-        <div className="slots">
-          {clinicData.available_slots
-            .filter((slot) => slot.endsWith("PM"))
-            .map((slot, index) => {
-              const slotTime = new Date(`${today.toDateString()} ${slot}`);
-              const isDisabled = selectedDay === 0 && slotTime <= new Date();
-              return (
-                <button
-                  key={index}
-                  className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
-                  onClick={() => setSelectedSlot(slot)}
-                  disabled={isDisabled || selectedDay === null}
-                >
-                  {slot}
-                </button>
-              );
-            })}
+      {/* Render Afternoon Slot Category only if there are available PM slots */}
+      {clinicData.available_slots.some((slot) => slot.endsWith("PM")) && (
+        <div className="slot-category">
+          <h4>Afternoon</h4>
+          <div className="slots">
+            {clinicData.available_slots
+              .filter((slot) => slot.endsWith("PM"))
+              .map((slot, index) => {
+                const slotTime = new Date(`${today.toDateString()} ${slot}`);
+                const isDisabled = selectedDay === 0 && slotTime <= new Date();
+                return (
+                  <button
+                    key={index}
+                    className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                    onClick={() => setSelectedSlot(slot)}
+                    disabled={isDisabled || selectedDay === null}
+                  >
+                    {slot}
+                  </button>
+                );
+              })}
+          </div>
         </div>
-      </div>
+      )}
     </>
   ) : (
     <p>No available slots found.</p>
   )}
 </div>
+
 
 
 

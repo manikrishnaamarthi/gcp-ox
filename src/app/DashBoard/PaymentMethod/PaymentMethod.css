@@ -56,10 +56,9 @@ body {
   .scrollable-content {
     margin-top: 45px; /* Offset for the fixed heading */
     overflow-y: auto; /* Enable vertical scrolling */
-    height: calc(100vh - 90px); /* Adjust for the heading height */
-    padding: 20px;
+    height: calc(100vh - 110px); /* Adjust for the heading height */
     width: 350px; /* Ensure it takes up the full width of its container */
-  box-sizing: border-box; /* Include padding in the element's width */
+    box-sizing: border-box; /* Include padding in the element's width */
 }
   
 
@@ -140,7 +139,7 @@ body {
 
 
   .appointment-time {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     color: black;
     text-align: left;
@@ -164,6 +163,10 @@ body {
     display: flex;
     justify-content: space-between;
     margin: 5px 0;
+  }
+
+  .bill-item-p{
+    margin-right:50px;
   }
   
   .free-tag {
@@ -237,6 +240,7 @@ body {
   
 .clinic-details2 {
   margin-top: 2px;
+  
 }
 
 .clinic-info {
@@ -248,6 +252,7 @@ body {
 .clinic-name,
 .clinic-phone {
   font-weight: normal; /* Ensure values have a standard weight */
+  margin-right:12px;
   color: #333; /* Optional: Customize text color */
 }
 
@@ -266,4 +271,82 @@ body {
 .clinic-info span {
   flex-grow: 1; /* Ensures the span takes up the remaining space */
   vertical-align: middle;
+}
+
+
+/* For all Apple smartphones */
+@media only screen and (min-device-width: 320px) and (max-device-width: 430px) and (-webkit-min-device-pixel-ratio: 2) {
+  
+  .payment-method-container {
+    width: 100%; /* Full width for better spacing */
+    max-width: 100%; /* Adjust to screen size */
+    padding: 15px;
+  }
+
+  .scrollable-content {
+    width: 100%; /* Take full width */
+    height: calc(100vh - 140px); /* Adjust height for the fixed heading and button */
+    margin-top: 50px; /* More spacing for fixed heading */
+  }
+
+  .heading {
+    font-size: 22px; /* Slightly reduce heading size */
+  }
+
+  .clinic-image {
+    width: 90px;
+    height: 90px;
+  }
+
+  .pay-now-button {
+    bottom: 10px; /* Add more space above bottom edge */
+    max-width: 300px; /* Reduce button width slightly */
+  }
+
+  .appointment-time-container {
+    gap: 15px; /* Reduce gap for tighter layout */
+  }
+
+  .clinic-info strong {
+    width: 100px; /* Slightly reduce label width */
+  }
+}
+
+
+/* For all Android smartphones */
+@media only screen and (min-width: 360px) and (max-width: 480px) and (min-resolution: 120dpi) {
+  
+  .payment-method-container {
+    width: 100%; /* Utilize full width */
+    max-width: 100%;
+    padding: 18px;
+  }
+
+  .scrollable-content {
+    width: 100%; /* Ensure full-width content */
+    height: calc(100vh - 130px); /* Adjust height considering button and heading */
+    margin-top: 60px; /* Increase top margin for spacing */
+  }
+
+  .heading {
+    font-size: 24px; /* Keep the heading slightly larger for readability */
+  }
+
+  .clinic-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .pay-now-button {
+    bottom: 15px; /* Increase bottom spacing */
+    max-width: 320px; /* Allow button to take more width */
+  }
+
+  .appointment-time-container {
+    gap: 20px; /* Maintain gap for better separation */
+  }
+
+  .clinic-info strong {
+    width: 110px; /* Slightly wider label width for better alignment */
+  }
 }

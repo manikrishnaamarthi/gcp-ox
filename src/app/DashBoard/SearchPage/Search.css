@@ -2,7 +2,7 @@
 
 
 body {
-  margin: 0;
+    margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
     background-color: rgb(212, 207, 207);
@@ -15,10 +15,10 @@ body {
 .home-container2 {
   padding: 20px;
   background-color: #f9f9f9;
-  width: 350px !important;
+  max-width: 350px;
   margin: auto;
   color: black;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
   position: relative;
  
@@ -30,6 +30,7 @@ body {
   align-items: center;
   padding: 16px;
   margin-left: 36px;
+  background-color: #f9f9f9;
 }
 
 .search-bar2 {
@@ -42,6 +43,8 @@ body {
   max-width: 350px;
   margin-bottom: 16px;
   margin-right: 16px;
+  background-color: #f9f9f9;
+  
 }
 
 .search-bar input {
@@ -55,13 +58,41 @@ body {
   position: absolute;
   left: 10px;
   top: 35px;
-  background: rgb(212, 207, 207);
+  background: rgb(234, 231, 231);
   border: none;
   cursor: pointer;
   border-radius: 50%;
   padding: 12px;
+  color: #8c8b8b;
+  z-index: 1001; /* Ensure it stays above other elements */
 
 }
+
+
+
+.suggestions-list {
+  max-height: 200px; /* Adjust height if needed */
+  
+}
+
+.suggestion-item {
+  display: flex; /* Use flexbox to align icon and text */
+  align-items: center; /* Vertically center the items */
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0; /* Add hover effect */
+}
+
+.suggestion-item .suggestion-text {
+  margin-left: 10px; /* Space between icon and text */
+  font-size: 14px; /* Adjust text size */
+  color: #333; /* Text color */
+}
+
  
 .footer-section2 {
   position: fixed;
@@ -69,6 +100,7 @@ body {
   bottom: 0;
   transform: translateX(-2%);
   width: 100%;
+  max-width: 430px;
   display: flex;
   justify-content: space-around;
   padding: 10px;
@@ -107,56 +139,99 @@ body {
 }
 
 
+/* General Mobile Styles (Common for both) */
+@media (max-width: 480px) {
+  .home-container2 {
+    padding: 10px;
+    width: 100%;
+  }
 
-.confirm-location-btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 460px;
-  background-color: #FC000E;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
+  .search-container2 {
+    padding: 12px;
+    margin-left: 0;
+    width: 100%;
+  }
 
-.confirm-location-btn:hover {
-  background-color: #FC000E;
-}
+  .search-bar2 {
+    padding: 6px;
+    margin-left: 60px;
+    max-width: 90%;
+  }
 
+  .back-button {
+    left: 5px;
+    top: 20px;
+    padding: 10px;
+  }
 
+  .footer-section2 {
+    padding: 8px;
+    transform: none;
+    margin-right: 0;
+    width: 100%;
+    max-width: 100%;
+  }
 
-@media (max-width: 768px) {
-  .footer-section {
-      width: 550px; /* Full width for mobile */
-      margin-left: -8px; /* Center alignment */
-      padding: 8px;
-      margin-bottom:2px;
-      position: fixed;
+  .footer-icon {
+    font-size: 20px;
   }
 }
 
-.suggestions-list {
-  max-height: 200px; /* Adjust height if needed */
-  
+/* Media Queries for Apple Devices */
+@media only screen and (max-width: 480px) and (-webkit-device-pixel-ratio: 2) {
+  .home-container2 {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  .back-button {
+    left: 8px;
+    top: 18px;
+  }
+
+  .footer-section2 {
+    max-width: 100%;
+    padding: 12px;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .footer-icon {
+    font-size: 22px;
+  }
 }
 
-.suggestion-item {
-  display: flex; /* Use flexbox to align icon and text */
-  align-items: center; /* Vertically center the items */
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Media Queries for Android Devices */
+@media only screen and (max-width: 480px) and (min-device-width: 320px) {
+  .home-container2 {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .back-button {
+    left: 6px;
+    top: 20px;
+  }
+
+  .footer-section2 {
+    max-width: 100%;
+    padding: 10px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .footer-icon {
+    font-size: 20px;
+  }
 }
 
-.suggestion-item:hover {
-  background-color: #f0f0f0; /* Add hover effect */
-}
+/* Media Queries for iPhone 6/7/8 Plus (Landscape Mode) */
+@media only screen and (device-width: 414px) and (orientation: landscape) {
+  .home-container2 {
+    padding: 15px;
+  }
 
-.suggestion-item .suggestion-text {
-  margin-left: 10px; /* Space between icon and text */
-  font-size: 14px; /* Adjust text size */
-  color: #333; /* Text color */
+  .footer-section2 {
+    max-width: 100%;
+    padding: 8px;
+  }
 }
 

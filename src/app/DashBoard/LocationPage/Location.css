@@ -1,17 +1,11 @@
 body {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  margin: 0;
-  background-color: rgb(247, 242, 242);
-  text-align: center;
+  font-family:"Poppins", sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0;  /* Remove padding */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  
+  justify-content: center;
+  background-color: rgb(226, 222, 222);
+  font-style: normal;
+  overflow: hidden; 
+
   }
 
 
@@ -43,7 +37,7 @@ body {
   
   
 .map-full-width {
-  width: 100%;
+ max-width: 100%;
   height: 100%;
   
 }
@@ -52,12 +46,12 @@ body {
 .back-button {
     position: absolute;
     margin-top:10px;
-    margin-left:-160px;
     font-size: 5px;
     color: rgb(131, 124, 124);
     background-color: #e9e9e9; /* Light grey background */
     border-radius: 50%;        /* Circular button */
     padding: 12px;
+    margin-left:10px;
 }
   .tab-toggle {
     display: flex;
@@ -136,3 +130,208 @@ body {
   }
   
   
+
+  /* Media Queries for iPhones (Apple) */
+
+/* iPhone SE / smaller screens */
+@media only screen and (max-width: 375px) {
+  .map-section {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .appointment-container {
+    padding: 8px;
+    max-width: 100%;
+  }
+
+  .tab-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row; /* Ensure buttons are side by side */
+  }
+
+  .tab-toggle button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .address-section {
+    padding: 12px;
+  }
+
+  .continue-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+/* iPhone 8 / 8 Plus / 11 */
+@media only screen and (max-width: 414px) {
+  .map-section {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .appointment-container {
+    padding: 10px;
+  }
+
+  .tab-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row; /* Ensure buttons are side by side */
+  }
+
+  .tab-toggle button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .address-section {
+    padding: 14px;
+  }
+
+  .continue-button {
+    font-size: 15px;
+    padding: 12px 24px;
+  }
+}
+
+/* iPhone 12, 13, 14 */
+@media only screen and (max-width: 430px) {
+  .map-section {
+    max-width: 100%;
+  }
+
+  .appointment-container {
+    padding: 14px;
+  }
+
+  .tab-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row; /* Ensure buttons are side by side */
+  }
+
+  .tab-toggle button {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .address-section {
+    padding: 16px;
+  }
+
+  .continue-button {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}
+
+
+/* Media Queries for Android Smartphones */
+
+/* Small Android devices (e.g., older models, small screens) */
+@media only screen and (max-width: 375px) {
+  .map-section {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 12px;
+  }
+
+  .appointment-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .tab-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row; /* Ensure buttons are side by side */
+  }
+
+  .tab-toggle button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .address-section {
+    padding: 14px;
+  }
+
+  .continue-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+/* Medium Android devices (e.g., mid-range phones) */
+@media only screen and (max-width: 412px) {
+  .map-section {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 16px;
+  }
+
+  .appointment-container {
+    padding: 12px;
+  }
+
+  .tab-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row; /* Ensure buttons are side by side */
+  }
+
+  .tab-toggle button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .address-section {
+    padding: 16px;
+  }
+
+  .continue-button {
+    font-size: 15px;
+    padding: 12px 24px;
+  }
+}
+
+/* Large Android devices (e.g., newer models) */
+@media only screen and (max-width: 480px) {
+  .map-section {
+    max-width: 100%;
+  }
+
+  .appointment-container {
+    padding: 14px;
+  }
+
+  .tab-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row; /* Ensure buttons are side by side */
+  }
+
+  .tab-toggle button {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .address-section {
+    padding: 16px;
+  }
+
+  .continue-button {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+}

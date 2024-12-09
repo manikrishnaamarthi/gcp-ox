@@ -6,6 +6,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { BsPerson } from "react-icons/bs";
 import { LuBookPlus } from "react-icons/lu";
 import { useRouter , useSearchParams } from 'next/navigation';
+import { IoChevronBackSharp } from 'react-icons/io5';
 
 const DriverOtp = () => {
   const router = useRouter();
@@ -59,7 +60,7 @@ const DriverOtp = () => {
 
     if (response.ok) {
       alert('OTP validated successfully');
-      router.push("/DriverManagementService/VendorDriverBooking/DriverDashBoard");
+      router.push("/DriverManagementService/VendorDriverBooking/MyBooking");
     } else {
       alert(data.error || 'Invalid OTP');
     }
@@ -69,12 +70,17 @@ const DriverOtp = () => {
   }
 };
 
-  
+const handleNavigation = (path) => {
+  router.push(path);
+};
 
   return (
     <div className="container">
       <header className="header">
         <h1 className="title">
+        <button className="back-button" onClick={() => router.back()}>
+          <IoChevronBackSharp size={20} /> {/* Back icon */}
+        </button>
           <span className="welcome">Enter OTP to Start</span>
           <span className="oxiwheel">Please enter the 5-digit OTP sent to <br></br>the customer</span>
         </h1>
@@ -101,11 +107,11 @@ const DriverOtp = () => {
       </div>
 
       <footer className="footer">
-        <div className="footerItem">
+        <div className="footerItem" >
           <SlHome className="footerIcon" />
           <p>Home</p>
         </div>
-        <div className="footerItem">
+        <div className="footerItem" onClick={() => handleNavigation('/DriverManagementService/VendorDriverBooking/MyBooking')}>
           < LuBookPlus className="footerIcon" />
           <p>Booking</p>
         </div>

@@ -102,3 +102,153 @@
   margin-top: 5px;
   color: black;
 }
+
+
+
+
+/* Apple iPhones (iOS Devices) - Targeting screen sizes typically used by iPhones */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2), 
+only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+  
+  .driverMapContainer {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .back-button {
+    font-size: 12px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  .mapOverlay {
+    font-size: 14px;
+    padding: 6px 12px;
+    top: 20px;
+  }
+
+  .reachedButton, .startButton {
+    width: 95%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .footer {
+    padding: 8px 0;
+  }
+
+  .footerIcon {
+    font-size: 20px;
+  }
+
+  .footerItem {
+    font-size: 10px;
+  }
+
+  .distance {
+    font-size: 12px;
+  }
+}
+
+/* Android Devices - Targeting typical Android screen sizes */
+@media only screen and (min-device-width: 360px) and (max-device-width: 720px) and (orientation: portrait), 
+only screen and (min-device-width: 411px) and (max-device-width: 823px) {
+
+  .driverMapContainer {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .back-button {
+    font-size: 14px;
+    padding: 14px;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  .mapOverlay {
+    font-size: 16px;
+    padding: 8px 14px;
+    top: 15px;
+  }
+
+  .reachedButton, .startButton {
+    width: 92%;
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .footer {
+    padding: 10px 0;
+  }
+
+  .footerIcon {
+    font-size: 22px;
+  }
+
+  .footerItem {
+    font-size: 11px;
+  }
+
+  .distance {
+    font-size: 14px;
+  }
+}
+
+
+/* ========================
+   Media Queries for Apple Devices
+   ======================== */
+   @media only screen and (max-width: 430px) and (min-device-width: 375px) and (-webkit-device-pixel-ratio: 2) {
+    /* iPhone X, 11, 12, 13, 14, 15 (and similar models) */
+  
+    .container {
+      max-width: 100%;
+      height: 100vh;
+    }
+  
+    .header {
+      padding: 15px;
+      height: 180px;
+    }
+  
+    .welcome {
+      font-size: 26px;
+      margin-top: 20px;
+    }
+  
+    .oxiwheel {
+      font-size: 14px;
+      margin-top: 15px;
+    }
+  
+    .main {
+      padding: 15px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+    }
+  
+    .otp-input {
+      width: 40px;
+      height: 50px;
+      font-size: 20px;
+    }
+  
+    .submit-btn {
+      width: 100%;
+      height: 45px;
+      font-size: 14px;
+    }
+  
+    .footer {
+      flex-direction: row;
+      padding: 8px 0;
+    }
+  
+    .footerIcon {
+      font-size: 22px;
+    }
+  }
