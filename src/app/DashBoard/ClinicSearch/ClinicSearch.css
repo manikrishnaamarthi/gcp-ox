@@ -122,41 +122,34 @@ body {
     z-index: 2;
   }
 
-  .clinic-info {
+  .clinic-name-distance-container {
     display: flex;
-    flex-direction: column;  /* Stack elements vertically for the name and distance */
-    align-items: flex-start; /* Align left */
-    text-align: left; /* Align text to the left */
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    gap: 4px; /* Space between clinic name, distance, and address */
   }
   
   .clinic-name3 {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 4px;
     color: #f00000;
   }
   
   .clinic-distance {
     font-size: 14px;
     color: #777;
-    margin-bottom: 4px; /* Space between distance and address */
+    white-space: nowrap; /* Prevents text wrapping */
   }
   
   .clinic-address-container {
-    display: flex; /* Align the address to the right of distance */
-    justify-content: flex-start; /* Start aligned to left */
-    align-items: center; /* Align items vertically */
-    width: 100%;
+    margin-top: 4px; /* Add some space above the address */
   }
   
   .clinic-address {
     font-size: 14px;
     color: #555;
-    margin-left: 10px; /* Margin for space between address and distance */
-    flex-grow: 1; /* Allow the address to take the remaining space */
   }
+  
   
   
   
@@ -211,4 +204,31 @@ body {
     font-size: 1.5rem;
     color: #888;
   }
+
+  /* Spinner container */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+/* Spinner animation */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #FC000E; /* Spinner color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframes for spin animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
   
