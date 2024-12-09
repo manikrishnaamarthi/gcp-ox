@@ -16,10 +16,10 @@ body {
     margin-left: 230px;
   }
   
-  .invoice-header {
+  .invoice-header1 {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     margin-bottom: 20px;
   }
   
@@ -27,6 +27,7 @@ body {
     font-size: 24px;
     color: red; /* Headings remain black */
     margin: 0;
+    font-weight: bold;
   }
   
   .header-left p {
