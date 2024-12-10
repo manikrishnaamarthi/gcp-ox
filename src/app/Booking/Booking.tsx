@@ -69,27 +69,32 @@ const Booking = () => {
     };
     
 
-    const filteredBookings = bookings.filter((booking) => {
-        const today = new Date();
-        const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // Start of today
-        const bookingDate = new Date(booking.appointment_date);
-    
-        // Include only bookings that match today's date
+    const filteredBookings = bookings
+    .filter((booking) => {
+        const now = new Date();
+        const bookingDateTime = new Date(`${booking.appointment_date}T${booking.appointment_time}`);
+        
         if (activeTab === 'MyBooking') {
-            return (
-                bookingDate.getFullYear() === todayDateOnly.getFullYear() &&
-                bookingDate.getMonth() === todayDateOnly.getMonth() &&
-                bookingDate.getDate() === todayDateOnly.getDate()
-            );
+            // Show only future bookings, excluding cancelled ones
+            return bookingDateTime > now && booking.booking_status.toLowerCase() !== 'cancelled';
         }
         if (activeTab === 'Cancelled') {
+            // Show only cancelled bookings
             return booking.booking_status.toLowerCase() === 'cancelled';
         }
         if (activeTab === 'History') {
-            return ['completed', 'cancelled'].includes(booking.booking_status.toLowerCase());
+            // Show past bookings
+            return bookingDateTime <= now && ['completed', 'cancelled'].includes(booking.booking_status.toLowerCase());
         }
         return false;
+    })
+    .sort((a, b) => {
+        // Sort by date and time for MyBooking
+        const dateTimeA = new Date(`${a.appointment_date}T${a.appointment_time}`).getTime();
+        const dateTimeB = new Date(`${b.appointment_date}T${b.appointment_time}`).getTime();
+        return dateTimeA - dateTimeB; // Ascending order: earliest first
     });
+
     
 
     const [activeFooterIcon, setActiveFooterIcon] = useState('booking');
@@ -129,7 +134,7 @@ const Booking = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='container1'>
             <header className='header'>
                 <IoIosArrowBack className="back-button" onClick={handleBackClick}/>
                 <h1 className="title">My Bookings</h1>

@@ -29,7 +29,7 @@ const Inventorys = () => {
                 setGroupedRequests((prevGroupedRequests) => {
                     const updatedGroupedRequests = { ...prevGroupedRequests };
                     Object.keys(updatedGroupedRequests).forEach((date) => {
-                        updatedGroupedRequests[date] = updatedGroupedRequests[date].map((request) =>
+                        updatedGroupedRequests[date].requests = updatedGroupedRequests[date].requests.map((request) =>
                             request.vendor_identifier === vendorId && request.product_id === productId
                                 ? { ...request, request_status: "Approved" }
                                 : request
@@ -55,7 +55,7 @@ const Inventorys = () => {
                 setGroupedRequests((prevGroupedRequests) => {
                     const updatedGroupedRequests = { ...prevGroupedRequests };
                     Object.keys(updatedGroupedRequests).forEach((date) => {
-                        updatedGroupedRequests[date] = updatedGroupedRequests[date].map((request) =>
+                        updatedGroupedRequests[date].requests = updatedGroupedRequests[date].requests.map((request) =>
                             request.vendor_identifier === vendorId && request.product_id === productId
                                 ? { ...request, request_status: "Rejected" }
                                 : request
@@ -74,11 +74,18 @@ const Inventorys = () => {
             try {
                 const response = await axios.get("http://127.0.0.1:8000/api/inventoryapp_inventorydetails/");
                 const groupedData = response.data.reduce((acc, curr) => {
-                    const date = curr.req_date;
-                    if (!acc[date]) {
-                        acc[date] = [];
+                    const { vendor_identifier, req_date } = curr;
+                    const key = `${vendor_identifier}-${req_date}`; // Unique key for each vendor and date group
+                    if (!acc[key]) {
+                        acc[key] = {
+                            vendor_identifier,
+                            req_date,
+                            vendor: curr.vendor,
+                            location: curr.location,
+                            requests: [],
+                        };
                     }
-                    acc[date].push(curr);
+                    acc[key].requests.push(curr);
                     return acc;
                 }, {});
                 setGroupedRequests(groupedData);
@@ -103,13 +110,9 @@ const Inventorys = () => {
         };
     }, []);
 
-    const filteredRequests = Object.entries(groupedRequests)
-    .reduce((acc, [date, requests]) => {
-        const filtered = requests.filter((request) => {
-            // Check if the search term matches the vendor name
+    const filteredRequests = Object.entries(groupedRequests).reduce((acc, [key, group]) => {
+        const filtered = group.requests.filter((request) => {
             const isVendorMatching = request.vendor && request.vendor.toLowerCase().startsWith(searchTerm.toLowerCase());
-
-            // Apply filters based on status and vendor name search term
             if (filter === "Pending") {
                 return request.request_status === "Pending" && isVendorMatching;
             } else if (filter === "Approved") {
@@ -117,23 +120,15 @@ const Inventorys = () => {
             } else if (filter === "Rejected") {
                 return request.request_status === "Rejected" && isVendorMatching;
             }
-            // If no filter, just match the vendor name
             return isVendorMatching;
         });
 
         if (filtered.length > 0) {
-            acc[date] = filtered;
+            acc[key] = { ...group, requests: filtered };
         }
         return acc;
     }, {});
 
-
-    // Sort the filteredRequests by date in descending order
-    const sortedRequests = Object.entries(filteredRequests).sort((a, b) => {
-        const dateA = new Date(a[0]);
-        const dateB = new Date(b[0]);
-        return dateB - dateA; // Descending order
-    });
 
     // Array of month names for the dropdown
     const months = [
@@ -178,7 +173,7 @@ const Inventorys = () => {
                 </div>
 
                 <div className="card-container">
-                    <div className="cards-header">
+                <div className="cards-header">
                         <div className="requests">
                             <span>Requests</span>
                         </div>
@@ -219,66 +214,58 @@ const Inventorys = () => {
                         )}
                     </div>
 
-                    {sortedRequests.map(([date, requests]) => {
-                        // Extract unique vendors and locations for the current date group
-                        const uniqueVendors = [...new Set(requests.map(request => request.vendor || "N/A"))].join(", ");
-                        const uniqueLocations = [...new Set(requests.map(request => request.location || "Unknown Location"))].join(", ");
 
-                        return (
-                            <div key={date} className="date-group">
-                                {/* Updated date header with vendor names and locations */}
-                                <h3 className="date-header">
-                                    Vendor(s): <span className="vendor">{uniqueVendors}</span> | 
-                                    Location(s): <span className="location">{uniqueLocations}</span> | 
-                                    Date: <span className="date">{date}</span>
-                                </h3>
-                                {requests.map((request, index) => (
-                                    <div className="request-card" key={index}>
-                                        <div className="card-column1">
-                                            <div className="product-info">
-                                                <span>{request.product_name}</span>
-                                                <span className="category">{request.request_quantity}</span>
-                                            </div>
+                    {Object.entries(filteredRequests).map(([key, group]) => (
+                        <div key={key} className="date-group">
+                            <h3 className="date-header">
+                                Vendor: <span className="vendor">{group.vendor}</span> |
+                                Location: <span className="location">{group.location}</span> |
+                                Date: <span className="date">{group.req_date}</span>
+                            </h3>
+                            {group.requests.map((request, index) => (
+                                <div className="request-card" key={index}>
+                                    <div className="card-column1">
+                                        <div className="product-info">
+                                            <span>{request.product_name}</span>
+                                            <span className="category">{request.request_quantity}</span>
                                         </div>
-                                        <div className="card-column1">
-                                            <span className={`status ${request.request_status?.toLowerCase()}`}>
-                                                {request.request_status || "No Status"}
-                                            </span>
-                                        </div>
-                                        <div className="card-column1">
-                                            <span>
-                                                {request.request_time}
-                                            </span>
-                                        </div>
-                                        {filter === "Pending" && (
-                                            <div className="card-column1">
-                                                <div className="button-container">
-                                                    <button
-                                                        className="action-button approve"
-                                                        onClick={() =>
-                                                            handleApproveButton(request.vendor_identifier, request.product_id)
-                                                        }
-                                                        disabled={request.request_status === "Approved"}
-                                                    >
-                                                        Approve
-                                                    </button>
-                                                    <button
-                                                        className="action-button reject"
-                                                        onClick={() =>
-                                                            handleRejectButton(request.vendor_identifier, request.product_id)
-                                                        }
-                                                        disabled={request.request_status === "Rejected"}
-                                                    >
-                                                        Reject
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        )}
                                     </div>
-                                ))}
-                            </div>
-                        );
-                    })}
+                                    <div className="card-column1">
+                                        <span className={`status ${request.request_status?.toLowerCase()}`}>
+                                            {request.request_status || "No Status"}
+                                        </span>
+                                    </div>
+                                    <div className="card-column1">
+                                        <span>{request.request_time}</span>
+                                    </div>
+                                    {filter === "Pending" && (
+                                        <div className="card-column1">
+                                            <div className="button-container">
+                                                <button
+                                                    className="action-button approve"
+                                                    onClick={() =>
+                                                        handleApproveButton(request.vendor_identifier, request.product_id)
+                                                    }
+                                                    disabled={request.request_status === "Approved"}
+                                                >
+                                                    Approve
+                                                </button>
+                                                <button
+                                                    className="action-button reject"
+                                                    onClick={() =>
+                                                        handleRejectButton(request.vendor_identifier, request.product_id)
+                                                    }
+                                                    disabled={request.request_status === "Rejected"}
+                                                >
+                                                    Reject
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
             </main>
         </div>

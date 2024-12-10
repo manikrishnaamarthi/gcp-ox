@@ -38,7 +38,7 @@ const Inventory: React.FC = () => {
   useEffect(() => {
     const fetchInventoryItems = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/inventory1/');
+        const response = await fetch('http://127.0.0.1:8000/api/fetchinventory/');
         if (response.ok) {
           const data = await response.json();
           setInventoryItems(data);
@@ -96,7 +96,7 @@ const Inventory: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/inventory/save/', {
+      const response = await fetch('http://127.0.0.1:8000/api/iteminventory/save/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

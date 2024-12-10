@@ -26,7 +26,7 @@ const AdminPerson = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/superadmins/');
+        const response = await fetch('http://127.0.0.1:8000/api/adminperson/');
         if (response.ok) {
           const data = await response.json();
           setAdmins(data);
@@ -86,7 +86,7 @@ const AdminPerson = () => {
     }
   
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/superadmins/${adminId}/`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/delete_superadmins/${adminId}/`, {
         method: 'DELETE',
       });
   
@@ -133,7 +133,7 @@ const AdminPerson = () => {
     } else {
       try {
         const url = editMode
-          ? `http://127.0.0.1:8000/api/superadmins/${editAdminId}/` // PUT URL for updating
+          ? `http://127.0.0.1:8000/api/update_superadmins/${editAdminId}/` // PUT URL for updating
           : 'http://127.0.0.1:8000/api/superadmins/'; // POST URL for creating
         const method = editMode ? 'PUT' : 'POST';
 

@@ -68,7 +68,7 @@ const handleInvoiceCardClick = () => {
             <FaRegAddressBook className="cardIcon" />
             <p className="label">Bookings</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/WheelVendor/Inventory')}>
+          <div className="card" onClick={() => router.push(`/VendorManagementService/WheelVendor/Inventory?vendor_id=${vendorId}`)}>
             <MdInventory className="cardIcon" />
             <p className="label">Inventory</p>
           </div>
