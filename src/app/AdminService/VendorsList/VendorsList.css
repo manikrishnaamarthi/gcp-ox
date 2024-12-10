@@ -11,74 +11,6 @@
     font-family: Arial, sans-serif;
   }
   
-  /* Sidebar styling */
-  .admin-sidebar {
-    height: 100vh;
-    width: 150px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    position: fixed;
-  }
-  
-  .logo {
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: -25px;
-  }
-  
-  .logo img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
-  }
-  
-  .logo p {
-    font-size: 20px;
-    color: red;
-    font-weight: bold;
-  }
-  
-  .sidebar-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-left: -40px;
-  }
-  
-  /* Icon styling with hover animation */
-  .sidebar-icon {
-    font-size: 24px;
-    color: #ff0000;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
-  
-  .sidebar-icon:hover {
-    transform: scale(1.2);
-    color: #ff5555;
-  }
-  
-  .sidebar-icon:hover::after {
-    content: attr(data-name);
-    position: absolute;
-    left: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: red;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: transparent;
-    white-space: nowrap;
-  }
-  
-  /* Logout Icon Styling */
-  .sidebar-icon.logout-icon {
-    margin-top: 48px;
-  }
   
   /* Main Content */
   .main {
@@ -100,7 +32,7 @@
   .header-search {
     padding: 5px;
     border: 1px solid #e80808;
-    border-radius: 15px;
+    border-radius: 10px;
     color: #eb0909;
   }
   .header-search:focus {
@@ -144,7 +76,8 @@
   
   .city:hover {
     background-color: #f2f2f2;
-    transition: background-color 0.3s ease;
+    transform: scale(1.05); /* Slightly enlarges the element */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
   }
   
   .cities-grid {
@@ -178,11 +111,18 @@
     scroll-snap-align: start; /* Aligns the item at the start */
   }
 
+  .city.selected {
+    border: 2px solid red; /* Border color when selected */
+    background-color: transparent; /* Ensures no background color change */
+    color: red;
+  }
+
   .city-image {
     width: 100%; /* Automatically adjust to fit */
     height: auto;
     max-height: 100px;
     margin-bottom: 10px;
+    margin-top: 5px;
   }
   
   .search-container {

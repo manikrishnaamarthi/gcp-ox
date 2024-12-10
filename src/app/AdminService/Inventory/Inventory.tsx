@@ -129,7 +129,7 @@ const Inventory = () => {
           <input
             type="text"
             placeholder="Search by product name..."
-            className="search-bar"
+            className="search-bar2"
             onChange={handleSearch}
           />
         </header>

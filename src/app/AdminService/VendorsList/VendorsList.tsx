@@ -9,7 +9,7 @@ interface Vendor {
   name: string;
   selected_service: string;
   phone: number;
-  address: string;
+  district: string;
 }
 
 const VendorsList: React.FC = () => {
@@ -39,7 +39,8 @@ const VendorsList: React.FC = () => {
     setSelectedCity(city);
     setIsLoading(true); // Set loading to true when changing the city
     setError(""); // Reset error
-
+    setVendors([]); // Reset vendors to avoid displaying stale data
+    setFilteredVendors([]); // Reset filtered vendors as well
     fetchVendors(city); // Fetch vendors for the selected city
   };
 
@@ -53,61 +54,68 @@ const VendorsList: React.FC = () => {
     filterVendorsByService(selected_service, vendors, event.target.value);
   };
 
-  const filterVendorsByService = (
-    service: string,
-    vendorData: Vendor[] = vendors,
-    query: string = searchQuery
-  ) => {
-    // Filter vendors by city and service
-    const filteredByServiceAndCity = vendorData.filter(
-      (vendor) =>
-        vendor.selected_service === service &&
-        vendor.address.toLowerCase().includes(selectedCity.toLowerCase()) // Filter by city
-    );
-
-    // Further filter by the search query (vendor name)
-    const filtered = filteredByServiceAndCity.filter((vendor) =>
-      vendor.name.toLowerCase().startsWith(query.toLowerCase()) // Filter by search query
-    );
-
-    setFilteredVendors(filtered); // Update filtered vendors list
-  };
-
   const fetchVendors = async (city: string) => {
+    setIsLoading(true); // Set loading to true
+    setError(""); // Reset error
+    setFilteredVendors([]); // Reset filtered vendors while new data loads
+  
     try {
       const response = await axios.get<Vendor[]>(
         `http://127.0.0.1:8000/api/vendorapp-vendordetails/?city=${city}`
       );
       const vendorsData = response.data;
-
+  
+      setVendors(vendorsData); // Update the vendors list with fetched data
+  
       if (vendorsData.length === 0) {
         setError("No vendors found for the selected city.");
-        setFilteredVendors([]); // Reset filtered vendors if no data
       } else {
-        // Filter vendors based on the selected city
-        const filteredByCity = vendorsData.filter((vendor) =>
-          vendor.address.toLowerCase().includes(city.toLowerCase()) // Filter by city
-        );
-
-        setVendors(vendorsData); // Set the full vendors list
-        setFilteredVendors(filteredByCity); // Set the filtered vendors list by city initially
-
-        // Filter the vendors further by the selected service
-        filterVendorsByService(selected_service, filteredByCity); // Apply the service filter
+        // Filter vendors based on the current service and selected city
+        filterVendorsByService(selected_service, vendorsData, searchQuery);
       }
     } catch (err) {
       setError("Failed to fetch vendors. Please try again later.");
-      setFilteredVendors([]); // Ensure the filtered vendors are reset
     } finally {
-      setIsLoading(false); // Stop loading after the fetch is complete
+      setIsLoading(false); // Stop loading after fetching
     }
   };
-
+  
+  const filterVendorsByService = (
+    service: string,
+    vendorData: Vendor[] = vendors,
+    query: string = searchQuery
+  ) => {
+    if (vendorData.length === 0) {
+      setFilteredVendors([]); // If no vendors, reset filtered vendors
+      return;
+    }
+  
+    // Filter vendors by selected service and city
+    const filteredByServiceAndCity = vendorData.filter(
+      (vendor) =>
+        vendor.selected_service === service &&
+        vendor.district.toLowerCase().includes(selectedCity.toLowerCase())
+    );
+  
+    // Further filter by search query
+    const filtered = filteredByServiceAndCity.filter((vendor) =>
+      vendor.name.toLowerCase().startsWith(query.toLowerCase())
+    );
+  
+    setFilteredVendors(filtered); // Update filtered vendors list
+  };
+  
   useEffect(() => {
     if (selectedCity) {
-      filterVendorsByService(selected_service); // Apply service filter when city changes
+      fetchVendors(selectedCity); // Refetch vendors when city changes
     }
-  }, [selectedCity, selected_service]); // Apply the filters when city or service changes
+  }, [selectedCity]); // Trigger effect when city changes
+  
+  useEffect(() => {
+    // Reapply service filter when service or vendors list changes
+    filterVendorsByService(selected_service, vendors, searchQuery);
+  }, [selected_service, vendors, searchQuery]);
+  
 
   return (
     <div className="container">
@@ -136,7 +144,7 @@ const VendorsList: React.FC = () => {
             {cities.map((city, index) => (
               <div
                 key={index}
-                className="city"
+                className={`city ${selectedCity === city.name ? "selected" : ""}`}
                 onClick={() => handleCityClick(city.name)}
               >
                 <img src={city.image} alt={city.name} className="city-image" />
@@ -196,7 +204,7 @@ const VendorsList: React.FC = () => {
                     <td>{vendor.name}</td>
                     <td>{vendor.selected_service}</td>
                     <td>{vendor.phone}</td>
-                    <td>{vendor.address}</td>
+                    <td>{vendor.district}</td>
                   </tr>
                 ))}
               </tbody>

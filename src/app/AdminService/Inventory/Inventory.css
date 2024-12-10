@@ -41,7 +41,7 @@ body {
     font-weight: bold;
   }
   
-  .search-bar {
+  .search-bar2 {
     padding: 8px;
     width: 200px;
     border-radius: 10px;
@@ -51,13 +51,13 @@ body {
     margin-left: auto;
   }
   
-  .search-bar:focus {
+  .search-bar2:focus {
     border-color: red;
     color: red;
     outline: none;
   }
   
-  .search-bar::placeholder {
+  .search-bar2::placeholder {
     color: red;
   }
   

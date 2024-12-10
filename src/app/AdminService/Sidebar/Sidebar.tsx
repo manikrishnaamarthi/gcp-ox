@@ -1,5 +1,4 @@
-'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaHome, FaCartPlus, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
 import { MdManageAccounts, MdOutlineInventory, MdOutlinePeopleAlt } from 'react-icons/md';
@@ -12,9 +11,25 @@ const Sidebar = () => {
   const router = useRouter();
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
+  // Prefetch critical routes when the component mounts
+  useEffect(() => {
+    router.prefetch('/AdminService/');
+    router.prefetch('/AdminService/Invoicelist');
+    router.prefetch('/AdminService/Booking/');
+    router.prefetch('/AdminService/AdminDashboard/');
+    router.prefetch('/AdminService/AdminPerson/');
+    router.prefetch('/AdminService/AdminDashboard/ManageService/');
+    router.prefetch('/AdminService/Inventory/');
+    router.prefetch('/AdminService/VendorsList/');
+  }, [router]);
+
   const handleLogout = () => {
-    console.log("User logged out"); // Add your logout logic here
+    console.log("User logged out");
     router.push('/AdminService/AdminDashboard/AccountPage');
+  };
+
+  const navigateWithPreload = (route) => {
+    router.push(route); // Navigate directly
   };
 
   return (
@@ -25,37 +40,37 @@ const Sidebar = () => {
           <p>Super Admin</p>
         </div>
         <nav className="sidebar-icons">
-          <div className="sidebar-icon" data-name="Admin">
+          <button className="sidebar-icon" data-name="Admin" onClick={() => navigateWithPreload('/AdminService/')}>
             <FaHome />
-          </div>
-          <div className="sidebar-icon" data-name="Invoice" onClick={() => router.push('/AdminService/Invoicelist')}>
+          </button>
+          <button className="sidebar-icon" data-name="Invoice" onClick={() => navigateWithPreload('/AdminService/Invoicelist')}>
             <FaCartPlus />
-          </div>
-          <div className="sidebar-icon" data-name="Booking" onClick={() => router.push('/AdminService/Booking/')}>
+          </button>
+          <button className="sidebar-icon" data-name="Booking" onClick={() => navigateWithPreload('/AdminService/Booking/')}>
             <BiSolidBookAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor Approval" onClick={() => router.push('/AdminService/AdminDashboard/')}>
+          </button>
+          <button className="sidebar-icon" data-name="Vendor Approval" onClick={() => navigateWithPreload('/AdminService/AdminDashboard/')}>
             <FaPeopleGroup />
-          </div>
-          <div className="sidebar-icon" data-name="Add Admin" onClick={() => router.push('/AdminService/AdminPerson/')}>
+          </button>
+          <button className="sidebar-icon" data-name="Add Admin" onClick={() => navigateWithPreload('/AdminService/AdminPerson/')}>
             <IoMdPersonAdd />
-          </div>
-          <div className="sidebar-icon" data-name="Manage Service" onClick={() => router.push('/AdminService/AdminDashboard/ManageService/')}>
+          </button>
+          <button className="sidebar-icon" data-name="Manage Service" onClick={() => navigateWithPreload('/AdminService/AdminDashboard/ManageService/')}>
             <MdManageAccounts />
-          </div>
-          <div className="sidebar-icon" data-name="Inventory" onClick={() => router.push('/AdminService/Inventory/')}>
+          </button>
+          <button className="sidebar-icon" data-name="Inventory" onClick={() => navigateWithPreload('/AdminService/Inventory/')}>
             <MdOutlineInventory />
-          </div>
-          <div className="sidebar-icon" data-name="Vendor" onClick={() => router.push('/AdminService/VendorsList/')}>
+          </button>
+          <button className="sidebar-icon" data-name="Vendor" onClick={() => navigateWithPreload('/AdminService/VendorsList/')}>
             <MdOutlinePeopleAlt />
-          </div>
-          <div
+          </button>
+          <button
             className="sidebar-icon logout-icon"
             data-name="Logout"
             onClick={() => setShowLogoutPopup(true)}
           >
             <FaSignOutAlt />
-          </div>
+          </button>
         </nav>
       </aside>
       {showLogoutPopup && (

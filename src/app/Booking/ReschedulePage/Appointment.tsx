@@ -122,7 +122,7 @@ const Appointment = () => {
         console.log("API Response:", result); // Debugging log
   
         if (response.ok) {
-          router.push('/Booking?oxi_id=CI09721');
+          router.push(`/Booking?oxi_id=${userId}`);
         } else {
           console.error(result.error);
         }
