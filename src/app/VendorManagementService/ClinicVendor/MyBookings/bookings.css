@@ -4,14 +4,15 @@ body {
     margin: 0;
     background-color: rgb(228, 226, 226);
     text-align: center;
-    display: flex;
+    width: 100%;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    padding: 0;  /* Remove padding */
+    padding: 0;  
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: hidden;
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; */
 }
 
 .bookings-containers{
@@ -133,6 +134,7 @@ h1 {
     padding: 1rem 0;
     margin: 0;
     width: 100%;
+    max-width: 350px;
     box-sizing: border-box;
     margin-bottom: -200px;
     height: 100vh;
@@ -269,3 +271,98 @@ p{
 .footer-icon span {
     font-size: 12px;
 }
+
+
+/* General Mobile Styling */
+@media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+    .gray-section {
+        max-width: 100%; /* Utilize the full screen width */
+        padding: 0.5rem; /* Reduce padding for smaller devices */
+    }
+    .bookings-containers {
+      width: 100%;
+      padding: 0 15px;
+    }
+    .week-day {
+      width: 60px;
+      padding: 8px;
+    }
+    .footer {
+      padding: 5px;
+    }
+    .footer-icon {
+      font-size: 20px;
+    }
+  }
+  
+  /* Styling for Apple Smartphones */
+  @media only screen and (min-device-width: 375px) and (max-device-width: 844px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
+    body {
+      background-color: #e0e0e0;
+    }
+    .headerb {
+      padding: 15px;
+    }
+    .week-day {
+      border: 2px solid #ff0000;
+      padding: 12px;
+      width: 75px;
+    }
+    .booking-card {
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+    .status {
+      padding: 0.3rem 0.7rem;
+      border-radius: 15px;
+    }
+    .gray-section {
+        max-width: 100%; /* Full width for narrower Apple devices */
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    .footer {
+      max-width: 375px;
+    }
+    .footer-icon {
+      font-size: 24px;
+    }
+  }
+  
+  /* Styling for Android Smartphones */
+  @media only screen and (min-device-width: 360px) and (max-device-width: 800px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+    body {
+      background-color: #f8f8f8;
+    }
+    .headerb {
+      padding: 10px;
+    }
+    .week-day {
+      border: 2px solid #00ff00;
+      padding: 10px;
+      width: 70px;
+    }
+    .booking-card {
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    .gray-section {
+        max-width: 100%; /* Full width for narrower Android devices */
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    .status {
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+    }
+    .footer {
+      max-width: 360px;
+    }
+    .footer-icon {
+      font-size: 22px;
+    }
+  }
+  

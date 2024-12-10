@@ -3,19 +3,19 @@ body.clinic {
   font-style: normal;
   margin: 0;
   background-color: rgb(228, 226, 226);
-  text-align: center;
+  /* text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   padding: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: hidden;
+  overflow-y: hidden; */
 }
 
 .clinic-containers6 {
   height: 100vh;
-  width: 110%;
+  width: 100%;
   max-width: 350px;
   margin: auto;
   background-color: #ff0000;
@@ -133,7 +133,7 @@ body.clinic {
 .clinic-footer {
   position: fixed;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
   max-width: 350px;
   background-color: #fff;
   padding: 8px;
@@ -167,15 +167,65 @@ body.clinic {
   cursor: pointer;
 }
 
-/* Responsive styles for mobile screens */
-@media (max-width: 600px) {
-  .clinic-containers6 {
-    max-width: 100%;
-  }
 
+/* Responsive Styles */
+@media (max-width: 1300px) {
   .headera {
     height: auto;
     padding: 10px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .oxiClinics {
+    font-size: 30px;
+    margin-left: 0;
+  }
+
+  .welcome {
+    font-size: 12px;
+    margin-left: 0;
+  }
+
+  .grid {
+    grid-gap: 20px;
+    margin-bottom: 100px;
+  }
+
+  .card {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cardIcon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .label {
+    font-size: 12px;
+    top: 33px;
+  }
+
+  .clinic-footer {
+    padding: 6px;
+  }
+
+  .footer-icon {
+    font-size: 20px; /* Adjust icon size */
+  }
+
+  .footer-icon span {
+    font-size: 10px; /* Adjust text size */
+  }
+}
+
+@media (max-width: 1000px) {
+  .clinic-containers6 {
+    max-width: 100%;
   }
 
   .logo {
@@ -191,14 +241,9 @@ body.clinic {
     font-size: 10px;
   }
 
-  .grid {
-    grid-gap: 20px;
-    margin-bottom: 100px;
-  }
-
   .card {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
   }
 
   .cardIcon {
@@ -220,173 +265,5 @@ body.clinic {
 
   .footer-icon span {
     font-size: 8px;
-  }
-}
-
-/* Responsive styles for tablets (600px to 900px) */
-@media (min-width: 600px) and (max-width: 900px) {
-  .clinic-containers6 {
-    max-width: 100%;
-  }
-
-  .headera {
-    height: auto;
-    padding: 15px;
-  }
-
-  .logo {
-    width: 100px;
-    height: 100px;
-  }
-
-  .oxiClinics {
-    font-size: 30px;
-  }
-
-  .welcome {
-    font-size: 12px;
-  }
-
-  .grid {
-    grid-gap: 30px;
-    margin-bottom: 150px;
-  }
-
-  .card {
-    width: 80px;
-    height: 80px;
-  }
-
-  .cardIcon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .label {
-    font-size: 12px;
-  }
-
-  .clinic-footer {
-    padding: 6px;
-  }
-
-  .footer-icon {
-    font-size: 20px;
-  }
-
-  .footer-icon span {
-    font-size: 10px;
-  }
-}
-
-/* Responsive styles for iPads and larger tablets (900px to 1200px) */
-@media (min-width: 900px) and (max-width: 1200px) {
-  .clinic-containers6 {
-    max-width: 100%;
-  }
-
-  .headera {
-    height: auto;
-    padding: 20px;
-  }
-
-  .logo {
-    width: 120px;
-    height: 120px;
-  }
-
-  .oxiClinics {
-    font-size: 36px;
-  }
-
-  .welcome {
-    font-size: 14px;
-  }
-
-  .grid {
-    grid-gap: 35px;
-    margin-bottom: 200px;
-  }
-
-  .card {
-    width: 85px;
-    height: 85px;
-  }
-
-  .cardIcon {
-    width: 65px;
-    height: 65px;
-  }
-
-  .label {
-    font-size: 13px;
-  }
-
-  .clinic-footer {
-    padding: 8px;
-  }
-
-  .footer-icon {
-    font-size: 22px;
-  }
-
-  .footer-icon span {
-    font-size: 11px;
-  }
-}
-
-/* Responsive styles for large screens (1200px to 1500px) */
-@media (min-width: 1200px) and (max-width: 1500px) {
-  .clinic-containers6 {
-    max-width: 100%;
-  }
-
-  .headera {
-    height: auto;
-    padding: 25px;
-  }
-
-  .logo {
-    width: 140px;
-    height: 140px;
-  }
-
-  .oxiClinics {
-    font-size: 40px;
-  }
-
-  .welcome {
-    font-size: 16px;
-  }
-
-  .grid {
-    grid-gap: 40px;
-    margin-bottom: 250px;
-  }
-
-  .card {
-    width: 90px;
-    height: 90px;
-  }
-
-  .cardIcon {
-    width: 70px;
-    height: 70px;
-  }
-
-  .label {
-    font-size: 14px;
-  }
-
-  .clinic-footer {
-    padding: 10px;
-  }
-
-  .footer-icon {
-    font-size: 24px;
-  }
-
-  .footer-icon span {
-    font-size: 12px;
   }
 }
