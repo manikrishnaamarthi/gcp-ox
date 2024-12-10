@@ -4,11 +4,11 @@ body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   background-color: rgb(226, 222, 222);
-  height: 100vh;
+  /* height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .edit-profile {
@@ -223,10 +223,114 @@ body {
     color: #FC000E;
   }
   
-  @media (max-width: 768px) {
-    .save-profile-btn {
-        width: 160%; /* Slightly reduce the width on smaller devices */
-        margin-top: 200px; /* Adjust top margin for better spacing */
-        font-size: 0.9em; /* Adjust font size for smaller screens */
-    }
+
+
+/* Media queries for Apple smartphones */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  .edit-profile {
+    padding: 10px;
+  }
+  .edit-profile-header h2 {
+    font-size: 18px;
+    margin-left: 20px;
+  }
+  .back-btn-circle {
+    width: 35px;
+    height: 35px;
+  }
+  .save-btn {
+    margin-left: 150px;
+    font-size: 16px;
+  }
+  .form-group {
+    width: 150%;
+    margin-left: -50px;
+  }
+  .form-group input {
+    padding: 6px;
+    font-size: 14px;
+  }
+  .profile-image-containerp {
+    width: 80px;
+    height: 80px;
+  }
+  .plus-icon0 {
+    margin-top: 20px;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+  }
+}
+
+/* Media queries for Android smartphones */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 1.5) {
+  .edit-profile {
+    padding: 15px;
+  }
+  .edit-profile-header h2 {
+    font-size: 16px;
+    margin-left: 15px;
+  }
+  .back-btn-circle {
+    width: 40px;
+    height: 40px;
+  }
+  .save-btn {
+    margin-left: 180px;
+    font-size: 16px;
+  }
+  .form-group {
+    width: 160%;
+    margin-left: -45px;
+  }
+  .form-group input {
+    padding: 7px;
+    font-size: 15px;
+  }
+  .profile-image-containerp {
+    width: 90px;
+    height: 90px;
+  }
+  .plus-icon0 {
+    margin-top: 25px;
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
+  }
+}
+
+/* Fallback for other small devices */
+@media only screen and (max-width: 480px) {
+  .edit-profile {
+    padding: 10px;
+  }
+  .edit-profile-header h2 {
+    font-size: 16px;
+  }
+  .back-btn-circle {
+    width: 30px;
+    height: 30px;
+  }
+  .save-btn {
+    margin-left: 140px;
+    font-size: 14px;
+  }
+  .form-group {
+    width: 140%;
+    margin-left: -40px;
+  }
+  .form-group input {
+    padding: 5px;
+    font-size: 13px;
+  }
+  .profile-image-containerp {
+    width: 70px;
+    height: 70px;
+  }
+  .plus-icon0 {
+    margin-top: 15px;
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+  }
 }

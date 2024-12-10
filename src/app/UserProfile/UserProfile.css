@@ -5,10 +5,10 @@ body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   background-color: rgb(226, 222, 222);
-  height: 100vh;
+  /* height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 /* User Profile Container */
@@ -16,12 +16,11 @@ body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
   padding: 20px;
-  width: 100vw;
   max-width: 350px; /* Ensures max-width for mobile responsiveness */
   margin: 0 auto; /* Centers the container */
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures the container takes full viewport height */
+  min-height: 100vh;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
@@ -295,19 +294,32 @@ body {
   color:#FC000E;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+
+/* General Media Queries for Apple Smartphones */
+@media only screen and (max-width: 375px) and (-webkit-min-device-pixel-ratio: 2) and (min-device-width: 320px) {
+  /* Styles for iPhone SE, iPhone 6/7/8, iPhone X/XS */
   .user-profile {
+    max-width: 350px; /* Adjusted max-width for smaller iPhone screens */
     padding: 15px;
-    max-width: 95%;
   }
 
-  .profile-header9 {
+  .profile-image3 {
+    width: 70px;
+    height: 70px;
+  }
+
+  .edit-profile-btn {
+    width: 130px;
+    font-size: 0.9em;
+  }
+
+  .profile-menu li {
     padding: 10px;
   }
 
-  .profile-name {
-    font-size: 1.2rem;
+  .footer-section1 {
+    padding: 8px;
+    max-width: 350px;
   }
 
   .footer-icon {
@@ -315,21 +327,88 @@ body {
   }
 }
 
-@media (max-width: 480px) {
-  .profile-name {
-    font-size: 1rem;
+@media only screen and (max-width: 414px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {
+  /* Styles for larger iPhones like iPhone 11/12/13 */
+  .user-profile {
+    max-width: 400px;
+    padding: 20px;
   }
 
-  .profile-email {
-    font-size: 0.8rem;
+  .profile-image3 {
+    width: 80px;
+    height: 80px;
   }
 
   .edit-profile-btn {
-    font-size: 0.9rem;
+    width: 140px;
+    font-size: 1em;
+  }
+
+  .footer-section1 {
+    max-width: 400px;
+    padding: 10px;
+  }
+
+  .footer-icon {
+    font-size: 22px;
+  }
+}
+
+/* General Media Queries for Android Smartphones */
+@media only screen and (max-width: 360px) and (min-device-width: 320px) {
+  /* Styles for smaller Android phones */
+  .user-profile {
+    max-width: 320px;
+    padding: 15px;
+  }
+
+  .profile-image3 {
+    width: 70px;
+    height: 70px;
+  }
+
+  .edit-profile-btn {
     width: 120px;
+    font-size: 0.85em;
+  }
+
+  .profile-menu li {
+    padding: 10px;
+  }
+
+  .footer-section1 {
+    padding: 8px;
+    max-width: 320px;
   }
 
   .footer-icon {
     font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 412px) and (min-device-width: 360px) {
+  /* Styles for larger Android phones */
+  .user-profile {
+    max-width: 360px;
+    padding: 20px;
+  }
+
+  .profile-image3 {
+    width: 80px;
+    height: 80px;
+  }
+
+  .edit-profile-btn {
+    width: 140px;
+    font-size: 1em;
+  }
+
+  .footer-section1 {
+    max-width: 360px;
+    padding: 10px;
+  }
+
+  .footer-icon {
+    font-size: 20px;
   }
 }
