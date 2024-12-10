@@ -61,7 +61,7 @@ body {
     margin-right: 980px;
     color: green;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow */
-    border-radius: 15px; /* Optional: Slight rounding for better aesthetics */
+    border-radius: 15px; 
   }
   
   .action-box {
@@ -77,20 +77,20 @@ body {
     margin: 10px 0;
   }
   
-  .payment-details {
+  .payment-details4 {
     margin-bottom: 20px;
     font-size: 18px;
     color: black;
   }
 
-  .payment-details3 {
+  .payment-details5 {
     margin-bottom: 15px;
     font-size: 24px;
     color: black;
     border-bottom: 1px solid #ccc;
   }
   
-  .details-grid {
+  .details-grid3 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     /* color: rgb(102, 101, 101); */
@@ -105,15 +105,15 @@ body {
     color: red; /* Numbers in red */
   }
   
-  .invoice-table {
+  .invoice-table0 {
     width: 100%;
     border-collapse: collapse;
     /* font-weight: bold; */
     margin-bottom: 20px;
   }
   
-  .invoice-table th,
-  .invoice-table td {
+  .invoice-table0 th,
+  .invoice-table0 td {
     padding: 12px;
     color: red;
     font-size: 18px;
@@ -121,13 +121,14 @@ body {
     border-bottom: 1px solid #ccc;
   }
   
-  .invoice-table th {
-    background-color: white; /* Keep table headers consistent */
+  .invoice-table0 th {
+    background-color: #eaeaea; /* Light gray background */
+    color: #333; /* Text color */
     font-weight: bold;
-    color: rgb(95, 95, 95); /* Headings in black */
+    padding: 10px; /* Spacing inside the cells */
+    text-align: left; /* Align text to the left */
   }
-  
-  .invoice-table tfoot td {
+  .invoice-table0 tfoot td {
     /* font-weight: bold; */
     color: black; /* Footer text in black */
   }

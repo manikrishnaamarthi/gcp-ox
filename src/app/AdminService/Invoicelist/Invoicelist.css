@@ -31,21 +31,13 @@ body {
   }
 
   
-  /* Tabs */
-  .invoice-tabs {
-    display: flex;
-    padding:8px;
-    margin-top: 20px;
-  }
-  .invoice-tab1 {
-  
-  align-items: center;
-  border: 2px solid rgb(171, 171, 171); /* Outer blue border */
-  border-radius: 25px; /* Rounded container */
-  background-color: #f8f9fa; /* Light background color */
-  width: fit-content;
-  margin: auto; /* Center the toggle group */
+/* Tabs */
+.invoice-tabs {
+  display: flex;
+  padding: 8px;
+  margin-top: 20px;
 }
+
 
 .tab-button {
   flex: 1;
@@ -57,30 +49,24 @@ body {
   color: red; /* Text color for inactive buttons */
   position: relative;
   cursor: pointer;
-  border-radius: 20px; /* Ensures smooth transitions */
+  margin: 0 18px;
+  border: 1px solid red;
+  border-radius: 20px; /* Smooth rounded button edges */
+  transition: all 0.3s ease-in-out; /* Smooth hover effect */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.tab-button:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 60%; /* Vertical line height */
-  width: 1px;
-  background-color: #ccc; /* Light gray vertical line */
-}
 .tab-button.active {
-  background-color: #f1f1f1;
-  color: #000;
+  background-color: red; /* Highlight active tab */
+  color: white; /* White text for active tab */
   font-weight: bold;
-}
-.tab-button:hover {
-  border: 2px solid red; /* Red border on hover */
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.15); /* Shadow effect for active state */
+  transition: all 0.3s ease-in-out;
 }
 
-.tab-button.active:hover {
-  border: 2px solid red; /* Red border when active tab is hovered */
+/* Remove vertical divider */
+.tab-button:not(:last-child)::after {
+  content: none; /* Disable vertical line */
 }
 
   .invoice-filters {
@@ -92,66 +78,84 @@ body {
   .search-input {
     padding: 8px;
     color: black;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
     margin-right: 10px;
   }
   .search-input:focus {
-    border-color:2px red; 
+    border-color: red;
     outline: none; 
   }
-  /* Table */
+
+
+  
   .invoice-table {
     width: 100%;
-    border-collapse: collapse;
-    background-color: white;
+    border-spacing: 0 8px; /* Add spacing between rows */
+    margin-top: 10px;
+    background-color: transparent;
   }
   
-  .invoice-table th,
-  .invoice-table td {
-    text-align: left;
-    padding: 10px;
-    color: #d72531;
-    border-bottom: 1px solid #ccc;
+
+  
+  .invoice-table thead {
+    background-color: rgb(238, 238, 238);
+    
   }
   
   .invoice-table th {
-    background-color: #f7f7f7;
+    text-align: center;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
     color: black;
+    border-left: 2px solid #8d8c8c; 
+    border: 1px solid #aeaaaa; 
   }
   
-
-
-  /* Table */
-.invoice-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    /* border-radius: 10px; */
-    margin-top: 20px;
-}
-
-.invoice-table th {
+  
+  .invoice-table tbody tr:last-child td {
+    border-bottom: none; /* Removes the bottom border for the last row */
+  }
+  
+  .invoice-table thead tr {
+    display: table-row;
+  }
+  
+  .invoice-table tbody tr td {
     text-align: center;
-    /* gap:10px; */
-    /* margin-bottom: 10px; */
-    border-radius: 20px;
-    padding: 12px; /* Increased padding for better spacing */
-    color: #000; /* Changed to black for better visibility */
-    border: 2px solid #ccc; /* Added borders to cells */
+    font-size: 16px;
+    padding: 12px;
+    background-color: rgb(238, 238, 238);
+    color: black; /* Default color for email, service type, date, and amount */
+    border-bottom: 2px solid #bdbdbd;
+  }
+  
+  /* Specific cell styles */
+  .invoice-table tbody tr td.invoice-number a {
+    color: red; /* Invoice number in red */
+    text-decoration: none;
+  }
+  
+  .invoice-table tbody tr td.status-paid {
+    color: green; /* Paid status in green */
+  }
+  
+  .invoice-table tbody tr td.status-unpaid {
+    color: red; /* Unpaid status in red */
+  }
+
+
+.invoice-table tbody tr {
+  transition: transform 0.2s ease;
+  cursor: pointer; 
 }
 
-.invoice-table th {
-    background-color: #f7f7f7;
-    font-weight: bold;
-    font-size: 14px;
-    border-radius: 10px;
-    color: black; /* Matching the heading color */
+
+.invoice-table tbody tr:hover {
+  transform: scale(1.02); /* Slightly scale up the row */
+  background-color: #f0f4f8; /* Optional: Add a subtle background color change */
 }
-
-
-
-
 
   
   

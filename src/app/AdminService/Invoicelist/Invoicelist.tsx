@@ -21,6 +21,7 @@ const InvoiceList: React.FC = () => {
   const [filter, setFilter] = useState<"all" | "paid" | "unpaid">("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [activeTab, setActiveTab] = useState<"all" | "paid" | "unpaid">("all");
   const router = useRouter();
 
   useEffect(() => {
@@ -52,13 +53,12 @@ const InvoiceList: React.FC = () => {
       result = result.filter((invoice) =>
         [
           invoice.invoice_id,
-          invoice.vendor?.email || "", // Ensure vendor.email is checked safely
+          invoice.vendor?.email || "",
           invoice.service_type,
           invoice.status,
-        ]
-          .some((field) =>
-            field.toLowerCase().includes(searchTerm.toLowerCase())
-          )
+        ].some((field) =>
+          field.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       );
     }
 
@@ -92,6 +92,11 @@ const InvoiceList: React.FC = () => {
     }
   };
 
+  const handleTabClick = (tab: "all" | "paid" | "unpaid") => {
+    setFilter(tab);
+    setActiveTab(tab);
+  };
+
   return (
     <div className="invoice-page">
       <Sidebar />
@@ -101,13 +106,22 @@ const InvoiceList: React.FC = () => {
         </div>
         <div className="invoice-tabs">
           <div className="invoice-tab1">
-            <button className="tab-button" onClick={() => setFilter("all")}>
+            <button
+              className={`tab-button ${activeTab === "all" ? "active" : ""}`}
+              onClick={() => handleTabClick("all")}
+            >
               All ({invoices.length})
             </button>
-            <button className="tab-button" onClick={() => setFilter("paid")}>
+            <button
+              className={`tab-button ${activeTab === "paid" ? "active" : ""}`}
+              onClick={() => handleTabClick("paid")}
+            >
               Paid ({getCountByStatus("paid")})
             </button>
-            <button className="tab-button" onClick={() => setFilter("unpaid")}>
+            <button
+              className={`tab-button ${activeTab === "unpaid" ? "active" : ""}`}
+              onClick={() => handleTabClick("unpaid")}
+            >
               Unpaid ({getCountByStatus("unpaid")})
             </button>
           </div>
@@ -115,7 +129,7 @@ const InvoiceList: React.FC = () => {
             <input
               type="text"
               className={`search-input ${isSearchActive ? "search-active" : ""}`}
-              placeholder="Search"
+              placeholder="Search anything.."
               onFocus={() => setIsSearchActive(true)}
               onBlur={() => setIsSearchActive(false)}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -124,9 +138,9 @@ const InvoiceList: React.FC = () => {
           </div>
         </div>
         <table className="invoice-table">
-          <thead>
-            <tr>
-              <th>INVOICE NUMBER #</th>
+          <thead >
+            <tr className="border-2 border-gray-400 ">
+              <th >INVOICE NUMBER </th>
               <th>EMAIL</th>
               <th>SERVICE TYPE</th>
               <th>DATE</th>
@@ -134,7 +148,8 @@ const InvoiceList: React.FC = () => {
               <th>STATUS</th>
             </tr>
           </thead>
-          <tbody>
+          <div className="h-[25px] " ></div>
+          <tbody className="mt-6 border-2 border-gray-400">
             {filteredInvoices.map((invoice) => (
               <tr
                 key={invoice.invoice_id}
@@ -143,10 +158,10 @@ const InvoiceList: React.FC = () => {
                 <td className="invoice-number">
                   <a href="#">{invoice.invoice_id}</a>
                 </td>
-                <td>{invoice.vendor_email || "N/A"}</td>
+                <td >{invoice.vendor_email || "N/A"}</td>
                 <td>{invoice.service_type}</td>
                 <td>{invoice.issued_date}</td>
-                <td>{invoice.total} USD</td>
+                <td>{invoice.total}</td>
                 <td className={getStatusClass(invoice.status)}>
                   {invoice.status}
                 </td>
