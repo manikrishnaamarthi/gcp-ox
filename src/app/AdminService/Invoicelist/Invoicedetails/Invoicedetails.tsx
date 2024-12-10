@@ -70,9 +70,10 @@ const Invoicedetails: React.FC = () => {
         <hr className="divider" />
 
         {/* Payment Details Section */}
-        <div className="payment-details">
-          <h2 className="payment-details3">Payment Batch October 2024</h2>
-          <div className="details-grid">
+        <div className="border-2 rounded-lg border-gray-300 p-5 mt-5">
+        <div className="payment-details4">
+          <h2 className="payment-details5">Payment Batch October 2024</h2>
+          <div className="details-grid3">
             <div>
               <p><strong>Name</strong>: {vendor.name}</p>
               <p><strong>Email</strong>: {vendor.email}</p>
@@ -89,7 +90,7 @@ const Invoicedetails: React.FC = () => {
         </div>
 
         {/* Table Section */}
-        <table className="invoice-table">
+        <table className="invoice-table0">
           <thead>
             <tr>
               <th>PRODUCT</th>
@@ -111,6 +112,7 @@ const Invoicedetails: React.FC = () => {
             </tr>
           </tfoot>
         </table>
+      </div>
       </div>
     </div>
   );

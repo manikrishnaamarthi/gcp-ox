@@ -40,7 +40,6 @@ body {
 .header-right {
     display: flex;
     color: red;
-    /* margin-right:20px ; */
     align-items: center;
     gap: 10px;
 }
@@ -68,7 +67,7 @@ body {
     margin: 10px 0;
 }
 
-.payment-details {
+.payment-details2 {
     margin-bottom: 20px;
     font-size: 18px;
     color: black;
@@ -81,7 +80,7 @@ body {
     border-bottom: 1px solid #ccc;
 }
 
-.details-grid {
+.details-grid1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 120px;
@@ -92,15 +91,15 @@ body {
     color: black;
 }
 
-.invoice-table {
+.invoice-table2 {
     width: 100%;
     border-collapse: collapse;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.invoice-table th,
-.invoice-table td {
+.invoice-table2 th,
+.invoice-table2 td {
     padding: 12px;
     font-size: 18px;
     color: red;
@@ -108,13 +107,15 @@ body {
     border-bottom: 1px solid #ccc;
 }
 
-.invoice-table th {
-    background-color: white;
+.invoice-table2 th {
+    background-color: #f5f5f5; /* Light gray background */
+    color: #333; /* Text color */
     font-weight: bold;
-    color: rgb(95, 95, 95);
-}
+    padding: 10px; /* Spacing inside the cells */
+    text-align: left; /* Align text to the left */
+  }
 
-.invoice-table tfoot td {
+.invoice-table2 tfoot td {
     color: black;
 }
 
