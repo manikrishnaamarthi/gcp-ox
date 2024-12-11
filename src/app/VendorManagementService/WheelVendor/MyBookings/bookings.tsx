@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClock, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import "./bookings.css";
 import axios from "axios";
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
 
 const Bookings: React.FC = () => {
   const [activeTab, setActiveTab] = useState("bookings");
@@ -15,6 +15,13 @@ const Bookings: React.FC = () => {
   const [allBookings, setAllBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams(); // Get the search params
+  const vendor_id = localStorage.getItem('vendor_id');
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedEmail, setSelectedEmail] = useState<string | null>(null);
+  // const [otpSent, setOtpSent] = useState(false);
+
 
   useEffect(() => {
     const getWeekDates = () => {
@@ -56,16 +63,16 @@ const Bookings: React.FC = () => {
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const params: any = { service_type: "Oxi wheel" };
-
+      const params: any = { vendor_id }; // Use the vendor_id tied to the logged-in user
+  
       // If there's a selected date, format it as YYYY-MM-DD and pass it to the API
       if (selectedDate) {
-        const formattedDate = new Date(selectedDate).toISOString().split('T')[0]; // Format to YYYY-MM-DD
+        const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
         params.appointment_date = formattedDate;
         console.log("Fetching bookings for date:", formattedDate); // Debug log
       }
-
-      const response = await axios.get("http://localhost:8000/api/my-bookings/", { params });
+  
+      const response = await axios.get("http://localhost:8002/api/my-bookings/", { params });
       setAllBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
@@ -113,7 +120,7 @@ const Bookings: React.FC = () => {
   const filteredBookings = allBookings.filter((booking) => {
     // Filter by status (activeTab)
     if (activeTab === "cancelled" && booking.booking_status !== "cancelled") return false;
-    if (activeTab === "completed" && booking.booking_status !== "completed") return false;
+    if (activeTab === "upcoming" && booking.booking_status !== "upcoming") return false;
   
     // Filter by selectedDate
     if (selectedDate) {
@@ -138,6 +145,27 @@ const Bookings: React.FC = () => {
     setSelectedDate(formattedDate);
     console.log("Selected date:", formattedDate); // Debug log
   };
+
+  const handleCardClick = (email: string) => {
+    setSelectedEmail(email);
+    setShowPopup(true);
+    // setOtpSent(false);
+  };
+
+  const handleSendOtp = async () => {
+    try {
+      const response = await axios.post("http://localhost:8002/api/send-otp/", { email: selectedEmail });
+      if (response.data.success) {
+        alert("OTP sent successfully!");
+      } else {
+        alert(response.data.message || "Failed to send OTP.");
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      alert("Failed to send OTP.");
+    }
+  };
+  
   
 
   return (
@@ -168,7 +196,7 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="tabs8">
-        {["Completed", "Cancelled", "History"].map((tab) => (
+        {["Upcoming", "Cancelled", "History"].map((tab) => (
           <div
             key={tab}
             className={`tab-item ${activeTab === tab.toLowerCase() ? "active" : ""}`}
@@ -184,18 +212,32 @@ const Bookings: React.FC = () => {
           <p>Loading bookings...</p>
         ) : filteredBookings.length > 0 ? (
           filteredBookings.map((booking, index) => (
-            <div className="booking-card" key={index}>
-    {/* Header Section: Service Type and Status */}
+            <div className="booking-card" key={index} onClick={() => handleCardClick(booking.email)} >
+
+{/* Popup Section */}
+{showPopup && (
+      <div className="popup-overlay">
+        <div className="popup-content">
+          <h3>Email: {selectedEmail}</h3>
+          <button onClick={handleSendOtp}>Verify OTP</button>
+          {/* <button onClick={() => setShowPopup(false)}>Close</button> */}
+        </div>
+      </div>
+    )}
+
+              
+    {/* Header Section: Name and Status */}
     <div className="header-section">
-        <h3 className="booking-service">{booking.service_type}</h3>
+        <h3 className="booking-service">{booking.name}</h3> {/* Display user name */}
         <div className="status-section">
             <span className="status">{booking.booking_status}</span>
         </div>
     </div>
 
     {/* Address Section: Address and Date-Time */}
-    <div className="address-section">
-        <p className="booking-address">{booking.address}</p>
+    <div className="user-details-section">
+    <p className="email">Email: {booking.email}</p>
+    <p className="phone-number">Phone: {booking.phone_number}</p>
         <div className="date-time">
             <span className="date">{booking.appointment_date}</span>
             <span className="time">

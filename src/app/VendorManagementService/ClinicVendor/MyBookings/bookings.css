@@ -138,7 +138,7 @@ h1 {
     box-sizing: border-box;
     margin-bottom: -200px;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .gray-section::-webkit-scrollbar {
@@ -198,6 +198,28 @@ p{
     margin-bottom: 0.5rem;
     border: 2px solid #1dc143
 }
+
+.booking-card .email {
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove extra padding */
+  color: black;
+  font-size: 15px;
+  line-height: 1.2; /* Ensure proper spacing for one line */
+  text-align: left; /* Align text to the left */
+  white-space: nowrap; /* Prevent the text from wrapping */
+ 
+}
+
+.booking-card .phone-number {
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove extra padding */
+  color: black; /* Change the text color to black */
+  font-size: 15px;
+  line-height: 1.2; /* Ensure proper spacing */
+  text-align: left; /* Align text to the left */
+}
+
+
 .date-time {
     display: flex;
     flex-direction: column;

@@ -298,6 +298,7 @@ color: black;
   font-size: 16px;
   cursor: pointer;
   margin-top: 15px;
+  font-weight: bold;
 }
 
 .logout-button2{
@@ -311,6 +312,7 @@ color: black;
   font-size: 16px;
   cursor: pointer;
   margin-top: 15px;
+  font-weight: bold;
 }
 
 /* Popup for Logout Confirmation */

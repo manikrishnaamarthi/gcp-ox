@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faClock, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import "./bookings.css";
 import axios from "axios";
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
+
 
 const Bookings: React.FC = () => {
   const [activeTab, setActiveTab] = useState("bookings");
@@ -15,6 +16,9 @@ const Bookings: React.FC = () => {
   const [allBookings, setAllBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams(); // Get the search params
+  const vendor_id = localStorage.getItem('vendor_id');
+
 
   useEffect(() => {
     const getWeekDates = () => {
@@ -79,16 +83,16 @@ const Bookings: React.FC = () => {
   const fetchAllBookings = async () => {
     setLoading(true);
     try {
-      const params: any = { service_type: "Oxi clinic" };
-
+      const params: any = { vendor_id }; // Use the vendor_id tied to the logged-in user
+  
       // If there's a selected date, format it as YYYY-MM-DD and pass it to the API
       if (selectedDate) {
-        const formattedDate = new Date(selectedDate).toISOString().split('T')[0]; // Format to YYYY-MM-DD
+        const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
         params.appointment_date = formattedDate;
         console.log("Fetching bookings for date:", formattedDate); // Debug log
       }
-
-      const response = await axios.get("http://localhost:8000/api/my-bookings/", { params });
+  
+      const response = await axios.get("http://localhost:8002/api/my-bookings/", { params });
       setAllBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
@@ -96,6 +100,8 @@ const Bookings: React.FC = () => {
       setLoading(false);
     }
   };
+  
+  
 
   useEffect(() => {
     fetchAllBookings();
@@ -116,7 +122,7 @@ const Bookings: React.FC = () => {
   const filteredBookings = allBookings.filter((booking) => {
     // Filter by status (activeTab)
     if (activeTab === "cancelled" && booking.booking_status !== "cancelled") return false;
-    if (activeTab === "completed" && booking.booking_status !== "completed") return false;
+    if (activeTab === "upcoming" && booking.booking_status !== "upcoming") return false;
   
     // Filter by selectedDate
     if (selectedDate) {
@@ -170,7 +176,7 @@ const Bookings: React.FC = () => {
       </div>
 
       <div className="tabs3">
-        {["Completed", "Cancelled", "History"].map((tab) => (
+        {["Upcoming", "Cancelled", "History"].map((tab) => (
           <div
             key={tab}
             className={`tab-item ${activeTab === tab.toLowerCase() ? "active" : ""}`}
@@ -187,18 +193,27 @@ const Bookings: React.FC = () => {
         ) : filteredBookings.length > 0 ? (
           filteredBookings.map((booking, index) => (
             <div className="booking-card" key={index}>
-              <h3>{booking.service_type}</h3>
-              <p>{booking.address}</p>
-              <div className="status-section">
-                <span className="status">{booking.booking_status}</span>
-                <div className="date-time">
-                  <span className="date">{booking.appointment_date}</span>
-                  <span className="time">
-                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
-                  </span>
-                </div>
-              </div>
-            </div>
+    {/* Header Section: Name and Status */}
+    <div className="header-section">
+        <h3 className="booking-service">{booking.name}</h3> {/* Display user name */}
+        <div className="status-section">
+            <span className="status">{booking.booking_status}</span>
+        </div>
+    </div>
+
+    {/* Address Section: Address and Date-Time */}
+    <div className="user-details-section">
+    <p className="email">Email: {booking.email}</p>
+    <p className="phone-number">Phone: {booking.phone_number}</p>
+        <div className="date-time">
+            <span className="date">{booking.appointment_date}</span>
+            <span className="time">
+                <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
+            </span>
+        </div>
+    </div>
+</div>
+
           ))
         ) : (
           <p>No bookings found.</p>
