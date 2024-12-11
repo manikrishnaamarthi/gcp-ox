@@ -161,6 +161,7 @@ p{
     width: calc(100% - 2rem); /* Full width minus padding from container */
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 .booking-card h3 {
     color: red; /* Red text for the heading */
@@ -204,6 +205,28 @@ p{
     
 } */
 
+.booking-card .email {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove extra padding */
+    color: black;
+    font-size: 15px;
+    line-height: 1.2; /* Ensure proper spacing for one line */
+    text-align: left; /* Align text to the left */
+    white-space: nowrap; /* Prevent the text from wrapping */
+   
+  }
+  
+  .booking-card .phone-number {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove extra padding */
+    color: black; /* Change the text color to black */
+    font-size: 15px;
+    line-height: 1.2; /* Ensure proper spacing */
+    text-align: left; /* Align text to the left */
+  }
+  
+
+
 .booking-address {
     color: black;
     margin-bottom: 50px;
@@ -212,7 +235,8 @@ p{
     font-size: 12px;
     color: gray;
     white-space: nowrap;
-    margin-bottom: 60px;
+    margin-top: px;
+    margin-left: 220px;
 }
 
 .date {
@@ -248,6 +272,46 @@ p{
     font-weight: 900;
     margin-right: 5px;
 }
+
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .popup-content h3 {
+    margin-bottom: 20px;
+  }
+  
+  .popup-content button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .popup-content button:hover {
+    background-color: red;
+  }
+  
 
 /* Footer Styles */
 .footer0 {

@@ -77,7 +77,7 @@ const Clinic = () => {
             <BsGraphUpArrow className="cardIcon" />
             <p className="label">Dashboard</p>
           </div>
-          <div className="card" onClick={() => router.push('/VendorManagementService/ClinicVendor/MyBookings')}>
+          <div className="card" onClick={() => router.push(`/VendorManagementService/ClinicVendor/MyBookings?vendor_id=${vendorId}`)}>
             <FaRegAddressBook className="cardIcon" />
             <p className="label">Bookings</p>
           </div>

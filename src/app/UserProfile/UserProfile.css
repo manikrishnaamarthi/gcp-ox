@@ -23,7 +23,7 @@ body {
   min-height: 100vh;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -296,30 +296,18 @@ body {
 
 
 /* General Media Queries for Apple Smartphones */
-@media only screen and (max-width: 375px) and (-webkit-min-device-pixel-ratio: 2) and (min-device-width: 320px) {
+@media  (max-width: 400px) {
   /* Styles for iPhone SE, iPhone 6/7/8, iPhone X/XS */
   .user-profile {
-    max-width: 350px; /* Adjusted max-width for smaller iPhone screens */
+    max-width: 410px; /* Adjusted max-width for smaller iPhone screens */
+    width: 100%;
     padding: 15px;
-  }
-
-  .profile-image3 {
-    width: 70px;
-    height: 70px;
-  }
-
-  .edit-profile-btn {
-    width: 130px;
-    font-size: 0.9em;
-  }
-
-  .profile-menu li {
-    padding: 10px;
   }
 
   .footer-section1 {
     padding: 8px;
-    max-width: 350px;
+    max-width: 410px;
+    width: 100%;
   }
 
   .footer-icon {
@@ -327,25 +315,18 @@ body {
   }
 }
 
-@media only screen and (max-width: 414px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {
+@media (min-width: 401px) and (max-width: 600px) {
   /* Styles for larger iPhones like iPhone 11/12/13 */
   .user-profile {
-    max-width: 400px;
+    max-width: 600px;
+    width: 100%;
     padding: 20px;
   }
 
-  .profile-image3 {
-    width: 80px;
-    height: 80px;
-  }
-
-  .edit-profile-btn {
-    width: 140px;
-    font-size: 1em;
-  }
 
   .footer-section1 {
-    max-width: 400px;
+    max-width: 600px;
+    width: 100%;
     padding: 10px;
   }
 
@@ -355,60 +336,22 @@ body {
 }
 
 /* General Media Queries for Android Smartphones */
-@media only screen and (max-width: 360px) and (min-device-width: 320px) {
+@media (min-width: 601px) and (max-width: 1300px) {
   /* Styles for smaller Android phones */
   .user-profile {
-    max-width: 320px;
+    max-width: 1300px;
+    width: 100%;
     padding: 15px;
   }
 
-  .profile-image3 {
-    width: 70px;
-    height: 70px;
-  }
-
-  .edit-profile-btn {
-    width: 120px;
-    font-size: 0.85em;
-  }
-
-  .profile-menu li {
-    padding: 10px;
-  }
 
   .footer-section1 {
     padding: 8px;
-    max-width: 320px;
+    max-width: 1300px;
+    width: 100%;
   }
 
   .footer-icon {
     font-size: 18px;
-  }
-}
-
-@media only screen and (max-width: 412px) and (min-device-width: 360px) {
-  /* Styles for larger Android phones */
-  .user-profile {
-    max-width: 360px;
-    padding: 20px;
-  }
-
-  .profile-image3 {
-    width: 80px;
-    height: 80px;
-  }
-
-  .edit-profile-btn {
-    width: 140px;
-    font-size: 1em;
-  }
-
-  .footer-section1 {
-    max-width: 360px;
-    padding: 10px;
-  }
-
-  .footer-icon {
-    font-size: 20px;
   }
 }
