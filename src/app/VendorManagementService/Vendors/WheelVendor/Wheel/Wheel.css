@@ -56,8 +56,9 @@ body {
 .oxiwheel0 {
   font-size: 40px; /* Font size for 'OxiWheel' */
   margin: 0; /* No margin */
-  margin-left: 130px;
+  margin-left: 110px;
   color: white;
+  font-weight: bold;
   /* margin-top: 10px; */
 }
 
@@ -128,7 +129,7 @@ body {
   position: fixed;
   bottom: 0;
   width: 100vw;
-  max-width: 350px;
+  max-width: 343px;
   background-color: #fff;
   padding: 8px;
   display: flex;

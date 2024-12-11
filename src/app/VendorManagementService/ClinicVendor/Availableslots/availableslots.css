@@ -41,8 +41,8 @@ justify-content: space-between;
   font-size: 24px; 
   color: red; 
   margin-left: px;
-  margin-bottom: 140px;
-  margin-top:px;
+  margin-bottom: 110px;
+  margin-top:10px;
 }
 
 .header h1 {
@@ -51,7 +51,7 @@ justify-content: space-between;
   font-weight: bold;
   text-align: center;
   flex-grow: 1;
-  margin-top: 50px;
+  margin-top: -30px;
   margin-bottom: 70px;
 }
 
@@ -78,6 +78,17 @@ justify-content: space-between;
   text-align: center;
   width: px;
   height: 40px;
+}
+
+.time-slot.selected {
+  background-color: red; /* Set background color for selected slots */
+  color: white; /* Text color for better contrast */
+  border: 2px solid red; /* Red border to match the theme */
+  font-size: 16px;
+}
+
+.time-slot:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover for better interactivity */
 }
 
 .edit-button {

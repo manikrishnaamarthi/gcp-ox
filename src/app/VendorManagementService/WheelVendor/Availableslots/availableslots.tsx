@@ -1,14 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import './availableslots.css';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
-import axios from 'axios';
+import './availableslots.css';
 
 const AvailableSlots: React.FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams(); // Get the search params
+  const vendorId = searchParams.get('vendor_id'); // Extract the vendor_id from the URL
 
-  // State variables for vendor details
   const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
 
   useEffect(() => {
@@ -19,34 +19,33 @@ const AvailableSlots: React.FC = () => {
     }
   }, []);
 
-  // Handle back button click
   const handleBackClick = () => {
     router.back(); // Navigate back to the previous page
   };
 
-  // Toggle slot selection
   const handleSlotToggle = (slot: string) => {
     setSelectedSlots((prev) =>
       prev.includes(slot) ? prev.filter((s) => s !== slot) : [...prev, slot]
     );
   };
 
-  // Save updated data
   const handleSave = () => {
+    // Save selected slots to localStorage
     localStorage.setItem('selectedSlots', JSON.stringify(selectedSlots));
-    router.push('/VendorManagementService/WheelVendor/profile'); // Go back to profile
+
+    // Navigate to profile page and pass vendor_id as a query parameter
+    if (vendorId) {
+      router.push(`/VendorManagementService/WheelVendor/profile?vendor_id=${vendorId}&editable=true`);
+    }
   };
 
-  
-
-  // Predefined time slots
   const timeSlots = ['10:00 AM', '12:00 PM', '02:00 PM', '04:00 PM', '06:00 PM'];
 
   return (
     <div className="available-slots-container">
       <header className="header">
         <FaArrowLeft className="arrow-icon" onClick={handleBackClick} />
-        <h1>Available Time Slots</h1>
+        <h2>Add Time Slots</h2>
       </header>
 
       <div className="time-slots-grid2">

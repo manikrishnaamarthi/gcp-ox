@@ -53,7 +53,7 @@ const handleInvoiceCardClick = () => {
         </div>
         <h1 className="title0">
           <span className="welcome0">Welcome to</span>
-          <span className="oxiwheel0">OxiWheel</span>
+          <span className="oxiwheel0">Oxi Wheel</span>
         </h1>
         <FaRegBell className="notificationIcon" />
       </header>

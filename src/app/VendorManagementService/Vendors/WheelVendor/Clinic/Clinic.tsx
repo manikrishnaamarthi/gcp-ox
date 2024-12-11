@@ -66,7 +66,7 @@ const Clinic = () => {
         </div>
         <h1 className="titlea">
           <span className="welcome">Welcome to</span>
-          <span className="oxiClinics">OxiClinic</span>
+          <span className="oxiClinics">Oxi Clinic</span>
         </h1>
         <FaRegBell className="notificationIcon" />
       </header>

@@ -89,9 +89,9 @@ margin-bottom:px;
 }
 
 .camera-icon {
-   position: absolute;
+position: absolute;
 font-size: 25px;
-background-color: rgb(142, 138, 138);
+background-color: rgb(252, 6, 6);
 border-radius: 50%;
 padding: 5px;
 border: 1px solid #ccc;
@@ -150,7 +150,7 @@ margin-left: 10px;
   border-radius: 4px;
   color: black;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   margin-left: 10px;
 }
 
@@ -260,13 +260,13 @@ background-color: #f8d4d4;
 cursor: pointer;
 font-weight: bold;
 color: black;
-  
 }
 
 .time-slots-grid1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  
   
 }
 
@@ -283,6 +283,9 @@ color: black;
     width: px;
     height: 40px;
 }
+.time-label-container{
+  margin-bottom: 10px;
+}
 
 .save-button3 {
   display: block;
@@ -298,10 +301,16 @@ color: black;
 }
 
 .logout-button2{
-  color: red;
-  font-weight: bold;
-  margin-left: 140px;
-  margin-top: 10px;
+  display: block;
+  margin: 0 auto;
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
 }
 
 /* Popup for Logout Confirmation */
