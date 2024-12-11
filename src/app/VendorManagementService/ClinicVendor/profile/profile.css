@@ -4,15 +4,15 @@ body {
   font-style: normal;
   margin: 0;
   background-color: rgb(228, 226, 226);
-  text-align: center;
+  /* text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  padding: 0;  /* Remove padding */
+  padding: 0;  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: scroll;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; */
 
   }
 .profile-container1 {
@@ -54,7 +54,7 @@ font-size: 24px;
 text-align: center;
 font-weight: bold;
 margin-top: 15px;
-margin-right: 20px;
+margin-right: px;
 }
 
 .profile-image-wrapper0 {
@@ -74,7 +74,7 @@ margin-right: 20px;
 .profile-image-section1 {
   display: flex;
 justify-content: center;
-margin-bottom:px;
+margin-bottom:10px;
 }
 
 .profile-image3 {
@@ -83,17 +83,18 @@ margin-bottom:px;
   border-radius: 20%;
   object-fit: cover;
   background-color: #ebe8e8;
+  margin-top: 10px;
 }
 
 .camera-icon7 {
    position: absolute;
 font-size: 25px;
-background-color: rgb(142, 138, 138);
+background-color: rgb(243, 5, 5);
 border-radius: 50%;
 padding: 5px;
 border: 1px solid #ccc;
 margin-left: 40px;
-top: 85px;
+top: 98px;
 margin-bottom: 20px;
 }
 
@@ -128,8 +129,8 @@ margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 .edit-time-button2 {
   color: red;
@@ -149,7 +150,7 @@ margin-left: 10px;
   border-radius: 4px;
   color: black;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   margin-left: 10px;
 }
 
@@ -185,7 +186,6 @@ margin-left: 10px;
 
 .clear-icon {
   position: absolute;
-  right: 10px;
   cursor: pointer;
   color: red;
   margin-right: 15px;
@@ -299,10 +299,16 @@ color: black;
 }
 
 .logout-button0{
-  color: red;
-  font-weight: bold;
-  align-items: center;
-  margin-top: 10px;
+  display: block;
+  margin: 0 auto;
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
 }
 
 /* Popup for Logout Confirmation */

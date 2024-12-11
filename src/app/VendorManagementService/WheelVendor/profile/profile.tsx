@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './profile.css';
 import axios from 'axios';
-import { FaCamera, FaArrowLeft, FaTimes, FaPlusCircle, FaEdit } from 'react-icons/fa';
+import { FaCamera, FaArrowLeft, FaTimes, FaCloudUploadAlt , FaEdit } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'next/navigation';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -20,18 +20,24 @@ const Profile: React.FC = () => {
   const [oxiImage1, setOxiImage1] = useState('');
   const [oxiImage2, setOxiImage2] = useState('');
   const [availableslots, setAvailableslots] = useState<string[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [showLogoutPopup, setShowLogoutPopup] = useState(false); // For logout popup
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditingTime, setIsEditingTime] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null);
-  
 
   useEffect(() => {
+    // Set the isEditing state from localStorage when the component mounts
+    const savedEditingState = localStorage.getItem('isEditing');
+    if (savedEditingState !== null) {
+      setIsEditing(JSON.parse(savedEditingState));
+    }
+
     if (vendorId) {
       const fetchVendorData = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`);
+          const response = await axios.get(`http://127.0.0.1:8001/api/vendorapp-vendordetails/${vendorId}/`);
           const fetchedSlots = response.data.available_slots;
           setProfileImage(response.data.profile_photo);
           setEmail(response.data.email);
@@ -58,15 +64,15 @@ const Profile: React.FC = () => {
   const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'documents_all'); // Ensure this is correct
-    formData.append('cloud_name', 'dpysjcjbf'); // Ensure this is correct
+    formData.append('upload_preset', 'documents_all');
+    formData.append('cloud_name', 'dpysjcjbf');
 
     try {
       const response = await axios.post(
         'https://api.cloudinary.com/v1_1/dpysjcjbf/image/upload',
         formData
       );
-      return response.data.secure_url; // This should return the URL of the uploaded image
+      return response.data.secure_url;
     } catch (error) {
       console.error('Error uploading to Cloudinary:', error);
       throw new Error('Cloudinary upload failed');
@@ -90,20 +96,19 @@ const Profile: React.FC = () => {
 
   const handleFooterClick = (footer: string) => {
     setSelectedFooter(footer);
-  
-    // Redirect to respective pages
+
     switch (footer) {
       case "home":
-        router.push("/VendorManagementService/Vendors/WheelVendor/Wheel"); // Redirect to the home page
+        router.push("/VendorManagementService/Vendors/WheelVendor/Wheel");
         break;
       case "bookings":
-        router.push("/VendorManagementService/WheelVendor/MyBookings"); // Redirect to the bookings page
+        router.push("/VendorManagementService/WheelVendor/MyBookings");
         break;
       case "notifications":
-        router.push("/notifications"); // Redirect to the notifications page
+        router.push("/notifications");
         break;
       case "profile":
-        router.push("/VendorManagementService/WheelVendor/profile"); // Redirect to the profile page
+        router.push("/VendorManagementService/WheelVendor/profile");
         break;
       default:
         break;
@@ -112,6 +117,7 @@ const Profile: React.FC = () => {
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
+    localStorage.setItem('isEditing', JSON.stringify(!isEditing)); // Save the new editing state to localStorage
   };
 
   const handleOxiUploadClick = (fileInputRef: React.RefObject<HTMLInputElement>) => {
@@ -123,41 +129,36 @@ const Profile: React.FC = () => {
   };
 
   const handleSaveProfile = async () => {
-    const vendorId = localStorage.getItem('vendor_id'); // Ensure vendor_id is stored in localStorage
-  
+    const vendorId = localStorage.getItem('vendor_id');
+
     if (!vendorId) {
       alert('Vendor ID is missing! Please try again.');
       return;
     }
-  
+
     let uploadedOxiImage1 = oxiImage1;
     let uploadedOxiImage2 = oxiImage2;
-  
+
     try {
-      // Upload profile photo if a new file is selected
       if (fileInputRef.current?.files?.[0]) {
         const profileFile = fileInputRef.current.files[0];
         const profileImageUrl = await uploadToCloudinary(profileFile);
-        setProfileImage(profileImageUrl); // Update local state
+        setProfileImage(profileImageUrl);
       }
-  
-      // Upload oxi_image1 if a new file is selected
+
       if (oxiFileInputRef1.current?.files?.[0]) {
         const oxiFile1 = oxiFileInputRef1.current.files[0];
         uploadedOxiImage1 = await uploadToCloudinary(oxiFile1);
       }
-  
-      // Upload oxi_image2 if a new file is selected
+
       if (oxiFileInputRef2.current?.files?.[0]) {
         const oxiFile2 = oxiFileInputRef2.current.files[0];
         uploadedOxiImage2 = await uploadToCloudinary(oxiFile2);
       }
-  
-      // Retrieve and format selected slots from localStorage
+
       const savedSlots = JSON.parse(localStorage.getItem('selectedSlots') || '[]');
       const formattedSlots = JSON.stringify(savedSlots);
-  
-      // Prepare the updated data payload
+
       const updatedData = {
         profile_photo: profileImage,
         name,
@@ -167,10 +168,9 @@ const Profile: React.FC = () => {
         oxi_image2: uploadedOxiImage2,
         available_slots: formattedSlots,
       };
-  
-      // Update vendor details via PATCH request
+
       const response = await axios.patch(
-        `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`,
+        `http://127.0.0.1:8001/api/vendorapp-vendordetails/${vendorId}/`,
         updatedData,
         {
           headers: {
@@ -178,16 +178,14 @@ const Profile: React.FC = () => {
           },
         }
       );
-  
+
       if (response.status === 200) {
         alert('Vendor details updated successfully!');
-  
-        // Fetch the updated details from the server
+
         const updatedResponse = await axios.get(
-          `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`
+          `http://127.0.0.1:8001/api/vendorapp-vendordetails/${vendorId}/`
         );
-  
-        // Update the local state with the fetched details
+
         setProfileImage(updatedResponse.data.profile_photo);
         setEmail(updatedResponse.data.email);
         setName(updatedResponse.data.name);
@@ -195,8 +193,9 @@ const Profile: React.FC = () => {
         setOxiImage1(updatedResponse.data.oxi_image1);
         setOxiImage2(updatedResponse.data.oxi_image2);
         setAvailableslots(JSON.parse(updatedResponse.data.available_slots || '[]'));
-  
-        setIsEditing(false); // Disable editing mode
+
+        setIsEditing(false);
+        localStorage.setItem('isEditing', JSON.stringify(false)); // Save the new editing state to localStorage
       } else {
         alert('Failed to update vendor details. Please try again.');
       }
@@ -205,29 +204,23 @@ const Profile: React.FC = () => {
       alert('An error occurred while updating vendor details.');
     }
   };
-  
 
   const handleEditAvailableSlots = () => {
-    const profileData = {
-      profile_photo: profileImage,
-      name,
-      email,
-      phone,
-      oxi_image1: oxiImage1,
-      oxi_image2: oxiImage2,
-    };
-    localStorage.setItem('profileData', JSON.stringify(profileData));
-    router.push('/VendorManagementService/WheelVendor/Availableslots');
+    if (!isEditingTime) {
+      setIsEditingTime(true);
+    } else {
+      router.push(`/VendorManagementService/WheelVendor/Availableslots?vendor_id=${vendorId}`);
+    }
   };
 
   const handleConfirmLogout = () => {
-    localStorage.removeItem('oxi_id'); // Clear oxi_id from storage
-    sessionStorage.clear(); // Clear session storage
-    router.push('/UserAuthentication/LoginPage'); // Redirect to login page
+    localStorage.removeItem('oxi_id');
+    sessionStorage.clear();
+    router.push('/UserAuthentication/LoginPage');
   };
 
   const handleCancelLogout = () => {
-    setShowLogoutPopup(false); // Close the logout popup
+    setShowLogoutPopup(false);
   };
 
   return (
@@ -247,19 +240,24 @@ const Profile: React.FC = () => {
       </div>
 
       {/* Profile Image Section */}
-      <div className="profile-image-section">
-        <div className="profile-image-wrapper">
-          <img className="profile-image" src={profileImage} alt="Profile" />
-          <FaCamera className="camera-icon" onClick={handleCameraClick} />
-          <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={(e) => handleFileChange(e, setProfileImage)}
-          />
-        </div>
-      </div>
+<div className="profile-image-section">
+  <div className="profile-image-wrapper">
+    <img className="profile-image" src={profileImage} alt="Profile" />
+    {/* Show the camera icon only in edit mode */}
+    {isEditing && (
+      <FaCamera className="camera-icon" onClick={handleCameraClick} />
+    )}
+    <input
+      type="file"
+      accept="image/*"
+      ref={fileInputRef}
+      style={{ display: 'none' }}
+      onChange={(e) => handleFileChange(e, setProfileImage)}
+      disabled={!isEditing} // Disable file input in non-edit mode
+    />
+  </div>
+</div>
+
 
       <div className="profile-info">
         <div className="input-group">
@@ -323,81 +321,105 @@ const Profile: React.FC = () => {
           </div>
         </div>
 
-        {/* Oxi Upload Section */}
-        <div className="oxi-upload-section">
-          <div className="oxi-upload-container" onClick={() => handleOxiUploadClick(oxiFileInputRef1)}>
-            <FaPlusCircle className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
-            {oxiImage1 ? (
-              <img src={oxiImage1} alt="Oxi Upload 1" className="oxi-upload-image" />
-            ) : (
-              <div className="oxi-upload">
-                <span>Oxi Image 1</span>
-              </div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              ref={oxiFileInputRef1}
-              style={{ display: 'none' }}
-              onChange={(e) => handleFileChange(e, setOxiImage1)}
-            />
-          </div>
-          <div className="oxi-upload-container" onClick={() => handleOxiUploadClick(oxiFileInputRef2)}>
-            <FaPlusCircle className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
-            {oxiImage2 ? (
-              <img src={oxiImage2} alt="Oxi Upload 2" className="oxi-upload-image" />
-            ) : (
-              <div className="oxi-upload">
-                <span>Oxi Image 2</span>
-              </div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              ref={oxiFileInputRef2}
-              style={{ display: 'none' }}
-              onChange={(e) => handleFileChange(e, setOxiImage2)}
-            />
-          </div>
-        </div>
-
-        <div className="input-group">
-  <div className="time-label-container">
-    <label htmlFor="availableslots">Time</label>
-    <button
-      className="edit-time-button"
-      onClick={handleEditAvailableSlots}
-    >
-      Edit
-    </button>
+        {/* // Oxi Upload Section */}
+<div className="oxi-upload-section">
+  <div
+    className={`oxi-upload-container ${
+      isEditing ? "oxi-upload-editable" : "oxi-upload-disabled"
+    }`}
+    onClick={() => isEditing && handleOxiUploadClick(oxiFileInputRef1)}
+  >
+    <FaCloudUploadAlt 
+      className="plus-icon"
+      style={{
+        color: isEditing ? "red" : "gray",
+        fontSize: "24px",
+      }}
+    />
+    {oxiImage1 ? (
+      <img src={oxiImage1} alt="Oxi Upload 1" className="oxi-upload-image" />
+    ) : (
+      <div className="oxi-upload">
+        <span>Oxi Image 1</span>
+      </div>
+    )}
+    <input
+      type="file"
+      accept="image/*"
+      ref={oxiFileInputRef1}
+      style={{ display: "none" }}
+      onChange={(e) => handleFileChange(e, setOxiImage1)}
+      disabled={!isEditing}
+    />
   </div>
-  
+  <div
+    className={`oxi-upload-container ${
+      isEditing ? "oxi-upload-editable" : "oxi-upload-disabled"
+    }`}
+    onClick={() => isEditing && handleOxiUploadClick(oxiFileInputRef2)}
+  >
+    <FaCloudUploadAlt 
+      className="plus-icon"
+      style={{
+        color: isEditing ? "red" : "gray",
+        fontSize: "24px",
+      }}
+    />
+    {oxiImage2 ? (
+      <img src={oxiImage2} alt="Oxi Upload 2" className="oxi-upload-image" />
+    ) : (
+      <div className="oxi-upload">
+        <span>Oxi Image 2</span>
+      </div>
+    )}
+    <input
+      type="file"
+      accept="image/*"
+      ref={oxiFileInputRef2}
+      style={{ display: "none" }}
+      onChange={(e) => handleFileChange(e, setOxiImage2)}
+      disabled={!isEditing}
+    />
+  </div>
+</div>
+
+{/* // Edit Time Section */}
+<div className="input-group">
+  <div className="time-label-container">
+    <label htmlFor="availableslots">Time Slots</label>
+    {isEditing && (
+      <button className="edit-time-button" onClick={handleEditAvailableSlots}>
+        Edit
+      </button>
+    )}
+  </div>
 
   <div className="time-slots-grid1">
-  {(Array.isArray(availableslots) 
-    ? availableslots 
-    : (availableslots || '').split(',')
-  ).map((slot: string, index: React.Key | null | undefined) => (
-    <button key={index} className="time-slot1">
-      {slot.trim().replace(/["[\]]/g, '')} {/* Clean unwanted characters */}
-    </button>
-  ))}
+    {(Array.isArray(availableslots)
+      ? availableslots
+      : (availableslots || "").split(",")
+    ).map((slot: string, index: React.Key | null | undefined) => (
+      <button key={index} className="time-slot1">
+        {slot.trim().replace(/["[\]]/g, "")} {/* Clean unwanted characters */}
+      </button>
+    ))}
+  </div>
 </div>
 
-  
-</div>
 {/* Save Button */}
 <div className="save-button-container">
-        <button
-          className="save-button3"
-          onClick={handleSaveProfile}
-        >
-          Save
-        </button>
-        <button className="logout-button2" onClick={() => setShowLogoutPopup(true)}>
-          Logout
-        </button>
-      </div>
+  {isEditing ? (
+    // Save Button in Editable Mode
+    <button className="save-button3" onClick={handleSaveProfile}>
+      Save
+    </button>
+  ) : (
+    // Logout Button in Non-Editable Mode
+    <button className="logout-button2" onClick={() => setShowLogoutPopup(true)}>
+      Logout
+    </button>
+  )}
+</div>
       </div>
 
       {showLogoutPopup && (

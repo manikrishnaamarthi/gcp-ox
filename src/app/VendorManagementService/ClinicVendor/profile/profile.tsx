@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './profile.css';
 import axios from 'axios';
-import { FaCamera, FaArrowLeft, FaTimes, FaPlusCircle, FaEdit } from 'react-icons/fa';
+import { FaCamera, FaArrowLeft, FaTimes, FaCloudUploadAlt , FaEdit } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'next/navigation';
 import { faHome, faClipboardList, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -22,16 +22,23 @@ const Profile: React.FC = () => {
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [availableslots, setAvailableslots] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingTime, setIsEditingTime] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef1 = useRef<HTMLInputElement | null>(null);
   const oxiFileInputRef2 = useRef<HTMLInputElement | null>(null);
   
 
   useEffect(() => {
+    // Set the isEditing state from localStorage when the component mounts
+    const savedEditingState = localStorage.getItem('isEditing');
+    if (savedEditingState !== null) {
+      setIsEditing(JSON.parse(savedEditingState));
+    }
+
     if (vendorId) {
       const fetchVendorData = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`);
+          const response = await axios.get(`http://127.0.0.1:8001/api/vendorapp-vendordetails/${vendorId}/`);
           const fetchedSlots = response.data.available_slots;
           setProfileImage(response.data.profile_photo);
           setEmail(response.data.email);
@@ -115,7 +122,9 @@ const Profile: React.FC = () => {
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
+    localStorage.setItem('isEditing', JSON.stringify(!isEditing)); // Save the new editing state to localStorage
   };
+
   const handleOxiUploadClick = (fileInputRef: React.RefObject<HTMLInputElement>) => {
     fileInputRef.current?.click();
   };
@@ -173,7 +182,7 @@ const Profile: React.FC = () => {
   
       // Update vendor details via PATCH request
       const response = await axios.patch(
-        `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`,
+        `http://127.0.0.1:8001/api/vendorapp-vendordetails/${vendorId}/`,
         updatedData,
         {
           headers: {
@@ -187,7 +196,7 @@ const Profile: React.FC = () => {
   
         // Fetch the updated details from the server
         const updatedResponse = await axios.get(
-          `http://127.0.0.1:8000/api/vendorapp-vendordetails/${vendorId}/`
+          `http://127.0.0.1:8001/api/vendorapp-vendordetails/${vendorId}/`
         );
   
         // Update the local state with the fetched details
@@ -200,6 +209,7 @@ const Profile: React.FC = () => {
         setAvailableslots(JSON.parse(updatedResponse.data.available_slots || '[]'));
   
         setIsEditing(false); // Disable editing mode
+        localStorage.setItem('isEditing', JSON.stringify(false));
       } else {
         alert('Failed to update vendor details. Please try again.');
       }
@@ -210,16 +220,11 @@ const Profile: React.FC = () => {
   };
   
   const handleEditAvailableSlots = () => {
-    const profileData = {
-      profile_photo: profileImage,
-      name,
-      email,
-      phone,
-      oxi_image1: oxiImage1,
-      oxi_image2: oxiImage2,
-    };
-    localStorage.setItem('profileData', JSON.stringify(profileData));
-    router.push('/VendorManagementService/ClinicVendor/Availableslots');
+    if (!isEditingTime) {
+      setIsEditingTime(true);
+    } else {
+      router.push(`/VendorManagementService/ClinicVendor/Availableslots?vendor_id=${vendorId}`);
+    }
   };
 
   const handleConfirmLogout = () => {
@@ -227,6 +232,8 @@ const Profile: React.FC = () => {
     sessionStorage.clear(); // Clear session storage
     router.push('/UserAuthentication/LoginPage'); // Redirect to login page
   };
+
+  
 
   const handleCancelLogout = () => {
     setShowLogoutPopup(false); // Close the logout popup
@@ -251,40 +258,44 @@ const Profile: React.FC = () => {
 
       {/* Profile Image Section */}
       <div className="profile-image-section1">
-        <div className="profile-image-wrapper0">
-          <img className="profile-image3" src={profileImage} alt="Profile" />
-          <FaCamera className="camera-icon7" onClick={handleCameraClick} />
-          <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={(e) => handleFileChange(e, setProfileImage)}
-          />
-        </div>
-      </div>
-
-      <div className="profile-info9">
-      <div className="input-group">
-  <label htmlFor="name">Name</label>
-  <div className="input-wrapper">
-    <input
-      type="text"
-      id="name"
-      placeholder="Enter your Name"
-      value={name}
-      onChange={(e) => setName(e.target.value)}
-      disabled={!isEditing} // Enable only in edit mode
-    />
-    {name && isEditing && (
-      <FaTimes
-        className="clear-icon"
-        onClick={() => setName('')}
-        title="Clear"
-      />
+  <div className="profile-image-wrapper0">
+    <img className="profile-image3" src={profileImage} alt="Profile" />
+    {/* Show the camera icon only in edit mode */}
+    {isEditing && (
+      <FaCamera className="camera-icon7" onClick={handleCameraClick} />
     )}
+    <input
+      type="file"
+      accept="image/*"
+      ref={fileInputRef}
+      style={{ display: 'none' }}
+      onChange={(e) => handleFileChange(e, setProfileImage)}
+      disabled={!isEditing} // Disable file input in non-edit mode
+    />
   </div>
 </div>
+
+<div className="profile-info9">
+        <div className="input-group">
+          <label htmlFor="name">Name</label>
+          <div className="input-wrapper">
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={!isEditing} // Enable only in edit mode
+            />
+            {name && isEditing && (
+              <FaTimes
+                className="clear-icon"
+                onClick={() => setName('')}
+                style={{ color: 'red' }}
+              />
+            )}
+          </div>
+        </div>
         <div className="input-group email-group">
           <label htmlFor="email">Email</label>
           <div className="email-input-wrapper">
@@ -306,100 +317,125 @@ const Profile: React.FC = () => {
           </div>
         </div>
         <div className="input-group">
-  <label htmlFor="mobile">Mobile Number</label>
-  <div className="input-wrapper">
-    <input
-      type="text"
-      id="mobile"
-      placeholder="Enter your mobile number"
-      value={phone}
-      onChange={(e) => setPhone(e.target.value)}
-      disabled={!isEditing} // Enable only in edit mode
-    />
-    {phone && isEditing && (
-      <FaTimes
-        className="clear-icon"
-        onClick={() => setPhone('')}
-        title="Clear"
-      />
-    )}
-  </div>
-</div>
-
-        {/* Oxi Upload Section */}
-        <div className="oxi-upload-section11">
-          <div className="oxi-upload-container" onClick={() => handleOxiUploadClick(oxiFileInputRef1)}>
-            <FaPlusCircle className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
-            {oxiImage1 ? (
-              <img src={oxiImage1} alt="Oxi Upload 1" className="oxi-upload-image" />
-            ) : (
-              <div className="oxi-upload">
-                <span>Oxi Image 1</span>
-              </div>
-            )}
+          <label htmlFor="mobile">Mobile Number</label>
+          <div className="input-wrapper">
             <input
-              type="file"
-              accept="image/*"
-              ref={oxiFileInputRef1}
-              style={{ display: 'none' }}
-              onChange={(e) => handleFileChange(e, setOxiImage1)}
+              type="text"
+              id="mobile"
+              placeholder="Enter your mobile number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              disabled={!isEditing} // Enable only in edit mode
             />
-          </div>
-          <div className="oxi-upload-container" onClick={() => handleOxiUploadClick(oxiFileInputRef2)}>
-            <FaPlusCircle className="plus-icon" style={{ color: 'red', fontSize: '24px' }} />
-            {oxiImage2 ? (
-              <img src={oxiImage2} alt="Oxi Upload 2" className="oxi-upload-image" />
-            ) : (
-              <div className="oxi-upload">
-                <span>Oxi Image 2</span>
-              </div>
+            {phone && isEditing && (
+              <FaTimes
+                className="clear-icon"
+                onClick={() => setPhone('')}
+                style={{ color: 'red' }}
+              />
             )}
-            <input
-              type="file"
-              accept="image/*"
-              ref={oxiFileInputRef2}
-              style={{ display: 'none' }}
-              onChange={(e) => handleFileChange(e, setOxiImage2)}
-            />
           </div>
         </div>
 
-        <div className="input-group">
+        {/* // Oxi Upload Section */}
+<div className="oxi-upload-section11">
+  <div
+    className={`oxi-upload-container ${
+      isEditing ? "oxi-upload-editable" : "oxi-upload-disabled"
+    }`}
+    onClick={() => isEditing && handleOxiUploadClick(oxiFileInputRef1)}
+  >
+    <FaCloudUploadAlt 
+      className="plus-icon"
+      style={{
+        color: isEditing ? "red" : "gray",
+        fontSize: "24px",
+      }}
+    />
+    {oxiImage1 ? (
+      <img src={oxiImage1} alt="Oxi Upload 1" className="oxi-upload-image" />
+    ) : (
+      <div className="oxi-upload">
+        <span>Oxi Image 1</span>
+      </div>
+    )}
+    <input
+      type="file"
+      accept="image/*"
+      ref={oxiFileInputRef1}
+      style={{ display: "none" }}
+      onChange={(e) => handleFileChange(e, setOxiImage1)}
+      disabled={!isEditing}
+    />
+  </div>
+  <div
+    className={`oxi-upload-container ${
+      isEditing ? "oxi-upload-editable" : "oxi-upload-disabled"
+    }`}
+    onClick={() => isEditing && handleOxiUploadClick(oxiFileInputRef2)}
+  >
+    <FaCloudUploadAlt 
+      className="plus-icon"
+      style={{
+        color: isEditing ? "red" : "gray",
+        fontSize: "24px",
+      }}
+    />
+    {oxiImage2 ? (
+      <img src={oxiImage2} alt="Oxi Upload 2" className="oxi-upload-image" />
+    ) : (
+      <div className="oxi-upload">
+        <span>Oxi Image 2</span>
+      </div>
+    )}
+    <input
+      type="file"
+      accept="image/*"
+      ref={oxiFileInputRef2}
+      style={{ display: "none" }}
+      onChange={(e) => handleFileChange(e, setOxiImage2)}
+      disabled={!isEditing}
+    />
+  </div>
+</div>
+
+{/* // Edit Time Section */}
+<div className="input-group">
   <div className="time-label-container">
-    <label htmlFor="availableslots">Time</label>
-    <button
-      className="edit-time-button2"
-      onClick={handleEditAvailableSlots}
-    >
-      Edit
-    </button>
+    <label htmlFor="availableslots">Time Slots</label>
+    {isEditing && (
+      <button className="edit-time-button2" onClick={handleEditAvailableSlots}>
+        Edit
+      </button>
+    )}
   </div>
 
   <div className="time-slots-grid1">
-  {(Array.isArray(availableslots) 
-    ? availableslots 
-    : (availableslots || '').split(',')
-  ).map((slot: string, index: React.Key | null | undefined) => (
-    <button key={index} className="time-slot1">
-      {slot.trim().replace(/["[\]]/g, '')} {/* Clean unwanted characters */}
-    </button>
-  ))}
+    {(Array.isArray(availableslots)
+      ? availableslots
+      : (availableslots || "").split(",")
+    ).map((slot: string, index: React.Key | null | undefined) => (
+      <button key={index} className="time-slot1">
+        {slot.trim().replace(/["[\]]/g, "")} {/* Clean unwanted characters */}
+      </button>
+    ))}
+  </div>
 </div>
 
-  
-</div>
 {/* Save Button */}
 <div className="save-button-container">
-        <button
-          className="save-button"
-          onClick={handleSaveProfile}
-        >
-          Save
-        </button>
-        <button className="logout-button0" onClick={() => setShowLogoutPopup(true)}>
-          Logout
-        </button>
-      </div>
+  {isEditing ? (
+    // Save Button in Editable Mode
+    <button className="save-button" onClick={handleSaveProfile}>
+      Save
+    </button>
+  ) : (
+    // Logout Button in Non-Editable Mode
+    <button className="logout-button0" onClick={() => setShowLogoutPopup(true)}>
+      Logout
+    </button>
+  )}
+</div>
       </div>
 
       {showLogoutPopup && (

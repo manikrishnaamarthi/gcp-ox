@@ -1,12 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import './availableslots.css';
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
-import axios from 'axios';
 
 const AvailableSlots: React.FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams(); // Get the search params
+  const vendorId = searchParams.get('vendor_id'); // Extract the vendor_id from the URL
 
   // State variables for vendor details
   const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
@@ -33,9 +34,15 @@ const AvailableSlots: React.FC = () => {
 
   // Save updated data
   const handleSave = () => {
+    // Save selected slots to localStorage
     localStorage.setItem('selectedSlots', JSON.stringify(selectedSlots));
-    router.push('/VendorManagementService/ClinicVendor/profile'); // Go back to profile
+
+    // Navigate to profile page and pass vendor_id as a query parameter
+    if (vendorId) {
+      router.push(`/VendorManagementService/ClinicVendor/profile?vendor_id=${vendorId}&editable=true`);
+    }
   };
+
 
   
 
@@ -46,7 +53,7 @@ const AvailableSlots: React.FC = () => {
     <div className="available-slots-container1">
       <header className="header">
         <FaArrowLeft className="arrow-icon9" onClick={handleBackClick} />
-        <h1>Available Time Slots</h1>
+        <h1>Add Time Slots</h1>
       </header>
 
       <div className="time-slots-grid5">
