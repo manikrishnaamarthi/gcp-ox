@@ -53,9 +53,11 @@ const InvoiceList: React.FC = () => {
       result = result.filter((invoice) =>
         [
           invoice.invoice_id,
-          invoice.vendor?.email || "",
+          invoice.vendor_email || "",
           invoice.service_type,
           invoice.status,
+          invoice.issued_date, // Filter by date
+          invoice.total.toString(), // Convert amount to string for searching
         ].some((field) =>
           field.toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -101,7 +103,7 @@ const InvoiceList: React.FC = () => {
     <div className="invoice-page">
       <Sidebar />
       <div className="invoice-content">
-        <div className="invoice-header">
+        <div className="invoice-header0">
           <h1>Invoice Lists</h1>
         </div>
         <div className="invoice-tabs">
@@ -138,9 +140,9 @@ const InvoiceList: React.FC = () => {
           </div>
         </div>
         <table className="invoice-table">
-          <thead >
-            <tr className="border-2 border-gray-400 ">
-              <th >INVOICE NUMBER </th>
+          <thead>
+            <tr className="border-2 border-gray-400">
+              <th>INVOICE NUMBER</th>
               <th>EMAIL</th>
               <th>SERVICE TYPE</th>
               <th>DATE</th>
@@ -148,7 +150,7 @@ const InvoiceList: React.FC = () => {
               <th>STATUS</th>
             </tr>
           </thead>
-          <div className="h-[25px] " ></div>
+          <div className="h-[25px]"></div>
           <tbody className="mt-6 border-2 border-gray-400">
             {filteredInvoices.map((invoice) => (
               <tr
@@ -158,7 +160,7 @@ const InvoiceList: React.FC = () => {
                 <td className="invoice-number">
                   <a href="#">{invoice.invoice_id}</a>
                 </td>
-                <td >{invoice.vendor_email || "N/A"}</td>
+                <td>{invoice.vendor_email || "N/A"}</td>
                 <td>{invoice.service_type}</td>
                 <td>{invoice.issued_date}</td>
                 <td>{invoice.total}</td>
