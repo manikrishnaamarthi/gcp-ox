@@ -16,7 +16,9 @@ const ClinicSearch: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const location = searchParams?.get("location");
-  console.log(location, "location");
+  const service = searchParams?.get("service");
+  const oxiId = searchParams?.get("oxi_id");
+  console.log(location, service, oxiId);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -37,7 +39,7 @@ const ClinicSearch: React.FC = () => {
       setLoading(true); // Ensure loading state is set to true when fetching begins
       try {
         const response = await fetch(
-          `http://127.0.0.1:8003/api/vendor-details/?location=${encodeURIComponent(location || "")}`
+          `http://127.0.0.1:8003/api/user-vendor-details/?location=${encodeURIComponent(location || "")}`
         );
         if (!response.ok) throw new Error("Failed to fetch clinic data");
 
@@ -52,6 +54,29 @@ const ClinicSearch: React.FC = () => {
 
     if (location) fetchClinics();
   }, [location]);
+
+
+
+  useEffect(() => {
+    const fetchClinics = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8002/api/user-search-vendor-details/?location=${encodeURIComponent(location || "")}&service=${encodeURIComponent(service || "")}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch clinic data");
+
+        const data = await response.json();
+        setClinics(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (location && service) fetchClinics();
+  }, [location, service]);
 
   useEffect(() => {
     const calculateDistances = () => {
@@ -137,7 +162,13 @@ const ClinicSearch: React.FC = () => {
                 </div>
                 <div className="clinic-info">
                 <div className="clinic-name-distance-container">
-                  <p className="clinic-name3">{clinic.clinic_name}</p>
+                <p className="clinic-name3">
+                      {clinic.selected_service === "Oxi Clinic"
+                        ? clinic.clinic_name
+                        : clinic.selected_service === "Oxi Wheel"
+                        ? clinic.wheel_name
+                        : "Unknown Service"}
+                    </p>
                   <p className="clinic-distance">
                     {distances[index] || "Calculating distance..."}
                   </p>

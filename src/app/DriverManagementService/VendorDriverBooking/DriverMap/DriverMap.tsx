@@ -174,7 +174,7 @@ const DriverMap: React.FC = () => {
   const handleReached = async () => {
     try {
       // Send OTP to the customer's email using the email from URL parameters
-      const response = await fetch(`http://127.0.0.1:8000/api/send-otp/?email=${email}`);
+      const response = await fetch(`http://127.0.0.1:8000/api/user-send-otp/?email=${email}`);
       const data = await response.json();
       
       if (response.ok) {

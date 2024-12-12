@@ -25,7 +25,7 @@ const BookAppointment = () => {
     if (vendorId) {
       const fetchClinicDetails = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:8004/api/vendor-appointment-details/${vendorId}/`);
+          const response = await fetch(`http://127.0.0.1:8004/api/user-vendor-appointment-details/${vendorId}/`);
           if (!response.ok) throw new Error("Failed to fetch clinic details");
           const data = await response.json();
           setClinicData(data);
@@ -147,7 +147,13 @@ const BookAppointment = () => {
       {clinicData && (
         <div className="services">
           <div className="service">
-            <p className='clinic-name4'>{clinicData.clinic_name}</p>
+          <p className="clinic-name4">
+      {selectedService === "Oxi Clinic"
+        ? clinicData?.clinic_name
+        : selectedService === "Oxi Wheel"
+        ? clinicData?.wheel_name
+        : "Unknown Service"}
+    </p>
             <p className='clinic-address4'>{clinicData.address}</p>
             <p><span className="amount">{clinicData.serviceType}</span></p>
           </div>
@@ -248,8 +254,20 @@ const BookAppointment = () => {
               <p><strong>Please select the date and time.</strong></p>
             ) : (
               <>
-               <p><strong>Clinic Name:</strong> {clinicData?.clinic_name || "Fetching clinic name..."}</p>
-               <p><strong>Clinic Address:</strong> {clinicData?.address || "Fetching clinic address..."}</p>
+              {/* Dynamically determine the label for Name */}
+          <p>
+            <strong>
+              {clinicData?.clinic_name ? "Clinic Name:" : "Wheel Name:"}
+            </strong>{" "}
+            {clinicData?.clinic_name || clinicData?.wheel_name || "Fetching..."}
+          </p>
+          {/* Dynamically determine the label for Address */}
+          <p>
+            <strong>
+              {clinicData?.clinic_name ? "Clinic Address:" : "Wheel Address:"}
+            </strong>{" "}
+            {clinicData?.address || "Fetching address..."}
+          </p>
                 <p><strong>Time:</strong> {selectedSlot || "N/A"}</p>
                 <p><strong>Date:</strong> {weekDates[selectedDay!].weekDay}, {weekDates[selectedDay!].day} {weekDates[selectedDay!].month} {today.getFullYear()}</p>
               </>

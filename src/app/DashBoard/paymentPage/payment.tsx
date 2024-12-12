@@ -80,14 +80,13 @@ const PaymentPage: React.FC = () => {
               appointment_time: formatTimeForAPI(appointmentData?.appointmentTime),
               payment_id: response.razorpay_payment_id,
               booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`, // Generate random 5-digit ID
-              booking_status: 'completed',
-              phone_number: appointmentData?.phone_number,  // Use phone number from appointment data
-              email: appointmentData?.email,  // Use email from appointment data
+              booking_status: 'upcoming',
               user: appointmentData?.oxiId, 
+              payment_status: 'completed',
             };
     
             try {
-              await axios.post("http://localhost:8006/api/save-booking/", paymentData);
+              await axios.post("http://localhost:8006/api/user-save-booking/", paymentData);
               console.log('payment', paymentData)
               router.push('/DashBoard/TickPage')
             } catch (error) {
@@ -118,12 +117,13 @@ const PaymentPage: React.FC = () => {
             booking_status: 'cancelled',
             phone_number: appointmentData?.phone_number,
             email: appointmentData?.email,
-            user: appointmentData?.oxiId, // Assuming `oxiId` represents the user
+            user: appointmentData?.oxiId, 
+            payment_status: 'completed',
                   };
     console.log('faileddata', failedData)
                   try {
                     // Save the failed booking data to the database
-                    await axios.post("http://localhost:8006/api/save-booking/", failedData);
+                    await axios.post("http://localhost:8006/api/user-save-booking/", failedData);
                     // Redirect to CancelPage
                     router.push('/DashBoard/CancelPage');
                   } catch (error) {

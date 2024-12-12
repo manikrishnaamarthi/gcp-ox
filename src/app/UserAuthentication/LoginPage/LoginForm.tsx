@@ -25,6 +25,7 @@ function LoginForm() {
   const [identifierError, setIdentifierError] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
+  const [showPopup, setShowPopup] = useState<boolean>(false); // State to control the popup visibility
 
   // Email/Phone validation function
   const isValidIdentifier = (input: string): boolean => {
@@ -91,9 +92,11 @@ function LoginForm() {
       }
     } else {
       setErrorMessage(data.message || 'Login failed. Please check your credentials.');
+      setShowPopup(true); // Show the popup if login fails
     }
   } catch (error) {
     setErrorMessage('An error occurred. Please try again.');
+    setShowPopup(true); // Show the popup if an error occurs
   }
 };
 
@@ -110,6 +113,11 @@ function LoginForm() {
 
   const handleForgotPasswordClick = () => {
     router.push('/UserAuthentication/ForgotPasswordPage');
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false); // Hide the popup when "OK" is clicked
+    window.location.reload(); // Refresh the page
   };
 
   return (
@@ -164,6 +172,17 @@ function LoginForm() {
         {successMessage && <p className="successMessage">{successMessage}</p>}
         {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       </div>
+
+      {/* Modal for Error Message */}
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>{errorMessage}</p>
+            <button onClick={handlePopupClose}>OK</button>
+          </div>
+        </div>
+      )}
+      
     </div>
   );
 }

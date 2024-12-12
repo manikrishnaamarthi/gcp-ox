@@ -95,6 +95,7 @@ body {
   outline: none;        
   margin: 2 2px;       
   background: transparent; 
+  color:black;
 }
 
 .otp-inputs {
