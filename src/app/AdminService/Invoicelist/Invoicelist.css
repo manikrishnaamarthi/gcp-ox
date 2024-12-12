@@ -16,14 +16,14 @@ body {
   }
   
   /* Header */
-  .invoice-header {
+  .invoice-header0 {
     justify-content: space-between;
     text-align: center;
     margin-top: 10px;
     margin-bottom: 20px;
   }
   
-  .invoice-header h1 {
+  .invoice-header0 h1 {
     margin: 0;
     font-size: 24px;
     font-weight: bold;
@@ -146,16 +146,19 @@ body {
   }
 
 
-.invoice-table tbody tr {
-  transition: transform 0.2s ease;
-  cursor: pointer; 
-}
-
-
-.invoice-table tbody tr:hover {
-  transform: scale(1.02); /* Slightly scale up the row */
-  background-color: #f0f4f8; /* Optional: Add a subtle background color change */
-}
-
+  .invoice-table tbody tr {
+    transition: background-color 0.2s ease, color 0.2s ease, font-weight 0.2s ease; /* Smooth transitions for hover effects */
+    cursor: pointer;
+  }
+  
+  .invoice-table tbody tr:hover {
+    background-color: #f0f4f8; /* Highlight with a subtle background color */
+    color: black; /* Change text color for emphasis */
+  }
+  
+  .invoice-table tbody tr:hover td {
+    font-weight: bold; /* Highlight text by making it bold */
+    border: 2px solid #d1d9e6; /* Add a subtle border on hover */
+  }
   
   
