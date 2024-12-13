@@ -3,15 +3,15 @@ body {
     font-style: normal;
     margin: 0;
     background-color: rgb(228, 226, 226);
-    text-align: center;
+    /* text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    padding: 0;  /* Remove padding */
+    padding: 0;  
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: hidden;
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; */
 }
 .invoice-container6 {
   height: 100vh;
@@ -24,7 +24,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   overflow-y: hidden;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 
   }
   
@@ -426,43 +426,18 @@ body {
   
  
 /* General Responsive Styles */
-@media (max-width: 599px) {
+@media (max-width: 400px) {
   .invoice-container6 {
       width: 100%;
+      max-width: 410px;
       padding: 10px;
-      max-width: none;
+      
   }
-
-  .header9 .title {
-      font-size: 20px;
-  }
-
-  .tab1 {
-      font-size: 16px;
-      margin-bottom: 150px;
-  }
-
-  .new-invoice-card1 {
-      margin-top: -150px;
-      margin-bottom: 150px;
-  }
-
-  .new-invoice-buttons {
-      font-size: 14px;
-      padding: 10px;
-      margin-top: 150px;
-  }
-
-  .modal-content {
-      width: 90%;
-      max-width: 300px;
-  }
-
-  .raise-claim-button, .save-button {
-      width: 80%;
-      margin: 10px auto;
-      font-size: 14px;
-  }
+  .footerd {
+    width: 100%;
+    max-width: 410px;
+    padding: 10px; 
+}
   
   .footer-icon {
       font-size: 18px;
@@ -470,37 +445,16 @@ body {
 }
 
 /* Responsive styles for tablets */
-@media (min-width: 600px) and (max-width: 900px) {
+@media (min-width: 401px) and (max-width: 600px) {
   .invoice-container6 {
       width: 100%;
-      max-width: 850px;
-  }
-
-  .header9 .title {
-      font-size: 24px;
-  }
-
-  .tab1 {
-      font-size: 18px;
-  }
-
-  .new-invoice-buttons {
-      font-size: 16px;
-  }
-
-  .modal-content {
-      width: 80%;
-      max-width: 400px;
-  }
-
-  .raise-claim-button, .save-button {
-      width: 50%;
-      font-size: 14px;
+      max-width: 610px;
   }
 
   .footerd {
-    flex-direction: row; /* Ensure items are in a row for larger devices */
-    padding: 10px; /* Reduce padding slightly */
+    width: 100%;
+    max-width: 610px;
+    padding: 10px; 
 }
 
 .footer-icon {
@@ -509,69 +463,18 @@ body {
 }
 
 /* Responsive styles for iPads and larger tablets */
-@media (min-width: 900px) and (max-width: 1200px) {
-  .invoice-container6 {
-      width: 100%;
-      max-width: 1100px;
-  }
-
-  .header9 .title {
-      font-size: 26px;
-  }
-
-  .tab1 {
-      font-size: 20px;
-  }
-
-  .new-invoice-buttons {
-      font-size: 18px;
-  }
-
-  .modal-content {
-      width: 70%;
-      max-width: 500px;
-  }
-
-  .footerd {
-    padding: 10px 8%; /* Add more horizontal padding for wider screens */
-}
-
-.footer-icon {
-    font-size: 24px; /* Increase icon size for better visibility */
-}
-}
-
-/* Responsive styles for large screens (1200px to 1500px) */
-@media (min-width: 1200px) and (max-width: 1500px) {
+@media (min-width: 601px) and (max-width: 1300px) {
   .invoice-container6 {
       width: 100%;
       max-width: 1300px;
   }
 
-  .header9 .title {
-      font-size: 28px;
-  }
-
-  .tab1 {
-      font-size: 22px;
-  }
-
-  .new-invoice-buttons {
-      font-size: 20px;
-  }
-
-  .modal-content {
-      width: 60%;
-      max-width: 600px;
-  }
-
-  .modal-content {
-      width: 60%;
-      max-width: 600px;
-  }
-
+  
   .footerd {
-    padding: 10px 10%; /* Add padding for large screens */
+    padding: 10px 10%;
+    width: 100%;
+    max-width: 1300px;
+    
 }
 
 .footer-icon {

@@ -26,7 +26,7 @@ height: 100vh;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   scroll-behavior: smooth;
 }
 
@@ -132,7 +132,7 @@ h1 {
     margin: 0;
     width: 100%;
     max-width: 350px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     margin-bottom: -200px;
     height: 100vh;
     overflow-y: scroll;
@@ -151,7 +151,7 @@ p{
     padding: 1rem; /* Internal padding for spacing inside the card */
     border-radius: 10px;
     display: flex;
-    min-height: 20vh;
+    min-height: 10vh;
     justify-content: space-between;
     flex-direction: column; /* Stack the content vertically */
     border: 1px solid #ddd;
@@ -213,6 +213,8 @@ p{
     line-height: 1.2; /* Ensure proper spacing for one line */
     text-align: left; /* Align text to the left */
     white-space: nowrap; /* Prevent the text from wrapping */
+    margin-top: -10px;
+    margin-bottom: 10px;
    
   }
   
@@ -223,6 +225,7 @@ p{
     font-size: 15px;
     line-height: 1.2; /* Ensure proper spacing */
     text-align: left; /* Align text to the left */
+   
   }
   
 
@@ -237,6 +240,7 @@ p{
     white-space: nowrap;
     margin-top: px;
     margin-left: 220px;
+    margin-bottom: 20px;
 }
 
 .date {
@@ -274,43 +278,6 @@ p{
 }
 
 
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .popup-content h3 {
-    margin-bottom: 20px;
-  }
-  
-  .popup-content button {
-    margin: 5px;
-    padding: 10px 20px;
-    border: none;
-    background-color: red;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .popup-content button:hover {
-    background-color: red;
-  }
   
 
 /* Footer Styles */
@@ -347,23 +314,21 @@ p{
 
 
 /* General Mobile Styling */
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
-    .gray-section0 {
-        max-width: 100%; /* Utilize the full screen width */
-        padding: 0.5rem; /* Reduce padding for smaller devices */
-    }
+@media (max-width: 400px) {
+    
     .bookings-container0 {
         width: 100%;
+        max-width: 410px;
         padding: 0 15px;
     }
-    .week-day {
-        width: 60px;
-        padding: 8px;
+    .gray-section0 {
+        width: 100%;
+        max-width: 410px;
+
     }
     .footer0 {
+        width: 100%;
+        max-width: 410px;
         padding: 5px;
     }
     .footer-icon {
@@ -372,72 +337,46 @@ p{
 }
 
 /* Styling for Apple Smartphones */
-@media only screen and (min-device-width: 375px) and (max-device-width: 844px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
-    body {
-        background-color: #e0e0e0;
-    }
-    .header0 {
-        padding: 15px;
-    }
-    .week-day {
-        border: 2px solid #ff0000;
-        padding: 12px;
-        width: 75px;
-    }
-    .booking-card {
-        padding: 1.5rem;
-        border-radius: 12px;
+@media (min-width: 401px) and (max-width: 600px) {
+    .bookings-container0 {
+        width: 100%;
+        max-width: 610px;
+        padding: 0 15px;
     }
     .gray-section0 {
-        max-width: 100%; /* Full width for narrower Apple devices */
-        padding: 1rem;
-        border-radius: 12px;
-    }
-    .status-section {
-        padding: 0.3rem 0.7rem;
-        border-radius: 15px;
+        width: 100%;
+        max-width: 610px;
+
     }
     .footer0 {
-        max-width: 375px;
+        width: 100%;
+        max-width: 610px;
+        padding: 5px;
     }
     .footer-icon {
-        font-size: 24px;
-        
+        font-size: 20px;
     }
 }
 
 /* Styling for Android Smartphones */
-@media only screen and (min-device-width: 360px) and (max-device-width: 800px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
-    body {
-        background-color: #f8f8f8;
+@media (min-width: 601px) and (max-width: 1300px) {
+    .bookings-container0 {
+        width: 100%;
+        max-width: 1300px;
+        padding: 0 15px;
     }
-    .header0 {
-        padding: 10px;
-    }
-    .week-day {
-        border: 2px solid #00ff00;
-        padding: 10px;
-        width: 70px;
-    }
-    .booking-card {
-        padding: 1rem;
-        border-radius: 10px;
-    }
-    .status-section {
-        padding: 0.25rem 0.5rem;
-        border-radius: 20px;
-    }
-
     .gray-section0 {
-        max-width: 100%; /* Full width for narrower Android devices */
-        padding: 1rem;
-        border-radius: 10px;
+        width: 100%;
+        max-width: 1300px;
+
     }
     .footer0 {
-        max-width: 360px;
+        width: 100%;
+        max-width: 1300px;
+        padding: 5px;
     }
     .footer-icon {
-        font-size: 22px;
+        font-size: 20px;
     }
 }
 

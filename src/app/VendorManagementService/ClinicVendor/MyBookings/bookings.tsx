@@ -19,6 +19,9 @@ const Bookings: React.FC = () => {
   const searchParams = useSearchParams(); // Get the search params
   const vendor_id = localStorage.getItem('vendor_id');
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState<any | null>(null);
+
 
   useEffect(() => {
     const getWeekDates = () => {
@@ -111,9 +114,6 @@ const Bookings: React.FC = () => {
     setActiveTab(tab);
   };
 
-  // const handleDateClick = (date: string) => {
-  //   setSelectedDate(date);
-  // };
 
   // const handleFooterClick = (footer: string) => {
   //   setSelectedFooter(footer);
@@ -123,8 +123,6 @@ const Bookings: React.FC = () => {
     // Filter by status (activeTab)
     if (activeTab === "cancelled" && booking.booking_status !== "cancelled") return false;
     if (activeTab === "upcoming" && booking.booking_status !== "upcoming") return false;
-  
-    // Filter by selectedDate
     if (selectedDate) {
       const formattedSelectedDate = new Date(selectedDate).toISOString().split("T")[0];
       return booking.appointment_date === formattedSelectedDate;
@@ -145,8 +143,39 @@ const Bookings: React.FC = () => {
     const formattedDate = `${selectedFullDate.getFullYear()}-${String(selectedFullDate.getMonth() + 1).padStart(2, '0')}-${String(selectedFullDate.getDate()).padStart(2, '0')}`;
   
     setSelectedDate(formattedDate);
-    console.log("Selected date:", formattedDate); // Debug log
   };
+
+  const handleCardClick = (booking: any) => {
+    setSelectedBooking(booking);
+    setShowPopup(true);
+  };
+
+  const handleSendOtp = async () => {
+    if (selectedBooking) {
+        const otp = Math.floor(10000 + Math.random() * 90000).toString(); // Generate 5-digit OTP
+        console.log("Email being sent:", selectedBooking.email);  // Debug log
+
+        try {
+            await axios.post("http://localhost:8003/api/send-otp/", {
+                email: selectedBooking.email,
+                otp,
+            });
+            console.log("OTP sent successfully:", otp);
+
+            // Save OTP and timestamp in localStorage (with 5-minute expiry)
+            const expiryTime = new Date().getTime() + 5 * 60 * 1000; // 5 minutes from now
+            localStorage.setItem("otp", otp);
+            localStorage.setItem("otp_expiry", expiryTime.toString());
+
+            // Redirect to OTP verification page
+            router.push(`/VendorManagementService/ClinicVendor/ClinicOtp?email=${selectedBooking.email}`);
+        } catch (error) {
+            console.error("Error sending OTP:", error);
+        }
+    }
+};
+
+  
 
   return (
     <div className="bookings-containers">
@@ -192,33 +221,40 @@ const Bookings: React.FC = () => {
           <p>Loading bookings...</p>
         ) : filteredBookings.length > 0 ? (
           filteredBookings.map((booking, index) => (
-            <div className="booking-card" key={index}>
-    {/* Header Section: Name and Status */}
-    <div className="header-section">
-        <h3 className="booking-service">{booking.name}</h3> {/* Display user name */}
-        <div className="status-section">
-            <span className="status">{booking.booking_status}</span>
-        </div>
-    </div>
-
-    {/* Address Section: Address and Date-Time */}
-    <div className="user-details-section">
-    <p className="email">Email: {booking.email}</p>
-    <p className="phone-number">Phone: {booking.phone_number}</p>
-        <div className="date-time">
-            <span className="date">{booking.appointment_date}</span>
-            <span className="time">
-                <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
-            </span>
-        </div>
-    </div>
-</div>
-
+            <div className="booking-card" key={index} onClick={() => handleCardClick(booking)}>
+              <div className="header-section">
+                <h3 className="booking-service">{booking.name}</h3>
+                <div className="status-section">
+                  <span className="status">{booking.booking_status}</span>
+                </div>
+              </div>
+              <div className="user-details-section">
+                <p className="email">{booking.email}</p>
+                <p className="phone-number">{booking.phone_number}</p>
+                <div className="date-time">
+                  <span className="date">{booking.appointment_date}</span>
+                  <span className="time">
+                    <FontAwesomeIcon icon={faClock} className="time-icon" /> {booking.appointment_time}
+                  </span>
+                </div>
+              </div>
+            </div>
           ))
         ) : (
           <p>No bookings found.</p>
         )}
       </div>
+
+      {showPopup && selectedBooking && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h3>{selectedBooking.name}</h3>
+            <p>{selectedBooking.email}</p>
+            <p>{selectedBooking.phone_number}</p>
+            <button onClick={handleSendOtp}>START</button>
+          </div>
+        </div>
+      )}
 
       <div className="footer">
         {[{ icon: faHome, label: 'Home', key: 'home' },

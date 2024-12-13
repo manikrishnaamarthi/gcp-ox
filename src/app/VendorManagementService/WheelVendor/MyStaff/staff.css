@@ -143,7 +143,7 @@ body {
     align-items: center;
     font-size: 22px;
     cursor: pointer;
-    color: rgb(151, 147, 147);
+    color: rgb(133, 130, 130);
     margin: 0 16px;
 }
 
@@ -244,182 +244,38 @@ body {
 }
 
 /* Responsive styles for mobile screens */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     .staff-container {
         width: 100%;
-        max-width: 100%;
+        max-width: 410px;
     }
-
-    .staff-headings1 p:first-child {
-        margin-left: 140px;
-    }
-
-    .staff-headings1 p:last-child {
-        margin-right: 0;
-    }
-
-    .staff-header h1 {
-        font-size: 18px;
-        margin-left: 10px;
-    }
-
-    .staff-name {
-        font-size: 14px;
-    }
-
-    .staff-phone {
-        font-size: 12px;
-    }
-
-    .staff-card {
-        padding: 8px;
-        margin: 8px 0;
-    }
-
     .staff-footer {
-        max-width: 100%;
-    }
-
-    .modal-content {
-        width: 90%;
-        max-width: 280px;
-    }
-
-    .modal-fields input {
-        font-size: 13px;
+        width: 100%;
+        max-width: 410px;
     }
 }
 
 /* Responsive styles for tablets */
-@media (min-width: 600px) and (max-width: 900px) {
+@media (min-width: 401px) and (max-width: 600px) {
     .staff-container {
         width: 100%;
-        max-width: 850px;
+        max-width: 6100px;
     }
-
-    .staff-headings1 p:first-child {
-        margin-left: 350px;
-    }
-
-    .staff-headings1 p:last-child {
-        margin-right: -5px;
-    }
-
-    .staff-header h1 {
-        font-size: 20px;
-        margin-left: 20px;
-    }
-
-    .staff-name {
-        font-size: 15px;
-    }
-
-    .staff-phone {
-        font-size: 13px;
-    }
-
-    .staff-card {
-        padding: 10px;
-        margin: 10px 0;
-    }
-
     .staff-footer {
-        max-width: 850px;
+        width: 100%;
+        max-width: 6100px;
     }
 
-    .modal-content {
-        width: 80%;
-        max-width: 320px;
-    }
 }
 
 /* Responsive styles for iPads and larger tablets */
-@media (min-width: 900px) and (max-width: 1200px) {
-    .staff-container {
-        width: 100%;
-        max-width: 1100px;
-    }
-
-    .staff-headings1 p:first-child {
-        margin-left: 100px;
-    }
-
-    .staff-headings1 p:last-child {
-        margin-right: -5px;
-    }
-
-    .staff-header h1 {
-        font-size: 22px;
-        margin-left: 25px;
-    }
-
-    .staff-name {
-        font-size: 16px;
-    }
-
-    .staff-phone {
-        font-size: 14px;
-    }
-
-    .staff-card {
-        padding: 12px;
-        margin: 12px 0;
-    }
-
-    .staff-footer {
-        max-width: 1100px;
-    }
-
-    .modal-content {
-        width: 70%;
-        max-width: 400px;
-    }
-}
-
-/* Responsive styles for large screens (1200px to 1500px) */
-@media (min-width: 1200px) and (max-width: 1500px) {
+@media (min-width: 601px) and (max-width: 1300px) {
     .staff-container {
         width: 100%;
         max-width: 1300px;
     }
-
-    .staff-headings1 p:first-child {
-        margin-left: 570px;
-    }
-
-    .staff-headings1 p:last-child {
-        margin-right: -10px;
-    }
-
-    .staff-header h1 {
-        font-size: 24px;
-        margin-left: 30px;
-    }
-
-    .staff-name {
-        font-size: 18px;
-    }
-
-    .staff-phone {
-        font-size: 16px;
-    }
-
-    .staff-card {
-        padding: 14px;
-        margin: 14px 0;
-    }
-
     .staff-footer {
+        width: 100%;
         max-width: 1300px;
-        padding: 10px;
-    }
-
-    .modal-content {
-        width: 60%;
-        max-width: 500px;
-    }
-
-    .modal-fields input {
-        font-size: 16px;
     }
 }
