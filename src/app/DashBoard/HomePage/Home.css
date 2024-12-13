@@ -24,61 +24,46 @@ body {
     font-style: normal;
     width: 100%; 
     max-width: 350px;
-    height: auto;
+    height: 100vh;
     background-color: white;
     flex-direction: column;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
   }
 
   
-  
-
-  .location-container{ 
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* space between location and notification */
-  padding: 10px;
- 
-  }
-
-  .location-icon {
-    margin-right: 10px;
-    color: #a3a2a2; /* icon color */
-    margin-bottom: 10px;
-    
-  }
-
-  .location-text-wrapper {
-    display: flex;
-    flex-direction: column; /* Stacks the current location and fetched location */
-    white-space: nowrap;            /* Prevents the text from wrapping to a new line */
-    overflow-x: auto;               /* Adds horizontal scrolling if text exceeds container */
-    scroll-behavior: smooth;        /* Smooth scrolling experience */
-    max-width: 200px;  
-    scrollbar-width: none; 
-  }
-
-  .location-text::-webkit-scrollbar {
-    display: none;                  /* Optional: hides the scrollbar for a cleaner look */
-  }
-
-  
-  
-  .location-text {
-    font-size: 14px;
-    color: #000000;
-    font-weight: bold;
+  .fixed-header {
     position: sticky;
-   
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    width: 100%;
   }
   
+  .scrollable-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 60px; /* Space for footer */
+  }
 
-  .notification-icon {
-  color: #a3a2a2;
-  cursor: pointer;
-  margin-left: auto; /* Push to the right */
-  
-  }
+  /* Scrollbar styling for WebKit browsers */
+.scrollable-content::-webkit-scrollbar {
+ display: none;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 
 
 
@@ -89,31 +74,35 @@ body {
     position: relative;
     display: flex;
     width: 100%;
-    margin-bottom: 80px;
     align-items: center; 
     
   }
   
   .search-input {
     margin-top:10px;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
     border: 1px solid #ededed;
     font-size: 16px;
     box-sizing: border-box;
     border-radius: 13px;
     width: 100%;
     padding: 10px 40px 10px 40px;
-    background-color: #f7f4f4;
+    background-color: #ffffff;
     padding-left: 45px; 
-    color:#999999;
+    color:#000000;
+    
   }
   
-
+  .search-input:focus {
+    border-color: #FC000E; /* Border color on focus */
+    outline: none; /* Remove default outline */
+   
+  }
 
   .search-icon {
     position: absolute;
     margin-left: 10px;
-    /* transform: translateY(-50%); */
+    transform: translateY(50%);
     color: #6f7071;
     cursor: pointer;
     margin-bottom:22px;
@@ -124,11 +113,88 @@ body {
     opacity: 1; /* Ensures the color is fully opaque */
   }
   
+
+
+  .suggestions-list {
+    position: absolute;
+    top: 100%; /* Place it right below the input */
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px; /* Adjust height as needed */
+    overflow-y: auto;
+    z-index: 1000; /* Ensure it appears above other elements */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   margin-top: 10px;
+  }
   
+  .suggestion-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .suggestion-item:hover {
+    background: #f0f0f0;
+  }
+  
+  .suggestion-text {
+    margin-left: 8px;
+    color: #333;
+  }
+  
+  .suggestions-list::-webkit-scrollbar {
+    display: none; /* For Webkit browsers (Chrome, Safari) */
+  }
+  
+  
+
+
+
+  .notifications-icon {
+    color: #333; /* Dark gray color */
+    margin-left: 10px;
+    transition: color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .notifications-icon:hover {
+    color: #ff0000; /* Blue color on hover */
+    transform: scale(1.1); /* Slight scale effect on hover */
+  }
+  
+  .notifications-icon:active {
+    color: #b30000; /* Darker blue when clicked */
+    transform: scale(0.95); /* Slight press effect */
+  }
+  
+  /* Add a small notification badge */
+  .notifications-container {
+    position: relative;
+  }
+  
+  .notifications-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+  }
 /* Promotion Slider */
 
   .promotion-section {
-    margin-top: -95px;
     object-fit: cover;
     
   }
@@ -436,6 +502,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 40px 0;
+  
 }
 
 .educate-list {
@@ -464,207 +531,5 @@ body {
   color: black;
 }
 
-/* Smaller Android devices (e.g., 360px width) */
-@media only screen and (max-width: 360px) and (-webkit-device-pixel-ratio: 2) {
-  .home-container {
-    padding: 10px;
-    max-width: 100%;
-  }
-
-  .search-input {
-    font-size: 14px;
-    padding: 8px 30px;
-  }
-
-  .promotion-slider img {
-    width: 100%;
-  }
-
-  .service-icon-container {
-    padding: 8px;
-    margin-right: 5px;
-  }
-
-  .oxi-image {
-    width: 100%;
-  }
-
-  .footer-section {
-    padding: 8px;
-  }
-}
-
-/* Medium Android devices (e.g., 390px width) */
-@media only screen and (max-width: 390px) and (-webkit-device-pixel-ratio: 3) {
-  .home-container {
-    padding: 14px;
-    max-width: 100%;
-  }
-
-  .search-input {
-    font-size: 15px;
-    padding: 10px 35px;
-  }
-
-  .service-icon-container {
-    padding: 10px;
-    margin-right: 10px;
-  }
-
-  .footer-section {
-    padding: 10px;
-  }
-}
-
-/* Larger Android devices (e.g., 412px width) */
-@media only screen and (max-width: 412px) and (-webkit-device-pixel-ratio: 3) {
-  .home-container {
-    padding: 16px;
-    max-width: 100%;
-  }
-
-  .search-input {
-    font-size: 16px;
-    padding: 12px 40px;
-  }
-
-  .promotion-slider img {
-    width: 110%;
-  }
-
-  .footer-section {
-    padding: 12px;
-  }
-}
 
 
-/* iPhone SE (1st and 2nd Gen), iPhone 5, iPhone 6/7/8 */
-@media only screen and (max-width: 375px) and (-webkit-device-pixel-ratio: 2) {
-  .home-container {
-    padding: 10px;
-    max-width: 100%;
-  }
-
-  .search-input {
-    font-size: 14px;
-    padding: 8px 30px;
-  }
-
-  .service-icon-container {
-    padding: 10px;
-    margin-right: 5px;
-  }
-
-  .oxi-image {
-    width: 100%;
-  }
-
-  .footer-section {
-    padding: 8px;
-  }
-}
-
-/* iPhone 6/7/8 Plus, iPhone X, iPhone 11, iPhone 12 Mini, iPhone 13 Mini */
-@media only screen and (max-width: 414px) and (-webkit-device-pixel-ratio: 3) {
-  .home-container {
-    padding: 14px;
-    max-width: 100%;
-  }
-
-  .search-input {
-    font-size: 15px;
-    padding: 10px 35px;
-  }
-
-  .promotion-slider img {
-    width: 100%;
-  }
-
-  .service-icon-container {
-    padding: 12px;
-    margin-right: 10px;
-  }
-
-  .footer-section {
-    padding: 10px;
-  }
-}
-
-/* iPhone 11 Pro Max, iPhone 12/13/14/15, iPhone 14 Plus, iPhone 14/15 Pro Max */
-@media only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 3) {
-  .home-container {
-    padding: 16px;
-    max-width: 100%;
-  }
-
-  .search-input {
-    font-size: 16px;
-    padding: 12px 40px;
-  }
-
-  .promotion-slider img {
-    width: 110%;
-  }
-
-  .service-icon-container {
-    padding: 14px;
-    margin-right: 12px;
-  }
-
-  .footer-section {
-    padding: 12px;
-  }
-}
-
-/* Catch-all for larger iPhones and future models */
-@media only screen and (max-width: 480px) and (-webkit-device-pixel-ratio: 3) {
-  .home-container {
-    padding: 18px;
-    max-width: 100%;
-  }
-
-  .search-input {
-    font-size: 16px;
-    padding: 12px 45px;
-  }
-
-  .promotion-slider img {
-    width: 100%;
-  }
-
-  .service-icon-container {
-    padding: 14px;
-  }
-
-  .footer-section {
-    padding: 14px;
-  }
-}
-
-
-/* General Media Query for iPhones (All Sizes) */
-@media only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 2), 
-       only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 3) {
-  
-  .home-container {
-    padding: 12px;
-  }
-
-  .search-input {
-    font-size: 14px;
-    padding: 8px 30px;
-  }
-
-  .promotion-slider img {
-    width: 100%;
-  }
-
-  .footer-section {
-    padding: 8px;
-  }
-
-  .service-icon-container {
-    padding: 10px;
-    margin-right: 8px;
-  }
-}

@@ -92,14 +92,15 @@ const Search: React.FC = () => {
       <IoChevronBackSharp size={20} />
     </button>
      
-        <div className="search-bar2">
+        <div >
         
-          <CiSearch size={24} />
+          <CiSearch size={24} className="search-icon2"/>
           <input
             type="text"
             placeholder="Search for a location"
             value={query}
             onChange={handleInputChange}
+            className="search-bar2"
           />
         </div>
         

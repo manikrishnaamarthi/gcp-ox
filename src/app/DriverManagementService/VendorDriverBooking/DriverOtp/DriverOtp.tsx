@@ -54,7 +54,7 @@ const DriverOtp = () => {
   const enteredOtp = otp.join('');
   console.log("Entered OTP:", enteredOtp);  // Check OTP value
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/validate-otp/?email=${email}&otp=${enteredOtp}`);
+    const response = await fetch(`http://127.0.0.1:8000/api/driver-validate-otp/?email=${email}&otp=${enteredOtp}`);
     const data = await response.json();
     console.log("Server Response:", data);  // Log server response for debugging
 

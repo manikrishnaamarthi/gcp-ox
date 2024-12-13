@@ -38,7 +38,7 @@ const PaymentMethod: React.FC = () => {
     if (vendorId) {
       const fetchVendorDetails = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:8005/api/vendor-details-service/${vendorId}/`);
+          const response = await fetch(`http://127.0.0.1:8005/api/user-vendor-details-service/${vendorId}/`);
           if (!response.ok) {
             throw new Error(`Failed to fetch vendor details: ${response.statusText}`);
           }
@@ -149,6 +149,9 @@ const PaymentMethod: React.FC = () => {
         image: "/images/shot(1).png",
         handler: (response: any) => {
           const paymentId = response.razorpay_payment_id;
+
+           // Redirect to TickPage immediately
+        router.push("/DashBoard/TickPage");
   
           // Fetch data from localStorage (appointment details, user details, etc.)
           const storedAppointmentData = localStorage.getItem("appointmentData");
@@ -156,6 +159,7 @@ const PaymentMethod: React.FC = () => {
   
           const appointmentData = JSON.parse(storedAppointmentData);
           console.log(appointmentData.appointmentTime, 'appointmentData')
+          const vendorId = localStorage.getItem("vendor_id"); // Retrieve vendor_id
           // Collect all the necessary data
           const appointmentTime = parseAppointmentTime(appointmentData?.appointmentTime);
           if (!appointmentTime) {
@@ -173,15 +177,15 @@ const PaymentMethod: React.FC = () => {
             appointment_time: appointmentTime, // Use parsed appointment time
             payment_id: paymentId,
             booking_id: `OXI_${Math.floor(10000 + Math.random() * 90000)}`,  // Generate random booking ID
-            booking_status: "completed",
-            phone_number: vendorDetails?.phone,  // Include phone number
-            email :vendorDetails?.email,
+            payment_status: "completed",
+            vendor_id: vendorId,
+            booking_status: "upcoming",
           };
   
           // Send booking data to backend API to save it in the database
           const saveBooking = async () => {
             try {
-              const response = await fetch("http://127.0.0.1:8006/api/save-booking/", {
+              const response = await fetch("http://127.0.0.1:8006/api/user-save-booking/", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -191,9 +195,9 @@ const PaymentMethod: React.FC = () => {
               const data = await response.json();
   
               if (response.ok) {
-                alert("Booking saved successfully!");
+                
                 // Redirect to TickPage on successful booking
-                router.push("/DashBoard/TickPage");
+                // router.push("/DashBoard/TickPage");
               } else {
                 alert("Failed to save booking: " + data.message || "Error");
               }

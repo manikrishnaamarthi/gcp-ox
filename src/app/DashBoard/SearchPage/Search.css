@@ -29,38 +29,48 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 16px;
-  margin-left: 36px;
+  margin-left: 56px;
   background-color: #f9f9f9;
 }
 
 .search-bar2 {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 8px;
-  width: 100%;
-  max-width: 350px;
-  margin-bottom: 16px;
-  margin-right: 16px;
-  background-color: #f9f9f9;
+   
+    margin-bottom: 35px;
+    border: 1px solid #ededed;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-radius: 13px;
+    padding: 10px 40px 10px 40px;
+    background-color: #ffffff;
+    padding-left: 50px; 
+    color:#999999;
+    max-width: 270px;
+    color:black;
   
 }
 
-
-
-.search-bar input {
-  border: none;
-  outline: none;
-  margin-left: 8px;
-  width: 100%;
-  background-color: #f9f9f9 !important;
-
+.search-bar2:focus {
+  border-color: #FC000E; /* Border color on focus */
+  outline: none; /* Remove default outline */
+ 
 }
 
+.search-bar2::placeholder {
+  color: #959090;
+  opacity: 1; /* Ensures the color is fully opaque */
+}
+
+.search-icon2 {
+  position: absolute;
+  margin-left: 10px;
+  color: #6f7071;
+  cursor: pointer;
+  margin-bottom:42px;
+  top:6%;
+}
 .back-button {
   position: absolute;
-  left: 10px;
+  left: 20px;
   top: 35px;
   background: rgb(234, 231, 231);
   border: none;
@@ -142,100 +152,98 @@ body {
   color:#FC000E;
 }
 
-
-/* General Mobile Styles (Common for both) */
-@media (max-width: 480px) {
+/* Media query for Apple iPhones */
+@media only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 2), 
+       only screen and (max-width: 430px) and (-webkit-device-pixel-ratio: 3) {
+  
   .home-container2 {
-    padding: 10px;
-    width: 100%;
+    padding: 16px;
+    max-width: 100%;
+    min-height: 100vh;
   }
 
   .search-container2 {
     padding: 12px;
     margin-left: 0;
-    width: 100%;
   }
 
   .search-bar2 {
-    padding: 6px;
-    margin-left: 60px;
-    max-width: 90%;
+    max-width: 100%;
+    padding: 8px 35px;
+    font-size: 14px;
+  }
+
+  .search-icon2 {
+    top: 6%;
+    margin-left: 8px;
   }
 
   .back-button {
-    left: 5px;
+    left: 10px;
     top: 20px;
     padding: 10px;
   }
 
   .footer-section2 {
-    padding: 8px;
-    transform: none;
-    margin-right: 0;
-    width: 100%;
     max-width: 100%;
+    padding: 8px;
+    justify-content: space-between;
   }
 
   .footer-icon {
     font-size: 20px;
+    margin: 0 8px;
+  }
+
+  .footer-header {
+    font-size: 10px;
   }
 }
 
-/* Media Queries for Apple Devices */
-@media only screen and (max-width: 480px) and (-webkit-device-pixel-ratio: 2) {
+/* Media query for Android Smartphones */
+@media only screen and (max-width: 430px) and (min-resolution: 1dppx) and (orientation: portrait) {
+  
   .home-container2 {
-    padding: 12px;
+    padding: 18px;
     max-width: 100%;
+    min-height: 100vh;
+  }
+
+  .search-container2 {
+    padding: 14px;
+    margin-left: 0;
+  }
+
+  .search-bar2 {
+    max-width: 100%;
+    padding: 10px 38px;
+    font-size: 15px;
+  }
+
+  .search-icon2 {
+    top: 6%;
+    margin-left: 10px;
   }
 
   .back-button {
-    left: 8px;
-    top: 18px;
+    left: 12px;
+    top: 25px;
+    padding: 11px;
   }
 
   .footer-section2 {
     max-width: 100%;
-    padding: 12px;
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    justify-content: space-around;
   }
 
   .footer-icon {
     font-size: 22px;
-  }
-}
-
-/* Media Queries for Android Devices */
-@media only screen and (max-width: 480px) and (min-device-width: 320px) {
-  .home-container2 {
-    padding: 10px;
-    max-width: 100%;
+    margin: 0 10px;
   }
 
-  .back-button {
-    left: 6px;
-    top: 20px;
-  }
-
-  .footer-section2 {
-    max-width: 100%;
-    padding: 10px;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .footer-icon {
-    font-size: 20px;
-  }
-}
-
-/* Media Queries for iPhone 6/7/8 Plus (Landscape Mode) */
-@media only screen and (device-width: 414px) and (orientation: landscape) {
-  .home-container2 {
-    padding: 15px;
-  }
-
-  .footer-section2 {
-    max-width: 100%;
-    padding: 8px;
+  .footer-header {
+    font-size: 11px;
   }
 }
 
