@@ -171,6 +171,9 @@ body {
     max-width: 410px;
     width: 100%;
   }
+  .grid1 {
+    margin-top: 110px;
+  }
 
   .Wheel-footer {
     padding: 6px;
@@ -193,6 +196,10 @@ body {
     width: 100%;
   }
 
+  .grid1 {
+    margin-top: 50px;
+  }
+
 
   .Wheel-footer {
     padding: 4px;
@@ -212,6 +219,10 @@ body {
   .container5 {
     max-width: 1300px;
     width: 100%;
+  }
+
+  .grid1 {
+    margin-top: 50px;
   }
 
   .Wheel-footer {

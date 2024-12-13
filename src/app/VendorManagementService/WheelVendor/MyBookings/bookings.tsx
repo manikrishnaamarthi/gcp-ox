@@ -18,11 +18,6 @@ const Bookings: React.FC = () => {
   const searchParams = useSearchParams(); // Get the search params
   const vendor_id = localStorage.getItem('vendor_id');
 
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedEmail, setSelectedEmail] = useState<string | null>(null);
-  // const [otpSent, setOtpSent] = useState(false);
-
-
   useEffect(() => {
     const getWeekDates = () => {
       const dates = [];
@@ -145,26 +140,6 @@ const Bookings: React.FC = () => {
     setSelectedDate(formattedDate);
     console.log("Selected date:", formattedDate); // Debug log
   };
-
-  const handleCardClick = (email: string) => {
-    setSelectedEmail(email);
-    setShowPopup(true);
-    // setOtpSent(false);
-  };
-
-  const handleSendOtp = async () => {
-    try {
-      const response = await axios.post("http://localhost:8002/api/send-otp/", { email: selectedEmail });
-      if (response.data.success) {
-        alert("OTP sent successfully!");
-      } else {
-        alert(response.data.message || "Failed to send OTP.");
-      }
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-      alert("Failed to send OTP.");
-    }
-  };
   
   
 
@@ -212,20 +187,7 @@ const Bookings: React.FC = () => {
           <p>Loading bookings...</p>
         ) : filteredBookings.length > 0 ? (
           filteredBookings.map((booking, index) => (
-            <div className="booking-card" key={index} onClick={() => handleCardClick(booking.email)} >
-
-{/* Popup Section */}
-{showPopup && (
-      <div className="popup-overlay">
-        <div className="popup-content">
-          <h3>Email: {selectedEmail}</h3>
-          <button onClick={handleSendOtp}>Verify OTP</button>
-          {/* <button onClick={() => setShowPopup(false)}>Close</button> */}
-        </div>
-      </div>
-    )}
-
-              
+            <div className="booking-card" key={index}>
     {/* Header Section: Name and Status */}
     <div className="header-section">
         <h3 className="booking-service">{booking.name}</h3> {/* Display user name */}
