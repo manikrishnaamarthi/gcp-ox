@@ -318,7 +318,13 @@ h1 {
     color: rgb(150, 150, 150); 
   }
   
-  
+  .service-price {
+    font-weight: bold;
+    color: green; /* You can choose a color that fits your design */
+    margin-left: 12px;
+    font-size: 16px;
+  }
+   
 
   /* Android Smartphones */
 @media screen and (max-width: 480px) and (orientation: portrait) {

@@ -106,12 +106,14 @@ const BookAppointment = () => {
   
       const appointmentData = {
         clinic_name: clinicData?.clinic_name || "N/A",
+        wheel_name: clinicData?.wheel_name || "N/A",
         address: clinicData?.address || "N/A",
         serviceType: selectedService || "N/A", // Add selected_service here
         oxiId: oxiId || "N/A",
         vendorId: vendorId || "N/A", // Include vendor_id
         appointmentDate: selectedDate,
         appointmentTime: selectedSlot,
+        service_price: clinicData?.service_price || "N/A", // Add service_price
       };
 
       if (vendorId) {
@@ -153,6 +155,10 @@ const BookAppointment = () => {
         : selectedService === "Oxi Wheel"
         ? clinicData?.wheel_name
         : "Unknown Service"}
+
+{clinicData?.service_price && (
+    <span className="service-price"> - INR{clinicData.service_price}</span>
+  )}
     </p>
             <p className='clinic-address4'>{clinicData.address}</p>
             <p><span className="amount">{clinicData.serviceType}</span></p>
