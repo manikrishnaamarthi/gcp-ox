@@ -169,7 +169,7 @@ const PaymentMethod: React.FC = () => {
 
           const bookingData = {
             name : vendorDetails?.name,
-            clinic_name: appointmentData?.clinic_name ,
+            clinic_name: vendorDetails?.clinic_name || vendorDetails?.wheel_name || "N/A", // Save clinic_name or wheel_name
             address:appointmentData?.address ,
             service_type: appointmentData ?.serviceType, // Add selected_service here
             user:appointmentData?.oxiId ,
@@ -180,6 +180,7 @@ const PaymentMethod: React.FC = () => {
             payment_status: "completed",
             vendor_id: vendorId,
             booking_status: "upcoming",
+            service_price: vendorDetails?.service_price
           };
   
           // Send booking data to backend API to save it in the database
@@ -290,7 +291,7 @@ const styleTag = document.createElement('style');
           
                     <div className="clinic-details2">
             <div className="clinic-info">
-              <strong>Clinic name:</strong> <span className="clinic-name">{vendorDetails?. clinic_name || "N/A"}</span>
+              <strong>Clinic name:</strong> <span className="clinic-name">{vendorDetails?.clinic_name || vendorDetails?.wheel_name || "N/A"}</span>
             </div>
             <div className="clinic-info">
               <strong>Phone:</strong> <span className="clinic-phone">{vendorDetails?.phone || "N/A"}</span>
@@ -335,13 +336,20 @@ const styleTag = document.createElement('style');
       </div>
 
       <div className="total-payable">
-        
-        <h2>Total Payable</h2>
-        
-        <p className="saved-amount">
-          You have saved 49 on this appointment
-        </p>
-      </div>
+  <div className="total-header">
+    <h2 className="total-text">Total Payable</h2>
+    <div className="service-price-container">
+      <span className="service-price">
+        ₹{vendorDetails?.service_price || "N/A"}
+      </span>
+    </div>
+  </div>
+  <p className="saved-amount">
+    You have saved 49 on this appointment
+  </p>
+</div>
+
+
 
       <div className="safety-measures">
         <p className="safety-measures-heading">Safety measures followed by Clinic</p>

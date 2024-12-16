@@ -190,6 +190,35 @@ body {
     border-bottom: 4px solid #ccc; /* Horizontal line below */
     padding: 18px 0;
   }
+
+  .total-payable {
+    margin-top: 20px;
+  }
+  
+  .total-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* This ensures space between text and price */
+    margin-bottom: 10px;
+  }
+  
+  .total-text {
+    margin-right: 15px; /* Optional: Adds space between the text and the service price */
+  }
+  
+  .service-price-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  .service-price {
+    font-size: 18px;
+    color: #333;
+  }
+  
+
+
   
   .saved-amount {
     background-color: #a4fdac;
@@ -198,6 +227,7 @@ body {
     border-radius: 5px;
     font-size:14px;
   }
+  
   
 
   .safety-measures-heading{

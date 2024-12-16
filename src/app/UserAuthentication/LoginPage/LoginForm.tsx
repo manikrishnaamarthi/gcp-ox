@@ -1,8 +1,18 @@
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import './LoginForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
+// Centralized error messages
+const errorMessages = {
+  invalidIdentifier: 'Please enter a valid email or phone number.',
+  invalidPassword: 'Password must be at least 8 characters long.',
+  loginFailed: 'Login failed. Please check your credentials.',
+  errorOccurred: 'An error occurred. Please try again.',
+};
 
 interface LoginFormData {
   identifier: string;
@@ -12,7 +22,7 @@ interface LoginFormData {
 interface ResponseData {
   driver_id: string;
   vendor_id: string;
-  selectedService :string;
+  selectedService: string;
   oxi_id: string;
   user_type: string;
   message?: string;
@@ -24,10 +34,8 @@ function LoginForm() {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [identifierError, setIdentifierError] = useState<string>('');
   const [passwordError, setPasswordError] = useState<string>('');
-  const [successMessage, setSuccessMessage] = useState<string>('');
-  const [showPopup, setShowPopup] = useState<boolean>(false); // State to control the popup visibility
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
-  // Email/Phone validation function
   const isValidIdentifier = (input: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
@@ -36,7 +44,6 @@ function LoginForm() {
 
   const handleLoginSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const formData = new FormData(event.target as HTMLFormElement);
     const identifier = formData.get('identifier') as string;
     const password = formData.get('password') as string;
@@ -45,20 +52,39 @@ function LoginForm() {
 
     // Validate identifier and password
     if (!isValidIdentifier(identifier)) {
-      setIdentifierError('Please enter a valid email or phone number.');
+      setIdentifierError(errorMessages.invalidIdentifier);
       isValid = false;
     } else {
       setIdentifierError('');
     }
 
     if (password.length < 8) {
-      setPasswordError('Password must be at least 8 characters long.');
+      setPasswordError(errorMessages.invalidPassword);
       isValid = false;
     } else {
       setPasswordError('');
     }
 
     if (!isValid) return;
+
+    const redirectToPage = (data: ResponseData) => {
+      if (data.user_type === 'customer') {
+        localStorage.setItem('oxi_id', data.oxi_id);
+        router.prefetch('/DashBoard/HomePage');
+        router.push('/DashBoard/HomePage');
+      } else if (data.user_type === 'Vendor') {
+        if (data.selectedService === 'Oxi Wheel') {
+          localStorage.setItem('vendor_id', data.vendor_id);
+          router.push('/VendorManagementService/Vendors/WheelVendor/Wheel');
+        } else if (data.selectedService === 'Oxi Clinic') {
+          localStorage.setItem('vendor_id', data.vendor_id);
+          router.push('/VendorManagementService/Vendors/WheelVendor/Clinic');
+        }
+      } else if (data.user_type === 'driver') {
+        localStorage.setItem('driver_id', data.driver_id);
+        router.push('/DriverManagementService/VendorDriverBooking/MyBooking');
+      }
+    };
 
     try {
       const response = await fetch('http://localhost:8000/usmapp/login/', {
@@ -71,37 +97,17 @@ function LoginForm() {
 
       const data: ResponseData = await response.json();
 
-    if (response.ok) {
-      if (data.user_type === 'customer') {
-        localStorage.setItem('oxi_id', data.oxi_id);
-        router.prefetch('/DashBoard/HomePage'); // Prefetch HomePage
-        alert('Login successful! Redirecting to the dashboard...');
-        router.push('/DashBoard/HomePage');
-      } else if (data.user_type === 'Vendor') {
-        // Redirect based on service_type
-        if (data.selectedService === 'Oxi Wheel') {
-          localStorage.setItem('vendor_id', data.vendor_id);
-          router.push('/VendorManagementService/Vendors/WheelVendor/Wheel');
-        } else if (data.selectedService === 'Oxi Clinic') {
-          localStorage.setItem('vendor_id', data.vendor_id);
-          router.push('/VendorManagementService/Vendors/WheelVendor/Clinic');
-        }
-      } else if (data.user_type === 'driver') {
-        localStorage.setItem('driver_id', data.driver_id);
-        router.push('/DriverManagementService/VendorDriverBooking/MyBooking');
+      if (response.ok) {
+        redirectToPage(data); // Use callback function for routing
+      } else {
+        setErrorMessage(data.message || errorMessages.loginFailed);
+        setShowPopup(true);
       }
-    } else {
-      setErrorMessage(data.message || 'Login failed. Please check your credentials.');
-      setShowPopup(true); // Show the popup if login fails
+    } catch (error) {
+      setErrorMessage(errorMessages.errorOccurred);
+      setShowPopup(true);
     }
-  } catch (error) {
-    setErrorMessage('An error occurred. Please try again.');
-    setShowPopup(true); // Show the popup if an error occurs
-  }
-};
-
-
-
+  };
 
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
@@ -115,15 +121,10 @@ function LoginForm() {
     router.push('/UserAuthentication/ForgotPasswordPage');
   };
 
-  const handlePopupClose = () => {
-    setShowPopup(false); // Hide the popup when "OK" is clicked
-    window.location.reload(); // Refresh the page
-  };
-
   return (
     <div className="login-container">
       <div className="logoContainer">
-        <img src="/images/shot(1).png" alt="Oxivive Logo" className="logo" />
+        <Image src="/images/shot(1).png" alt="Oxivive Logo" className="logo" width={80} height={80} />
         <div className="welcomeText">Oxivive</div>
       </div>
 
@@ -153,8 +154,8 @@ function LoginForm() {
               placeholder="Password"
               required
             />
-            <span className="togglePassword" onClick={toggleShowPassword}>
-              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ fontSize: '16px' }} />
+            <span className="togglePassword" onClick={() => setShowPassword(!showPassword)}>
+            <FontAwesomeIcon icon={faEye as IconProp} style={{ fontSize: '16px' }} />
             </span>
             {passwordError && <p className="errorMessage">{passwordError}</p>}
           </div>
@@ -169,7 +170,6 @@ function LoginForm() {
           <span className="signup-link" onClick={handleSignupClick}>Sign Up</span>
         </div>
 
-        {successMessage && <p className="successMessage">{successMessage}</p>}
         {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       </div>
 
@@ -178,11 +178,10 @@ function LoginForm() {
         <div className="popup">
           <div className="popup-content">
             <p>{errorMessage}</p>
-            <button onClick={handlePopupClose}>OK</button>
+            <button onClick={() => setShowPopup(false)}>OK</button>
           </div>
         </div>
       )}
-      
     </div>
   );
 }
