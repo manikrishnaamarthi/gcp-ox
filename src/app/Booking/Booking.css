@@ -168,7 +168,18 @@ body {
   color: #000;
   font-weight: bold;
   margin-top: -5px;
+  display: flex; /* Added */
+  justify-content: space-between; /* Ensures space between service name and price */
+  width: 100%; /* Ensures the width is full so space can be utilized */
 }
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  text-align: right; /* Optional since flex will handle this */
+}
+
 
 .booking-address1,
 .booking-phone1 {
@@ -226,11 +237,7 @@ body {
 
 
 
-.price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
-}
+
 
 .action-buttons {
   display: flex;
