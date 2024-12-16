@@ -163,6 +163,9 @@ const Manageservice: React.FC = () => {
     const queryParams = new URLSearchParams({
       image: service.service_image,
       heading: service.service_type,
+      price: service.price,
+      service: service.service,
+    description: service.description,
     });
     router.push(`/AdminService/AdminDashboard/ManageService/ManageServiceCard?${queryParams}`);
   };
