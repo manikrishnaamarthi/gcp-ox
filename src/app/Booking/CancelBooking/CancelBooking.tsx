@@ -13,11 +13,20 @@ const CancelBooking = () => {
   // Retrieve booking details from URL query parameters
   const id = searchParams.get('id') || '#524587';
   const bookingid = searchParams.get('booking_id');
+  const user_id = searchParams.get('oxi_id');
   const serviceType = searchParams.get('serviceType') || 'oxiwheel';
   const appointmentDate = searchParams.get('appointmentDate') || 'N/A';
   const appointmentTime = searchParams.get('appointmentTime') || 'N/A';
   const name = searchParams.get('name') || 'Tyrone Mitchell';
   const location = searchParams.get('location') || '1534 Single Street, USA';
+  const [bookingData, setSelectedData] = useState<{ service_type: string; address: string; name: string; user_id: string; booking_id: string; phone_number: string; email: string; } | null>(null);
+  useEffect(() => {
+    const savedData = localStorage.getItem('bookingData');
+    if (savedData) {
+      console.log("Selected Data from localStorage:", JSON.parse(savedData)); // Debugging log
+      setSelectedData(JSON.parse(savedData));
+    }
+  }, []);
 
   const [timeLeft, setTimeLeft] = useState('');
 
@@ -47,11 +56,13 @@ const CancelBooking = () => {
     router.back();
   };
 
+  const userId = bookingData?.user_id || "";
+
   // Function to handle cancel booking
   const handleCancelBooking = async () => {
     try {
       // Send the booking `id` in the body to specify which booking to cancel
-      const response = await fetch(`http://127.0.0.1:8000/api/bookingapp-bookingservice/`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/bookingapp-bookingservice/${user_id}/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +72,7 @@ const CancelBooking = () => {
 
       if (response.ok) {
         alert("Booking status updated to 'Cancelled'");
-        router.push('/Booking/');
+        router.push(`/Booking?oxi_id=${userId}`);
       } else {
         alert("Failed to cancel booking. Please try again.");
       }

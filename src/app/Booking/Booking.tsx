@@ -10,16 +10,17 @@ import { BsPerson } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 
 interface Booking {
-    
     booking_status: string;
     service_type: string;
-    appointment_date: string;
+    appointment_date: number;
     appointment_time: string;
     name: string;
     address: string;
     booking_id: string;
     phone_number: number;
     user_id: string;
+    vendor_id: string;
+    oxi_id: string;
 }
 
 const Booking = () => {
@@ -27,7 +28,8 @@ const Booking = () => {
     const [activeTab, setActiveTab] = useState('MyBooking'); 
     const router = useRouter();
     const searchParams = useSearchParams();
-    const user_id = searchParams.get('oxi_id')
+    const user_id = searchParams.get('oxi_id');
+    const oxi_id = searchParams.get('oxi_id');
 
     useEffect(() => {
         const fetchBookings = async () => {
@@ -36,7 +38,7 @@ const Booking = () => {
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Fetched bookings:', data);
-                    // Update the booking status from 'cancel' to 'cancelled'
+
                     const updatedBookings = data.map((booking: Booking) => ({
                         ...booking,
                         booking_status: booking.booking_status.toLowerCase() === 'cancel' ? 'cancelled' : booking.booking_status,
@@ -51,7 +53,29 @@ const Booking = () => {
         };
 
         fetchBookings();
-    }, []);
+    }, [user_id]);
+
+    const [userMobile, setUserMobile] = useState<string>('N/A');
+
+    useEffect(() => {
+        const fetchMobileNumber = async () => {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/get-oxiuser-details/${oxi_id}/`);
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Fetched mobile number:', data);
+                    setUserMobile(data.phone_number || 'N/A');
+                } else {
+                    console.error('Failed to fetch mobile number:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching mobile number:', error);
+            }
+        };
+    
+        if (oxi_id) fetchMobileNumber();
+    }, [oxi_id]);
+    
 
     const handleCardClick = (booking: Booking) => {
         if (activeTab === 'History') {
@@ -60,42 +84,40 @@ const Booking = () => {
     };
 
     const handleCancelClick = (booking: Booking) => {
+        localStorage.setItem('bookingData', JSON.stringify(booking));
         router.push(`/Booking/CancelBooking?status=${booking.booking_status}&serviceType=${booking.service_type}&appointmentDate=${booking.appointment_date}&appointmentTime=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&booking_id=${booking.booking_id}`);
     };
 
     const handleRescheduleClick = (booking: Booking) => {
         localStorage.setItem('bookingData', JSON.stringify(booking));
-        router.push(`/Booking/ReschedulePage?booking_id=${booking.booking_id}&oxi_id=${booking.user_id}&date=${booking.appointment_date}&time=${booking.appointment_time}}&name=${booking.name}&location=${booking.address}`);
+        localStorage.setItem('vendorId', booking.vendor_id);
+        router.push(`/Booking/ReschedulePage?booking_id=${booking.booking_id}&oxi_id=${booking.user_id}&date=${booking.appointment_date}&time=${booking.appointment_time}&name=${booking.name}&location=${booking.address}&vendor_id=${booking.vendor_id}`);
     };
-    
 
     const filteredBookings = bookings
-    .filter((booking) => {
-        const now = new Date();
-        const bookingDateTime = new Date(`${booking.appointment_date}T${booking.appointment_time}`);
-        
-        if (activeTab === 'MyBooking') {
-            // Show only future bookings, excluding cancelled ones
-            return bookingDateTime > now && booking.booking_status.toLowerCase() !== 'cancelled';
-        }
-        if (activeTab === 'Cancelled') {
-            // Show only cancelled bookings
-            return booking.booking_status.toLowerCase() === 'cancelled';
-        }
-        if (activeTab === 'History') {
-            // Show past bookings
-            return bookingDateTime <= now && ['completed', 'cancelled'].includes(booking.booking_status.toLowerCase());
-        }
-        return false;
-    })
-    .sort((a, b) => {
-        // Sort by date and time for MyBooking
-        const dateTimeA = new Date(`${a.appointment_date}T${a.appointment_time}`).getTime();
-        const dateTimeB = new Date(`${b.appointment_date}T${b.appointment_time}`).getTime();
-        return dateTimeA - dateTimeB; // Ascending order: earliest first
-    });
-
-    
+        .filter((booking) => {
+            const now = new Date();
+            const bookingDateTime = new Date(`${booking.appointment_date}T${booking.appointment_time}`);
+            
+            if (activeTab === 'MyBooking') {
+                return bookingDateTime > now && booking.booking_status.toLowerCase() !== 'cancelled';
+            }
+            if (activeTab === 'Cancelled') {
+                return booking.booking_status.toLowerCase() === 'cancelled';
+            }
+            if (activeTab === 'History') {
+                return (
+                    (bookingDateTime <= now || booking.booking_status.toLowerCase() === 'cancelled') && 
+                    booking.user_id === user_id
+                );
+            }
+            return false;
+        })
+        .sort((a, b) => {
+            const dateTimeA = new Date(`${a.appointment_date}T${a.appointment_time}`).getTime();
+            const dateTimeB = new Date(`${b.appointment_date}T${b.appointment_time}`).getTime();
+            return dateTimeA - dateTimeB;
+        });
 
     const [activeFooterIcon, setActiveFooterIcon] = useState('booking');
 
@@ -148,43 +170,31 @@ const Booking = () => {
                 {filteredBookings.length > 0 ? (
                     filteredBookings.map((booking) => (
                         <article key={booking.booking_id} className="booking-card" onClick={() => handleCardClick(booking)}>
-                            {activeTab !== 'MyBooking' && (
-                                <header className="booking-header">
-                                    <span className={`status ${booking.booking_status.toLowerCase()}`}>{booking.booking_status}</span>
-                                </header>
-                            )}
-                            <p className="service-name1">{booking.service_type}</p>
-                            {/* Address */}
+                            <p className="service-name1">{booking.service_type} <span className="price">₹149</span></p>
                             <p className="booking-address1">Address: {booking.address}</p>
-                            {/* Phone Number */}
-                            <p className="booking-phone1">Phone: {booking.phone_number || 'N/A'}</p>
+                            <p className="booking-phone1">Phone: {userMobile}</p>
                             <p className="service-time">
                                 {new Date(booking.appointment_date).toLocaleDateString()} {booking.appointment_time}
-                                <span className="price">₹149</span>
+                                <span className="time-remaining">
+                                {calculateTimeRemaining(booking.appointment_date, booking.appointment_time)}</span>
                             </p>
-                            <p className="time-remaining">
-                                 {calculateTimeRemaining(booking.appointment_date, booking.appointment_time)}
-                            </p>
-                            <div className="action-buttons">
-                                {activeTab === 'MyBooking' && (
-                                    <>
-                                        <button className="cancel-button" onClick={(e) => {
+                            {activeTab === 'MyBooking' && (
+                                <div className="action-buttons">
+                                    <button className="cancel-button" onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleCancelClick(booking);
+                                    }}>Cancel Booking</button>
+                                    <button
+                                        className="reschedule-button"
+                                        onClick={(e) => {
                                             e.stopPropagation();
-                                            handleCancelClick(booking);
-                                        }}>Cancel Booking</button>
-                                        <button
-                                            className="reschedule-button"
-                                            onClick={(e) => {
-                                                e.stopPropagation(); // Prevent the card's click event
-                                                handleRescheduleClick(booking);
-                                            }}
-                                        >
-                                            <FaRedoAlt /> Reschedule
-                                        </button>
-
-                                    </>
-                                )}
-                            </div>
+                                            handleRescheduleClick(booking);
+                                        }}
+                                    >
+                                        <FaRedoAlt /> Reschedule
+                                    </button>
+                                </div>
+                            )}
                         </article>
                     ))
                 ) : (

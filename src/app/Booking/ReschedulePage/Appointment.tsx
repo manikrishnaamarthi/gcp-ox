@@ -1,23 +1,47 @@
 "use client";
-import { useState, useEffect , useRef} from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { IoChevronBackSharp } from 'react-icons/io5';
 import './Appointment.css';
 
-
 const Appointment = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const appointment_date = searchParams.get('date');
+  
+
+  const vendorId = searchParams?.get("vendor_id");
+
   const today = new Date();
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<string>(today.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
-  const [bookingData, setSelectedData] = useState<{ service_type: string; address: string; name: string; user_id: string; booking_id :string;  phone_number :string;    email : string;} | null>(null);
+  const [bookingData, setSelectedData] = useState<{ service_type: string; address: string; name: string; user_id: string; booking_id: string; phone_number: string; email: string; } | null>(null);
 
+  const [availableSlots, setAvailableSlots] = useState<any[]>([]); // Dynamically fetched available slots
   const modalRef = useRef(null);
-  
-  
+
+  useEffect(() => {
+    if (vendorId) {
+      const fetchAvailableSlots = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:8000/api/vendor-available-slots/${vendorId}/`);
+          if (!response.ok) throw new Error("Failed to fetch available slots");
+          const data = await response.json();
+          console.log("Fetched available slots:", data.available_slots); // Debugging log
+          setAvailableSlots(data.available_slots || []);
+        } catch (error) {
+          console.error("Error fetching available slots:", error.message);
+        }
+      };
+
+      fetchAvailableSlots();
+    }
+  }, [vendorId]);
+
   // Load data from local storage
   useEffect(() => {
     const savedData = localStorage.getItem('bookingData');
@@ -53,10 +77,6 @@ const Appointment = () => {
 
   const weekDates = generateWeekDates();
 
-  // Time slots for selection
-  const morningSlots = ['08:00', '09:30', '11:00'];
-  const afternoonSlots = ['12:30', '02:00', '03:30', '05:00', '06:30', '08:00', '09:30'];
-
   // Check if a time slot is in the past
   const isPastTime = (slotTime: string, isMorning: boolean) => {
     if (selectedDay === 0) {
@@ -75,6 +95,7 @@ const Appointment = () => {
     }
     return false;
   };
+  
 
   // Handle proceeding with the booking (show modal if not selected)
   const handleProceed = () => {
@@ -95,57 +116,110 @@ const Appointment = () => {
       selectedDateObj.setDate(today.getDate() + selectedDay); // Adjust to selected day
       const selectedDate = selectedDateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
   
-      // Convert the slot time to 24-hour format
-      const [hour, minutes] = selectedSlot.split('-')[1].split(':');
-      const isPM = Number(hour) >= 12 || selectedSlot.includes('afternoon');
-      const adjustedHour = isPM && Number(hour) < 12 ? Number(hour) + 12 : Number(hour);
-      const formattedTime = `${adjustedHour.toString().padStart(2, '0')}:${minutes}`;
+      // Ensure selectedSlot has the expected format before using split
+      if (selectedSlot) {
+        let start = '';
+        let end = '';
   
-      const BookingData = {
-        booking_id: bookingData?.booking_id,
-        appointmentDate: selectedDate,
-        appointmentTime: formattedTime, // Send the time in 24-hour format
-      };
-  
-      console.log("Payload sent to API:", BookingData); // Debugging log
-  
-      try {
-        const response = await fetch(`http://127.0.0.1:8000/api/update-booking/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(BookingData),
-        });
-  
-        const result = await response.json();
-        console.log("API Response:", result); // Debugging log
-  
-        if (response.ok) {
-          router.push(`/Booking?oxi_id=${userId}`);
+        // Check if selectedSlot contains a range (e.g., "06:00 AM - 07:00 AM")
+        if (selectedSlot.includes('-')) {
+          [start, end] = selectedSlot.split('-').map(s => s.trim()); // Trim whitespace
         } else {
-          console.error(result.error);
+          // If no range, treat the selectedSlot as a single time
+          start = selectedSlot;
+          end = selectedSlot; // Use the same time for start and end
         }
-      } catch (error) {
-        console.error('Error updating booking:', error);
+  
+        // Ensure both start and end are defined
+        if (start && end) {
+          const timePeriod = end.includes('AM') || end.includes('PM') ? end : start; // Handle case when end is not in AM/PM format
+  
+          // Convert time string (e.g., "06:00 PM") to 24-hour format
+          const [hours, minutes] = timePeriod.split(':');
+          let [hour, minute] = [parseInt(hours, 10), parseInt(minutes, 10)];
+          const isPM = timePeriod.includes('PM');
+  
+          if (isPM && hour !== 12) hour += 12; // Convert PM times
+          if (!isPM && hour === 12) hour = 0; // Convert 12 AM to 00 hours
+  
+          const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+  
+          const BookingData = {
+            booking_id: bookingData?.booking_id,
+            appointmentDate: selectedDate,
+            appointmentTime: formattedTime, // Send the time in 24-hour format
+          };
+  
+          console.log("Payload sent to API:", BookingData); // Debugging log
+  
+          try {
+            const response = await fetch(`http://127.0.0.1:8000/api/update-booking/`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(BookingData),
+            });
+  
+            const result = await response.json();
+            console.log("API Response:", result); // Debugging log
+  
+            if (response.ok) {
+              router.push(`/Booking?oxi_id=${userId}`);
+            } else {
+              console.error(result.error);
+            }
+          } catch (error) {
+            console.error('Error updating booking:', error);
+          }
+        } else {
+          console.error("Invalid selectedSlot format:", selectedSlot);
+        }
+      } else {
+        console.error("selectedSlot is undefined or empty");
       }
+  
+      setIsModalOpen(false);
     }
-    setIsModalOpen(false);
   };
   
   
-
-
-
+  
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleDaySelect = (index: number) => {
-    setSelectedDay(index);
-    setSelectedSlot(null); // Reset selected time slot when date changes
-  };
+  // When the user clicks on a date
+const handleDaySelect = (index: number) => {
+  setSelectedDay(index); // Update the selected date index
+  setSelectedSlot(null); // Reset the selected time slot when the date changes
+};
+
+// Use effect to set the selected day based on appointment_date
+useEffect(() => {
+  if (appointment_date) {
+    const selectedDate = new Date(appointment_date); // Convert passed date to a Date object
+    const matchedIndex = weekDates.findIndex((date) => {
+      const weekDate = new Date(today);
+      weekDate.setDate(today.getDate() + weekDates.indexOf(date)); // Calculate the correct date
+      return (
+        weekDate.getDate() === selectedDate.getDate() &&
+        weekDate.getMonth() === selectedDate.getMonth() &&
+        weekDate.getFullYear() === selectedDate.getFullYear()
+      );
+    });
+
+    if (matchedIndex !== -1 && selectedDay === null) {
+      setSelectedDay(matchedIndex); // Automatically set the correct index only once
+    }
+  }
+}, [appointment_date, weekDates, today, selectedDay]);
+
+
+
+
+
 
   const startDrag = (e) => {
     e.preventDefault();
@@ -174,18 +248,15 @@ const Appointment = () => {
     document.addEventListener("touchmove", onDrag);
     document.addEventListener("touchend", endDrag);
   };
-  
 
   return (
     <div className="appointment-container1">
       <div className="header2">
-        
         <button className="back-button1" onClick={() => router.back()}>
           <IoChevronBackSharp size={20} /> {/* Back icon */}
         </button>
         <h1>Oxivive Services</h1>
       </div>
-     
 
       {/* Conditionally render selected service */}
       <div className="services3">
@@ -206,48 +277,78 @@ const Appointment = () => {
       <div className="appointment-dates1">
         <h2>Appointment</h2>
         <div className="date-picker-container">
-        <div className="date-picker" >
-          {weekDates.map((date, index) => (
-            <button
-              key={index}
-              className={`date-button ${selectedDay === index ? 'selected' : ''}`}
-              onClick={() => handleDaySelect(index)}
-            >
-              <p className="date-number">{date.day}</p>
-              <p className="date-weekday">{date.weekDay}</p>
-            </button>
-          ))}
-        </div>
+          <div className="date-picker">
+            {weekDates.map((date, index) => (
+              <button
+                key={index}
+                className={`date-button ${selectedDay === index ? 'selected' : ''}`}
+                onClick={() => handleDaySelect(index)}
+              >
+                <p className="date-number">{date.day}</p>
+                <p className="date-weekday">{date.weekDay}</p>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className="time-slots1">
-        <h3>Morning</h3>
+        <h3>Available Time Slots</h3>
         <div className="slots">
-          {morningSlots.map((slot, index) => (
-            <button
-              key={index}
-              className={`slot-button ${selectedSlot === `morning-${slot}` ? 'selected' : ''}`}
-              onClick={() => setSelectedSlot(`morning-${slot}`)}
-              disabled={selectedDay === null || isPastTime(slot, true)} // Disable past slots
-            >
-              {slot}
-            </button>
-          ))}
-        </div>
-
-        <h3>Afternoon</h3>
-        <div className="slots">
-          {afternoonSlots.map((slot, index) => (
-            <button
-              key={index}
-              className={`slot-button ${selectedSlot === `afternoon-${slot}` ? 'selected' : ''}`}
-              onClick={() => setSelectedSlot(`afternoon-${slot}`)}
-              disabled={selectedDay === null || isPastTime(slot, false)} // Disable past slots
-            >
-              {slot}
-            </button>
-          ))}
+          {Array.isArray(availableSlots) && availableSlots.length > 0 ? (
+            <>
+              {/* Render AM Slots */}
+              {availableSlots.some((slot) => slot.endsWith("AM")) && (
+                <div className="slot-category">
+                  <h4>Morning</h4>
+                  <div className="slots">
+                    {availableSlots
+                      .filter((slot) => slot.endsWith("AM"))
+                      .map((slot, index) => {
+                        const slotTime = new Date(`${today.toDateString()} ${slot}`);
+                        const isDisabled = selectedDay === 0 && slotTime <= new Date();
+                        return (
+                          <button
+                            key={index}
+                            className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                            onClick={() => setSelectedSlot(slot)}
+                            disabled={isDisabled || selectedDay === null}
+                          >
+                            {slot}
+                          </button>
+                        );
+                      })}
+                  </div>
+                </div>
+              )}
+              {/* Render PM Slots */}
+              {availableSlots.some((slot) => slot.endsWith("PM")) && (
+                <div className="slot-category">
+                  <h4>Afternoon/Evening</h4>
+                  <div className="slots">
+                    {availableSlots
+                      .filter((slot) => slot.endsWith("PM"))
+                      .map((slot, index) => {
+                        const slotTime = new Date(`${today.toDateString()} ${slot}`);
+                        const isDisabled = selectedDay === 0 && slotTime <= new Date();
+                        return (
+                          <button
+                            key={index}
+                            className={`slot-button ${selectedSlot === slot ? 'selected' : ''}`}
+                            onClick={() => setSelectedSlot(slot)}
+                            disabled={isDisabled || selectedDay === null}
+                          >
+                            {slot}
+                          </button>
+                        );
+                      })}
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <p>No available slots for this day.</p>
+          )}
         </div>
       </div>
 
@@ -257,33 +358,33 @@ const Appointment = () => {
 
       {isModalOpen && (
         <div className="modal-overlay">
-           <div
-            className="modal-content"
-            ref={modalRef}
-            onMouseDown={startDrag}
-            onTouchStart={startDrag}
-          >
-            <h1 className='modal-header'>Confirmation</h1>
-            {showError ? (
-              <p><strong>Please select the date and time.</strong></p>
-            ) : (
-              <>
-                {/* Display user details */}
-                <p><strong>Name:</strong> {bookingData?.name || "N/A"}</p>
-                <p><strong>Address:</strong> {bookingData?.address || "Fetching address..."}</p>
-
-                {/* Display appointment date and time */}
-                <p><strong>Time:</strong> {selectedSlot?.split('-')[1]}</p>
-                <p><strong>Date:</strong> {weekDates[selectedDay!].weekDay}, {weekDates[selectedDay!].day} {weekDates[selectedDay!].month} {today.getFullYear()}</p>
-
-              </>
-            )}
-            <div className="modal-buttons">
-              <button className="modal-button" onClick={handleContinue}>Continue</button>
-              <button className="modal-button cancel" onClick={handleCloseModal}>Cancel</button>
-            </div>
+        <div
+          className="modal-content"
+          ref={modalRef}
+          onMouseDown={startDrag}
+          onTouchStart={startDrag}
+        >
+          <h1 className="modal-header">Confirmation</h1>
+          {showError ? (
+            <p><strong>Please select the date and time.</strong></p>
+          ) : (
+            <>
+              {/* Display user details */}
+              <p><strong>Name:</strong> {bookingData?.name || "N/A"}</p>
+              <p><strong>Address:</strong> {bookingData?.address || "Fetching address..."}</p>
+      
+              {/* Display appointment date and time */}
+              <p><strong>Time:</strong> {selectedSlot}</p>
+              <p><strong>Date:</strong> {weekDates[selectedDay]?.day} {weekDates[selectedDay]?.month} {today.getFullYear()}</p>
+            </>
+          )}
+          <div className="modal-buttons">
+            <button className="modal-button cancel" onClick={handleCloseModal}>Cancel</button>
+            {!showError && <button className="modal-button continue" onClick={handleContinue}>Continue</button>}
           </div>
         </div>
+      </div>
+      
       )}
     </div>
   );
