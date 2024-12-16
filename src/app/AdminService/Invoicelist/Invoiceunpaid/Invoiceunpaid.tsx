@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Sidebar from "../../Sidebar/Sidebar";
 import "./Invoiceunpaid.css";
 
@@ -23,6 +24,7 @@ interface InvoiceData {
 
 const Invoiceunpaid: React.FC = () => {
   const searchParams = useSearchParams();
+  const router = useRouter(); 
   const invoice_id = searchParams.get("invoice_id");
 
   const [invoiceData, setInvoiceData] = useState<InvoiceData | null>(null);
@@ -75,6 +77,7 @@ const Invoiceunpaid: React.FC = () => {
 
           if (res.ok) {
             alert("Payment successful and updated in backend!");
+            router.push("/AdminService/Invoicelist");
           } else {
             console.error("Failed to update payment status:", await res.json());
           }

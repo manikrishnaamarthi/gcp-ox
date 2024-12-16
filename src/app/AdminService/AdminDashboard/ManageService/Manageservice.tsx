@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useState, useEffect } from 'react';
 import { MdOutlineAddToPhotos } from "react-icons/md";
@@ -38,17 +37,16 @@ const Manageservice: React.FC = () => {
   const [services, setServices] = useState<Service[]>([]);
   const router = useRouter();
 
-
   // Fetch services from the backend when the component mounts
   const fetchServices = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/manage-service/');
+      const response = await fetch('http://localhost:8001/api/manage-service/');
       if (!response.ok) {
         throw new Error('Failed to fetch services');
       }
       const data = await response.json();
-      setServices(data);
-      console.log('Data',data.service_id)
+      // Reverse the service list to ensure the newest service appears at the end
+      setServices(data.reverse());
     } catch (error) {
       console.error('Error fetching services:', error);
     }
@@ -60,35 +58,16 @@ const Manageservice: React.FC = () => {
 
   // Handle remove button click
   const handleRemove = async (service_id: string) => {
-    console.log('Service-id',service_id)
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this service?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this service?");
     if (!confirmDelete) return;
-  
+
     try {
-      // Iterate through the services to find a match
-      const matchingService = services.find(
-        (service) => service.service_id === service_id
-      );
-      console.log('match',matchingService)
-  
-      if (!matchingService) {
-        alert("Service not found!");
-        return;
-      }
-  
-      // Make DELETE request to the backend using the matched service ID
-      const response = await fetch(
-        `http://localhost:8000/api/manage-service/${service_id}/`,
-        {
-          method: "DELETE",
-        }
-      );
-  
+      const response = await fetch(`http://localhost:8001/api/manage-service/${service_id}/`, {
+        method: "DELETE",
+      });
+
       if (response.ok) {
         alert("Service deleted successfully!");
-        // Remove the deleted service from the local state
         setServices((prevServices) =>
           prevServices.filter((service) => service.service_id !== service_id)
         );
@@ -101,19 +80,17 @@ const Manageservice: React.FC = () => {
       alert("An error occurred while deleting the service.");
     }
   };
+
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const [selectedImageName, setSelectedImageName] = useState<string | null>(null);
-
   // Handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
-      setSelectedImageName(e.target.files[0].name); // Store the selected file name
     }
   };
 
@@ -154,7 +131,7 @@ const Manageservice: React.FC = () => {
         service_image: cloudinaryData.secure_url,
       };
 
-      const backendResponse = await fetch('http://localhost:8000/api/manage-service/create/', {
+      const backendResponse = await fetch('http://localhost:8001/api/manage-service/create/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -182,8 +159,12 @@ const Manageservice: React.FC = () => {
     }
   };
 
-  const handleCardClick = () => {
-    router.push('/AdminService/AdminDashboard/ManageService/ManageServiceCard');
+  const handleCardClick = (service: Service) => {
+    const queryParams = new URLSearchParams({
+      image: service.service_image,
+      heading: service.service_type,
+    });
+    router.push(`/AdminService/AdminDashboard/ManageService/ManageServiceCard?${queryParams}`);
   };
 
   return (
@@ -204,7 +185,7 @@ const Manageservice: React.FC = () => {
 
         <section className="service-cards">
           {services.map((service) => (
-            <div key={service.service_id} className="card" onClick={handleCardClick}>
+            <div key={service.service_id} className="card" onClick={() => handleCardClick(service)}>
               <div className="card-image">
                 <img src={service.service_image} alt={service.service} />
                 <h3 className="head1">{service.service_type}</h3>
@@ -216,7 +197,7 @@ const Manageservice: React.FC = () => {
                 <p>
                   <strong>Price:</strong> <span style={{ color: 'red' }}>{service.price} Rs.</span>
                 </p>
-                <button className="remove-btn" onClick={() => handleRemove(service.service_id)}>
+                <button className="remove-btn" onClick={(e) => { e.stopPropagation(); handleRemove(service.service_id); }}>
                   <CgRemoveR className="remove-icon" /> Remove
                 </button>
               </div>
@@ -260,45 +241,43 @@ const Manageservice: React.FC = () => {
                   onChange={handleInputChange}
                   placeholder="Enter service type"
                 />
-               <label>Upload Image:</label>
-          
-<div className="upload-container">
-  <button
-    type="button"
-    className="upload-btn"
-    onClick={() => document.getElementById('fileInput')?.click()}
-  >
-    <IoCameraOutline className="camera-icon" />
-    {formData.image ? (
-      <span className="file-name">{formData.image.name}</span>
-    ) : (
-      <span className='place'>Upload Image</span>
-    )}
-  </button>
-  <input
-    type="file"
-    id="fileInput"
-    accept="image/*"
-    style={{ display: 'none' }}
-    onChange={handleImageUpload}
-  />
-</div>
-
+                <label>Upload Image:</label>
+                <div className="upload-container">
+                  <button
+                    type="button"
+                    className="upload-btn"
+                    onClick={() => document.getElementById('fileInput')?.click()}
+                  >
+                    <IoCameraOutline className="camera-icon" />
+                    {formData.image ? (
+                      <span className="file-name">{formData.image.name}</span>
+                    ) : (
+                      <span className='place'>Upload Image</span>
+                    )}
+                  </button>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={handleImageUpload}
+                  />
+                </div>
                 <div className="modal-actions">
-                <button
-                  type="button"
-                  className="save-btn"
-                  onClick={handleSubmit}
-                >
-                  Save
-                </button>
-                <button
-                  type="button"
-                  className="cancel-btn"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancel
-                </button>
+                  <button
+                    type="button"
+                    className="save-btn"
+                    onClick={handleSubmit}
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel-btn"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </form>
             </div>
@@ -310,5 +289,3 @@ const Manageservice: React.FC = () => {
 };
 
 export default Manageservice;
-
-

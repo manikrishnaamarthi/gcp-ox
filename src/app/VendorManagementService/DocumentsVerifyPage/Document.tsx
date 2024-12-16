@@ -18,6 +18,7 @@ const Document: React.FC = () => {
     const [isDrivingLicenceUploaded, setIsDrivingLicenceUploaded] = useState(false);
     const [isVehicleRCUploaded, setIsVehicleRCUploaded] = useState(false);
     const [selected_service, setSelected_Service] = useState<string | null>(null);
+    const [price, setprice] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -45,6 +46,14 @@ const Document: React.FC = () => {
             setSelected_Service(serviceName);
         }
     }, []);
+
+    useEffect(() => {
+        const price = localStorage.getItem("price");
+        if (price) {
+            setprice(price);
+        }
+    }, []);
+    
 
     useEffect(() => {
         // Check document statuses on mount
@@ -80,7 +89,7 @@ const Document: React.FC = () => {
         } else {
             setIsSubmitEnabled(false);
         }
-    }, [isMedicalUploaded, isBuildingLicenceUploaded, isAadharUploaded, isPancardUploaded, isProfilePhotoUploaded, isDrivingLicenceUploaded, isVehicleRCUploaded, selected_service]);
+    }, [isMedicalUploaded, isBuildingLicenceUploaded, isAadharUploaded, isPancardUploaded, isProfilePhotoUploaded, isDrivingLicenceUploaded, isVehicleRCUploaded, selected_service,price]);
 
     const handleMedicalClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/MedicalLicence');
     const handleBuildingClick = () => router.push('/VendorManagementService/DocumentsVerifyPage/BuildingLicence');
@@ -117,6 +126,7 @@ const Document: React.FC = () => {
         formDataToSend.append("address", formData.address);
         formDataToSend.append("wheel_name", formData.wheel_name || "");
         formDataToSend.append("clinic_name", formData.clinic_name || "");
+        
 
         const imageFields = [
             { key: "medical_front_side", localStorageKey: "medicalFrontFile" },
@@ -158,6 +168,12 @@ const Document: React.FC = () => {
             const formattedDob = new Date(dateOfBirth).toISOString().split("T")[0];
             formDataToSend.append("date_of_birth", formattedDob);
         }
+        console.log("Form data before submission:", formData);  // Log to check if pincode is there
+
+        if (!formData.pincode) {
+            alert("Pincode is required");
+            return;
+        }
 
         if (selected_service) {
             formDataToSend.append("selected_service", selected_service);
@@ -166,6 +182,14 @@ const Document: React.FC = () => {
             return;
         }
 
+        const price = localStorage.getItem("price");
+        if (price) {
+            formDataToSend.append("service_price", price);  // Note: changed from "service_id" to "service"
+        } else {
+            console.error("price is missing in localStorage");
+            alert("price is required");
+            return;
+        }
         try {
             const response = await axios.post("http://localhost:8000/api/vendor-details/", formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" },
