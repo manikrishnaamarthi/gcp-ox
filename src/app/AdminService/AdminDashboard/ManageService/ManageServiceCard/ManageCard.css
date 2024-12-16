@@ -14,30 +14,14 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 40px;
     font-weight: bold;
 }
 
 .page-title {
     font-size: 24px;
-    /* margin-left: 420px; */
+    margin-left: 450px;
     color: red;
-}
-
-.actions {
-    margin-top: 10px;
-}
-
-.add-service-btn2 {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: red;
-    color: white;
-    margin-left: 1000px;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 .service-details {
@@ -78,11 +62,11 @@ body {
     flex: 1;
 }
 
-.details-content {
+/* .details-content {
     display: flex;
     justify-content: space-between;
     margin-top: -10px;
-}
+} */
 
 .left-section {
     flex: 1;
@@ -134,12 +118,28 @@ body {
     color: black;
     font-weight: bold;
 }
-.ul2{
-    color: black;
-    margin-left: 190px;
+.sessions-container {
+    display: flex;
+    flex-direction: row; /* Place heading and content inline */
+    flex-wrap: wrap;
     font-size: 18px;
-    /* top: 50px;  */
+    color: black;
+    line-height: 1.8; /* Adjust spacing between lines */
 }
+
+.sessions-heading {
+    font-weight: bold;
+    margin-right: 5px; /* Small gap between heading and content */
+    white-space: nowrap; /* Prevent wrapping of the heading */
+    margin-top: 6px;
+}
+
+.sessions-content {
+    flex: 1; /* Take up remaining space */
+    text-indent: -5px; /* Align subsequent lines with the colon */
+    padding-left: 5px; /* Align text neatly after the colon */
+}
+
 .price {
     color: red;
 }

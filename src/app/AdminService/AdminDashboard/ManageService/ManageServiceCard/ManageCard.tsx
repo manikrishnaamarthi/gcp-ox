@@ -1,4 +1,4 @@
-'use client';
+"use client"
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
 import Sidebar from "../../../Sidebar/Sidebar";
@@ -8,6 +8,9 @@ const ManageCard: React.FC = () => {
   const searchParams = useSearchParams();
   const image = searchParams.get('image') || '/images/default.jpg'; // Fallback to a default image
   const heading = searchParams.get('heading') || 'Default Service';
+  const price = searchParams.get('price') || '0'; // Default price
+  const service = searchParams.get('service') || 'N/A'; // Default service
+  const description = searchParams.get('description') || 'No description available'; // Default description
 
   return (
     <div className="manage-service">
@@ -17,11 +20,9 @@ const ManageCard: React.FC = () => {
           <h2 className="page-title">Manage Service</h2>
         </header>
 
-        <div className="actions">
-          <button className="add-service-btn2">
-            Add Service
-          </button>
-        </div>
+        {/* <div className="actions">
+          <button className="add-service-btn2">Add Service</button>
+        </div> */}
 
         <section className="service-details">
           <div className="details-top">
@@ -40,23 +41,34 @@ const ManageCard: React.FC = () => {
                 <li>Wound healing and new tissue generation</li>
               </ul>
               <p className="service-price">
-                <strong>Service Price:</strong> <span className="price">2,000 Rs</span>
+                <strong>Service Price:</strong> <span className="price">{price} Rs</span>
               </p>
             </div>
           </div>
 
           <div className="details-content">
             <div className="left-section">
-              <p><strong>Service of:</strong> HYPERBARIC OXYGEN THERAPY (HBOT)</p>
-              <p><strong>Description:</strong> Unleash your mind's potential with our cutting-edge anti-aging treatments.</p>
-              <p><strong>Session Timing:</strong> 60 – 90 minute sessions</p>
-              <h4 className="head4">Need to do 40 sessions?:</h4>
-              <ul className="ul2">
-                <li>1–5 sessions: Improve cellular energy.</li>
-                <li>5–10 sessions: Typically used for acute injuries with soft tissue damage.</li>
-                <li>10–20 sessions: More serious acute injuries or chronic injuries.</li>
-                <li>20–40 sessions: Commonly used for major tissue damages and when new tissue is required.</li>
-              </ul>
+              <p>
+                <strong>Service:</strong> {service}
+              </p>
+              <p>
+                <strong>Description:</strong> {description}
+              </p>
+              <p>
+                <strong>Session Timing:</strong> 60 – 90 minute sessions
+              </p>
+              <div className="sessions-container">
+  <h4 className="sessions-heading">
+    Need to do 40 sessions?: 
+  </h4>
+  <p className="sessions-content">
+    1–5 sessions: Improve cellular energy.<br />
+    5–10 sessions: Typically used for acute injuries with soft tissue damage.<br />
+    10–20 sessions: More serious acute injuries or chronic injuries.<br />
+    20–40 sessions: Commonly used for major tissue damages and when new tissue is required.
+  </p>
+</div>
+
             </div>
           </div>
         </section>
@@ -66,3 +78,4 @@ const ManageCard: React.FC = () => {
 };
 
 export default ManageCard;
+
