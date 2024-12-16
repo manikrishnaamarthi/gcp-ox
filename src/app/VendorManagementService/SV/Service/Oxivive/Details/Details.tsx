@@ -7,10 +7,16 @@ import './Details.css';
 const Details = () => {
   const router = useRouter();
   const [selected_service, setSelected_Service] = useState<string | null>(null);
+  const [price, setprice] = useState<string | null>(null);
 
   useEffect(() => {
     const serviceName = localStorage.getItem('selected_service');
+    const price = localStorage.getItem('price'); // Retrieve service_id
+    console.log(serviceName, price);
     setSelected_Service(serviceName);
+    setprice(price);
+
+    console.log('Service ID:', price); // Optionally log serviceId
   }, []);
 
   const [formData, setFormData] = useState({
@@ -52,7 +58,7 @@ const Details = () => {
     // Validation rules
     let validatedValue = value;
 
-    if (name === 'name' || name === 'state' || name === 'district' || name === 'wheel_name' || name === 'clinicName') {
+    if (name === 'name' || name === 'state' || name === 'district' || name === 'wheel_name' || name === 'clinic_name') {
       validatedValue = value.replace(/[^a-zA-Z\s]/g, ''); // Allows only letters and spaces
     } else if (name === 'address') {
       validatedValue = value.replace(/[^a-zA-Z\s,]/g, ''); // Allows letters, spaces, and commas

@@ -6,13 +6,17 @@ import { useRouter } from 'next/navigation';
 
 const Oxivive: React.FC = () => {
     const [selected_service, setSelected_Service] = useState<string | null>(null);
+    const [service_id, setService_Id] = useState<string | null>(null);
     const [isProceedEnabled, setIsProceedEnabled] = useState<boolean>(false);
     const [isServiceClicked, setIsServiceClicked] = useState<boolean>(false);
     const router = useRouter();
 
     useEffect(() => {
         const serviceName = localStorage.getItem('selected_service');
+        const price = localStorage.getItem('price');
+        console.log(serviceName, price);
         setSelected_Service(serviceName);
+        
     }, []);
 
     const handleBackClick = () => {
@@ -25,7 +29,7 @@ const Oxivive: React.FC = () => {
     };
 
     const handleProceedClick = () => {
-            router.push('/VendorManagementService/SV/Service/Oxivive/Details'); // Navigate to the next page
+        router.push('/VendorManagementService/SV/Service/Oxivive/Details'); // Navigate to the next page
     };
 
     return (
