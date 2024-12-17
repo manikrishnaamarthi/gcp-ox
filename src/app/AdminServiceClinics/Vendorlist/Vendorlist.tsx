@@ -1,39 +1,53 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar/page";
-import './Vendorlist.css';
-import axios from 'axios';
+import "./Vendorlist.css";
+import axios from "axios";
 
 const Vendorlist = () => {
-  const [vendors, setVendors] = useState([]);
-  const [filteredVendors, setFilteredVendors] = useState([]);
+  const [vendors, setVendors] = useState([]); // All vendors
+  const [filteredVendors, setFilteredVendors] = useState([]); // Filtered vendors
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedService, setSelectedService] = useState('Oxi Clinic');
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [selectedService, setSelectedService] = useState("Oxi Clinic");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [location, setLocation] = useState("Mumbai"); // Default location
 
+  // Fetch location and vendors on component mount
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/adminservice-vendordetails/')
-      .then(response => {
-        const approvedVendors = response.data.filter(vendor => vendor.document_status === "approved");
+    // Fetch admin details from localStorage
+    const userDetails = localStorage.getItem("userDetails");
+    if (userDetails) {
+      const parsedDetails = JSON.parse(userDetails);
+      setLocation(parsedDetails.state || "Mumbai"); // Set state as location
+    }
+
+    // Fetch vendors
+    axios
+      .get("http://127.0.0.1:8000/api/adminservice-vendordetails/")
+      .then((response) => {
+        const approvedVendors = response.data.filter(
+          (vendor) => vendor.document_status === "approved"
+        );
         setVendors(approvedVendors);
-        setFilteredVendors(approvedVendors.filter(vendor => vendor.selected_service === 'Oxi Clinic'));
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
   }, []);
 
+  // Re-run filtering when vendors, selectedService, searchQuery, or location change
   useEffect(() => {
-    // Filter vendors based on selected service and search query
-    const filteredData = vendors.filter(vendor =>
-      vendor.selected_service === selectedService &&
-      vendor.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredData = vendors.filter(
+      (vendor) =>
+        vendor.selected_service === selectedService && // Filter by service
+        vendor.name.toLowerCase().includes(searchQuery.toLowerCase()) && // Filter by search query
+        vendor.state?.toLowerCase() === location.toLowerCase() // Filter by state (location button)
     );
     setFilteredVendors(filteredData);
-  }, [vendors, selectedService, searchQuery]); // Re-run filtering when these change
+  }, [vendors, selectedService, searchQuery, location]);
 
   const handleServiceChange = (service) => {
     setSelectedService(service);
@@ -52,28 +66,30 @@ const Vendorlist = () => {
       <Sidebar />
       <div className="content">
         <div className="header">
+          {/* Location Button with dynamic location */}
           <button className="location-btn">
-            <i className="icon location-icon"></i> Mumbai
+            <i className="icon location-icon"></i> {location}
           </button>
+          {/* Search Input */}
           <input
             type="text"
             placeholder="Search"
             className="search-input"
-            value={searchQuery} // Bind input value to searchQuery state
-            onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery on input change
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <h2 className="title">Vendors List</h2>
         <div className="tabs">
           <button
-            className={`tab ${selectedService === 'Oxi Clinic' ? 'active' : ''}`}
-            onClick={() => handleServiceChange('Oxi Clinic')}
+            className={`tab ${selectedService === "Oxi Clinic" ? "active" : ""}`}
+            onClick={() => handleServiceChange("Oxi Clinic")}
           >
             Oxi Clinic
           </button>
           <button
-            className={`tab ${selectedService === 'Oxi Wheel' ? 'active' : ''}`}
-            onClick={() => handleServiceChange('Oxi Wheel')}
+            className={`tab ${selectedService === "Oxi Wheel" ? "active" : ""}`}
+            onClick={() => handleServiceChange("Oxi Wheel")}
           >
             Oxi Wheel
           </button>
@@ -90,21 +106,26 @@ const Vendorlist = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredVendors.length > 0 ? filteredVendors.map((vendor, index) => (
-                <tr key={vendor.id}>
-                  <td>{index + 1}</td>
-                  <td>{vendor.name}</td>
-                  <td>{vendor.phone}</td>
-                  <td>{vendor.address}</td>
-                  <td>
-                    <button className="block-btn">
-                      <i className="icon block-icon"></i> Block
-                    </button>
-                  </td>
-                </tr>
-              )) : (
+              {filteredVendors.length > 0 ? (
+                filteredVendors.map((vendor, index) => (
+                  <tr key={vendor.id}>
+                    <td>{index + 1}</td>
+                    <td>{vendor.name}</td>
+                    <td>{vendor.phone}</td>
+                    <td>{vendor.address}</td>
+                    <td>
+                      <button className="block-btn">
+                        <i className="icon block-icon"></i> Block
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
-                  <td colSpan="5">No approved vendors available for {selectedService}.</td>
+                  <td colSpan="5">
+                    No approved vendors available for {selectedService} in{" "}
+                    {location}.
+                  </td>
                 </tr>
               )}
             </tbody>
