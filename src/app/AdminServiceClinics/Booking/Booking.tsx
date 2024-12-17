@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Sidebar from "../Sidebar/page";
-import {
-  FaClock,
-  FaMapMarkerAlt
-} from 'react-icons/fa';
+import { FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import './Booking.css';
 
 interface Booking {
@@ -18,27 +15,33 @@ interface Booking {
   email: string | null;
 }
 
-const Bookings: React.FC = () => {
+interface BookingsProps {
+  userState: string; // This should be passed from the login or global context
+}
+
+const Bookings: React.FC<BookingsProps> = ({ userState }) => {
   const [selectedClinic, setSelectedClinic] = useState<string>('Oxi Clinic');
-  const [selectedStatus, setSelectedStatus] = useState<string>('Completed'); // Set default to 'Completed'
+  const [selectedStatus, setSelectedStatus] = useState<string>('upcoming'); 
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
-  // Fetch bookings data from the backend API
   useEffect(() => {
     const fetchBookings = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/bookingapp-bookingservice/?clinic=${selectedClinic}`
+          `http://127.0.0.1:8000/api/bookingapp-bookingservice/?clinic=${selectedClinic}&state=${userState}`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch bookings');
         }
         const data = await response.json();
-        setBookings(data);
+        console.log('Fetched data:', data);
+        // Adjust based on actual response structure
+        setBookings(data.bookings || data.results || data);
       } catch (err: any) {
+        console.error('Error fetching bookings:', err);
         setError(`Error: ${err.message}`);
       } finally {
         setLoading(false);
@@ -46,33 +49,27 @@ const Bookings: React.FC = () => {
     };
 
     fetchBookings();
-  }, [selectedClinic]); // Re-fetch when the selected clinic changes
+  }, [selectedClinic, userState]);
 
-  // Filter bookings based on selected status and clinic
   const filteredBookings = bookings.filter((booking) => {
     if (selectedStatus === 'History') {
       return (
-        booking.booking_status.toLowerCase() === 'completed' ||
-        booking.booking_status.toLowerCase() === 'cancelled'
+        booking.booking_status?.toLowerCase() === 'upcoming' ||
+        booking.booking_status?.toLowerCase() === 'cancel'
       );
-    } else {
-      return booking.booking_status.toLowerCase() === selectedStatus.toLowerCase();
     }
+    return booking.booking_status?.toLowerCase() === selectedStatus.toLowerCase();
   });
 
   return (
     <div className="app">
-      {/* Sidebar */}
       <Sidebar />
-
-      {/* Main Booking List */}
       <main className="booking-list">
         <header>
           <h1>Booking List</h1>
           <p>See the scheduled events from the calendar</p>
         </header>
 
-        {/* Clinic Toggle Buttons */}
         <div className="clinic-toggle-container">
           <div className="clinic-toggle">
             <button
@@ -90,18 +87,17 @@ const Bookings: React.FC = () => {
           </div>
         </div>
 
-        {/* Status Toggle Buttons */}
         <div className="status-toggle-container">
           <div className="status-toggle">
             <button
-              className={selectedStatus === 'Completed' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Completed')}
+              className={selectedStatus === 'upcoming' ? 'active' : ''}
+              onClick={() => setSelectedStatus('upcoming')}
             >
               Completed
             </button>
             <button
-              className={selectedStatus === 'Cancelled' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Cancelled')}
+              className={selectedStatus === 'Cancel' ? 'active' : ''}
+              onClick={() => setSelectedStatus('Cancel')}
             >
               Cancelled
             </button>
@@ -114,7 +110,6 @@ const Bookings: React.FC = () => {
           </div>
         </div>
 
-        {/* Booking Cards */}
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -123,23 +118,14 @@ const Bookings: React.FC = () => {
           <div className="booking-cards">
             {filteredBookings.map((booking, index) => (
               <div className="booking-card" key={index}>
-                {/* Booking Date */}
                 <p className="booking-date">
                   <span className="booking-day">
-                    {new Date(booking.appointment_date).toLocaleDateString(
-                      'en-US',
-                      { weekday: 'long' }
-                    )}
+                    {new Date(booking.appointment_date).toLocaleDateString('en-US', { weekday: 'long' })}
                   </span>
                   <span className="booking-date-only">
-                    {new Date(booking.appointment_date).toLocaleDateString(
-                      'en-US',
-                      { day: '2-digit' }
-                    )}
+                    {new Date(booking.appointment_date).toLocaleDateString('en-US', { day: '2-digit' })}
                   </span>
                 </p>
-
-                {/* Booking Info */}
                 <div className="booking-info">
                   <div className="booking-time">
                     <FaClock className="icon" />
@@ -150,9 +136,7 @@ const Bookings: React.FC = () => {
                     <span>Address: {booking.address}</span>
                   </div>
                   <p className="booking-name">Name: {booking.name}</p>
-                  <p
-                    className={`booking-status ${booking.booking_status.toLowerCase()}`}
-                  >
+                  <p className={`booking-status ${booking.booking_status?.toLowerCase()}`}>
                     {booking.booking_status}
                   </p>
                 </div>
@@ -160,7 +144,7 @@ const Bookings: React.FC = () => {
             ))}
           </div>
         ) : (
-          <p className='No-Bookings'>No bookings found for the selected filters.</p>
+          <p className="No-Bookings">No bookings found for the selected filters.</p>
         )}
       </main>
     </div>
