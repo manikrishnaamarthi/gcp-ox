@@ -95,7 +95,7 @@ const Bookings: React.FC = () => {
         console.log("Fetching bookings for date:", formattedDate); // Debug log
       }
   
-      const response = await axios.get("http://localhost:8002/api/my-bookings/", { params });
+      const response = await axios.get("http://localhost:8007/api/my-bookings/", { params });
       setAllBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
@@ -151,29 +151,26 @@ const Bookings: React.FC = () => {
   };
 
   const handleSendOtp = async () => {
-    if (selectedBooking) {
-        const otp = Math.floor(10000 + Math.random() * 90000).toString(); // Generate 5-digit OTP
-        console.log("Email being sent:", selectedBooking.email);  // Debug log
-
-        try {
-            await axios.post("http://localhost:8003/api/send-otp/", {
-                email: selectedBooking.email,
-                otp,
-            });
-            console.log("OTP sent successfully:", otp);
-
-            // Save OTP and timestamp in localStorage (with 5-minute expiry)
-            const expiryTime = new Date().getTime() + 5 * 60 * 1000; // 5 minutes from now
-            localStorage.setItem("otp", otp);
-            localStorage.setItem("otp_expiry", expiryTime.toString());
-
-            // Redirect to OTP verification page
-            router.push(`/VendorManagementService/ClinicVendor/ClinicOtp?email=${selectedBooking.email}`);
-        } catch (error) {
-            console.error("Error sending OTP:", error);
-        }
+    if (!selectedBooking) return;
+  
+    try {
+      const response = await axios.post('http://localhost:8008/api/send-otp/', {
+        email: selectedBooking.email,
+      });
+  
+      if (response.data.success) {
+        console.log('OTP sent successfully');
+        // Redirect to the OTP verification page
+        router.push('/VendorManagementService/ClinicVendor/ClinicOtp');
+      } else {
+        alert('Failed to send OTP. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      alert('An error occurred while sending OTP.');
     }
-};
+  };
+  
 
   
 
