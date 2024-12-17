@@ -14,29 +14,54 @@ const AccountPage: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (!email || !identifier) {
       setError('Email and Identifier (Username/Contact) are required.');
       return;
     }
-
+  
     try {
       const payload = { email, identifier };
-
+      console.log("Payload Sent to Backend:", payload);
+  
       const response = await axios.post('http://127.0.0.1:8000/api/login/', payload);
-
+  
+      console.log("Response from Backend:", response.data);
+  
       if (response.data.success) {
-        const navigateTo = response.data.usertype === 'SuperAdmin'
+        const { usertype, user } = response.data;
+  
+        console.log("User Details Received:", user);
+        console.log("Admin ID Passed:", user.admin_id);
+        console.log("State Passed:", user.state);
+  
+        // Save user details to localStorage
+        localStorage.setItem('userDetails', JSON.stringify({
+          usertype,
+          email: user.email,
+          identifier: user.contact || user.username,
+          admin_id: user.admin_id, // Add admin_id
+          state: user.state,       // Add state here
+        }));
+  
+        console.log("Saved to LocalStorage:", localStorage.getItem('userDetails'));
+  
+        const navigateTo = usertype === 'SuperAdmin'
           ? '/AdminService/AdminDashboard/Dashboard/'
           : '/AdminServiceClinics/Dashboard/';
         router.push(navigateTo);
       } else {
+        console.log("Error Message:", response.data.message);
         setError(response.data.message);
       }
     } catch (error) {
+      console.error("An error occurred while logging in:", error);
       setError('An error occurred while logging in.');
     }
   };
+  
+  
+  
 
   return (
     <div className="container1">
