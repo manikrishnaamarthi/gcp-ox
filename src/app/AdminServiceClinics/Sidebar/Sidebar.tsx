@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { FaBookOpen, FaAmbulance, FaSignOutAlt, FaHome, FaFileInvoice } from "react-icons/fa";
+import { FaBookOpen, FaAmbulance, FaSignOutAlt, FaFileInvoice } from "react-icons/fa";
 import { IoPeople } from "react-icons/io5";
 import { MdSpaceDashboard, MdOutlineInventory } from "react-icons/md";
 import { FaUserDoctor, FaPersonCirclePlus } from "react-icons/fa6";
@@ -20,7 +20,7 @@ const Sidebar = () => {
   };
 
   const handleConfirmLogout = () => {
-    console.log("User logged out"); // Add your logout logic here
+    console.log("User logged out");
     router.push('/AdminService/AdminDashboard/AccountPage');
   };
 
@@ -33,49 +33,76 @@ const Sidebar = () => {
         </div>
         <nav className="sidebar-icons">
           {/* Dashboard */}
-          <div className="sidebar-icon" data-name="Dashboard" onClick={() => router.push('/AdminServiceClinics/Dashboard')}>
+          <button
+            className="sidebar-icon"
+            data-name="Dashboard"
+            onClick={() => router.push('/AdminServiceClinics/Dashboard')}
+          >
             <MdSpaceDashboard />
-          </div>
-
-          {/* Invoice */}
-          <div className="sidebar-icon" data-name="Invoice" onClick={() => router.push('/AdminServiceClinics/Invoice')}>
-            <FaFileInvoice />
-          </div>
+          </button>
 
           {/* Booking List */}
-          <div className="sidebar-icon" data-name="Bookinglist" onClick={() => router.push('/AdminServiceClinics/Booking')}>
+          <button
+            className="sidebar-icon"
+            data-name="Bookinglist"
+            onClick={() => router.push('/AdminServiceClinics/Booking')}
+          >
             <FaBookOpen />
-          </div>
+          </button>
 
           {/* Vendor List */}
-          <div className="sidebar-icon" data-name="Vendorlist" onClick={() => router.push('/AdminServiceClinics/Vendorlist')}>
+          <button
+            className="sidebar-icon"
+            data-name="Vendorlist"
+            onClick={() => router.push('/AdminServiceClinics/Vendorlist')}
+          >
             <IoPeople />
-          </div>
+          </button>
 
           {/* Inventory */}
-          <div className="sidebar-icon" data-name="Inventory" onClick={() => router.push('/AdminServiceClinics/')}>
+          <button
+            className="sidebar-icon"
+            data-name="Inventory"
+            onClick={() => router.push('/AdminServiceClinics/')}
+          >
             <MdOutlineInventory />
-          </div>
+          </button>
 
           {/* Driver List */}
-          <div className="sidebar-icon" data-name="Driverlist" onClick={() => router.push('/AdminServiceClinics/Driverlist')}>
+          <button
+            className="sidebar-icon"
+            data-name="Driverlist"
+            onClick={() => router.push('/AdminServiceClinics/Driverlist')}
+          >
             <FaAmbulance />
-          </div>
+          </button>
 
           {/* Doctor List */}
-          <div className="sidebar-icon" data-name="Doctorlist" onClick={() => router.push('/AdminServiceClinics/Doctorlist')}>
+          <button
+            className="sidebar-icon"
+            data-name="Doctorlist"
+            onClick={() => router.push('/AdminServiceClinics/Doctorlist')}
+          >
             <FaUserDoctor />
-          </div>
+          </button>
 
           {/* Adding Vendor */}
-          <div className="sidebar-icon" data-name="Adding Vendor" onClick={() => router.push('/AdminServiceClinics/VendorDocument')}>
+          <button
+            className="sidebar-icon"
+            data-name="Adding Vendor"
+            onClick={() => router.push('/AdminServiceClinics/VendorDocument')}
+          >
             <FaPersonCirclePlus />
-          </div>
+          </button>
 
           {/* Logout */}
-          <div className="sidebar-icon logout-icon" data-name="Logout" onClick={handleLogoutClick}>
+          <button
+            className="sidebar-icon logout-icon"
+            data-name="Logout"
+            onClick={handleLogoutClick}
+          >
             <FaSignOutAlt />
-          </div>
+          </button>
         </nav>
       </aside>
 

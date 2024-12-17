@@ -15,7 +15,7 @@ const Vendorlist = () => {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/adminservice-vendordetails/')
       .then(response => {
-        const approvedVendors = response.data.filter(vendor => vendor.document_status === "Approved");
+        const approvedVendors = response.data.filter(vendor => vendor.document_status === "approved");
         setVendors(approvedVendors);
         setFilteredVendors(approvedVendors.filter(vendor => vendor.selected_service === 'Oxi Clinic'));
         setLoading(false);
