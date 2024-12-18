@@ -91,7 +91,7 @@ body {
   
   .invoice-table {
     width: 100%;
-    border-spacing: 0 8px; /* Add spacing between rows */
+    border-spacing: 0 8px; 
     margin-top: 10px;
     background-color: transparent;
   }
@@ -115,7 +115,7 @@ body {
   
   
   .invoice-table tbody tr:last-child td {
-    border-bottom: none; /* Removes the bottom border for the last row */
+    border-bottom: none; 
   }
   
   .invoice-table thead tr {
@@ -127,38 +127,66 @@ body {
     font-size: 16px;
     padding: 12px;
     background-color: rgb(238, 238, 238);
-    color: black; /* Default color for email, service type, date, and amount */
+    color: black; 
     border-bottom: 2px solid #bdbdbd;
   }
   
   /* Specific cell styles */
   .invoice-table tbody tr td.invoice-number a {
-    color: red; /* Invoice number in red */
+    color: red; 
     text-decoration: none;
   }
   
   .invoice-table tbody tr td.status-paid {
-    color: green; /* Paid status in green */
+    color: green; 
   }
   
   .invoice-table tbody tr td.status-unpaid {
-    color: red; /* Unpaid status in red */
+    color: red; 
   }
 
 
   .invoice-table tbody tr {
-    transition: background-color 0.2s ease, color 0.2s ease, font-weight 0.2s ease; /* Smooth transitions for hover effects */
+    transition: background-color 0.2s ease, color 0.2s ease, font-weight 0.2s ease;
     cursor: pointer;
   }
   
   .invoice-table tbody tr:hover {
-    background-color: #f0f4f8; /* Highlight with a subtle background color */
-    color: black; /* Change text color for emphasis */
+    background-color: #f0f4f8;
+    color: black; 
   }
   
   .invoice-table tbody tr:hover td {
-    font-weight: bold; /* Highlight text by making it bold */
-    border: 2px solid #d1d9e6; /* Add a subtle border on hover */
+    font-weight: bold; 
+    border: 2px solid #d1d9e6; 
   }
   
   
+
+
+  @media (min-width: 1024px) and (max-width: 1440px) {
+    .invoice-content {
+        margin-left: 200px;
+        padding: 15px;
+    }
+
+    .invoice-header0 h1 {
+        font-size: 22px;
+    }
+
+    .tab-button {
+        padding: 8px 30px;
+        font-size: 12px;
+        margin: 0 10px;
+    }
+
+    .invoice-table th, .invoice-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .search-input {
+        width: 200px;
+        font-size: 14px;
+    }
+}
