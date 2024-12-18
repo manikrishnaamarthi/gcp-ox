@@ -135,34 +135,4 @@ body {
   
   
 
-  @media (max-width: 1440px) and (min-width: 1024px) {
-    .invoice-page {
-        flex-direction: column;
-    }
-
-    .invoice-content {
-        margin-left: 0;
-        padding: 15px;
-        margin-left: 230px;
-    }
-
-    .header-right {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-
-    .details-grid3 {
-        gap: 30px;
-    }
-
-    .invoice-table0 th,
-    .invoice-table0 td {
-        font-size: 14px;
-    }
-
-    .status-box.paid {
-        margin-right: 0;
-        align-self: flex-start;
-    }
-}
+  
