@@ -17,7 +17,7 @@ body {
     flex: 1;
     padding: 20px;
     background-color: #fff;
-    margin: auto;
+    margin-left: 150px;
     width: 100%;
     max-width: 1200px; /* Ensure the content stays centered and readable */
 }
@@ -130,41 +130,58 @@ tr:hover {
     background-color: #fcfafa;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Media Queries for Laptops Only */
+@media (max-width: 1440px) and (min-width: 1024px) {
     .driverlist-container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
+        flex-direction: column; /* Stack content vertically for smaller laptops */
+        padding: 0 15px; /* Add some padding on the sides for smaller screens */
     }
 
     .driverlist-content {
-        padding: 10px;
-        max-width: 100%;
+        margin-left: 150px; /* Remove left margin for smaller screens */
+        padding: 20px; /* Keep padding for readability */
     }
 
     .search-bar input {
-        width: 100%;
+        width: auto; /* Adjust width for smaller laptops */
     }
 
     table {
-        font-size: 14px; /* Reduce font size for smaller screens */
-        width: 100%; /* Adjust table width */
+        font-size: 14px; /* Slightly larger font size for readability */
     }
 
-    th, td {
-        padding: 8px; /* Adjust padding for smaller screens */
+    th,
+    td {
+        padding: 10px; /* Adjust padding for better spacing */
+    }
+
+    .block-button {
+        font-size: 14px; /* Adjust button font size */
+        padding: 4px 8px; /* Adjust padding for a more compact button */
     }
 }
 
-/* Extra small devices */
-@media (max-width: 480px) {
+/* Media Queries for Larger Laptop Screens (e.g., 1441px - 1920px) */
+@media (min-width: 1441px) and (max-width: 1920px) {
+    .driverlist-container {
+        flex-direction: row; /* Default row layout for larger screens */
+    }
+
+    .driverlist-content {
+        max-width: 1900px; /* Ensure content doesn't stretch too wide */
+        margin-left: 150px; /* Keep the content properly spaced from the sidebar */
+    }
+
+    .search-bar {
+        justify-content: flex-end; /* Align search bar to the right */
+    }
+
+    .search-bar input {
+        width: auto; /* Increase input width for larger screens */
+    }
+
     .block-button {
-        padding: 5px 10px; /* Smaller padding for buttons */
-        font-size: 12px; /* Smaller font size */
+        font-size: 16px; /* Adjust font size for better visibility */
+        padding: 6px 12px; /* Increase padding for a more prominent button */
     }
 }
