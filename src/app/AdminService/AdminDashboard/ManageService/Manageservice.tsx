@@ -35,6 +35,7 @@ const Manageservice: React.FC = () => {
     image: null,
   });
   const [services, setServices] = useState<Service[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const router = useRouter();
 
   // Fetch services from the backend when the component mounts
@@ -93,6 +94,19 @@ const Manageservice: React.FC = () => {
       setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
     }
   };
+
+  // Handle search input change
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filter services based on search query
+  const filteredServices = services.filter((service) =>
+    service.service.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    service.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    service.price.toString().includes(searchQuery.toLowerCase()) ||
+    service.service_type.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Handle form submission
   const handleSubmit = async () => {
@@ -165,7 +179,7 @@ const Manageservice: React.FC = () => {
       heading: service.service_type,
       price: service.price,
       service: service.service,
-    description: service.description,
+      description: service.description,
     });
     router.push(`/AdminService/AdminDashboard/ManageService/ManageServiceCard?${queryParams}`);
   };
@@ -177,7 +191,13 @@ const Manageservice: React.FC = () => {
       <main className="content">
         <header className="header0">
           <h2 className="page-title">Manage Service</h2>
-          <input type="text" className="search-bar" placeholder="Search services..." />
+          <input
+            type="text"
+            className="search-bar"
+            placeholder="Search services..."
+            value={searchQuery}
+            onChange={handleSearch}
+          />
         </header>
 
         <div className="actions">
@@ -187,7 +207,7 @@ const Manageservice: React.FC = () => {
         </div>
 
         <section className="service-cards">
-          {services.map((service) => (
+          {filteredServices.map((service) => (
             <div key={service.service_id} className="card" onClick={() => handleCardClick(service)}>
               <div className="card-image">
                 <img src={service.service_image} alt={service.service} />
