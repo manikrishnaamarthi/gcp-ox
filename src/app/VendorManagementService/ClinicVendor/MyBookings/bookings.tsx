@@ -158,7 +158,7 @@ const Bookings: React.FC = () => {
         email: selectedBooking.email,
       });
   
-      if (response.data.success) {
+      if (response.data.message === 'OTP sent successfully') {
         console.log('OTP sent successfully');
         // Redirect to the OTP verification page
         router.push('/VendorManagementService/ClinicVendor/ClinicOtp');
@@ -170,6 +170,7 @@ const Bookings: React.FC = () => {
       alert('An error occurred while sending OTP.');
     }
   };
+  
   
 
   
