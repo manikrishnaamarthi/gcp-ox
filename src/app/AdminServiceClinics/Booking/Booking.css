@@ -290,12 +290,57 @@ body {
 }
 
 
-/* Responsive Styling */
-@media (max-width: 1200px) {
+/* Media Queries for Laptops Only */
+
+/* Smaller Laptop Screens (1024px - 1440px) */
+@media (max-width: 1440px) and (min-width: 1024px) {
   .booking-list {
-      padding: 15px;
+    padding: 15px; /* Adjust padding for smaller screens */
   }
-  th, td {
-      padding: 10px;
+
+  .clinic-toggle button {
+    font-size: 14px; /* Slightly smaller text */
+    padding: 8px 18px; /* Reduce button padding */
+  }
+
+  .booking-card {
+    gap: 30px; /* Adjust spacing between items */
+    padding: 10px; /* Reduce card padding */
+    max-width: 1445px;
+  }
+
+  .booking-info {
+    gap: 10px; /* Reduce spacing between sections */
+  }
+
+  .booking-date {
+    font-size: 16px; /* Slightly smaller date font size */
+  }
+}
+
+/* Larger Laptop Screens (1441px - 1920px) */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .booking-list {
+    padding: 20px; /* Standard padding for larger screens */
+  }
+
+  .clinic-toggle button {
+    font-size: 16px; /* Maintain default font size */
+    padding: 10px 20px; /* Standard button padding */
+  }
+
+
+  .booking-card {
+    gap: 40px; /* Standard spacing between items */
+    padding: 15px; /* Standard card padding */
+    max-width: 1925px;
+  }
+
+  .booking-info {
+    gap: 15px; /* Standard spacing between sections */
+  }
+
+  .booking-date {
+    font-size: 18px; /* Standard date font size */
   }
 }

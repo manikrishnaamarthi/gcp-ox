@@ -182,3 +182,56 @@
 .icon {
   color: #e60012; /* Set all icons to red globally */
 }
+
+
+/* Responsive Styles for Laptop Screens Only */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .content {
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .location-btn,
+  .search-input {
+    width: auto; /* Default width for laptop screens */
+  }
+
+  .tabs {
+    flex-wrap: nowrap;
+    
+  }
+
+  .tab {
+    font-size: 15px;
+    padding: 8px 15px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .vendor-table th,
+  .vendor-table td {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .content {
+    margin-left: 150px;
+    padding: 20px;
+  }
+
+  .tab {
+    font-size: 16px;
+    padding: 10px 18px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}
