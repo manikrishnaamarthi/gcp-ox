@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react';
 import { FaHome, FaCartPlus, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidBookAdd } from 'react-icons/bi';
@@ -40,37 +41,37 @@ const Sidebar = () => {
           <p>Super Admin</p>
         </div>
         <nav className="sidebar-icons">
-          <button className="sidebar-icon" data-name="Admin" onClick={() => navigateWithPreload('/AdminService/')}>
-            <FaHome />
-          </button>
-          <button className="sidebar-icon" data-name="Invoice" onClick={() => navigateWithPreload('/AdminService/Invoicelist')}>
-            <FaCartPlus />
-          </button>
-          <button className="sidebar-icon" data-name="Booking" onClick={() => navigateWithPreload('/AdminService/Booking/')}>
-            <BiSolidBookAdd />
-          </button>
-          <button className="sidebar-icon" data-name="Vendor Approval" onClick={() => navigateWithPreload('/AdminService/AdminDashboard/')}>
-            <FaPeopleGroup />
-          </button>
-          <button className="sidebar-icon" data-name="Add Admin" onClick={() => navigateWithPreload('/AdminService/AdminPerson/')}>
-            <IoMdPersonAdd />
-          </button>
-          <button className="sidebar-icon" data-name="Manage Service" onClick={() => navigateWithPreload('/AdminService/AdminDashboard/ManageService/')}>
-            <MdManageAccounts />
-          </button>
-          <button className="sidebar-icon" data-name="Inventory" onClick={() => navigateWithPreload('/AdminService/Inventory/')}>
-            <MdOutlineInventory />
-          </button>
-          <button className="sidebar-icon" data-name="Vendor" onClick={() => navigateWithPreload('/AdminService/VendorsList/')}>
-            <MdOutlinePeopleAlt />
-          </button>
-          <button
+          <div className="sidebar-icon" data-name="Admin" >
+            <FaHome onClick={() => navigateWithPreload('/AdminService/')}/>
+          </div>
+          <div className="sidebar-icon" data-name="Invoice" >
+            <FaCartPlus onClick={() => navigateWithPreload('/AdminService/Invoicelist')}/>
+          </div>
+          <div className="sidebar-icon" data-name="Booking" >
+            <BiSolidBookAdd onClick={() => navigateWithPreload('/AdminService/Booking/')}/>
+          </div>
+          <div className="sidebar-icon" data-name="Vendor Approval" >
+            <FaPeopleGroup onClick={() => navigateWithPreload('/AdminService/AdminDashboard/')}/>
+          </div>
+          <div className="sidebar-icon" data-name="Add Admin" >
+            <IoMdPersonAdd onClick={() => navigateWithPreload('/AdminService/AdminPerson/')}/>
+          </div>
+          <div className="sidebar-icon" data-name="Manage Service" >
+            <MdManageAccounts onClick={() => navigateWithPreload('/AdminService/AdminDashboard/ManageService/')}/>
+          </div>
+          <div className="sidebar-icon" data-name="Inventory" >
+            <MdOutlineInventory onClick={() => navigateWithPreload('/AdminService/Inventory/')}/>
+          </div>
+          <div className="sidebar-icon" data-name="Vendor" >
+            <MdOutlinePeopleAlt onClick={() => navigateWithPreload('/AdminService/VendorsList/')}/>
+          </div>
+          <div
             className="sidebar-icon logout-icon"
             data-name="Logout"
-            onClick={() => setShowLogoutPopup(true)}
+            
           >
-            <FaSignOutAlt />
-          </button>
+            <FaSignOutAlt onClick={() => setShowLogoutPopup(true)}/>
+          </div>
         </nav>
       </aside>
       {showLogoutPopup && (

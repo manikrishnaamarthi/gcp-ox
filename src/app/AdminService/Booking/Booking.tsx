@@ -20,7 +20,7 @@ interface Booking {
 
 const Bookings: React.FC = () => {
   const [selectedClinic, setSelectedClinic] = useState<string>('Oxi Clinic');
-  const [selectedStatus, setSelectedStatus] = useState<string>('Completed'); // Set default to 'Completed'
+  const [selectedStatus, setSelectedStatus] = useState<string>('Upcoming'); // Set default to 'Completed'
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
@@ -52,8 +52,8 @@ const Bookings: React.FC = () => {
   const filteredBookings = bookings.filter((booking) => {
     if (selectedStatus === 'History') {
       return (
-        booking.booking_status.toLowerCase() === 'completed' ||
-        booking.booking_status.toLowerCase() === 'cancelled'
+        booking.booking_status.toLowerCase() === 'upcoming' ||
+        booking.booking_status.toLowerCase() === 'cancel'
       );
     } else {
       return booking.booking_status.toLowerCase() === selectedStatus.toLowerCase();
@@ -94,14 +94,14 @@ const Bookings: React.FC = () => {
         <div className="status-toggle-container">
           <div className="status-toggle">
             <button
-              className={selectedStatus === 'Completed' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Completed')}
+              className={selectedStatus === 'Upcoming' ? 'active' : ''}
+              onClick={() => setSelectedStatus('Upcoming')}
             >
-              Completed
+              Upcoming
             </button>
             <button
-              className={selectedStatus === 'Cancelled' ? 'active' : ''}
-              onClick={() => setSelectedStatus('Cancelled')}
+              className={selectedStatus === 'Cancel' ? 'active' : ''}
+              onClick={() => setSelectedStatus('Cancel')}
             >
               Cancelled
             </button>
