@@ -150,26 +150,49 @@ const Bookings: React.FC = () => {
     setShowPopup(true);
   };
 
-  const handleSendOtp = async () => {
+  const getCookie = (name: string | any[]) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+};
+
+const handleSendOtp = async () => {
     if (!selectedBooking) return;
   
     try {
-      const response = await axios.post('http://localhost:8008/api/send-otp/', {
-        email: selectedBooking.email,
-      });
+        const csrfToken = getCookie('csrftoken');
+        const response = await axios.post('http://localhost:8008/api/send-otp/', {
+            email: selectedBooking.email,
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken, // Add CSRF token in the header
+            },
+        });
   
-      if (response.data.message === 'OTP sent successfully') {
-        console.log('OTP sent successfully');
-        // Redirect to the OTP verification page
-        router.push('/VendorManagementService/ClinicVendor/ClinicOtp');
-      } else {
-        alert('Failed to send OTP. Please try again.');
-      }
+        if (response.data.message === 'OTP sent successfully') {
+            console.log('OTP sent successfully');
+            sessionStorage.setItem('session_key', response.data.session_key); // Store the session key
+            // Redirect to the OTP verification page
+            router.push('/VendorManagementService/ClinicVendor/ClinicOtp');
+        } else {
+            alert('Failed to send OTP. Please try again.');
+        }
     } catch (error) {
-      console.error('Error sending OTP:', error);
-      alert('An error occurred while sending OTP.');
+        console.error('Error sending OTP:', error);
+        alert('An error occurred while sending OTP.');
     }
-  };
+};
+
   
   
 
