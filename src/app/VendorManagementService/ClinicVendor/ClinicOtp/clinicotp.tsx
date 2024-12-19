@@ -5,6 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { IoChevronBackSharp } from "react-icons/io5";
 import axios from "axios";
 
+const getCsrfToken = () => {
+  const cookies = document.cookie.split('; ');
+  const csrfTokenCookie = cookies.find(row => row.startsWith('csrftoken='));
+  return csrfTokenCookie ? csrfTokenCookie.split('=')[1] : null; // Return null if not found
+};
+
 const ClinicOtp = () => {
   const router = useRouter();
   const [otp, setOtp] = useState(["", "", "", "", ""]);
@@ -47,42 +53,45 @@ const ClinicOtp = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setLoading(true);
 
     const otpValue = otp.join(""); // Combine OTP digits into a string
-    const storedOtp = localStorage.getItem("otp");
-    const expiryTime = parseInt(localStorage.getItem("otp_expiry") || "0");
+    const sessionKey = sessionStorage.getItem("session_key");
 
-    if (!storedOtp || !expiryTime || new Date().getTime() > expiryTime) {
-        alert("OTP has expired or is invalid. Please request a new OTP.");
-        setLoading(false);
-        return;
+    if (!sessionKey) {
+      alert("Session key is missing. Please request a new OTP.");
+      setLoading(false);
+      return;
     }
 
     try {
-        const response = await axios.post("http://localhost:8004/api/validate-otp/", {
-            otp: otpValue,  // Make sure OTP is properly formatted
-            email: email,   // Make sure email is passed correctly
-        });
+      const csrfToken = getCsrfToken();
+      const response = await fetch("http://localhost:8009/api/validate-otp/", {
+        method: "POST",
+        credentials: "include", // Ensure cookies are included for session management
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken || "",
+        },
+        body: JSON.stringify({ otp: otpValue, session_key: sessionKey }),
+      });
 
-        if (response.status === 200) {
-            console.log("OTP validated successfully");
-            router.push("/VendorManagementService/ClinicVendor/MyBookings"); // Redirect on success
-
-            localStorage.removeItem("otp");
-            localStorage.removeItem("otp_expiry");
-        }
+      const data = await response.json();
+      if (response.ok) {
+        alert("OTP verified successfully!");
+        router.push("/VendorManagementService/ClinicVendor/MyBookings");
+      } else {
+        setErrorMessage(data.message || "Invalid OTP.");
+      }
     } catch (error) {
-        console.error("Error validating OTP:", error.response?.data || error.message);
+      console.error("Error validating OTP:", error);
+      setErrorMessage("Network error. Please try again.");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
-
-
-
+  };
 
 
 
