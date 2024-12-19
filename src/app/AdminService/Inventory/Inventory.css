@@ -170,7 +170,7 @@ body {
     padding: 15px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 150px; /* Set a fixed width for consistent layout */
-    box-sizing: border-box; /* Include padding in width calculation */
+    /* box-sizing: border-box;  */
   }
   
   .category-item:hover {
@@ -337,4 +337,114 @@ body {
     background: gray;
     margin-top: 10px;
   }
-   
+  
+  
+  /* Media Queries for Smaller Laptop Screens (1024px - 1440px) */
+@media (max-width: 1440px) and (min-width: 1024px) {
+  .inventory-container {
+    flex-direction: column; /* Stack layout vertically */
+  }
+
+  .main-content1 {
+    margin-left: 150px; /* Remove side margin for smaller screens */
+    padding: 15px;
+  }
+
+  .content-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  .side-panel {
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .header h1 {
+    font-size: 24px; /* Reduce font size */
+  }
+
+  .search-bar2 {
+    width: 150px; /* Adjust width */
+    font-size: 12px;
+  }
+
+  
+
+  .card1 {
+    padding: 15px; /* Adjust padding */
+  }
+
+  .inventory-table {
+    width: 70%; /* Ensure table fits the screen */
+    font-size: 14px; /* Reduce table font size */
+  }
+
+  .categories {
+    padding: 15px; /* Reduce padding */
+  }
+
+  .icons-grid {
+    grid-template-columns: repeat(2, 1fr); /* Keep grid compact */
+    gap: 5px;
+  }
+
+  .category-item {
+    width: 130px;
+  }
+
+  .popup-content {
+    max-width: 80%; /* Expand popup width */
+  }
+}
+
+/* Media Queries for Larger Laptop Screens (1441px - 1920px) */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .inventory-container {
+    flex-direction: row; /* Maintain horizontal layout */
+  }
+
+  .main-content1 {
+    margin-left: 150px; /* Standard margin for larger screens */
+    padding: 20px;
+  }
+
+  .header h1 {
+    font-size: 30px; /* Maintain default font size */
+  }
+
+  .search-bar2 {
+    width: 200px; /* Maintain default width */
+    font-size: 14px;
+  }
+
+  .summary-cards {
+    flex-direction: row; /* Keep summary cards in a row */
+    gap: 20px; /* Maintain spacing */
+  }
+
+  .card1 {
+    padding: 20px; /* Default padding */
+  }
+
+  .inventory-table {
+    width: 70%; /* Standard table width */
+    font-size: 16px; /* Maintain table font size */
+  }
+
+  .categories {
+    padding: 20px; /* Standard padding */
+  }
+
+  .icons-grid {
+    grid-template-columns: repeat(3, 1fr); /* Increase grid columns */
+    gap: 10px;
+  }
+
+  .popup-content {
+    max-width: 400px; /* Standard popup width */
+  }
+}

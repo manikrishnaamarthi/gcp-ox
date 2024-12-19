@@ -128,3 +128,37 @@
     background-color: #bbb;
   }
   
+
+  /* Media Queries for Laptops Only */
+@media (max-width: 1440px) and (min-width: 1024px) {
+  .admin-sidebar {
+    
+    padding: 15px 0;
+  }
+
+  .logo img {
+    max-width: 100px; /* Slightly reduce logo size */
+  }
+
+  .sidebar-icons {
+    gap: 2.0rem; /* Adjust spacing */
+  }
+
+  .popup-content {
+    max-width: 100%; /* Expand popup for smaller screens */
+  }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .admin-sidebar {
+    padding: 15px 0;
+  }
+
+  .logo img {
+    max-width: 100px; /* Maintain logo size */
+  }
+
+  .popup-content {
+    max-width: 400px; /* Maintain default popup size */
+  }
+}

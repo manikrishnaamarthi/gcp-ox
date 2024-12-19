@@ -93,7 +93,7 @@ const Bookings: React.FC<BookingsProps> = ({ userState }) => {
               className={selectedStatus === 'upcoming' ? 'active' : ''}
               onClick={() => setSelectedStatus('upcoming')}
             >
-              Completed
+              Upcoming
             </button>
             <button
               className={selectedStatus === 'Cancel' ? 'active' : ''}

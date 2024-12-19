@@ -46,7 +46,8 @@ html, body {
     border: 1px solid red;
     font-size: 14px;
     color: red;
-    margin-left: 1100px;
+    /* margin-left: 1100px; */
+    margin-left: auto;
 }
 
 .search-bar1:focus {
@@ -326,31 +327,81 @@ html, body {
     font-weight: bold;
 }
 
+/* Base Styles (already applied above) */
 
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+/* For smaller laptops (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1280px) {
     .main-content {
-        margin-left: 0; /* Sidebar is not fixed for small screens */
-        width: 100%; /* Full width for small screens */
-        padding: 10px;
+        margin-left: 150px; /* Reduce left margin for smaller screens */
+        padding: 15px;
     }
-
-    .sidebar {
-        position: relative; /* Sidebar becomes static */
-        width: 100%; /* Full width for small screens */
-        height: auto;
-        box-shadow: none;
+    .header1 h1 {
+        font-size: 24px; /* Adjust font size for smaller screens */
     }
-
-    .summary-cards {
-        flex-direction: column;
-        gap: 15px;
+    .date-header{
+        font-size: 18px;
     }
-
-    .table-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+    .search-bar1 {
+        width: 180px; /* Reduce width for smaller screens */
+        font-size: 12px;
+        
+    }
+    .filter-button {
+        font-size: 16px; /* Adjust font size for smaller buttons */
+        padding: 6px 15px; /* Reduce padding */
+    }
+    .card-header .card-column {
+        font-size: 16px; /* Reduce font size in card headers */
+    }
+    .product-info {
+        gap: 8px; /* Reduce spacing between items */
+    }
+    .action-button {
+        font-size: 14px; /* Adjust button font size */
+        padding: 4px 8px; /* Reduce padding */
     }
 }
+
+/* For medium laptops (1281px - 1440px) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+    .main-content {
+        margin-left: 150px; /* Slightly reduced margin */
+    }
+    .header1 h1 {
+        font-size: 26px; /* Slightly smaller font size */
+    }
+    .search-bar1 {
+        width: 200px; /* Default size for this range */
+        
+    }
+    .filter-button {
+        font-size: 18px; /* Medium size for buttons */
+        padding: 8px 20px; /* Balanced padding */
+    }
+}
+
+/* For larger laptops (1441px and up) */
+@media (min-width: 1441px) {
+    .main-content {
+        margin-left: 150px; /* Full margin for larger screens */
+    }
+    .header1 h1 {
+        font-size: 30px; /* Default size */
+    }
+    .search-bar1 {
+        width: 250px; /* Larger input for wider screens */
+       
+    }
+    .filter-button {
+        font-size: 20px; /* Default button size */
+        padding: 8px 25px; /* Default padding */
+    }
+    .product-info {
+        gap: 12px; /* Slightly larger spacing */
+    }
+    .action-button {
+        font-size: 16px; /* Default button font size */
+        padding: 6px 12px; /* Default padding */
+    }
+}
+

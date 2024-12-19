@@ -9,6 +9,8 @@
     display: flex;
     height: 100vh;
     font-family: Arial, sans-serif;
+    width: 100%;
+    max-width: 2000px;
   }
   
   
@@ -48,7 +50,8 @@
     font-size: 24px;
     color: red;
     font-weight: bold;
-    margin-left: 550px;
+    margin: 0 auto; /* Center horizontally */
+    text-align: center; /* Align text content within */
   }
   
   /* Popular Cities Section */
@@ -71,7 +74,7 @@
     text-align: center;
     margin-top: 80px;
     font-weight: bold;
-    margin-right: 100px;
+    /* margin-right: 100px; */
   }
   
   .city:hover {
@@ -210,3 +213,59 @@
     font-weight: bold;
   }
   
+  /* Media Queries for Laptops Only */
+@media (max-width: 1440px) and (min-width: 1024px) {
+  .main {
+    margin-left: 150px; /* Adjust left margin for smaller laptops */
+  
+  }
+
+  .header-title {
+    font-size: 22px; /* Slightly smaller title */
+    
+  }
+
+  .select-city-message {
+    font-size: 22px; /* Adjust font size for city message */
+  }
+
+  .cities-grid {
+    gap: 10px; /* Adjust grid gap for smaller screens */
+    
+  }
+
+  .city {
+    flex: 0 0 calc(20% - 8px); /* More compact layout for smaller laptops */
+  }
+
+  .city-image {
+    max-height: 90px; /* Adjust image size */
+  }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .main {
+    margin-left: 150px; /* Maintain margin for larger laptops */
+  }
+
+  .header-title {
+    font-size: 24px; /* Larger font for larger laptops */
+    
+  }
+
+  .select-city-message {
+    font-size: 25px; /* Keep larger font size */
+  }
+
+  .cities-grid {
+    gap: 15px; /* Maintain larger gap for bigger screens */
+  }
+
+  .city {
+    flex: 0 0 calc(15% - 10px); /* Adjust width for larger laptops */
+  }
+
+  .city-image {
+    max-height: 100px; /* Maintain image size */
+  }
+}

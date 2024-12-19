@@ -178,7 +178,7 @@ body {
   background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 1200px;
+  max-width: 1900px;
   margin: auto; /* Center align the cards */
   gap: 60px; /* Add space between the date and other sections */
 }
