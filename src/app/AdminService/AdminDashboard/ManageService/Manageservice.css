@@ -20,8 +20,8 @@ body {
 
 .page-title {
   font-size: 24px;
-  margin-left: 450px;
-  color: red;
+  margin-left: 500px;
+  color: #FC000E;
 }
 
 .search-bar {
@@ -33,7 +33,7 @@ body {
 }
 
 .search-bar:focus {
-  border-color: red;
+  border-color: #FC000E;
   outline: none; 
 }
 
@@ -46,7 +46,7 @@ body {
   display: inline-flex; 
 align-items: center;
 gap: 8px;
-  background-color: red;
+  background-color:#FC000E;
   color: white;
   padding: 8px 20px;
   border: none;
@@ -103,7 +103,7 @@ gap: 8px;
   display: flex;
   align-items: center; 
   gap: 5px;
-  background-color: red;
+  background-color:#FC000E;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -122,7 +122,7 @@ gap: 8px;
 
 .head1{
   align-items: center;
-  color: red;
+  color: #FC000E;
   font-weight: bold;
   margin-top: 4px;
   text-align: center;
@@ -184,7 +184,7 @@ gap: 8px;
 }
 .modal-content input:focus,
 .modal-content textarea:focus {
-border: 2px solid red;
+border: 2px solid #FC000E;
 outline: none; 
 }
 .modal-actions {
@@ -203,12 +203,12 @@ outline: none;
 }
 
 .save-btn {
-  background-color: red;
+  background-color: #FC000E;
   color: white;
 }
 
 .cancel-btn {
-  background-color: red;
+  background-color: #FC000E;
   color: white;
 }
 
@@ -277,3 +277,6 @@ outline: none;
     margin-top: 0;
   }
 }
+
+
+

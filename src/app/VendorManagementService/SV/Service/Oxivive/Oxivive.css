@@ -32,7 +32,7 @@ body {
     top: 15px;
     background: none;
     border: none;
-    color: #f31414;
+    color: #FC000E;
     font-size: 30px;
     cursor: pointer; 
 }
@@ -104,12 +104,12 @@ body {
 
 .service-clicked {
     /* background-color: red;  */
-    color: #f31414;
-    border-color: #f31414;
+    color: #FC000E;
+    border-color: #FC000E;
 }
 
 .oxivive-proceed {
-    background: #f31414;
+    background: #FC000E;
     color: #fff;
     border: none;
     /* border-radius: 20px; */

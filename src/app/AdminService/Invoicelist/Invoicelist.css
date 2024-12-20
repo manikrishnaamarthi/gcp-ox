@@ -11,7 +11,7 @@ body {
   .invoice-content {
     flex: 1;
     padding: 20px;
-    margin-left: 230px;
+    margin-left: 150px;
     background-color: #ffffff;
   }
   
@@ -27,7 +27,7 @@ body {
     margin: 0;
     font-size: 24px;
     font-weight: bold;
-    color: red;
+    color: #FC000E;
   }
 
   
@@ -46,18 +46,18 @@ body {
   background-color: transparent; /* Transparent background for inactive buttons */
   font-size: 14px;
   font-weight: bold;
-  color: red; /* Text color for inactive buttons */
+  color: #FC000E; /* Text color for inactive buttons */
   position: relative;
   cursor: pointer;
   margin: 0 18px;
-  border: 1px solid red;
-  border-radius: 20px; /* Smooth rounded button edges */
+  border: 1px solid #FC000E;
+  border-radius: 25px; /* Smooth rounded button edges */
   transition: all 0.3s ease-in-out; /* Smooth hover effect */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .tab-button.active {
-  background-color: red; /* Highlight active tab */
+  background-color: #FC000E; /* Highlight active tab */
   color: white; /* White text for active tab */
   font-weight: bold;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.15); /* Shadow effect for active state */
@@ -83,7 +83,7 @@ body {
     margin-right: 10px;
   }
   .search-input:focus {
-    border-color: red;
+    border-color: #FC000E;
     outline: none; 
   }
 
@@ -127,38 +127,82 @@ body {
     font-size: 16px;
     padding: 12px;
     background-color: rgb(238, 238, 238);
-    color: black; /* Default color for email, service type, date, and amount */
+    color: black; 
     border-bottom: 2px solid #bdbdbd;
   }
   
   /* Specific cell styles */
   .invoice-table tbody tr td.invoice-number a {
-    color: red; /* Invoice number in red */
+    color: #FC000E; 
     text-decoration: none;
   }
   
   .invoice-table tbody tr td.status-paid {
-    color: green; /* Paid status in green */
+    color: #34C759; 
   }
   
   .invoice-table tbody tr td.status-unpaid {
-    color: red; /* Unpaid status in red */
+    color: #FC000E; 
   }
 
 
   .invoice-table tbody tr {
-    transition: background-color 0.2s ease, color 0.2s ease, font-weight 0.2s ease; /* Smooth transitions for hover effects */
+    transition: background-color 0.2s ease, color 0.2s ease, font-weight 0.2s ease; 
     cursor: pointer;
   }
   
   .invoice-table tbody tr:hover {
-    background-color: #f0f4f8; /* Highlight with a subtle background color */
-    color: black; /* Change text color for emphasis */
+    background-color: #f0f4f8; 
+    color: black;
   }
   
   .invoice-table tbody tr:hover td {
-    font-weight: bold; /* Highlight text by making it bold */
-    border: 2px solid #d1d9e6; /* Add a subtle border on hover */
+    font-weight: bold; 
+    border: 2px solid #d1d9e6; 
   }
   
   
+  @media (min-width: 1024px) and (max-width: 1440px) {
+    .tab-button {
+        padding: 8px 30px;
+        font-size: 12px;
+    }
+
+    .invoice-header0 h1 {
+        font-size: 22px;
+    }
+
+    .invoice-content {
+        margin-left: 150px;
+        padding: 15px;
+    }
+
+    .invoice-table th, 
+    .invoice-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* For screens between 1441px and 1920px */
+@media (min-width: 1441px) and (max-width: 1920px) {
+    .tab-button {
+        padding: 12px 50px;
+        font-size: 16px;
+    }
+
+    .invoice-header0 h1 {
+        font-size: 26px;
+    }
+
+    .invoice-content {
+        margin-left: 150px;
+        padding: 25px;
+    }
+
+    .invoice-table th, 
+    .invoice-table td {
+        font-size: 18px;
+        padding: 10px;
+    }
+}

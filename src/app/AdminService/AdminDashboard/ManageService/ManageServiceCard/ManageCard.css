@@ -5,7 +5,7 @@ body {
 }
 
 .content {
-    margin-left: 260px;
+    margin-left: 150px;
     padding: 20px;
     width: calc(100% - 260px);
 }
@@ -18,9 +18,10 @@ body {
     font-weight: bold;
 }
 
-.page-title {
+.page-title1 {
     font-size: 24px;
-    color: red;
+    margin-left: 500px;
+    color: #FC000E;
 }
 
 .service-details {
@@ -51,7 +52,7 @@ body {
 
 .service-name {
     font-size: 24px;
-    color: red;
+    color: #FC000E;
     margin-top: 5px;
     margin-left: 210px;
     font-weight: bold;
@@ -60,12 +61,6 @@ body {
 .right-section {
     flex: 1;
 }
-
-/* .details-content {
-    display: flex;
-    justify-content: space-between;
-    margin-top: -10px;
-} */
 
 .left-section {
     flex: 1;
@@ -98,7 +93,7 @@ body {
 
 .benefits h4 {
     font-size: 20px;
-    color: red;
+    color:#FC000E;
 }
 
 .benefits li {
@@ -119,29 +114,128 @@ body {
 }
 .sessions-container {
     display: flex;
-    flex-direction: row; /* Place heading and content inline */
+    flex-direction: row;
     flex-wrap: wrap;
     font-size: 18px;
     color: black;
-    line-height: 1.8; /* Adjust spacing between lines */
+    line-height: 1.8; 
 }
 
 .sessions-heading {
     font-weight: bold;
-    margin-right: 5px; /* Small gap between heading and content */
-    white-space: nowrap; /* Prevent wrapping of the heading */
+    margin-right: 5px; 
+    white-space: nowrap; 
     margin-top: 6px;
 }
 
 .sessions-content {
-    flex: 1; /* Take up remaining space */
-    text-indent: -5px; /* Align subsequent lines with the colon */
-    padding-left: 5px; /* Align text neatly after the colon */
+    flex: 1; 
+    text-indent: -5px; 
+    padding-left: 5px; 
 }
 
 .price {
-    color: red;
+    color: #FC000E;
 }
 
+@media (max-width: 1440px) and (min-width: 1024px) {
+    .content {
+        margin-left: 150px; 
+        width: calc(100% - 220px);
+        padding: 15px;
+    }
 
+    .page-title {
+        font-size: 22px; 
+        margin-left: 300px; 
+    }
 
+    .service-image {
+        width: 420px; 
+        height: 260px;
+    }
+
+    .service-name {
+        font-size: 20px; 
+        margin-left: 150px;
+    }
+
+    .details-content p,
+    .benefits li {
+        font-size: 16px; 
+    }
+
+    .service-price {
+        font-size: 18px; 
+    }
+
+    .sessions-container {
+        font-size: 16px; 
+    }
+
+    .head6 {
+        font-size: 18px;
+        margin-left: -12px; 
+    }
+
+    .benefits {
+        margin-left: 0; 
+    }
+
+    .right-section,
+    .left-section {
+        flex: 1;
+        margin: 10px;
+    }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+    .content {
+        margin-left: 150px;
+        width: calc(100% - 260px);
+        padding: 20px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        margin-left: 350px;
+    }
+
+    .service-image {
+        width: 500px;
+        height: 300px;
+    }
+
+    .service-name {
+        font-size: 22px;
+        margin-left: 200px;
+    }
+
+    .details-content p,
+    .benefits li {
+        font-size: 18px;
+    }
+
+    .service-price {
+        font-size: 20px;
+    }
+
+    .sessions-container {
+        font-size: 18px;
+    }
+
+    .head6 {
+        font-size: 20px;
+        margin-left: -15px;
+    }
+
+    .benefits {
+        margin-left: 0;
+    }
+
+    .right-section,
+    .left-section {
+        flex: 1;
+        margin: 15px;
+    }
+}

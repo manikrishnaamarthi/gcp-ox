@@ -176,7 +176,7 @@ body {
 
 .inputField:focus {
     outline: none; 
-    border: 2px solid red; /* Add red border on focus */
+    border: 2px solid #FC000E; /* Add red border on focus */
 }
 
 

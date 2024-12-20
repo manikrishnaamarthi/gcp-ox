@@ -1,138 +1,190 @@
+/* Base Styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
 }
 
 .invoice-page {
-    display: flex;
-    background-color: #ffffff;
-  }
-  
+  display: flex;
+  background-color: #ffffff;
+}
+
+.invoice-content {
+  flex: 1;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  margin-left: 150px;
+}
+
+.invoice-header1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  margin-bottom: 20px;
+}
+
+.header-left h1 {
+  font-size: 24px;
+  color: #FC000E; /* Headings remain red */
+  margin: 0;
+  font-weight: bold;
+}
+
+.header-left p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: rgb(94, 92, 92); /* Subheadings remain black */
+}
+
+.header-left span {
+  color: #FC000E; /* Numbers in red */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-box, .action-box {
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.status-box.paid {
+  background-color: #ffffff;
+  margin-right: 980px;
+  color: #34C759;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow */
+  border-radius: 15px; 
+}
+
+.action-box {
+  background-color: white;
+  margin-right: 25px;
+  color: black;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #ccc; /* Retain divider */
+  margin: 10px 0;
+}
+
+.payment-details4 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: black;
+}
+
+.payment-details5 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: black;
+  border-bottom: 1px solid #ccc;
+}
+
+.details-grid3 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 120px; /* Adjust this to reduce spacing */
+}
+
+.details-grid p {
+  margin: 5px 0;
+  color: black; /* Text remains black */
+}
+
+.details-grid span {
+  color: #FC000E; /* Numbers in red */
+}
+
+.invoice-table0 {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.invoice-table0 th,
+.invoice-table0 td {
+  padding: 12px;
+  color: #FC000E;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.invoice-table0 th {
+  background-color: #eaeaea; 
+  color: #333; /* Text color */
+  font-weight: bold;
+  padding: 10px; 
+  text-align: left; 
+}
+
+.invoice-table0 tfoot td {
+  color: black; 
+}
+
+
+@media (min-width: 1024px) and (max-width: 1440px) {
   .invoice-content {
-    flex: 1;
-    padding: 20px;
-    background-color: rgb(255, 255, 255);
-    margin-left: 230px;
-  }
-  
-  .invoice-header1 {
-    display: flex;
-    justify-content: space-between;
-    align-items: left;
-    margin-bottom: 20px;
-  }
-  
-  .header-left h1 {
-    font-size: 24px;
-    color: red; /* Headings remain black */
-    margin: 0;
-    font-weight: bold;
-  }
-  
-  .header-left p {
-    margin: 5px 0 0;
-    font-size: 14px;
-    color: rgb(94, 92, 92); /* Subheadings remain black */
-  }
-  
-  .header-left span {
-    color: red; /* Numbers in red */
-  }
-  
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .status-box, .action-box {
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
-  }
-  
-  
-  .status-box.paid {
-    background-color: #ffffff;
-    margin-right: 980px;
-    color: green;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow */
-    border-radius: 15px; 
-  }
-  
-  .action-box {
-    background-color: white;
-    margin-right: 25px;
-    /* gap:8px; */
-    color: black;
-  }
-  
-  .divider {
-    border: 0;
-    border-top: 1px solid #ccc; /* Retain divider */
-    margin: 10px 0;
-  }
-  
-  .payment-details4 {
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: black;
+      margin-left: 150px;
+      padding: 15px;
   }
 
-  .payment-details5 {
-    margin-bottom: 15px;
-    font-size: 24px;
-    color: black;
-    border-bottom: 1px solid #ccc;
+  .header-left h1 {
+      font-size: 22px;
   }
-  
+
+  .header-left p {
+      font-size: 12px;
+  }
+
   .details-grid3 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* color: rgb(102, 101, 101); */
-    gap: 120px; /* Adjust this to reduce spacing */
+      gap: 80px;
   }
-  .details-grid p {
-    margin: 5px 0;
-    color: black; /* Text remains black */
+
+  .status-box.paid {
+      margin-right: 700px;
   }
-  
-  .details-grid span {
-    color: red; /* Numbers in red */
-  }
-  
-  .invoice-table0 {
-    width: 100%;
-    border-collapse: collapse;
-    /* font-weight: bold; */
-    margin-bottom: 20px;
-  }
-  
+
   .invoice-table0 th,
   .invoice-table0 td {
-    padding: 12px;
-    color: red;
-    font-size: 18px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
+      font-size: 16px;
   }
-  
-  .invoice-table0 th {
-    background-color: #eaeaea; /* Light gray background */
-    color: #333; /* Text color */
-    font-weight: bold;
-    padding: 10px; /* Spacing inside the cells */
-    text-align: left; /* Align text to the left */
-  }
-  .invoice-table0 tfoot td {
-    /* font-weight: bold; */
-    color: black; /* Footer text in black */
-  }
-  
-  
+}
 
-  
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .invoice-content {
+      margin-left: 150px;
+      padding: 20px;
+  }
+
+  .header-left h1 {
+      font-size: 24px;
+  }
+
+  .header-left p {
+      font-size: 14px;
+  }
+
+  .details-grid3 {
+      gap: 100px;
+  }
+
+  .status-box.paid {
+      margin-right: 980px;
+  }
+
+  .invoice-table0 th,
+  .invoice-table0 td {
+      font-size: 18px;
+  }
+}

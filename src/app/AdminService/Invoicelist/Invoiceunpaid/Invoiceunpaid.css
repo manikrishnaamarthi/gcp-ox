@@ -1,3 +1,4 @@
+/* General Layout */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -13,7 +14,7 @@ body {
     flex: 1;
     padding: 20px;
     background-color: rgb(255, 255, 255);
-    margin-left: 230px;
+    margin-left: 150px;
 }
 
 .invoice-header {
@@ -25,7 +26,7 @@ body {
 
 .header-left h1 {
     font-size: 24px;
-    color: red;
+    color: #FC000E;
     text-align: left;
     font-weight: bold;
     margin: 0;
@@ -39,7 +40,7 @@ body {
 
 .header-right {
     display: flex;
-    color: red;
+    color: #FC000E;
     align-items: center;
     gap: 10px;
 }
@@ -56,7 +57,7 @@ body {
 .status-box.unpaid {
     background-color: #ffffff;
     margin-right: 950px;
-    color: red;
+    color: #FC000E;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
 }
@@ -102,7 +103,7 @@ body {
 .invoice-table2 td {
     padding: 12px;
     font-size: 18px;
-    color: red;
+    color: #FC000E;
     text-align: left;
     border-bottom: 1px solid #ccc;
 }
@@ -113,7 +114,7 @@ body {
     font-weight: bold;
     padding: 10px; /* Spacing inside the cells */
     text-align: left; /* Align text to the left */
-  }
+}
 
 .invoice-table2 tfoot td {
     color: black;
@@ -125,7 +126,7 @@ body {
 }
 
 .pay-now-button {
-    background-color: red;
+    background-color: #FC000E;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -136,5 +137,73 @@ body {
 }
 
 .pay-now-button:hover {
-    background-color: red;
+    background-color: #FC000E;
+}
+
+/* Media Query for 1024px to 1440px screens */
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+    .invoice-content {
+        margin-left: 150px;
+        padding: 15px;
+    }
+
+    .header-left h1 {
+        font-size: 22px;
+    }
+
+    .header-left p {
+        font-size: 12px;
+    }
+
+    .details-grid1 {
+        gap: 80px;
+    }
+
+    .status-box.unpaid {
+        margin-right: 700px;
+    }
+
+    .invoice-table2 th,
+    .invoice-table2 td {
+        font-size: 16px;
+    }
+
+    .pay-now-button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Media Query for 1441px to 1920px screens */
+@media screen and (min-width: 1441px) and (max-width: 1920px) {
+    .invoice-content {
+        margin-left: 150px;
+        padding: 25px;
+    }
+
+    .header-left h1 {
+        font-size: 28px;
+    }
+
+    .header-left p {
+        font-size: 16px;
+    }
+
+    .details-grid1 {
+        gap: 150px;
+    }
+
+    .status-box.unpaid {
+        margin-right: 950px;
+    }
+
+    .invoice-table2 th,
+    .invoice-table2 td {
+        font-size: 20px;
+    }
+
+    .pay-now-button {
+        padding: 15px 25px;
+        font-size: 18px;
+    }
 }
