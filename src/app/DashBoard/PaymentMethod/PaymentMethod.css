@@ -287,14 +287,16 @@ body {
 }
 
 .clinic-info {
+  font-size:14px;
   display: flex;
   align-items: center; /* Aligns items vertically in the center */
   margin-bottom: 8px; /* Adds some space between rows */
 }
 
 .clinic-info strong {
-  width: 120px; /* Set a fixed width for labels for consistent alignment */
+  width: 85px; /* Set a fixed width for labels for consistent alignment */
   text-align: left;
+  font-size:10px;
   vertical-align: middle; /* Ensures text aligns properly with the adjacent content */
 }
 

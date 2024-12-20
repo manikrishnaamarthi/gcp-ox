@@ -8,6 +8,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { IoChevronBackSharp } from 'react-icons/io5';
 import { BsPerson } from "react-icons/bs";
 import './DriverMap.css';
+import axios from "axios";
 
 const getGeocode = async (address: string) => {
   const apiKey = 'AIzaSyCMsV0WQ7v8ra-2e7qRXVnDr7j0vOoOcWM';  // Replace with your Google API Key
@@ -171,22 +172,54 @@ const DriverMap: React.FC = () => {
 
 
 
-  const handleReached = async () => {
-    try {
-      // Send OTP to the customer's email using the email from URL parameters
-      const response = await fetch(`http://127.0.0.1:8000/api/user-send-otp/?email=${email}`);
-      const data = await response.json();
-      
-      if (response.ok) {
-        alert('OTP has been sent to the customer');
-        router.push(`/DriverManagementService/VendorDriverBooking/DriverOtp?email=${email}`);
-      } else {
-        console.error(data.error);
-      }
-    } catch (error) {
-      console.error("Error sending OTP:", error);
+  const getCookie = (name: string | any[]) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
-  };
+    return cookieValue;
+};
+
+const handleReached = async () => {
+    if (!email) return; // Ensure that email is available.
+
+    try {
+        // Extract CSRF token from cookies
+        const csrfToken = getCookie('csrftoken');
+        
+        // Send OTP request using Axios
+        const response = await axios.post('http://127.0.0.1:8013/api/user-send-otp/', {
+            email: email,
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken, // Include CSRF token in headers
+            },
+        });
+
+        // Handle the response
+        if (response.data.message === 'OTP sent successfully') {
+            alert('OTP has been sent to the customer');
+            sessionStorage.setItem('session_key', response.data.session_key); // Store session key in sessionStorage
+            
+            // Redirect to OTP verification page
+            router.push(`/DriverManagementService/VendorDriverBooking/DriverOtp?email=${email}`);
+        } else {
+            console.error(response.data.error);
+        }
+    } catch (error) {
+        console.error("Error sending OTP:", error);
+        alert('An error occurred while sending OTP.');
+    }
+};
+
   
 
 

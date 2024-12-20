@@ -25,22 +25,39 @@ const PaymentMethod: React.FC = () => {
   const [appointmentData, setAppointmentData] = useState<any | null>(null); // Add state for appointmentData
   const [countdown, setCountdown] = useState<string>(""); // State for countdown
   const router = useRouter(); 
-  // Fetch vendor details when the component mounts
+
+
+  // Fetch and parse appointmentData from localStorage
   useEffect(() => {
-    
-    const vendorId = localStorage.getItem("vendor_id");
     const storedAppointmentData = localStorage.getItem("appointmentData");
-    
     if (storedAppointmentData) {
-      setAppointmentData(JSON.parse(storedAppointmentData));
+      const parsedData = JSON.parse(storedAppointmentData);
+
+      // Parse appointment date to ensure correct interpretation
+      const appointmentDate = new Date(parsedData.appointmentDate)
+        .toISOString()
+        .split("T")[0];
+      parsedData.appointmentDate = appointmentDate;
+
+      setAppointmentData(parsedData);
     }
+    console.log(storedAppointmentData, "storedAppointmentData");
+  }, []);
+
   
+   // Fetch vendor details when the component mounts
+  useEffect(() => {
+    const vendorId = localStorage.getItem("vendor_id");
     if (vendorId) {
       const fetchVendorDetails = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:8005/api/user-vendor-details-service/${vendorId}/`);
+          const response = await fetch(
+            `http://127.0.0.1:8005/api/user-vendor-details-service/${vendorId}/`
+          );
           if (!response.ok) {
-            throw new Error(`Failed to fetch vendor details: ${response.statusText}`);
+            throw new Error(
+              `Failed to fetch vendor details: ${response.statusText}`
+            );
           }
           const data = await response.json();
           setVendorDetails(data[0] || null);
@@ -49,13 +66,14 @@ const PaymentMethod: React.FC = () => {
           setError("Failed to load vendor details");
         }
       };
-  
+
       fetchVendorDetails();
     } else {
       console.warn("Vendor ID not found in localStorage");
       setError("Vendor ID is missing");
     }
   }, []);
+
 
 
   console.log('VendorDetails', vendorDetails);
@@ -82,24 +100,27 @@ const PaymentMethod: React.FC = () => {
       return () => clearInterval(interval);
     }
   }, [appointmentData]);
+  
 
   const formatAppointmentTime = (date: string, time: string): string => {
-    const [hour, minute, period] = time.match(/^(\d{1,2}):(\d{2})\s?(AM|PM)$/i)?.slice(1) || [];
-    const formattedHour = period?.toUpperCase() === "PM" && +hour < 12 ? +hour + 12 : +hour;
-    const isoTime = `${formattedHour.toString().padStart(2, "0")}:${minute}:00`;
-  
-    const appointmentDateTime = new Date(`${date}T${isoTime}`);
-    const formatter = new Intl.DateTimeFormat("en-US", {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-  
-    return formatter.format(appointmentDateTime);
-  };
+  const [hour, minute, period] = time.match(/^(\d{1,2}):(\d{2})\s?(AM|PM)$/i)?.slice(1) || [];
+  const formattedHour = period?.toUpperCase() === "PM" && +hour < 12 ? +hour + 12 : +hour;
+  const isoTime = `${formattedHour.toString().padStart(2, "0")}:${minute}:00`;
+
+  const appointmentDateTime = new Date(`${date}T${isoTime}`);
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+    timeZone: "Asia/Kolkata", // Ensure the time zone is consistent
+  });
+
+  return formatter.format(appointmentDateTime);
+};
+
   
   
   const parseAppointmentTime = (time: string): string | null => {
@@ -128,7 +149,7 @@ const PaymentMethod: React.FC = () => {
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00`;
   };
 
-
+  
   
   
   const handlePayment = async () => {
@@ -290,14 +311,24 @@ const styleTag = document.createElement('style');
           />
           
                     <div className="clinic-details2">
+                    <div className="clinic-info">
+                    <strong>
+                      {vendorDetails?.clinic_name
+                        ? "Clinic name:"
+                        : vendorDetails?.wheel_name
+                        ? "Wheel name:"
+                        : "Name:"}
+                    </strong>
+                    <span className="clinic-name">
+                      {vendorDetails?.clinic_name || vendorDetails?.wheel_name }
+                    </span>
+                  </div>
+
             <div className="clinic-info">
-              <strong>Clinic name:</strong> <span className="clinic-name">{vendorDetails?.clinic_name || vendorDetails?.wheel_name || "N/A"}</span>
+              <strong>Phone:</strong> <span className="clinic-phone">{vendorDetails?.phone }</span>
             </div>
             <div className="clinic-info">
-              <strong>Phone:</strong> <span className="clinic-phone">{vendorDetails?.phone || "N/A"}</span>
-            </div>
-            <div className="clinic-info">
-              <strong >Address:</strong> <span className="clinic-address">{vendorDetails?.address || "N/A"}</span>
+              <strong >Address:</strong> <span className="clinic-address">{vendorDetails?.address}</span>
             </div>
           </div>
 
