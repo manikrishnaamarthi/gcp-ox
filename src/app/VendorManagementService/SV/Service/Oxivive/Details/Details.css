@@ -35,7 +35,7 @@ body {
     top: 15px;
     background: none;
     border: none;
-    color: #f31414;
+    color: #FC000E;
     font-size: 30px;
     cursor: pointer; 
 }
@@ -89,7 +89,7 @@ body {
   /* Submit button styling */
   .submit-btn1 {
     width: 100%;
-    background-color: #f31414;
+    background-color: #FC000E;
     color: white;
     padding: 12px;
     font-size: 16px;
@@ -114,8 +114,8 @@ body {
 
   
   .input-focused {
-    border-color: #f31414;
-    color: #f31414;
+    border-color: #FC000E;
+    color: #FC000E;
   }
   
   .input-focused:focus {
