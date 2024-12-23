@@ -20,6 +20,7 @@ interface Booking {
   booking_status: 'pending' | 'completed' | 'cancelled';
   appointment_date: string; // e.g., "2024-11-20"
   appointment_time: string; // e.g., "10:30:00"
+  oxi_id: string;
 }
 
 interface Error {
@@ -36,7 +37,11 @@ const MyBooking: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [mostRecentBooking, setMostRecentBooking] = useState<Booking | null>(null);
   const [driverId, setDriverId] = useState<string | null>(null);
-
+  const [userDetails, setUserDetails] = useState<{ email: string; phone_number: string }>({
+    email: '',
+    phone_number: '',
+  });
+  
   useEffect(() => {
     // Check if window object is available (i.e., we are on the client-side)
     if (typeof window !== 'undefined') {
@@ -54,10 +59,49 @@ const handleBookingClick = () => {
   router.push(`/DriverManagementService/VendorDriverBooking/MyBooking/`);
 };
 
+
+useEffect(() => {
+  // Assuming oxi_id is stored in localStorage (adjust this to your actual logic)
+  const storedOxiId = localStorage.getItem('oxi_id');
+  
+  // Check if oxi_id is available in localStorage (or use another method to get it)
+  if (storedOxiId) {
+    fetchUserDetails(storedOxiId).then((details) => {
+      if (details) {
+        setUserDetails(details);
+      }
+    });
+  } else {
+    console.log("oxi_id is not available in localStorage.");
+  }
+}, []);
+
+const fetchUserDetails = async (oxiId: string) => {
+  try {
+    console.log("Fetching user details for oxi_id:", oxiId);
+    
+    // Adjust URL to match your backend API
+    const response = await fetch(`http://127.0.0.1:8012/api/user-details/${oxiId}`);
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch user details");
+    }
+    
+    const userDetails = await response.json();
+    console.log("Fetched user details:", userDetails);
+    
+    // Return the user details if successful
+    return userDetails;
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    return null; // Return null if there's an error
+  }
+};
+
   useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8001/api/user-booking-details/');
+      const response = await fetch('http://127.0.0.1:8011/api/user-booking-details/');
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -121,7 +165,7 @@ const handleBookingClick = () => {
   };
 
   const openDriverMap = (booking: Booking) => {
-    router.push(`/DriverManagementService/VendorDriverBooking/DriverMap?location=${booking.address}&email=${booking.email}`);
+    router.push(`/DriverManagementService/VendorDriverBooking/DriverMap?location=${booking.address}&email=${userDetails.email}`);
   };
   
 
@@ -209,7 +253,8 @@ const firstEligibleBooking = activeTab === 'bookings' ? filteredBookings[0] : nu
                   <div className="bookingInfo">
                     <h2>{booking.name}</h2>
                     <p>{booking.address}</p>
-                    <p>{booking.phone_number}</p>
+                    <p>{userDetails.phone_number}</p>
+                    <p>{userDetails.email}</p> 
                   </div>
                   <div className="bookingActions">
                   {booking.booking_status !== 'cancelled' && activeTab !== 'history' && (
@@ -246,10 +291,10 @@ const firstEligibleBooking = activeTab === 'bookings' ? filteredBookings[0] : nu
                 </div>
                 <div className="modalInfo">
                   <FaPhoneAlt color="#FC000E" size={18} />
-                  <p>{selectedBooking.phone_number}</p>
+                  <p>{userDetails.phone_number}</p>
                 </div>
                 <div className="modalInfo">
-                  <p><strong>Email:</strong> {selectedBooking.email}</p>
+                  <p><strong>Email:</strong> {userDetails.email}</p>
                 </div>
 
                 

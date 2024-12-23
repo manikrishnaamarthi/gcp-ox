@@ -123,6 +123,7 @@ const Bookings: React.FC = () => {
     // Filter by status (activeTab)
     if (activeTab === "cancelled" && booking.booking_status !== "cancelled") return false;
     if (activeTab === "upcoming" && booking.booking_status !== "upcoming") return false;
+    if (activeTab === "completed" && booking.booking_status !== "completed") return false; // Add condition for completed
     if (selectedDate) {
       const formattedSelectedDate = new Date(selectedDate).toISOString().split("T")[0];
       return booking.appointment_date === formattedSelectedDate;
@@ -130,6 +131,7 @@ const Bookings: React.FC = () => {
   
     return true; // If no date is selected, return all bookings matching the tab
   });
+  
 
   const handleDateClick = (date: string) => {
     const today = new Date();
