@@ -14,23 +14,43 @@ interface Driver {
 const DriverList: React.FC = () => {
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [location, setLocation] = useState("Mumbai"); // Default location
 
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/drivers/");
+        // Fetch admin details from localStorage
+        const userDetails = localStorage.getItem("userDetails");
+        let locationState = "Mumbai"; // Default location
+        if (userDetails) {
+          const parsedDetails = JSON.parse(userDetails);
+          locationState = parsedDetails.state || "Mumbai";
+          setLocation(locationState);
+        }
+  
+        // Fetch drivers data based on location (state)
+        const response = await fetch("http://127.0.0.1:8000/api/drivers/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ state: locationState }),
+        });
+  
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
+  
         const data = await response.json();
         setDrivers(data);
       } catch (error) {
         console.error("Failed to fetch drivers:", error);
       }
     };
-
+  
     fetchDrivers();
   }, []);
+  
 
   // Filter logic
   const filteredDrivers = drivers.filter((driver) => {
@@ -51,10 +71,16 @@ const DriverList: React.FC = () => {
       <main className="driverlist-content">
         <h1>Drivers List</h1>
         <p>The following table consists of drivers' details</p>
-        <div className="search-bar">
+        <div className="header">
+          {/* Location Button with dynamic location */}
+          <button className="location-btn">
+            <i className="icon location-icon"></i> {location}
+          </button>
+          {/* Search Input */}
           <input
             type="text"
             placeholder="Search"
+            className="search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
