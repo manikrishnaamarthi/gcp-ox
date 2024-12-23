@@ -37,46 +37,51 @@ body {
 }
 
 /* Search Bar */
-.search-bar {
+
+.header {
     display: flex;
-    justify-content: flex-end;
-    align-items: center; /* Align items vertically */
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
-    position: relative; /* Ensure proper alignment */
-    padding-left: 20px; /* Add some padding to move it slightly inward */
-}
-
-.search-bar input {
-    padding: 6px 10px; /* Adjust padding for a smaller size */
-    border: 1px solid #ff0000; /* Red border for the search bar */
-    border-radius: 10px;
-    width: 200px; /* Standard size for larger screens */
-    max-width: 100%; /* Ensure responsiveness on smaller screens */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #000; /* Ensure the input text is black */
-    font-size: 14px; /* Set font size for readability */
-}
-
-.search-bar input::placeholder {
-    color: #888; /* Placeholder text in a lighter gray */
-    font-style: italic; /* Optional: make the placeholder text italic */
-}
-
-.search-bar button {
-    background-color: #ff0000; /* Red background */
-    color: #fff; /* White text */
-    border: 1px solid #ff0000; /* Red border */
-    padding: 6px 10px; /* Adjust padding for a smaller button */
-    border-radius: 4px;
-    margin-left: 10px; /* Space between input and button */
+  }
+  
+  .location-btn {
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    background-color: #e60012;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
     cursor: pointer;
-    font-size: 14px; /* Adjust font size for readability */
-    font-weight: bold;
-}
+  }
+  
+  .location-btn .icon {
+    margin-right: 5px;
+    color: #fff; /* Ensure the location icon matches the button color */
+  }
+  
+  .search-input {
+    padding: 8px;
+    width: 200px;
+    border-radius: 10px;
+    border: 1px solid red;
+    font-size: 14px;
+    color: red;
+  }
+  
+  .search-input:focus {
+    border-color: red;
+    color: red;
+    outline: none;
+  }
+  
+  .search-input::placeholder {
+    color: red;
+  }
 
-.search-bar button:hover {
-    background-color: #cc0000; /* Darker red on hover */
-}
+
 
 
 
