@@ -60,17 +60,17 @@ const DriverOtp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     const enteredOtp = otp.join('');
     const csrfToken = getCsrfToken();
     const sessionKey = sessionStorage.getItem('session_key');
-
+  
     if (!sessionKey) {
       alert('Session key is missing. Please request a new OTP.');
       setLoading(false);
       return;
     }
-
+  
     try {
       const response = await axios.post(
         'http://127.0.0.1:8014/api/driver-validate-otp/',
@@ -83,7 +83,7 @@ const DriverOtp = () => {
           withCredentials: true, // Include cookies in the request
         }
       );
-
+  
       if (response.status === 200) {
         alert('OTP validated successfully');
         router.push('/DriverManagementService/VendorDriverBooking/MyBooking');
