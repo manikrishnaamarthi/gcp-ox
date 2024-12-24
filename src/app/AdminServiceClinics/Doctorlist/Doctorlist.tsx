@@ -14,23 +14,41 @@ interface Doctor {
 const Doctorlist: React.FC = () => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [location, setLocation] = useState<string>("Unknown"); // Default location
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/doctors/");
+        const userDetails = localStorage.getItem("userDetails");
+        let state = "Unknown"; // Default state
+        if (userDetails) {
+          const parsedDetails = JSON.parse(userDetails);
+          state = parsedDetails.state || "Unknown";
+          setLocation(state); // Set location in state
+        }
+  
+        const response = await fetch("http://127.0.0.1:8000/api/doctors/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ state }), // Send state in the request body
+        });
+  
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
+  
         const data = await response.json();
         setDoctors(data);
       } catch (error) {
         console.error("Failed to fetch doctors:", error);
       }
     };
-
+  
     fetchDoctors();
   }, []);
+  
 
   const filteredDoctors = doctors.filter((doctor) => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -53,10 +71,16 @@ const Doctorlist: React.FC = () => {
       <main className="doctorlist-content">
         <h1>Doctors List</h1>
         <p>The following table consists of doctors' details</p>
-        <div className="search-bar">
+        <div className="header">
+          {/* Location Button with dynamic location */}
+          <button className="location-btn">
+            <i className="icon location-icon"></i> {location}
+          </button>
+          {/* Search Input */}
           <input
             type="text"
             placeholder="Search"
+            className="search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

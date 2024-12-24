@@ -65,6 +65,7 @@ const Vendorlist = () => {
     <div className="vendorlist-container">
       <Sidebar />
       <div className="content">
+        <h2 className="title">Vendors List</h2>
         <div className="header">
           {/* Location Button with dynamic location */}
           <button className="location-btn">
@@ -79,7 +80,7 @@ const Vendorlist = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <h2 className="title">Vendors List</h2>
+        
         <div className="tabs">
           <button
             className={`tab ${selectedService === "Oxi Clinic" ? "active" : ""}`}

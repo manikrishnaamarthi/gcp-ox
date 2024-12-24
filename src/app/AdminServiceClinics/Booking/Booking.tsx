@@ -11,6 +11,7 @@ interface Booking {
   appointment_date: string;
   appointment_time: string;
   booking_status: string;
+  service_type: string; // Added service_type for filtering
   phone_number: string | null;
   email: string | null;
 }
@@ -21,7 +22,7 @@ interface BookingsProps {
 
 const Bookings: React.FC<BookingsProps> = ({ userState }) => {
   const [selectedClinic, setSelectedClinic] = useState<string>('Oxi Clinic');
-  const [selectedStatus, setSelectedStatus] = useState<string>('upcoming'); 
+  const [selectedStatus, setSelectedStatus] = useState<string>('upcoming');
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
@@ -31,14 +32,13 @@ const Bookings: React.FC<BookingsProps> = ({ userState }) => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/bookingapp-bookingservice/?clinic=${selectedClinic}&state=${userState}`
+          `http://127.0.0.1:8000/api/bookingapp-bookingservice/`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch bookings');
         }
         const data = await response.json();
         console.log('Fetched data:', data);
-        // Adjust based on actual response structure
         setBookings(data.bookings || data.results || data);
       } catch (err: any) {
         console.error('Error fetching bookings:', err);
@@ -49,16 +49,17 @@ const Bookings: React.FC<BookingsProps> = ({ userState }) => {
     };
 
     fetchBookings();
-  }, [selectedClinic, userState]);
+  }, [userState]);
 
+  // Filter bookings based on selected clinic and status
   const filteredBookings = bookings.filter((booking) => {
-    if (selectedStatus === 'History') {
-      return (
-        booking.booking_status?.toLowerCase() === 'upcoming' ||
-        booking.booking_status?.toLowerCase() === 'cancel'
-      );
-    }
-    return booking.booking_status?.toLowerCase() === selectedStatus.toLowerCase();
+    const clinicMatch = booking.service_type?.toLowerCase() === selectedClinic.toLowerCase();
+    const statusMatch =
+      selectedStatus === 'History'
+        ? booking.booking_status?.toLowerCase() === 'upcoming' ||
+          booking.booking_status?.toLowerCase() === 'cancel'
+        : booking.booking_status?.toLowerCase() === selectedStatus.toLowerCase();
+    return clinicMatch && statusMatch;
   });
 
   return (
@@ -93,7 +94,7 @@ const Bookings: React.FC<BookingsProps> = ({ userState }) => {
               className={selectedStatus === 'upcoming' ? 'active' : ''}
               onClick={() => setSelectedStatus('upcoming')}
             >
-              Upcoming
+              Completed
             </button>
             <button
               className={selectedStatus === 'Cancel' ? 'active' : ''}
