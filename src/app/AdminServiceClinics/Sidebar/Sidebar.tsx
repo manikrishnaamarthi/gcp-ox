@@ -33,76 +33,68 @@ const Sidebar = () => {
         </div>
         <nav className="sidebar-icons">
           {/* Dashboard */}
-          <button
+          <div
             className="sidebar-icon"
             data-name="Dashboard"
-            onClick={() => router.push('/AdminServiceClinics/Dashboard')}
           >
-            <MdSpaceDashboard />
-          </button>
+            <MdSpaceDashboard onClick={() => router.push('/AdminServiceClinics/Dashboard')}/>
+          </div>
 
           {/* Booking List */}
-          <button
+          <div
             className="sidebar-icon"
             data-name="Bookinglist"
-            onClick={() => router.push('/AdminServiceClinics/Booking')}
           >
-            <FaBookOpen />
-          </button>
+            <FaBookOpen onClick={() => router.push('/AdminServiceClinics/Booking')}/>
+          </div>
 
           {/* Vendor List */}
-          <button
+          <div
             className="sidebar-icon"
             data-name="Vendorlist"
-            onClick={() => router.push('/AdminServiceClinics/Vendorlist')}
           >
-            <IoPeople />
-          </button>
+            <IoPeople onClick={() => router.push('/AdminServiceClinics/Vendorlist')}/>
+          </div>
 
           {/* Inventory */}
-          <button
+          <div
             className="sidebar-icon"
             data-name="Inventory"
-            onClick={() => router.push('/AdminServiceClinics/')}
           >
-            <MdOutlineInventory />
-          </button>
+            <MdOutlineInventory onClick={() => router.push('/AdminServiceClinics/')}/>
+          </div>
 
           {/* Driver List */}
-          <button
+          <div
             className="sidebar-icon"
             data-name="Driverlist"
-            onClick={() => router.push('/AdminServiceClinics/Driverlist')}
           >
-            <FaAmbulance />
-          </button>
+            <FaAmbulance onClick={() => router.push('/AdminServiceClinics/Driverlist')}/>
+          </div>
 
           {/* Doctor List */}
-          <button
+          <div
             className="sidebar-icon"
             data-name="Doctorlist"
-            onClick={() => router.push('/AdminServiceClinics/Doctorlist')}
           >
-            <FaUserDoctor />
-          </button>
+            <FaUserDoctor onClick={() => router.push('/AdminServiceClinics/Doctorlist')}/>
+          </div>
 
           {/* Adding Vendor */}
-          <button
+          <div
             className="sidebar-icon"
             data-name="Adding Vendor"
-            onClick={() => router.push('/AdminServiceClinics/VendorDocument')}
           >
-            <FaPersonCirclePlus />
-          </button>
+            <FaPersonCirclePlus onClick={() => router.push('/AdminServiceClinics/VendorDocument')}/>
+          </div>
 
           {/* Logout */}
-          <button
+          <div
             className="sidebar-icon logout-icon"
             data-name="Logout"
-            onClick={handleLogoutClick}
           >
-            <FaSignOutAlt />
-          </button>
+            <FaSignOutAlt onClick={handleLogoutClick}/>
+          </div>
         </nav>
       </aside>
 

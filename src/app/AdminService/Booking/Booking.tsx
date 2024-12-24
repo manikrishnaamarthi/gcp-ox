@@ -16,6 +16,7 @@ interface Booking {
   booking_status: string;
   phone_number: string | null;
   email: string | null;
+  service_type: string; // Added service_type field
 }
 
 const Bookings: React.FC = () => {
@@ -50,6 +51,9 @@ const Bookings: React.FC = () => {
 
   // Filter bookings based on selected status and clinic
   const filteredBookings = bookings.filter((booking) => {
+    const matchesClinic = booking.service_type === selectedClinic;
+    if (!matchesClinic) return false;
+
     if (selectedStatus === 'History') {
       return (
         booking.booking_status.toLowerCase() === 'upcoming' ||
@@ -97,7 +101,7 @@ const Bookings: React.FC = () => {
               className={selectedStatus === 'Upcoming' ? 'active' : ''}
               onClick={() => setSelectedStatus('Upcoming')}
             >
-              Upcoming
+              Completed
             </button>
             <button
               className={selectedStatus === 'Cancel' ? 'active' : ''}
@@ -142,11 +146,11 @@ const Bookings: React.FC = () => {
                 {/* Booking Info */}
                 <div className="booking-info">
                   <div className="booking-time">
-                    <FaClock className="icon" />
+                    <FaClock />
                     <span>Time: {booking.appointment_time}</span>
                   </div>
                   <div className="booking-location">
-                    <FaMapMarkerAlt className="icon" />
+                    <FaMapMarkerAlt  />
                     <span>Address: {booking.address}</span>
                   </div>
                   <p className="booking-name">Name: {booking.name}</p>
