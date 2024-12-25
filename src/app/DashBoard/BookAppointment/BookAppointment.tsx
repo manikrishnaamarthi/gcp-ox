@@ -74,11 +74,13 @@ const BookAppointment = () => {
       weekDates.push({
         day: date.getDate(),
         month: date.toLocaleString('default', { month: 'short' }),
+        monthIndex: date.getMonth(), // Add monthIndex
         weekDay: date.toLocaleString('default', { weekday: 'short' }),
       });
     }
     return weekDates;
   };
+  
 
   const weekDates = generateWeekDates();
 
@@ -90,6 +92,8 @@ const BookAppointment = () => {
       setShowError(false);
       setIsModalOpen(true);
     }
+
+    
   };
 
   const handleContinue = () => {
@@ -97,13 +101,18 @@ const BookAppointment = () => {
       // Construct the selected date in ISO format
       const selectedDate = new Date(
         today.getFullYear(),
-        new Date(`${weekDates[selectedDay].month} 1, 2024`).getMonth(),
+        weekDates[selectedDay].monthIndex,
         weekDates[selectedDay].day
       ).toISOString().split('T')[0];
+     
+
 
       // Store the selected date in localStorage
     localStorage.setItem('selectedAppointmentDate', selectedDate);
-  
+    console.log('Selected Date Data:', weekDates[selectedDay]);
+    console.log('selectedAppointmentDate', selectedDate);
+
+
       const appointmentData = {
         clinic_name: clinicData?.clinic_name || "N/A",
         wheel_name: clinicData?.wheel_name || "N/A",
@@ -122,7 +131,9 @@ const BookAppointment = () => {
   
       // Store appointment data in local storage
       localStorage.setItem('appointmentData', JSON.stringify(appointmentData));
-  
+      
+      
+
       // Redirect to the payment page
       window.location.href = '/DashBoard/PaymentMethod';
     }
@@ -188,13 +199,13 @@ const BookAppointment = () => {
   {Array.isArray(clinicData?.available_slots) && clinicData.available_slots.length > 0 ? (
     <>
       {/* Render Morning Slot Category only if there are available AM slots */}
-      {clinicData.available_slots.some((slot) => slot.endsWith("AM")) && (
+      {clinicData.available_slots.some((slot: string) => slot.endsWith("AM")) && (
         <div className="slot-category">
           <h4>Morning</h4>
           <div className="slots">
             {clinicData.available_slots
-              .filter((slot) => slot.endsWith("AM"))
-              .map((slot, index) => {
+              .filter((slot: string) => slot.endsWith("AM"))
+              .map((slot: string, index: number) => {
                 const slotTime = new Date(`${today.toDateString()} ${slot}`);
                 const isDisabled = selectedDay === 0 && slotTime <= new Date();
                 return (
@@ -213,13 +224,13 @@ const BookAppointment = () => {
       )}
 
       {/* Render Afternoon Slot Category only if there are available PM slots */}
-      {clinicData.available_slots.some((slot) => slot.endsWith("PM")) && (
+      {clinicData.available_slots.some((slot: string) => slot.endsWith("PM")) && (
         <div className="slot-category">
           <h4>Afternoon</h4>
           <div className="slots">
             {clinicData.available_slots
-              .filter((slot) => slot.endsWith("PM"))
-              .map((slot, index) => {
+              .filter((slot: string) => slot.endsWith("PM"))
+              .map((slot: string, index: number) => {
                 const slotTime = new Date(`${today.toDateString()} ${slot}`);
                 const isDisabled = selectedDay === 0 && slotTime <= new Date();
                 return (

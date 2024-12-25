@@ -23,7 +23,7 @@ const DriverOtp = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get('email');  // Get email from URL query
 
-  const handleChange = (element, index) => {
+  const handleChange = (element: HTMLInputElement, index: number) => {
     const value = element.value;
     if (/^\d$/.test(value)) {
       const newOtp = [...otp];
@@ -32,7 +32,7 @@ const DriverOtp = () => {
 
       // Focus the next input
       if (element.nextSibling) {
-        element.nextSibling.focus();
+        (element.nextSibling as HTMLInputElement).focus();
       }
     } else if (value === "") {
       const newOtp = [...otp];
@@ -41,13 +41,14 @@ const DriverOtp = () => {
     }
   };
 
-  const handleKeyDown = (e, index) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === "Backspace") {
       const newOtp = [...otp];
       if (otp[index] === "") {
         // Focus the previous input
-        if (e.target.previousSibling) {
-          e.target.previousSibling.focus();
+        const target = e.target as HTMLInputElement;
+        if (target.previousSibling) {
+          (target.previousSibling as HTMLInputElement).focus();
         }
       } else {
         // Clear the current input
@@ -57,7 +58,7 @@ const DriverOtp = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
   
@@ -101,7 +102,7 @@ const DriverOtp = () => {
     }
   };
 
-  const handleNavigation = (path) => {
+  const handleNavigation = (path: string) => {
     router.push(path);
   };
 
@@ -124,7 +125,7 @@ const DriverOtp = () => {
               <input
                 key={index}
                 type="text"
-                maxLength="1"
+                maxLength={1}
                 className="otp-input"
                 value={otp[index]}
                 onChange={(e) => handleChange(e.target, index)}
