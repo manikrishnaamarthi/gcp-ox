@@ -173,9 +173,9 @@ const fetchUserDetails = async (oxiId: string) => {
     if (selectedBooking) {
       const updatedBookings = bookings.map((booking, index) => {
         if (booking === selectedBooking) {
-          return { ...booking, booking_status: 'completed' };
+          return { ...booking, booking_status: 'completed' as 'completed' };
         } else if (bookings[index - 1] && bookings[index - 1].booking_status === 'completed' && booking.booking_status === 'cancelled') {
-          return { ...booking, booking_status: 'active' };
+          return { ...booking, booking_status: 'active' as 'pending' | 'completed' | 'cancelled' };
         }
         return booking;
       });
@@ -187,7 +187,7 @@ const fetchUserDetails = async (oxiId: string) => {
 
   const cancelBooking = (booking: Booking) => {
     const updatedBookings = bookings.map((b) =>
-      b === booking ? { ...b, booking_status: 'cancelled' } : b
+      b === booking ? { ...b, booking_status: 'cancelled' as 'cancelled' } : b
     );
     setBookings(updatedBookings);
     setActiveTab('cancelled'); // Switch to the Cancelled tab
@@ -199,8 +199,8 @@ const filteredBookings = bookings.filter((booking) => {
   const now = new Date();
 
   if (activeTab === 'bookings') {
-    const isTodayOrTomorrow = appointmentDate >= new Date().setHours(0, 0, 0, 0) &&
-      appointmentDate < new Date().setDate(new Date().getDate() + 2);
+    const isTodayOrTomorrow = appointmentDate >= new Date(new Date().setHours(0, 0, 0, 0)) &&
+      appointmentDate < new Date(new Date().setDate(new Date().getDate() + 2));
     return (
       isTodayOrTomorrow &&
       booking.booking_status !== 'cancelled' &&
