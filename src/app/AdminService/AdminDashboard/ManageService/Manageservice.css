@@ -4,7 +4,6 @@ body {
   background-color: #ffffff;
 }
 
-
 .content {
   margin-left: 150px;
   padding: 20px;
@@ -37,16 +36,15 @@ body {
   outline: none; 
 }
 
-
 .actions {
   margin-top: 10px;
 }
 
 .add-service-btn {
   display: inline-flex; 
-align-items: center;
-gap: 8px;
-  background-color:#FC000E;
+  align-items: center;
+  gap: 8px;
+  background-color: #FC000E;
   color: white;
   padding: 8px 20px;
   border: none;
@@ -73,24 +71,22 @@ gap: 8px;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
   justify-content: space-between;
 }
+
 .card-image {
   width: 100%;
   max-width: 800px; 
   height: 290px; 
-  /* overflow: hidden;  */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: -8px;
- 
   padding: 20px;
 }
 
 .card-image img {
   width: 90%; 
   height: 100%; 
-  /* object-fit: cover;  */
 }
 
 .card-content p {
@@ -103,7 +99,7 @@ gap: 8px;
   display: flex;
   align-items: center; 
   gap: 5px;
-  background-color:#FC000E;
+  background-color: #FC000E;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -112,7 +108,6 @@ gap: 8px;
   cursor: pointer;
   margin-top: 95px;
   font-size: 14px; 
-  
 }
 
 .remove-icon {
@@ -120,7 +115,7 @@ gap: 8px;
   position: relative;
 }
 
-.head1{
+.head1 {
   align-items: center;
   color: #FC000E;
   font-weight: bold;
@@ -128,7 +123,6 @@ gap: 8px;
   text-align: center;
   font-size: 22px;
 }
-
 
 .card-content p {
   margin: 10px 0;
@@ -138,7 +132,7 @@ gap: 8px;
 
 .card-content strong {
   font-weight: bold; 
-  color:black; 
+  color: black; 
   margin-left: 0px;
 }
 
@@ -165,7 +159,6 @@ gap: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
 .modal-content form {
   display: flex;
   flex-direction: column;
@@ -182,11 +175,13 @@ gap: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .modal-content input:focus,
 .modal-content textarea:focus {
-border: 2px solid #FC000E;
-outline: none; 
+  border: 2px solid #FC000E;
+  outline: none; 
 }
+
 .modal-actions {
   display: flex;
   justify-content: space-between;
@@ -225,7 +220,7 @@ outline: none;
   gap: 8px;
   background-color: #f1f1f1;
   color: black;
-  padding: 10px 20px; /* Adjusted padding */
+  padding: 10px 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
@@ -240,7 +235,8 @@ outline: none;
 .camera-icon {
   font-size: 20px;
 }
-.place{
+
+.place {
   margin-right: 190px;
 }
 
@@ -252,30 +248,6 @@ outline: none;
   text-overflow: ellipsis; 
   flex: 1; 
   text-align: left; 
-}
-
-
-
-@media (min-width: 1024px) and (max-width: 1440px) {
-  .content {
-    margin-left: 150px;
-    width: calc(100% - 220px);
-  }
-
-  .card {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .add-service-btn {
-    position: absolute;
-    right: 20px;
-  }
-
-  .remove-btn {
-    margin-left: auto;
-    margin-top: 0;
-  }
 }
 
 
